@@ -4,7 +4,7 @@
 
 **Blocked by:** 13, 15
 
-**Status:** in-progress (Draft v1 attempt archived: 8/10, success not held; Draft v2 re-run pending)
+**Status:** done (Draft v2: 10/10 passed, -75.4% tokens per Session, success held; the v1 attempt, 8/10, is archived and recorded in Comments)
 
 - [x] Uses the exact model and harness settings recorded in 04
 - [x] Runs are ingested, tagged `dwight.experiment=after`, with per-task success/fail stored
@@ -68,3 +68,54 @@ One batch, 10 Sessions, 0 harness errors, no reply hit the length cap. Outputs (
 2. **The Draft did not replace the common path.** 9/10 after runs still read all 4 `company-docs/` (t04 read 2). The system prompt points to `list_docs`/`read_doc`, the task prompts say "Using the company storage docs", and the Draft itself says "For anything not covered here, open the linked source". The Draft also adds about 4.7K tokens to every Call's system prompt. That's why the analysis-only tasks got more expensive (t07 −34.7%, t10 −18.9%) and the doc-heavy plan tasks saved little (t03 3.8%).
 
 No contract changes. Tests: 176 passed, no live calls.
+
+---
+
+**Attempt 2, with Draft v2 (the result that counts). 10/10 tasks passed, −75.4% tokens per Session, `success_held` true.**
+
+**Drafter fix** (`backend/dwight/pipeline/stages/_drafter.py`, tests in `backend/tests/test_draft.py`, mocked):
+- **Columns that rules depend on.** `required_columns()` parses every markdown table in the source docs. It marks a column as required when prose in another section or doc refers to it. A multi-word header matches by its words in order (with abbreviations expanded, so "Avg object" matches "average object size"); a one-word header only matches when quoted. The table's own caption doesn't count. Each section prompt lists that doc's required columns, with the sentence that depends on each one. `repair_tables()` then puts back any required column the model still dropped from a table it kept, using the source's values for the matched rows, or `(see source)` where no row matches. On the real docs this finds Avg object, Policy compliant, Writer service and others; "Objects" is not required, correctly. Nothing is hard-coded to a bucket.
+- **Header.** The Draft now says it *replaces* the source docs for this work and to open a source only if a needed value is missing. The system prompt says the same. The "open the linked source" default is gone.
+- **`draft_must_keep`** (`data/ground-truth/planted_facts.yaml`) adds the section 6 override inputs that v1 lost: `38 KB`, `850 KB`, `480 MB`, `Policy compliant` and `claims-portal`, now 28 facts in all. This is the Drafter's acceptance check; no Agent sees it.
+- **Draft v2** was regenerated live from a real-only store: 50 Sessions (40 real-layer + 10 before; v1's after runs excluded), through ingest → classify → detect → common_paths → repeated_discoveries → recommend → draft. `draft_check` passed first try: **4,889 tokens = 22.0% of 22,186 source tokens, 28/28 facts**. On this pass the model kept the required columns itself, so v2's inventory has Avg object (38 KB for app-logs) and Policy compliant. The memory file carries both planted facts again (wording regenerated). Committed to `data/drafts/`.
+
+**After batch v2:** the same command, 04's settings (fingerprint unchanged), prefix `real-scr-a`, v2 as the context files. Run **once**: 10 Sessions, 0 harness errors, no re-runs, no tuning. Outputs: `data/otlp/real/real-scr-a-t01..t10.json` + manifest/label entries.
+
+**Real-only store** (60 files in `data/otlp/real/`, live classify, 20/20 `real-scr-*` → `storage-cost-reduction`). `before_after.compute` and `GET /api/initiatives/storage-cost-reduction/before-after` (source `store`) agree:
+
+| | before | after v1 (archived) | **after v2** |
+|---|---|---|---|
+| tasks passed | 10/10 | 8/10 | **10/10** |
+| tokens per Session | 249,645.5 | 178,896.8 | **61,471.1** |
+| token_drop_pct | | 28.3 | **75.4** |
+| Spend (Measured) | $0.807079 | $0.581891 | **$0.238169** |
+| spend_drop (Measured) | | $0.225188 | **$0.568910** |
+| Calls | 118 | 79 | **67** |
+| Sessions that read all 4 docs | 10 | 9 (+1 read 2) | **1** (t07) |
+| success_held | | false | **true** |
+
+**Per task, v2** (E_NOENV / E_BADREF = blobctl results containing that error):
+
+| task | calls b→a | tokens b→a | drop | Spend b→a | success | E_NOENV / E_BADREF | read_doc |
+|---|---|---|---|---|---|---|---|
+| t01 | 13→8 | 280,262→60,343 | 78.5% | $0.0909→$0.0232 | ✓→✓ | 0 / 0 | 0 |
+| t02 | 15→10 | 333,359→78,326 | 76.5% | $0.1054→$0.0293 | ✓→✓ | 1* / 0 | 0 |
+| t03 | 10→6 | 199,131→44,053 | 77.9% | $0.0639→$0.0166 | ✓→✓ | 0 / 0 | 0 |
+| t04 | 17→8 | 381,686→60,059 | 84.3% | $0.1193→$0.0219 | ✓→✓ | 0 / 0 | 0 |
+| t05 | 11→6 | 228,780→51,293 | 77.6% | $0.0765→$0.0233 | ✓→✓ | 0 / 0 | 0 |
+| t06 | 12→6 | 249,607→45,112 | 81.9% | $0.0804→$0.0178 | ✓→✓ | 0 / 0 | 0 |
+| t07 | 6→6 | 111,302→150,753 | −35.4% | $0.0444→$0.0611 | ✓→✓ | n/a | 4 |
+| t08 | 13→7 | 282,625→51,459 | 81.8% | $0.0894→$0.0185 | ✓→✓ | 1* / 0 | 0 |
+| t09 | 16→8 | 352,554→57,904 | 83.6% | $0.1102→$0.0197 | ✓→✓ | 0 / 0 | 0 |
+| t10 | 5→2 | 77,149→15,409 | 80.0% | $0.0266→$0.0067 | ✓→✓ | n/a | 0 |
+
+\* A bare `bin/blobctl status` while exploring (t02, t08). Every plan/apply in every v2 run used `STORAGE_ENV=staging` and the bare bucket name on the first try. There was no trial and error on either planted fact: before, all 8 blobctl Sessions hit both errors.
+
+**For 17 (closing numbers):** quote **75.4% fewer tokens per Session (249,646 → 61,471), $0.807 → $0.238 Measured Spend over 10 Sessions ($0.569 saved), task success 10/10 → 10/10**. Take them from `before_after.compute(conn, "storage-cost-reduction")` on a store built from `data/otlp/real/`.
+
+**Caveats:**
+1. **This is a second attempt.** v1 failed, the failure was diagnosed, and the Drafter was changed before v2 (approved by the user). The fix is general code, and the new must-keep facts were chosen with v1's failure in view. v1's result stays on the record above and in `data/archive/draft-v1-after-runs/`.
+2. v1 → v2 changed three things at once: the column rule, the "replaces the sources" header, and the regenerated memory wording. The runs can't separate their effects. The header is the likely reason 9/10 v2 Sessions read no source docs (v1: 9/10 read all 4), and that is where most of the drop comes from. The kept columns are the likely reason t04 and t07 now price app-logs correctly.
+3. t07 (analysis only) still read all 4 docs and cost 35% more than before. The drop is an average over the 10 tasks, not a gain on every task.
+
+No contract changes. Tests: 184 passed, no live calls.
