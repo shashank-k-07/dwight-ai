@@ -16,7 +16,7 @@ ingest"; re-running the stage only picks up new or failed Sessions. A Session
 re-ingested from OTLP gets fresh staging and is classified again (how ticket 08
 can re-score after a prompt change).
 
-Concurrency: the model calls run on a thread pool (default 8 workers,
+Concurrency: the model calls run on a thread pool (default 32 workers,
 DWIGHT_CLASSIFY_WORKERS); all SQLite reads and writes stay on the calling
 thread. At most 2 x workers transcripts are in memory at once. Cost: 1 model
 call per Session, up to 3 when the output fails validation (glm.chat_json
@@ -38,7 +38,12 @@ from dwight.classifier.model import Candidate, Classification, candidates, class
 from dwight.classifier.trail import build_trail
 from dwight.classifier.transcript import load_staged, render_transcript
 
-DEFAULT_WORKERS = int(os.environ.get("DWIGHT_CLASSIFY_WORKERS", "8"))
+DEFAULT_WORKERS = int(os.environ.get("DWIGHT_CLASSIFY_WORKERS", "32"))
+# Model reasoning for classify: "off" (default; glm.chat thinking=False) or "on" (the
+# provider's default, the model reasons first). Ticket 15 measured on 64 synthetic
+# Sessions: off = 11 Sessions/s at 16 workers, 18/s at 32, initiative accuracy 97%;
+# on = 3.2/s at 16 workers, 92%.
+DEFAULT_THINKING = os.environ.get("DWIGHT_CLASSIFY_THINKING", "off").strip().lower() in ("on", "1", "true", "yes")
 DEFAULT_ATTEMPTS = 3
 
 
@@ -123,10 +128,11 @@ def write_result(conn: sqlite3.Connection, session_id: str, c: Classification) -
 
 
 def _classify_with_retry(transcript: str, cands: list[Candidate], context: dict, max_seq: int | None,
-                         tier: str | None, attempts: int) -> tuple[Classification, int]:
+                         tier: str | None, attempts: int, thinking: bool = True) -> tuple[Classification, int]:
+    extra = {} if thinking else {"thinking": False}
     for i in range(attempts):
         try:
-            return classify_transcript(transcript, cands, context=context, max_seq=max_seq, tier=tier), i + 1
+            return classify_transcript(transcript, cands, context=context, max_seq=max_seq, tier=tier, **extra), i + 1
         except glm.GLMNotConfigured:
             raise
         except Exception:  # noqa: BLE001  API error, timeout, invalid output: back off and retry
@@ -147,7 +153,8 @@ def _prepare(conn: sqlite3.Connection, session_id: str) -> tuple[str, dict, int 
 
 def classify_sessions(conn: sqlite3.Connection, session_ids: list[str], *, workers: int = DEFAULT_WORKERS,
                       tier: str | None = None, attempts: int = DEFAULT_ATTEMPTS,
-                      cands: list[Candidate] | None = None, progress_every: int = 100) -> RunStats:
+                      cands: list[Candidate] | None = None, progress_every: int = 100,
+                      thinking: bool = DEFAULT_THINKING) -> RunStats:
     cands = cands if cands is not None else candidates()
     if not cands:
         raise RuntimeError("no candidate Initiatives: data/company/org.yaml is missing or empty")
@@ -180,7 +187,8 @@ def classify_sessions(conn: sqlite3.Connection, session_ids: list[str], *, worke
     with ThreadPoolExecutor(max_workers=w) as pool:
         for sid in session_ids:
             transcript, context, max_seq = _prepare(conn, sid)
-            inflight[pool.submit(_classify_with_retry, transcript, cands, context, max_seq, tier, attempts)] = sid
+            inflight[pool.submit(_classify_with_retry, transcript, cands, context, max_seq, tier, attempts,
+                                   thinking)] = sid
             del transcript
             if len(inflight) >= 2 * w:
                 done, _ = wait(inflight, return_when=FIRST_COMPLETED)
