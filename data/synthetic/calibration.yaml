@@ -1,0 +1,50 @@
+# Written by `python -m dwight.synth calibrate`. Overlays params.yaml.
+source:
+  paths:
+  - data/otlp/real
+  measured_at: '2026-09-26T21:44:34.085311+00:00'
+  rates_from: null
+stats:
+  files: 40
+  sessions: 40
+  calls: 290
+  tool_calls: 327
+  calls_per_session:
+    p10: 3
+    p50: 7
+    p90: 11
+  work_steps_per_session:
+    p25: 3
+    p60: 5
+    p95: 13
+  output_tokens_tool_call:
+    p10: 52
+    p50: 152
+    p90: 1652
+  output_tokens_final:
+    p10: 205
+    p50: 470
+    p90: 1226
+  command_result_tokens:
+    p10: 10
+    p50: 176
+    p90: 475
+  prefix_tokens_median: 693
+  calls_with_cache_reads: 0.0
+overrides:
+  shapes:
+    med:
+      work_steps:
+      - 3
+      - 13
+    output_tokens:
+      tool_call:
+      - 52
+      - 252
+      final:
+      - 205
+      - 735
+    result_tokens:
+      command:
+      - 10
+      - 342

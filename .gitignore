@@ -10,3 +10,5 @@ dashboard/tsconfig.tsbuildinfo
 out/
 .claude/worktrees/
 dashboard/node_modules
+# ticket 07: ~120MB of generated OTLP; regenerate with `python -m dwight.synth build --ingest` (from backend/)
+data/otlp/synthetic/

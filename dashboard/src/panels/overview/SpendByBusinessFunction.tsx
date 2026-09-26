@@ -14,6 +14,7 @@ const SERIES = ["var(--series-1)", "var(--series-2)", "var(--series-3)", "var(--
 export default function SpendByBusinessFunction() {
   const { data, error, loading } = useApi<Overview>("/api/overview");
   const rows = data?.spend_by_business_function ?? [];
+  const totalSessions = rows.reduce((n, bf) => n + bf.session_count, 0);
   const maxTeams = Math.min(8, Math.max(0, ...rows.map((r) => r.teams.length)));
   const chartData = rows.map((bf) => {
     const row: Record<string, unknown> = { name: bf.business_function };
@@ -57,14 +58,23 @@ export default function SpendByBusinessFunction() {
           <table className="table compact">
             <thead><tr><th>Business Function</th><th>Team</th><th>Sessions</th><th>Spend</th></tr></thead>
             <tbody>
-              {rows.flatMap((bf) => bf.teams.map((t, i) => (
-                <tr key={bf.business_function + t.team}>
-                  <td>{i === 0 ? bf.business_function : ""}</td>
-                  <td><span className="swatch" style={{ background: SERIES[i % 8] }} />{t.team}</td>
-                  <td>{t.session_count}</td>
-                  <td><Money value={t.spend} size="sm" /></td>
-                </tr>
-              )))}
+              {rows.flatMap((bf) => [
+                <tr key={bf.business_function}>
+                  <td><strong>{bf.business_function}</strong></td>
+                  <td className="muted">All Teams</td>
+                  <td><strong>{bf.session_count}</strong>{totalSessions > 0 && (
+                    <span className="small muted"> ({Math.round((100 * bf.session_count) / totalSessions)}%)</span>)}</td>
+                  <td><Money value={bf.spend} size="sm" /></td>
+                </tr>,
+                ...bf.teams.map((t, i) => (
+                  <tr key={bf.business_function + t.team}>
+                    <td></td>
+                    <td><span className="swatch" style={{ background: SERIES[i % 8] }} />{t.team}</td>
+                    <td>{t.session_count}</td>
+                    <td><Money value={t.spend} size="sm" /></td>
+                  </tr>
+                )),
+              ])}
             </tbody>
           </table>
         </>

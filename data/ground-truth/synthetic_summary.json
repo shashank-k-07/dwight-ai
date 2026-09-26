@@ -1,0 +1,237 @@
+{
+ "sessions": 4000,
+ "seed": 7,
+ "calibrated_from": {
+  "paths": [
+   "data/otlp/real"
+  ],
+  "measured_at": "2026-09-26T21:44:34.085311+00:00",
+  "rates_from": null
+ },
+ "members": 199,
+ "teams": 12,
+ "period": [
+  "2026-08-27T08:40:12Z",
+  "2026-09-25T23:34:59Z"
+ ],
+ "spend_usd_by_business_function": {
+  "Engineering": 513.34,
+  "Operations": 26.28,
+  "Finance": 10.24,
+  "Marketing": 16.54,
+  "Customer Experience": 12.54
+ },
+ "spend_usd_total": 578.95,
+ "session_share_by_business_function": {
+  "Engineering": 0.732,
+  "Operations": 0.108,
+  "Finance": 0.07,
+  "Marketing": 0.049,
+  "Customer Experience": 0.042
+ },
+ "sessions_by_initiative": {
+  "storage-cost-reduction": 437,
+  "auth-migration": 366,
+  "carrier-api-onboarding": 362,
+  "invoicing-v2": 342,
+  "driver-app-offline-sync": 322,
+  "routing-latency": 318,
+  "eta-model-retraining": 273,
+  "k8s-upgrade": 262,
+  "incident-postmortems": 245,
+  "shipment-exception-triage": 236,
+  "peak-season-campaign": 197,
+  "dock-scheduling": 195,
+  "month-end-close": 180,
+  "support-macro-refresh": 166,
+  "vendor-contract-review": 99
+ },
+ "complexity": {
+  "med": 1938,
+  "low": 1141,
+  "high": 921
+ },
+ "models": {
+  "glm-5.1": 2148,
+  "glm-4.7": 1397,
+  "glm-4.5-air": 455
+ },
+ "waste_patterns": {
+  "redundant_read": 453,
+  "cache_miss": 847,
+  "runaway_loop": 166,
+  "model_overkill": 608
+ },
+ "clean_sessions": 2258,
+ "ambiguous_prompts": 611,
+ "repeated_discoveries": [
+  {
+   "initiative_id": "auth-migration",
+   "statement": "Service tokens need the kestrel.internal audience, not the service name",
+   "sessions": 92,
+   "share": 0.251
+  },
+  {
+   "initiative_id": "auth-migration",
+   "statement": "Staging Okta tenant rejects redirect URIs without a trailing slash",
+   "sessions": 150,
+   "share": 0.41
+  },
+  {
+   "initiative_id": "carrier-api-onboarding",
+   "statement": "Carrier certification tests only pass against the cert-sandbox endpoint",
+   "sessions": 131,
+   "share": 0.362
+  },
+  {
+   "initiative_id": "dock-scheduling",
+   "statement": "Columbus doors 14-18 are reefer-only and cannot take dry freight",
+   "sessions": 42,
+   "share": 0.215
+  },
+  {
+   "initiative_id": "driver-app-offline-sync",
+   "statement": "pod-service dedupes uploads on the client_capture_id header, not the file hash",
+   "sessions": 115,
+   "share": 0.357
+  },
+  {
+   "initiative_id": "eta-model-retraining",
+   "statement": "The training job needs the feature-store snapshot id pinned, latest is not allowed",
+   "sessions": 66,
+   "share": 0.242
+  },
+  {
+   "initiative_id": "invoicing-v2",
+   "statement": "Invoice fixtures must use the EUR sandbox ledger for multi-currency tests",
+   "sessions": 72,
+   "share": 0.211
+  },
+  {
+   "initiative_id": "k8s-upgrade",
+   "statement": "Node groups must be drained with --delete-emptydir-data or the drain hangs",
+   "sessions": 80,
+   "share": 0.305
+  },
+  {
+   "initiative_id": "month-end-close",
+   "statement": "Carrier accruals post to GL 5120, not 5100, since the 2026 chart of accounts change",
+   "sessions": 52,
+   "share": 0.289
+  },
+  {
+   "initiative_id": "peak-season-campaign",
+   "statement": "Customer names in case studies need Legal sign-off unless listed in the approved-logos sheet",
+   "sessions": 33,
+   "share": 0.168
+  },
+  {
+   "initiative_id": "routing-latency",
+   "statement": "Benchmarks must run with ROUTING_BENCH_SEED fixed or results are not comparable",
+   "sessions": 91,
+   "share": 0.286
+  },
+  {
+   "initiative_id": "shipment-exception-triage",
+   "statement": "Exception code X7 (address unresolved) must go to Customer Care, not the carrier",
+   "sessions": 76,
+   "share": 0.322
+  },
+  {
+   "initiative_id": "storage-cost-reduction",
+   "statement": "blobctl --bucket takes the bare bucket name, not an s3:// URI",
+   "sessions": 136,
+   "share": 0.311
+  },
+  {
+   "initiative_id": "storage-cost-reduction",
+   "statement": "blobctl needs STORAGE_ENV=staging set, prod is refused",
+   "sessions": 166,
+   "share": 0.38
+  },
+  {
+   "initiative_id": "support-macro-refresh",
+   "statement": "Claims over $2,500 must be routed to the claims-portal escalation queue",
+   "sessions": 38,
+   "share": 0.229
+  }
+ ],
+ "one_off_discoveries": 118,
+ "common_path_share": {
+  "auth-migration": {
+   "perch:ENG/oidc-migration-plan": 0.82,
+   "perch:ENG/service-auth-matrix": 0.77,
+   "repo:kestrel/identity/docs/token-exchange.md": 0.751,
+   "repo:kestrel/identity/pkg/oidc/client.go": 0.713
+  },
+  "carrier-api-onboarding": {
+   "perch:ENG/carrier-onboarding-checklist": 0.779,
+   "repo:kestrel/carrier-connect/mappings/edi214.ts": 0.68,
+   "perch:ENG/edi-field-reference": 0.657
+  },
+  "dock-scheduling": {
+   "perch:OPS/dock-scheduling-rules": 0.738,
+   "perch:OPS/site-door-inventory": 0.733
+  },
+  "driver-app-offline-sync": {
+   "repo:kestrel/pod-service/api/openapi.yaml": 0.851,
+   "repo:kestrel/driver-app/docs/sync-protocol.md": 0.755,
+   "perch:ENG/offline-sync-rfc": 0.696
+  },
+  "eta-model-retraining": {
+   "repo:kestrel/eta-forecasting/README.md": 0.828,
+   "perch:ENG/eta-feature-catalog": 0.766,
+   "repo:kestrel/eta-forecasting/configs/train.yaml": 0.766
+  },
+  "incident-postmortems": {
+   "perch:ENG/pir-template": 0.735,
+   "perch:ENG/severity-definitions": 0.71
+  },
+  "invoicing-v2": {
+   "repo:kestrel/billing-core/billing/invoice.py": 0.848,
+   "perch:ENG/invoicing-v2-design": 0.825,
+   "repo:kestrel/billing-core/docs/events.md": 0.74
+  },
+  "k8s-upgrade": {
+   "perch:ENG/deprecated-api-inventory": 0.805,
+   "perch:ENG/eks-upgrade-runbook": 0.767,
+   "repo:kestrel/platform-infra/modules/eks/main.tf": 0.74
+  },
+  "month-end-close": {
+   "perch:FIN/close-checklist": 0.722,
+   "perch:FIN/netsuite-account-mapping": 0.617
+  },
+  "peak-season-campaign": {
+   "perch:MKT/q4-campaign-brief": 0.807,
+   "perch:MKT/customer-case-studies": 0.756,
+   "perch:MKT/brand-guidelines": 0.716
+  },
+  "routing-latency": {
+   "perch:ENG/routing-perf-dashboard": 0.786,
+   "repo:kestrel/routing-engine/src/solver/mod.rs": 0.736,
+   "repo:kestrel/routing-engine/benches/README.md": 0.72
+  },
+  "shipment-exception-triage": {
+   "perch:OPS/carrier-escalation-contacts": 0.758,
+   "perch:OPS/exception-codes": 0.72
+  },
+  "storage-cost-reduction": {
+   "company-docs/blobctl-migration-runbook.md": 0.796,
+   "company-docs/storage-tiering-policy.md": 0.773,
+   "company-docs/storage-service-ownership.md": 0.719,
+   "company-docs/storage-cost-dashboard.md": 0.696
+  },
+  "support-macro-refresh": {
+   "perch:CX/claims-process-2026": 0.705,
+   "perch:CX/tone-guide": 0.627
+  },
+  "vendor-contract-review": {
+   "perch:FIN/procurement-policy": 0.717
+  }
+ },
+ "files": {
+  "otlp_dir": "data/otlp/synthetic",
+  "otlp_files": 30,
+  "otlp_bytes": 197155435
+ }
+}
