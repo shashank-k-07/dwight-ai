@@ -1,0 +1,57 @@
+# GROUND TRUTH. The Initiative classifier, Discovery extractor, cross-session
+# analysis and Drafter must NEVER read anything under data/ground-truth/.
+# Used only by evals (ticket 04 hit-rate check, ticket 12 memory-file check,
+# ticket 08/17 reporting) and by humans.
+#
+# Both facts appear in NO company-docs/ page (verify: grep -ri "STORAGE_ENV\|bare bucket\|without the s3" company-docs/).
+# The runbook's examples actually show the stale s3:// form, so fact 2
+# contradicts the docs, which is what forces trial and error.
+
+version: 1
+initiative_id: storage-cost-reduction
+
+facts:
+  - id: pf1-storage-env-staging
+    statement: "blobctl needs STORAGE_ENV=staging set in the environment; production values are denied to agent credentials."
+    memory_entry: "Before any blobctl command, set STORAGE_ENV=staging (e.g. `STORAGE_ENV=staging bin/blobctl ...`); prod/production is refused."
+    enforced_by: data/company/workspace/bin/blobctl  (resolve_env)
+    enforcement: |
+      Checked first, on every subcommand (plan, apply, status); --help/--version skip it.
+        unset/empty      -> "blobctl: error: E_NOENV: target environment not resolved (STORAGE_ENV is empty)"  exit 2
+        prod*/production -> "blobctl: error: E_ENVDENIED: environment '<v>' is not available to this credential"  exit 2
+        anything else    -> "blobctl: error: E_ENVUNKNOWN: unknown environment '<v>'"  exit 2
+        staging (any case, trimmed) -> proceeds
+      The accepted value is stored as a sha256 in the stub, so reading the source
+      reveals the variable name (the error already does) but not the value. The
+      runbook says changes land in "staging first", which is the hint an Agent
+      needs to guess the value.
+    hit_by: [t01-telemetry-prod-plan, t02-telemetry-eu-plan, t03-pod-images-plan, t04-app-logs-plan,
+             t05-ml-snapshots-plan, t06-support-attachments-plan, t08-pod-images-apply, t09-ml-snapshots-apply]
+    typical_trial_and_error: "run blobctl -> E_NOENV -> try STORAGE_ENV=prod -> E_ENVDENIED -> try staging -> success"
+
+  - id: pf2-bare-bucket-names
+    statement: "blobctl --bucket takes the bare bucket name (kst-...), not an s3:// URI."
+    memory_entry: "Pass bare bucket names to blobctl --bucket (kst-telemetry-raw-prod), not s3:// URIs; the runbook examples are stale."
+    enforced_by: data/company/workspace/bin/blobctl  (resolve_bucket)
+    enforcement: |
+      Checked after the environment, on `plan` only.
+        any "://" or "/" in --bucket -> "blobctl: error: E_BADREF: invalid bucket reference '<ref>'"  exit 2
+        unknown bare name            -> "blobctl: error: E_NOBUCKET: no such bucket '<ref>' in staging"  exit 2
+      Every doc writes buckets as s3:// URIs, including the runbook's blobctl
+      examples, so an Agent that follows the docs fails once, then strips the prefix.
+    hit_by: [t01-telemetry-prod-plan, t02-telemetry-eu-plan, t03-pod-images-plan, t04-app-logs-plan,
+             t05-ml-snapshots-plan, t06-support-attachments-plan, t08-pod-images-apply, t09-ml-snapshots-apply]
+    typical_trial_and_error: "blobctl plan --bucket s3://kst-... -> E_BADREF -> --bucket kst-... -> success"
+
+# Not planted (documented, so not trial-and-error facts, though blobctl also errors on them):
+#   E_CLASS (Kestrel tier names like "Warm" instead of STANDARD_IA; mapping is in the tiering policy),
+#   E_NOPLAN (apply before plan; the runbook says plan first).
+
+# Doc-resident facts the storage tasks depend on. Ticket 12's check: the
+# consolidated initiative doc Draft must still contain every string below
+# (case-sensitive substring match). Grouped by the doc that is their source.
+draft_must_keep:
+  storage-tiering-policy:    ["STANDARD_IA", "GLACIER_IR", "DEEP_ARCHIVE", "128 KB", "1095", "2555", "1825", "730"]
+  storage-cost-dashboard:    ["0.0125", "0.00099", "18,860", "mobile-apps-pod-images-prod-v1"]
+  storage-service-ownership: ["replay-api", "@priya.raman", "@marcus.lindqvist", "@tomas.okafor", "platform-core", "mobile-apps"]
+  blobctl-migration-runbook: ["STATUTORY_RETENTION", "TIER1_READER", "DATA_CLASS_CAP", "SMALL_OBJECTS", "--approver"]

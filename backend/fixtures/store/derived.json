@@ -1,0 +1,870 @@
+{
+ "_note": "Derived data for fixture_sessions.json. Loaded by `python -m dwight.pipeline run seed_fixtures`.",
+ "sessions": [
+  {
+   "session_id": "fx-rr-01",
+   "initiative_id": "auth-migration",
+   "summary": "Migrated the session store to the sessions service.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-cm-01",
+   "initiative_id": "k8s-upgrade",
+   "summary": "Fixed a flaky retry test after the Kubernetes client upgrade.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-rl-01",
+   "initiative_id": "k8s-upgrade",
+   "summary": "Tried to fix a failing export test; gave up.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-mo-01",
+   "initiative_id": "incident-postmortems",
+   "summary": "Fixed a typo in a postmortem.",
+   "complexity": "low"
+  },
+  {
+   "session_id": "fx-clean-01",
+   "initiative_id": "auth-migration",
+   "summary": "Added a session revoke endpoint.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-clean-02",
+   "initiative_id": "auth-migration",
+   "summary": "Updated the auth migration checklist.",
+   "complexity": "low"
+  },
+  {
+   "session_id": "fx-mkt-01",
+   "initiative_id": "peak-season-campaign",
+   "summary": "Summarised the Q3 campaign attribution report.",
+   "complexity": "low"
+  },
+  {
+   "session_id": "fx-scr-b01",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-b02",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-b03",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-b04",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-b05",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-b06",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-07",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-08",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-a01",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-a02",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-a03",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-a04",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-a05",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  },
+  {
+   "session_id": "fx-scr-a06",
+   "initiative_id": "storage-cost-reduction",
+   "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+   "complexity": "med"
+  }
+ ],
+ "trail_entries": [
+  {
+   "session_id": "fx-rr-01",
+   "position": 0,
+   "resource_id": "auth/session.py",
+   "tokens": 2400,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-rr-01",
+   "position": 1,
+   "resource_id": "auth/session.py",
+   "tokens": 2400,
+   "call_seq": 1
+  },
+  {
+   "session_id": "fx-rr-01",
+   "position": 2,
+   "resource_id": "auth/tokens.py",
+   "tokens": 1800,
+   "call_seq": 2
+  },
+  {
+   "session_id": "fx-rr-01",
+   "position": 3,
+   "resource_id": "auth/session.py",
+   "tokens": 2400,
+   "call_seq": 3
+  },
+  {
+   "session_id": "fx-cm-01",
+   "position": 0,
+   "resource_id": "ci/integration.yml",
+   "tokens": 900,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-cm-01",
+   "position": 1,
+   "resource_id": "tests/test_retry.py",
+   "tokens": 1400,
+   "call_seq": 1
+  },
+  {
+   "session_id": "fx-cm-01",
+   "position": 2,
+   "resource_id": "lib/retry.py",
+   "tokens": 1100,
+   "call_seq": 2
+  },
+  {
+   "session_id": "fx-rl-01",
+   "position": 0,
+   "resource_id": "tests/test_export.py",
+   "tokens": 1200,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-mo-01",
+   "position": 0,
+   "resource_id": "postmortems/2026-08-14-routing-outage.md",
+   "tokens": 700,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-clean-01",
+   "position": 0,
+   "resource_id": "services/sessions/api.py",
+   "tokens": 2100,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-clean-01",
+   "position": 1,
+   "resource_id": "services/sessions/models.py",
+   "tokens": 1300,
+   "call_seq": 1
+  },
+  {
+   "session_id": "fx-clean-02",
+   "position": 0,
+   "resource_id": "docs/auth-migration.md",
+   "tokens": 900,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-mkt-01",
+   "position": 0,
+   "resource_id": "https://perch.kestrel.internal/marketing/q3-attribution",
+   "tokens": 2600,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-b01",
+   "position": 0,
+   "resource_id": "company-docs/storage-tiering-policy.md",
+   "tokens": 5200,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-b01",
+   "position": 1,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 1
+  },
+  {
+   "session_id": "fx-scr-b01",
+   "position": 2,
+   "resource_id": "company-docs/storage-service-ownership.md",
+   "tokens": 4100,
+   "call_seq": 2
+  },
+  {
+   "session_id": "fx-scr-b01",
+   "position": 3,
+   "resource_id": "company-docs/blobctl-migration-runbook.md",
+   "tokens": 5600,
+   "call_seq": 3
+  },
+  {
+   "session_id": "fx-scr-b02",
+   "position": 0,
+   "resource_id": "company-docs/storage-tiering-policy.md",
+   "tokens": 5200,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-b02",
+   "position": 1,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 1
+  },
+  {
+   "session_id": "fx-scr-b02",
+   "position": 2,
+   "resource_id": "company-docs/storage-service-ownership.md",
+   "tokens": 4100,
+   "call_seq": 2
+  },
+  {
+   "session_id": "fx-scr-b02",
+   "position": 3,
+   "resource_id": "company-docs/blobctl-migration-runbook.md",
+   "tokens": 5600,
+   "call_seq": 3
+  },
+  {
+   "session_id": "fx-scr-b03",
+   "position": 0,
+   "resource_id": "company-docs/storage-tiering-policy.md",
+   "tokens": 5200,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-b03",
+   "position": 1,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 1
+  },
+  {
+   "session_id": "fx-scr-b03",
+   "position": 2,
+   "resource_id": "company-docs/storage-service-ownership.md",
+   "tokens": 4100,
+   "call_seq": 2
+  },
+  {
+   "session_id": "fx-scr-b03",
+   "position": 3,
+   "resource_id": "company-docs/blobctl-migration-runbook.md",
+   "tokens": 5600,
+   "call_seq": 3
+  },
+  {
+   "session_id": "fx-scr-b04",
+   "position": 0,
+   "resource_id": "company-docs/storage-tiering-policy.md",
+   "tokens": 5200,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-b04",
+   "position": 1,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 1
+  },
+  {
+   "session_id": "fx-scr-b04",
+   "position": 2,
+   "resource_id": "company-docs/storage-service-ownership.md",
+   "tokens": 4100,
+   "call_seq": 2
+  },
+  {
+   "session_id": "fx-scr-b04",
+   "position": 3,
+   "resource_id": "company-docs/blobctl-migration-runbook.md",
+   "tokens": 5600,
+   "call_seq": 3
+  },
+  {
+   "session_id": "fx-scr-b05",
+   "position": 0,
+   "resource_id": "company-docs/storage-tiering-policy.md",
+   "tokens": 5200,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-b05",
+   "position": 1,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 1
+  },
+  {
+   "session_id": "fx-scr-b05",
+   "position": 2,
+   "resource_id": "company-docs/storage-service-ownership.md",
+   "tokens": 4100,
+   "call_seq": 2
+  },
+  {
+   "session_id": "fx-scr-b05",
+   "position": 3,
+   "resource_id": "company-docs/blobctl-migration-runbook.md",
+   "tokens": 5600,
+   "call_seq": 3
+  },
+  {
+   "session_id": "fx-scr-b06",
+   "position": 0,
+   "resource_id": "company-docs/storage-tiering-policy.md",
+   "tokens": 5200,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-b06",
+   "position": 1,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 1
+  },
+  {
+   "session_id": "fx-scr-b06",
+   "position": 2,
+   "resource_id": "company-docs/storage-service-ownership.md",
+   "tokens": 4100,
+   "call_seq": 2
+  },
+  {
+   "session_id": "fx-scr-b06",
+   "position": 3,
+   "resource_id": "company-docs/blobctl-migration-runbook.md",
+   "tokens": 5600,
+   "call_seq": 3
+  },
+  {
+   "session_id": "fx-scr-b06",
+   "position": 4,
+   "resource_id": "blobctl/ledger.jsonl",
+   "tokens": 400,
+   "call_seq": 4
+  },
+  {
+   "session_id": "fx-scr-07",
+   "position": 0,
+   "resource_id": "company-docs/storage-tiering-policy.md",
+   "tokens": 5200,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-07",
+   "position": 1,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 1
+  },
+  {
+   "session_id": "fx-scr-07",
+   "position": 2,
+   "resource_id": "company-docs/storage-service-ownership.md",
+   "tokens": 4100,
+   "call_seq": 2
+  },
+  {
+   "session_id": "fx-scr-07",
+   "position": 3,
+   "resource_id": "company-docs/blobctl-migration-runbook.md",
+   "tokens": 5600,
+   "call_seq": 3
+  },
+  {
+   "session_id": "fx-scr-08",
+   "position": 0,
+   "resource_id": "company-docs/storage-tiering-policy.md",
+   "tokens": 5200,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-08",
+   "position": 1,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 1
+  },
+  {
+   "session_id": "fx-scr-08",
+   "position": 2,
+   "resource_id": "company-docs/blobctl-migration-runbook.md",
+   "tokens": 5600,
+   "call_seq": 2
+  },
+  {
+   "session_id": "fx-scr-a01",
+   "position": 0,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-a02",
+   "position": 0,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-a03",
+   "position": 0,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-a04",
+   "position": 0,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-a05",
+   "position": 0,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 0
+  },
+  {
+   "session_id": "fx-scr-a06",
+   "position": 0,
+   "resource_id": "company-docs/storage-cost-dashboard.md",
+   "tokens": 4800,
+   "call_seq": 0
+  }
+ ],
+ "discoveries": [
+  {
+   "session_id": "fx-scr-b01",
+   "idx": 0,
+   "call_seq": 5,
+   "statement": "blobctl plan fails unless STORAGE_ENV is set; STORAGE_ENV=staging works for Tidewater migrations."
+  },
+  {
+   "session_id": "fx-scr-b02",
+   "idx": 0,
+   "call_seq": 5,
+   "statement": "The blobctl migration script needs the env var STORAGE_ENV=staging."
+  },
+  {
+   "session_id": "fx-scr-b03",
+   "idx": 0,
+   "call_seq": 5,
+   "statement": "Setting STORAGE_ENV=staging is required before running blobctl plan."
+  },
+  {
+   "session_id": "fx-scr-b04",
+   "idx": 0,
+   "call_seq": 5,
+   "statement": "blobctl exits with status 2 when STORAGE_ENV is missing; use STORAGE_ENV=staging."
+  },
+  {
+   "session_id": "fx-scr-b05",
+   "idx": 0,
+   "call_seq": 5,
+   "statement": "Tidewater blobctl commands only run with STORAGE_ENV=staging in the environment."
+  },
+  {
+   "session_id": "fx-scr-07",
+   "idx": 0,
+   "call_seq": 5,
+   "statement": "Without STORAGE_ENV=staging, blobctl refuses to plan against the bucket."
+  },
+  {
+   "session_id": "fx-scr-b02",
+   "idx": 1,
+   "call_seq": 5,
+   "statement": "Tidewater rule ids must end in -v2 when a v1 rule already exists on the bucket."
+  },
+  {
+   "session_id": "fx-rr-01",
+   "idx": 0,
+   "call_seq": 5,
+   "statement": "The auth test suite needs REDIS_URL pointing at a local Redis instance."
+  }
+ ],
+ "initiatives": [
+  {
+   "initiative_id": "storage-cost-reduction",
+   "name": "Storage cost reduction",
+   "description": "Project Tidewater: move S3 buckets onto the lifecycle schedule their data class allows.",
+   "business_function": "Engineering",
+   "session_count": 14,
+   "spend_usd": 0.27747128
+  },
+  {
+   "initiative_id": "auth-migration",
+   "name": "Auth migration",
+   "description": "Move services from the legacy token store to the sessions service.",
+   "business_function": "Engineering",
+   "session_count": 3,
+   "spend_usd": 0.028228760000000002
+  },
+  {
+   "initiative_id": "k8s-upgrade",
+   "name": "Kubernetes 1.31 upgrade",
+   "description": "Upgrade clusters and service clients to Kubernetes 1.31.",
+   "business_function": "Engineering",
+   "session_count": 2,
+   "spend_usd": 0.027420560000000004
+  },
+  {
+   "initiative_id": "incident-postmortems",
+   "name": "Incident postmortems",
+   "description": "Write and tidy incident postmortems.",
+   "business_function": "Engineering",
+   "session_count": 1,
+   "spend_usd": 0.00618464
+  },
+  {
+   "initiative_id": "peak-season-campaign",
+   "name": "Peak season campaign",
+   "description": "Plan and report on the peak season marketing campaign.",
+   "business_function": "Marketing",
+   "session_count": 1,
+   "spend_usd": 0.0016821199999999998
+  }
+ ],
+ "waste_findings": [
+  {
+   "session_id": "fx-rr-01",
+   "pattern": "redundant_read",
+   "kind": "measured",
+   "usd": 0.00276,
+   "evidence": [
+    "fx-rr-01:1",
+    "fx-rr-01:2",
+    "fx-rr-01:3",
+    "fx-rr-01:4",
+    "fx-rr-01:5",
+    "fx-rr-01:6",
+    "fx-rr-01:7"
+   ],
+   "detail": "duplicate read of auth/session.py (2400 tokens)",
+   "finding_id": "wf-000"
+  },
+  {
+   "session_id": "fx-rr-01",
+   "pattern": "redundant_read",
+   "kind": "measured",
+   "usd": 0.002232,
+   "evidence": [
+    "fx-rr-01:3",
+    "fx-rr-01:4",
+    "fx-rr-01:5",
+    "fx-rr-01:6",
+    "fx-rr-01:7"
+   ],
+   "detail": "duplicate read of auth/session.py (2400 tokens)",
+   "finding_id": "wf-001"
+  },
+  {
+   "session_id": "fx-cm-01",
+   "pattern": "cache_miss",
+   "kind": "measured",
+   "usd": 0.00588,
+   "evidence": [
+    "fx-cm-01:1",
+    "fx-cm-01:2",
+    "fx-cm-01:3",
+    "fx-cm-01:4"
+   ],
+   "detail": "same prompt prefix hash as the previous Call, no cache read",
+   "finding_id": "wf-002"
+  },
+  {
+   "session_id": "fx-rl-01",
+   "pattern": "runaway_loop",
+   "kind": "measured",
+   "usd": 0.00534192,
+   "evidence": [
+    "fx-rl-01:1",
+    "fx-rl-01:2",
+    "fx-rl-01:3",
+    "fx-rl-01:4",
+    "fx-rl-01:5",
+    "fx-rl-01:6"
+   ],
+   "detail": "6 identical runs of 'pytest tests/test_export.py', same result",
+   "finding_id": "wf-003"
+  },
+  {
+   "session_id": "fx-mo-01",
+   "pattern": "model_overkill",
+   "kind": "estimated",
+   "usd": 0.00520872,
+   "evidence": [
+    "fx-mo-01:0",
+    "fx-mo-01:1",
+    "fx-mo-01:2"
+   ],
+   "detail": "low-complexity Session on glm-5.1; re-priced at glm-4.5-air",
+   "finding_id": "wf-004"
+  }
+ ],
+ "recurring_discoveries": [
+  {
+   "recurring_discovery_id": "rd-scr-path",
+   "initiative_id": "storage-cost-reduction",
+   "form": "common_path",
+   "resource_ids": [
+    "company-docs/blobctl-migration-runbook.md",
+    "company-docs/storage-cost-dashboard.md",
+    "company-docs/storage-service-ownership.md",
+    "company-docs/storage-tiering-policy.md"
+   ],
+   "statement": null,
+   "tokens": 19700,
+   "session_count": 7,
+   "session_share": 0.875,
+   "spend_usd": 0.161389,
+   "evidence": [
+    "fx-scr-07",
+    "fx-scr-b01",
+    "fx-scr-b02",
+    "fx-scr-b03",
+    "fx-scr-b04",
+    "fx-scr-b05",
+    "fx-scr-b06"
+   ]
+  },
+  {
+   "recurring_discovery_id": "rd-scr-env",
+   "initiative_id": "storage-cost-reduction",
+   "form": "repeated_discovery",
+   "resource_ids": null,
+   "statement": "blobctl plan/apply needs STORAGE_ENV=staging for Tidewater migrations.",
+   "tokens": null,
+   "session_count": 6,
+   "session_share": 0.75,
+   "spend_usd": 0.13183247999999997,
+   "evidence": [
+    "fx-scr-b01",
+    "fx-scr-b02",
+    "fx-scr-b03",
+    "fx-scr-b04",
+    "fx-scr-b05",
+    "fx-scr-07"
+   ]
+  }
+ ],
+ "recommendations": [
+  {
+   "recommendation_id": "r-scr-doc",
+   "target_type": "initiative",
+   "target_id": "storage-cost-reduction",
+   "practice_id": "consolidated-initiative-doc",
+   "title": "Give Tidewater Sessions one consolidated initiative doc",
+   "body": "Most storage cost reduction Sessions read the same four Perch pages to get started. Publish the attached Draft on the Perch docs MCP server and point the agents at it.",
+   "infra_refs": [
+    "perch-docs-mcp",
+    "kestrel/blobctl"
+   ],
+   "usd": 0.08016,
+   "kind": "estimated",
+   "draft_id": "d-scr-doc",
+   "recurring_discovery_id": "rd-scr-path",
+   "suggested_models": null,
+   "rank": 0
+  },
+  {
+   "recommendation_id": "r-scr-mem",
+   "target_type": "initiative",
+   "target_id": "storage-cost-reduction",
+   "practice_id": "initiative-memory-file",
+   "title": "Add a Tidewater memory file so agents stop rediscovering STORAGE_ENV",
+   "body": "Sessions keep finding out by trial and error that blobctl needs STORAGE_ENV=staging. Load the attached memory file into the harness context.",
+   "infra_refs": [
+    "kestrel-devagent",
+    "kestrel/blobctl"
+   ],
+   "usd": 0.13183247999999997,
+   "kind": "estimated",
+   "draft_id": "d-scr-mem",
+   "recurring_discovery_id": "rd-scr-env",
+   "suggested_models": null,
+   "rank": 1
+  },
+  {
+   "recommendation_id": "r-ci-loop",
+   "target_type": "initiative",
+   "target_id": "k8s-upgrade",
+   "practice_id": "step-budget-loop-breaker",
+   "title": "Add a step budget and loop breaker to CI-fixing agents",
+   "body": "Stop an agent after 3 identical test runs with the same result.",
+   "infra_refs": [
+    "kestrel-llm-gateway"
+   ],
+   "usd": 0.00534192,
+   "kind": "measured",
+   "draft_id": null,
+   "recurring_discovery_id": null,
+   "suggested_models": null,
+   "rank": 0
+  },
+  {
+   "recommendation_id": "r-ci-cache",
+   "target_type": "initiative",
+   "target_id": "k8s-upgrade",
+   "practice_id": "cache-friendly-prompt-layout",
+   "title": "Move the timestamp out of the system prompt",
+   "body": "The volatile timestamp at the top of the prompt defeats prompt caching on every Call.",
+   "infra_refs": [
+    "kestrel-llm-gateway"
+   ],
+   "usd": 0.00588,
+   "kind": "measured",
+   "draft_id": null,
+   "recurring_discovery_id": null,
+   "suggested_models": null,
+   "rank": 1
+  },
+  {
+   "recommendation_id": "r-auth-ctx",
+   "target_type": "initiative",
+   "target_id": "auth-migration",
+   "practice_id": "shared-context-file-per-service",
+   "title": "Keep a shared context file for the auth services",
+   "body": "Agents re-read auth/session.py several times per Session.",
+   "infra_refs": [
+    "kestrel/identity"
+   ],
+   "usd": 0.004992,
+   "kind": "measured",
+   "draft_id": null,
+   "recurring_discovery_id": null,
+   "suggested_models": null,
+   "rank": 0
+  },
+  {
+   "recommendation_id": "r-pol-devex",
+   "target_type": "policy",
+   "target_id": "Routing",
+   "practice_id": "tier-routing-by-complexity",
+   "title": "Limit Routing to standard and light tiers",
+   "body": "Trivial edits ran on the flagship tier.",
+   "infra_refs": [
+    "kestrel-llm-gateway"
+   ],
+   "usd": 0.00520872,
+   "kind": "estimated",
+   "draft_id": null,
+   "recurring_discovery_id": null,
+   "suggested_models": [
+    "glm-4.7",
+    "glm-4.5-air"
+   ],
+   "rank": 0
+  }
+ ],
+ "drafts": [
+  {
+   "draft_id": "d-scr-doc",
+   "recommendation_id": "r-scr-doc",
+   "initiative_id": "storage-cost-reduction",
+   "type": "initiative_doc",
+   "title": "Storage cost reduction: initiative doc",
+   "filename": "storage-cost-reduction.md",
+   "content": "# Storage cost reduction (Project Tidewater): what you need to start\n\n_Draft by Dwight from the 4 docs these Sessions read. Sources linked per section._\n\n## 1. Which schedule applies ([tiering policy](company-docs/storage-tiering-policy.md))\n- Look up the bucket's data class, then apply that class's schedule (days -> storage class).\n- Overrides win over the data-class schedule: Tier-1 reader override first, then small-object override.\n\n## 2. Which buckets and what they cost ([cost dashboard](company-docs/storage-cost-dashboard.md))\n- Use the August 2026 snapshot figures on the dashboard page, not the live Looker tiles.\n- A bucket with an existing v1 rule needs a v2 rule id.\n\n## 3. Who owns and approves ([service ownership](company-docs/storage-service-ownership.md))\n- The bucket owner's team handle and the storage approver come from the ownership page.\n\n## 4. How to plan and apply ([blobctl runbook](company-docs/blobctl-migration-runbook.md))\n- `bin/blobctl plan --bucket s3://<bucket> --rule tidewater-<bucket>-v2` (dry run), then `apply` with approver.\n",
+   "source_resource_ids": [
+    "company-docs/blobctl-migration-runbook.md",
+    "company-docs/storage-cost-dashboard.md",
+    "company-docs/storage-service-ownership.md",
+    "company-docs/storage-tiering-policy.md"
+   ],
+   "tokens": 3000,
+   "source_tokens": 19700
+  },
+  {
+   "draft_id": "d-scr-mem",
+   "recommendation_id": "r-scr-mem",
+   "initiative_id": "storage-cost-reduction",
+   "type": "memory",
+   "title": "Storage cost reduction: memory file",
+   "filename": "storage-cost-reduction.memory.md",
+   "content": "# Memory: storage-cost-reduction\n\n- Always run blobctl with `STORAGE_ENV=staging` set for Tidewater plans and applies; without it blobctl exits with status 2.\n",
+   "source_resource_ids": [],
+   "tokens": 39,
+   "source_tokens": null
+  }
+ ],
+ "policies": [
+  {
+   "policy_id": "pol-001",
+   "team": "Routing",
+   "allowed_models": [
+    "glm-4.7",
+    "glm-4.5-air"
+   ],
+   "rendered_config": "# LiteLLM team model allowlist, rendered by Dwight. Enforced by the Customer's gateway (ADR 0002).\nteams:\n  - team_alias: routing\n    models:\n      - glm-4.7\n      - glm-4.5-air\n",
+   "output_path": "out/policies/routing.yaml",
+   "applied_at": "2026-09-26T12:00:00Z"
+  }
+ ],
+ "eval_runs": [
+  {
+   "eval_id": "ev-fixture",
+   "created_at": "2026-09-26T12:00:00Z",
+   "label": "fixture",
+   "accuracy": 0.86,
+   "n_sessions": 50,
+   "details": {
+    "note": "fixture value"
+   }
+  }
+ ]
+}

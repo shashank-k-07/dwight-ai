@@ -6,6 +6,8 @@
 
 **Status:** ready-for-agent
 
+**Decision (2026-09-26):** embeddings aren't available (Sciforium `/v1/embeddings` returns 404). Group Discoveries with a model pass only: `glm.chat_json` over each Initiative's Discoveries, batched if large, returning clusters of Discovery ids plus one merged statement per cluster. Don't call `glm.embed()`.
+
 - [ ] Runs only on stored Discoveries, never on prompt content (ADR 0008)
 - [ ] Clusters are merged and named by GLM into one actionable statement each
 - [ ] Thresholds are configurable (default ≥ 5 Sessions or ≥ 20%)

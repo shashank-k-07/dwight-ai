@@ -2,6 +2,8 @@
 
 **What to build:** The ~10 *storage cost reduction* tasks run through the harness against `company-docs/`, with no Draft loaded, tagged `dwight.experiment=before`, with success/fail recorded per task. These Sessions produce the real common path (the 4 docs) and the real repeated Discovery (the planted env-var fact), and they are the baseline for the before/after proof.
 
+**Note from 02:** the task prompts refer to "the company storage docs" without naming the four files. If fewer than most Trails include all four docs, name the docs in the prompts and rerun. The four docs total about 22K tokens (the demo script's "18K" should use the measured figure).
+
 **Blocked by:** 02, 03
 
 **Status:** ready-for-agent

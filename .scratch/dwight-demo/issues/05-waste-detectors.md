@@ -6,6 +6,8 @@
 
 **Status:** ready-for-agent
 
+**Decision (2026-09-26, user):** Model Overkill appears in synthetic data only. The real-layer models (`deepseek-v4.1-flash`, `glm-5.3-flash`) are tier `light` in `data/prices.yaml`, so `pricing.cheaper_model()` returns None for them and the detector must produce no Model Overkill finding on those Sessions. Add a test for that.
+
 - [ ] Redundant Read: a duplicate `result_hash` is priced on every later Call at the input rate that Call actually paid (uncached on the first Call, cache-read after that if caching is on), not all at the uncached rate
 - [ ] Cache Miss: same `prompt_prefix_hash` as the previous Call, but `cache_read_tokens` well below the shared prefix. Priced as (shared prefix − cache read) × (uncached − cached input price).
 - [ ] Runaway Loop: ≥ N consecutive Calls with the same tool name + args hash and no new result hash. Spend on every Call after the first repeat. N is configurable.

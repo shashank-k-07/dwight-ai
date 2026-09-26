@@ -6,6 +6,8 @@
 
 **Status:** ready-for-agent
 
+**Decision (2026-09-26, user):** the synthetic layer is the **only** source of Model Overkill (03 plants no Model Overkill runs). Give it a meaningful rate: low-complexity Sessions on the flagship tier (`glm-5.1`) in some Teams. The synthetic layer keeps the fictional company's GLM tiers (`glm-5.1` / `glm-4.7` / `glm-4.5-air`). Any GLM calls the generator makes to write prompt content go through `dwight.glm` (Sciforium pool), which is separate from the model names recorded in the synthetic telemetry.
+
 - [ ] Uses the org from 02: ~200 Members, 4–5 Business Functions, ~12 Teams, ~15 Initiatives, Engineering at ~70% of Sessions, and at least one non-engineering Business Function
 - [ ] Session shapes (call counts, token distributions, Waste Pattern rates) come from a parameter file. It is calibrated from 03's real-layer stats if present, otherwise from sensible defaults that can be updated later.
 - [ ] Each synthetic Initiative has a set of "usual" docs most of its Sessions read, and a few repeated Discoveries at varied strengths

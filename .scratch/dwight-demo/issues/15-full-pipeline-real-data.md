@@ -6,6 +6,8 @@
 
 **Status:** ready-for-agent
 
+**Decision (2026-09-26, user):** the real layer has no planted Model Overkill runs (see 03). Model Overkill findings are expected from the synthetic layer only; on the real layer, check that there are none.
+
 - [ ] The pipeline runs end to end with one command from an empty store
 - [ ] Detectors flag every planted run from 03 with its pattern, and clean runs show no Measured findings (checked against 03's label file)
 - [ ] Measured Waste on the real layer alone is reported separately from the full dataset

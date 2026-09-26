@@ -1,0 +1,10 @@
+.env
+backend/.venv/
+backend/var/
+**/__pycache__/
+.pytest_cache/
+dashboard/node_modules/
+dashboard/.next/
+dashboard/next-env.d.ts
+dashboard/tsconfig.tsbuildinfo
+out/

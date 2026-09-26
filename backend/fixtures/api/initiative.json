@@ -1,0 +1,93 @@
+{
+ "_keyed_by": "initiative_id",
+ "items": {
+  "storage-cost-reduction": {
+   "initiative_id": "storage-cost-reduction",
+   "name": "Storage cost reduction",
+   "business_function": "Engineering",
+   "session_count": 412,
+   "spend": {
+    "usd": 5210.3,
+    "kind": "measured"
+   },
+   "description": "Project Tidewater: move S3 buckets onto the lifecycle schedule their data class allows."
+  },
+  "auth-migration": {
+   "initiative_id": "auth-migration",
+   "name": "Auth migration",
+   "business_function": "Engineering",
+   "session_count": 388,
+   "spend": {
+    "usd": 4105.75,
+    "kind": "measured"
+   },
+   "description": "Move services from the legacy token store to the sessions service."
+  },
+  "k8s-upgrade": {
+   "initiative_id": "k8s-upgrade",
+   "name": "Kubernetes 1.31 upgrade",
+   "business_function": "Engineering",
+   "session_count": 520,
+   "spend": {
+    "usd": 3890.1,
+    "kind": "measured"
+   },
+   "description": "Upgrade clusters and service clients to Kubernetes 1.31."
+  },
+  "invoicing-v2": {
+   "initiative_id": "invoicing-v2",
+   "name": "Invoicing v2",
+   "business_function": "Engineering",
+   "session_count": 301,
+   "spend": {
+    "usd": 3120.0,
+    "kind": "measured"
+   },
+   "description": "Invoicing v2 work."
+  },
+  "driver-app-offline-sync": {
+   "initiative_id": "driver-app-offline-sync",
+   "name": "Driver app offline sync",
+   "business_function": "Engineering",
+   "session_count": 260,
+   "spend": {
+    "usd": 2210.0,
+    "kind": "measured"
+   },
+   "description": "Driver app offline sync work."
+  },
+  "incident-postmortems": {
+   "initiative_id": "incident-postmortems",
+   "name": "Incident postmortems",
+   "business_function": "Engineering",
+   "session_count": 480,
+   "spend": {
+    "usd": 1450.2,
+    "kind": "measured"
+   },
+   "description": "Write and tidy incident postmortems."
+  },
+  "peak-season-campaign": {
+   "initiative_id": "peak-season-campaign",
+   "name": "Peak season campaign",
+   "business_function": "Marketing",
+   "session_count": 260,
+   "spend": {
+    "usd": 1320.5,
+    "kind": "measured"
+   },
+   "description": "Plan and report on the peak season marketing campaign."
+  },
+  "support-macro-refresh": {
+   "initiative_id": "support-macro-refresh",
+   "name": "Support macro refresh",
+   "business_function": "Customer Experience",
+   "session_count": 240,
+   "spend": {
+    "usd": 1105.9,
+    "kind": "measured"
+   },
+   "description": "Support macro refresh work."
+  }
+ }
+}

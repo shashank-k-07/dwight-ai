@@ -1,0 +1,9 @@
+{
+ "team": "Routing",
+ "allowed_models": [
+  "glm-4.7",
+  "glm-4.5-air"
+ ],
+ "format": "litellm",
+ "rendered_config": "# LiteLLM team model allowlist, rendered by Dwight. Enforced by the Customer's gateway (ADR 0002).\nteams:\n  - team_alias: routing\n    models:\n      - glm-4.7\n      - glm-4.5-air\n"
+}

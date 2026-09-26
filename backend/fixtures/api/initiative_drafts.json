@@ -1,0 +1,38 @@
+{
+ "_keyed_by": "initiative_id",
+ "items": {
+  "storage-cost-reduction": {
+   "items": [
+    {
+     "draft_id": "d-scr-doc",
+     "recommendation_id": "r-scr-doc",
+     "initiative_id": "storage-cost-reduction",
+     "type": "initiative_doc",
+     "title": "Storage cost reduction: initiative doc",
+     "filename": "storage-cost-reduction.md",
+     "content": "# Storage cost reduction (Project Tidewater): what you need to start\n\n_Draft by Dwight from the 4 docs these Sessions read. Sources linked per section._\n\n## 1. Which schedule applies ([tiering policy](company-docs/storage-tiering-policy.md))\n- Look up the bucket's data class, then apply that class's schedule (days -> storage class).\n- Overrides win over the data-class schedule: Tier-1 reader override first, then small-object override.\n\n## 2. Which buckets and what they cost ([cost dashboard](company-docs/storage-cost-dashboard.md))\n- Use the August 2026 snapshot figures on the dashboard page, not the live Looker tiles.\n- A bucket with an existing v1 rule needs a v2 rule id.\n\n## 3. Who owns and approves ([service ownership](company-docs/storage-service-ownership.md))\n- The bucket owner's team handle and the storage approver come from the ownership page.\n\n## 4. How to plan and apply ([blobctl runbook](company-docs/blobctl-migration-runbook.md))\n- `bin/blobctl plan --bucket s3://<bucket> --rule tidewater-<bucket>-v2` (dry run), then `apply` with approver.\n",
+     "source_resource_ids": [
+      "company-docs/storage-tiering-policy.md",
+      "company-docs/storage-cost-dashboard.md",
+      "company-docs/storage-service-ownership.md",
+      "company-docs/blobctl-migration-runbook.md"
+     ],
+     "tokens": 3050,
+     "source_tokens": 18000
+    },
+    {
+     "draft_id": "d-scr-mem",
+     "recommendation_id": "r-scr-mem",
+     "initiative_id": "storage-cost-reduction",
+     "type": "memory",
+     "title": "Storage cost reduction: memory file",
+     "filename": "storage-cost-reduction.memory.md",
+     "content": "# Memory: storage-cost-reduction\n\n- Always run blobctl with `STORAGE_ENV=staging` set for Tidewater plans and applies; without it blobctl exits with status 2.\n",
+     "source_resource_ids": [],
+     "tokens": 39,
+     "source_tokens": null
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,167 @@
+{
+ "period": {
+  "start": "2026-08-27T00:00:00Z",
+  "end": "2026-09-26T00:00:00Z"
+ },
+ "session_count": 4520,
+ "spend": {
+  "usd": 31258.55,
+  "kind": "measured"
+ },
+ "measured_waste": {
+  "usd": 6412.8,
+  "kind": "measured"
+ },
+ "estimated_saving": {
+  "usd": 2987.35,
+  "kind": "estimated"
+ },
+ "spend_by_business_function": [
+  {
+   "business_function": "Engineering",
+   "spend": {
+    "usd": 29861.45,
+    "kind": "measured"
+   },
+   "session_count": 4070,
+   "teams": [
+    {
+     "team": "Data Infrastructure",
+     "spend": {
+      "usd": 9120.4,
+      "kind": "measured"
+     },
+     "session_count": 1210
+    },
+    {
+     "team": "Platform",
+     "spend": {
+      "usd": 7310.1,
+      "kind": "measured"
+     },
+     "session_count": 980
+    },
+    {
+     "team": "Routing",
+     "spend": {
+      "usd": 4480.75,
+      "kind": "measured"
+     },
+     "session_count": 610
+    },
+    {
+     "team": "Mobile",
+     "spend": {
+      "usd": 3890.2,
+      "kind": "measured"
+     },
+     "session_count": 540
+    },
+    {
+     "team": "Billing",
+     "spend": {
+      "usd": 2210.0,
+      "kind": "measured"
+     },
+     "session_count": 300
+    },
+    {
+     "team": "Integrations",
+     "spend": {
+      "usd": 1650.0,
+      "kind": "measured"
+     },
+     "session_count": 240
+    },
+    {
+     "team": "Forecasting",
+     "spend": {
+      "usd": 1200.0,
+      "kind": "measured"
+     },
+     "session_count": 190
+    }
+   ]
+  },
+  {
+   "business_function": "Operations",
+   "spend": {
+    "usd": 1625.9,
+    "kind": "measured"
+   },
+   "session_count": 360,
+   "teams": [
+    {
+     "team": "Fleet Operations",
+     "spend": {
+      "usd": 1105.9,
+      "kind": "measured"
+     },
+     "session_count": 240
+    },
+    {
+     "team": "Warehouse Operations",
+     "spend": {
+      "usd": 520.0,
+      "kind": "measured"
+     },
+     "session_count": 120
+    }
+   ]
+  },
+  {
+   "business_function": "Customer Experience",
+   "spend": {
+    "usd": 610.3,
+    "kind": "measured"
+   },
+   "session_count": 150,
+   "teams": [
+    {
+     "team": "Customer Care",
+     "spend": {
+      "usd": 610.3,
+      "kind": "measured"
+     },
+     "session_count": 150
+    }
+   ]
+  },
+  {
+   "business_function": "Marketing",
+   "spend": {
+    "usd": 1320.5,
+    "kind": "measured"
+   },
+   "session_count": 260,
+   "teams": [
+    {
+     "team": "Growth Marketing",
+     "spend": {
+      "usd": 1320.5,
+      "kind": "measured"
+     },
+     "session_count": 260
+    }
+   ]
+  },
+  {
+   "business_function": "Finance",
+   "spend": {
+    "usd": 690.4,
+    "kind": "measured"
+   },
+   "session_count": 110,
+   "teams": [
+    {
+     "team": "Accounting & FP&A",
+     "spend": {
+      "usd": 690.4,
+      "kind": "measured"
+     },
+     "session_count": 110
+    }
+   ]
+  }
+ ]
+}
