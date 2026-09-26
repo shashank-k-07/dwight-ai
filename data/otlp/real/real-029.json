@@ -1,0 +1,420 @@
+{
+ "resourceSpans": [
+  {
+   "resource": {
+    "attributes": [
+     {
+      "key": "service.name",
+      "value": {
+       "stringValue": "kestrel-devagent"
+      }
+     },
+     {
+      "key": "dwight.member.id",
+      "value": {
+       "stringValue": "m005"
+      }
+     },
+     {
+      "key": "dwight.team",
+      "value": {
+       "stringValue": "Platform"
+      }
+     },
+     {
+      "key": "dwight.business_function",
+      "value": {
+       "stringValue": "Engineering"
+      }
+     },
+     {
+      "key": "dwight.dataset",
+      "value": {
+       "stringValue": "real"
+      }
+     }
+    ]
+   },
+   "scopeSpans": [
+    {
+     "scope": {
+      "name": "dwight.builder"
+     },
+     "spans": [
+      {
+       "traceId": "baa819753142c941d7757e848d052d97",
+       "spanId": "1968ee1b4c920587",
+       "name": "invoke_agent",
+       "kind": 1,
+       "startTimeUnixNano": "1790458139516376000",
+       "endTimeUnixNano": "1790458143094350000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "invoke_agent"
+         }
+        },
+        {
+         "key": "gen_ai.agent.name",
+         "value": {
+          "stringValue": "kestrel-devagent"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-029"
+         }
+        },
+        {
+         "key": "dwight.experiment.task_success",
+         "value": {
+          "boolValue": true
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "baa819753142c941d7757e848d052d97",
+       "spanId": "322873498e53cccb",
+       "parentSpanId": "1968ee1b4c920587",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458139516376000",
+       "endTimeUnixNano": "1790458140046273000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-029"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "0"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "986"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "59"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "706"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:28:59.516344+00:00 request 1b3cd7e9da83\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"user\", \"parts\": [{\"type\": \"text\", \"content\": \"How are the invalid-TOML test cases organised under tests/data/invalid? Count the .toml cases per top-level subdirectory and write out/invalid-cases.json as {\\\"total\\\": N, \\\"by_directory\\\": {name: count}} (files directly in invalid/ go under \\\"(root)\\\").\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me explore the directory structure.\"}, {\"type\": \"tool_call\", \"id\": \"call_68a9a5c02b3b4889aa787cad\", \"name\": \"run_command\", \"arguments\": {\"cmd\": \"find tests/data/invalid -name '*.toml' | sort\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "baa819753142c941d7757e848d052d97",
+       "spanId": "80e65a81630e3758",
+       "parentSpanId": "322873498e53cccb",
+       "name": "execute_tool run_command",
+       "kind": 1,
+       "startTimeUnixNano": "1790458140046354000",
+       "endTimeUnixNano": "1790458140070160000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-029"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_command"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-1"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"cmd\": \"find tests/data/invalid -name '*.toml' | sort\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\n[... output truncated, last 12000 characters]\nesc-02.toml\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-03.toml\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-04.toml\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-05.toml\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-06.toml\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-07.toml\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-01.toml\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-02.toml\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-03.toml\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-04.toml\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-05.toml\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-06.toml\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-07.toml\ntests/data/invalid/_external/toml-test/invalid/string/basic-multiline-out-of-range-unicode-escape-01.toml\ntests/data/invalid/_external/toml-test/invalid/string/basic-multiline-out-of-range-unicode-escape-02.toml\ntests/data/invalid/_external/toml-test/invalid/string/basic-multiline-quotes.toml\ntests/data/invalid/_external/toml-test/invalid/string/basic-multiline-unknown-escape.toml\ntests/data/invalid/_external/toml-test/invalid/string/basic-out-of-range-unicode-escape-01.toml\ntests/data/invalid/_external/toml-test/invalid/string/basic-out-of-range-unicode-escape-02.toml\ntests/data/invalid/_external/toml-test/invalid/string/basic-unknown-escape.toml\ntests/data/invalid/_external/toml-test/invalid/string/literal-multiline-quotes-01.toml\ntests/data/invalid/_external/toml-test/invalid/string/literal-multiline-quotes-02.toml\ntests/data/invalid/_external/toml-test/invalid/string/missing-quotes-array.toml\ntests/data/invalid/_external/toml-test/invalid/string/missing-quotes-inline-table.toml\ntests/data/invalid/_external/toml-test/invalid/string/missing-quotes.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-bad-escape-01.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-bad-escape-02.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-bad-escape-03.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-bad-escape-04.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-escape-space-01.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-escape-space-02.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-lit-no-close-01.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-lit-no-close-02.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-lit-no-close-03.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-lit-no-close-04.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-no-close-01.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-no-close-02.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-no-close-03.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-no-close-04.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-no-close-05.toml\ntests/data/invalid/_external/toml-test/invalid/string/multiline-quotes-01.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-close-01.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-close-02.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-close-03.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-close-04.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-close-05.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-close-06.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-close-07.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-close-08.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-close-09.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-close-10.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-open-01.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-open-02.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-open-03.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-open-04.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-open-05.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-open-06.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-open-07.toml\ntests/data/invalid/_external/toml-test/invalid/string/no-open-08.toml\ntests/data/invalid/_external/toml-test/invalid/string/text-after-string.toml\ntests/data/invalid/_external/toml-test/invalid/string/wrong-close.toml\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-01.toml\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-02.toml\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-03.toml\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-04.toml\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-05.toml\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-06.toml\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-07.toml\ntests/data/invalid/_external/toml-test/invalid/table/array-empty.toml\ntests/data/invalid/_external/toml-test/invalid/table/array-implicit.toml\ntests/data/invalid/_external/toml-test/invalid/table/array-no-close-01.toml\ntests/data/invalid/_external/toml-test/invalid/table/array-no-close-02.toml\ntests/data/invalid/_external/toml-test/invalid/table/array-no-close-03.toml\ntests/data/invalid/_external/toml-test/invalid/table/array-no-close-04.toml\ntests/data/invalid/_external/toml-test/invalid/table/bare-invalid-character-01.toml\ntests/data/invalid/_external/toml-test/invalid/table/bare-invalid-character-02.toml\ntests/data/invalid/_external/toml-test/invalid/table/dot.toml\ntests/data/invalid/_external/toml-test/invalid/table/dotdot.toml\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-01.toml\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-02.toml\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-03.toml\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-04.toml\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-05.toml\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-06.toml\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-07.toml\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-08.toml\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-09.toml\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-10.toml\ntests/data/invalid/_external/toml-test/invalid/table/empty-implicit-table.toml\ntests/data/invalid/_external/toml-test/invalid/table/empty.toml\ntests/data/invalid/_external/toml-test/invalid/table/equals-sign.toml\ntests/data/invalid/_external/toml-test/invalid/table/llbrace.toml\ntests/data/invalid/_external/toml-test/invalid/table/multiline-key-01.toml\ntests/data/invalid/_external/toml-test/invalid/table/multiline-key-02.toml\ntests/data/invalid/_external/toml-test/invalid/table/nested-brackets-close.toml\ntests/data/invalid/_external/toml-test/invalid/table/nested-brackets-open.toml\ntests/data/invalid/_external/toml-test/invalid/table/newline-01.toml\ntests/data/invalid/_external/toml-test/invalid/table/newline-02.toml\ntests/data/invalid/_external/toml-test/invalid/table/newline-03.toml\ntests/data/invalid/_external/toml-test/invalid/table/newline-04.toml\ntests/data/invalid/_external/toml-test/invalid/table/newline-05.toml\ntests/data/invalid/_external/toml-test/invalid/table/no-close-01.toml\ntests/data/invalid/_external/toml-test/invalid/table/no-close-02.toml\ntests/data/invalid/_external/toml-test/invalid/table/no-close-03.toml\ntests/data/invalid/_external/toml-test/invalid/table/no-close-04.toml\ntests/data/invalid/_external/toml-test/invalid/table/no-close-05.toml\ntests/data/invalid/_external/toml-test/invalid/table/no-close-06.toml\ntests/data/invalid/_external/toml-test/invalid/table/no-close-07.toml\ntests/data/invalid/_external/toml-test/invalid/table/no-close-08.toml\ntests/data/invalid/_external/toml-test/invalid/table/no-close-09.toml\ntests/data/invalid/_external/toml-test/invalid/table/overwrite-array-in-parent.toml\ntests/data/invalid/_external/toml-test/invalid/table/overwrite-bool-with-array.toml\ntests/data/invalid/_external/toml-test/invalid/table/overwrite-with-deep-table.toml\ntests/data/invalid/_external/toml-test/invalid/table/redefine-01.toml\ntests/data/invalid/_external/toml-test/invalid/table/redefine-02.toml\ntests/data/invalid/_external/toml-test/invalid/table/redefine-03.toml\ntests/data/invalid/_external/toml-test/invalid/table/rrbrace.toml\ntests/data/invalid/_external/toml-test/invalid/table/super-twice.toml\ntests/data/invalid/_external/toml-test/invalid/table/text-after-table.toml\ntests/data/invalid/_external/toml-test/invalid/table/trailing-dot.toml\ntests/data/invalid/_external/toml-test/invalid/table/whitespace.toml\ntests/data/invalid/_external/toml-test/invalid/table/with-pound.toml\ntests/data/invalid/array-missing-comma.toml\ntests/data/invalid/array-of-tables/overwrite-array-in-parent.toml\ntests/data/invalid/array-of-tables/overwrite-bool-with-aot.toml\ntests/data/invalid/array/file-end-after-val.toml\ntests/data/invalid/array/unclosed-after-item.toml\ntests/data/invalid/array/unclosed-empty.toml\ntests/data/invalid/basic-str-ends-in-escape.toml\ntests/data/invalid/boolean/invalid-false-casing.toml\ntests/data/invalid/boolean/invalid-true-casing.toml\ntests/data/invalid/dates-and-times/invalid-day.toml\ntests/data/invalid/dotted-keys/access-non-table.toml\ntests/data/invalid/dotted-keys/extend-defined-aot.toml\ntests/data/invalid/dotted-keys/extend-defined-table-with-subtable.toml\ntests/data/invalid/dotted-keys/extend-defined-table.toml\ntests/data/invalid/inline-table-missing-comma.toml\ntests/data/invalid/inline-table/define-twice-in-subtable.toml\ntests/data/invalid/inline-table/define-twice.toml\ntests/data/invalid/inline-table/file-end-after-key-val.toml\ntests/data/invalid/inline-table/mutate.toml\ntests/data/invalid/inline-table/override-val-in-table.toml\ntests/data/invalid/inline-table/override-val-with-array.toml\ntests/data/invalid/inline-table/override-val-with-table.toml\ntests/data/invalid/inline-table/overwrite-implicitly.toml\ntests/data/invalid/inline-table/overwrite-value-in-inner-array.toml\ntests/data/invalid/inline-table/overwrite-value-in-inner-table.toml\ntests/data/invalid/inline-table/unclosed-empty.toml\ntests/data/invalid/invalid-comment-char.toml\ntests/data/invalid/invalid-escaped-unicode.toml\ntests/data/invalid/invalid-hex.toml\ntests/data/invalid/keys-and-vals/ends-early-table-def.toml\ntests/data/invalid/keys-and-vals/ends-early.toml\ntests/data/invalid/keys-and-vals/no-value.toml\ntests/data/invalid/keys-and-vals/only-ws-after-dot.toml\ntests/data/invalid/keys-and-vals/overwrite-with-deep-table.toml\ntests/data/invalid/literal-str/unclosed.toml\ntests/data/invalid/missing-closing-double-square-bracket.toml\ntests/data/invalid/missing-closing-square-bracket.toml\ntests/data/invalid/multiline-basic-str/carriage-return.toml\ntests/data/invalid/multiline-basic-str/escape-only.toml\ntests/data/invalid/multiline-basic-str/file-ends-after-opening.toml\ntests/data/invalid/multiline-basic-str/last-line-escape.toml\ntests/data/invalid/multiline-basic-str/unclosed-ends-in-whitespace-escape.toml\ntests/data/invalid/multiline-literal-str/file-ends-after-opening.toml\ntests/data/invalid/multiline-literal-str/unclosed.toml\ntests/data/invalid/non-scalar-escaped.toml\ntests/data/invalid/table/eof-after-opening.toml\ntests/data/invalid/table/redefine-1.toml\ntests/data/invalid/table/redefine-2.toml\ntests/data/invalid/unclosed-multiline-string.toml\ntests/data/invalid/unclosed-string.toml"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "3000"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "baa819753142c941d7757e848d052d97",
+       "spanId": "b897280d89e9d1ed",
+       "parentSpanId": "1968ee1b4c920587",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458140070349000",
+       "endTimeUnixNano": "1790458141515866000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-029"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "1"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "4843"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "283"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "706"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:00.070257+00:00 request a38a2a0718c7\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_68a9a5c02b3b4889aa787cad\", \"response\": \"exit code: 0\\n[... output truncated, last 12000 characters]\\nesc-02.toml\\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-03.toml\\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-04.toml\\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-05.toml\\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-06.toml\\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-07.toml\\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-01.toml\\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-02.toml\\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-03.toml\\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-04.toml\\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-05.toml\\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-06.toml\\ntests/data/invalid/_external/toml-test/invalid/string/bad-uni-esc-ml-07.toml\\ntests/data/invalid/_external/toml-test/invalid/string/basic-multiline-out-of-range-unicode-escape-01.toml\\ntests/data/invalid/_external/toml-test/invalid/string/basic-multiline-out-of-range-unicode-escape-02.toml\\ntests/data/invalid/_external/toml-test/invalid/string/basic-multiline-quotes.toml\\ntests/data/invalid/_external/toml-test/invalid/string/basic-multiline-unknown-escape.toml\\ntests/data/invalid/_external/toml-test/invalid/string/basic-out-of-range-unicode-escape-01.toml\\ntests/data/invalid/_external/toml-test/invalid/string/basic-out-of-range-unicode-escape-02.toml\\ntests/data/invalid/_external/toml-test/invalid/string/basic-unknown-escape.toml\\ntests/data/invalid/_external/toml-test/invalid/string/literal-multiline-quotes-01.toml\\ntests/data/invalid/_external/toml-test/invalid/string/literal-multiline-quotes-02.toml\\ntests/data/invalid/_external/toml-test/invalid/string/missing-quotes-array.toml\\ntests/data/invalid/_external/toml-test/invalid/string/missing-quotes-inline-table.toml\\ntests/data/invalid/_external/toml-test/invalid/string/missing-quotes.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-bad-escape-01.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-bad-escape-02.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-bad-escape-03.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-bad-escape-04.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-escape-space-01.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-escape-space-02.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-lit-no-close-01.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-lit-no-close-02.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-lit-no-close-03.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-lit-no-close-04.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-no-close-01.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-no-close-02.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-no-close-03.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-no-close-04.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-no-close-05.toml\\ntests/data/invalid/_external/toml-test/invalid/string/multiline-quotes-01.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-close-01.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-close-02.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-close-03.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-close-04.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-close-05.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-close-06.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-close-07.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-close-08.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-close-09.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-close-10.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-open-01.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-open-02.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-open-03.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-open-04.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-open-05.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-open-06.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-open-07.toml\\ntests/data/invalid/_external/toml-test/invalid/string/no-open-08.toml\\ntests/data/invalid/_external/toml-test/invalid/string/text-after-string.toml\\ntests/data/invalid/_external/toml-test/invalid/string/wrong-close.toml\\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-01.toml\\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-02.toml\\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-03.toml\\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-04.toml\\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-05.toml\\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-06.toml\\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-07.toml\\ntests/data/invalid/_external/toml-test/invalid/table/array-empty.toml\\ntests/data/invalid/_external/toml-test/invalid/table/array-implicit.toml\\ntests/data/invalid/_external/toml-test/invalid/table/array-no-close-01.toml\\ntests/data/invalid/_external/toml-test/invalid/table/array-no-close-02.toml\\ntests/data/invalid/_external/toml-test/invalid/table/array-no-close-03.toml\\ntests/data/invalid/_external/toml-test/invalid/table/array-no-close-04.toml\\ntests/data/invalid/_external/toml-test/invalid/table/bare-invalid-character-01.toml\\ntests/data/invalid/_external/toml-test/invalid/table/bare-invalid-character-02.toml\\ntests/data/invalid/_external/toml-test/invalid/table/dot.toml\\ntests/data/invalid/_external/toml-test/invalid/table/dotdot.toml\\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-01.toml\\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-02.toml\\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-03.toml\\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-04.toml\\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-05.toml\\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-06.toml\\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-07.toml\\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-08.toml\\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-09.toml\\ntests/data/invalid/_external/toml-test/invalid/table/duplicate-key-10.toml\\ntests/data/invalid/_external/toml-test/invalid/table/empty-implicit-table.toml\\ntests/data/invalid/_external/toml-test/invalid/table/empty.toml\\ntests/data/invalid/_external/toml-test/invalid/table/equals-sign.toml\\ntests/data/invalid/_external/toml-test/invalid/table/llbrace.toml\\ntests/data/invalid/_external/toml-test/invalid/table/multiline-key-01.toml\\ntests/data/invalid/_external/toml-test/invalid/table/multiline-key-02.toml\\ntests/data/invalid/_external/toml-test/invalid/table/nested-brackets-close.toml\\ntests/data/invalid/_external/toml-test/invalid/table/nested-brackets-open.toml\\ntests/data/invalid/_external/toml-test/invalid/table/newline-01.toml\\ntests/data/invalid/_external/toml-test/invalid/table/newline-02.toml\\ntests/data/invalid/_external/toml-test/invalid/table/newline-03.toml\\ntests/data/invalid/_external/toml-test/invalid/table/newline-04.toml\\ntests/data/invalid/_external/toml-test/invalid/table/newline-05.toml\\ntests/data/invalid/_external/toml-test/invalid/table/no-close-01.toml\\ntests/data/invalid/_external/toml-test/invalid/table/no-close-02.toml\\ntests/data/invalid/_external/toml-test/invalid/table/no-close-03.toml\\ntests/data/invalid/_external/toml-test/invalid/table/no-close-04.toml\\ntests/data/invalid/_external/toml-test/invalid/table/no-close-05.toml\\ntests/data/invalid/_external/toml-test/invalid/table/no-close-06.toml\\ntests/data/invalid/_external/toml-test/invalid/table/no-close-07.toml\\ntests/data/invalid/_external/toml-test/invalid/table/no-close-08.toml\\ntests/data/invalid/_external/toml-test/invalid/table/no-close-09.toml\\ntests/data/invalid/_external/toml-test/invalid/table/overwrite-array-in-parent.toml\\ntests/data/invalid/_external/toml-test/invalid/table/overwrite-bool-with-array.toml\\ntests/data/invalid/_external/toml-test/invalid/table/overwrite-with-deep-table.toml\\ntests/data/invalid/_external/toml-test/invalid/table/redefine-01.toml\\ntests/data/invalid/_external/toml-test/invalid/table/redefine-02.toml\\ntests/data/invalid/_external/toml-test/invalid/table/redefine-03.toml\\ntests/data/invalid/_external/toml-test/invalid/table/rrbrace.toml\\ntests/data/invalid/_external/toml-test/invalid/table/super-twice.toml\\ntests/data/invalid/_external/toml-test/invalid/table/text-after-table.toml\\ntests/data/invalid/_external/toml-test/invalid/table/trailing-dot.toml\\ntests/data/invalid/_external/toml-test/invalid/table/whitespace.toml\\ntests/data/invalid/_external/toml-test/invalid/table/with-pound.toml\\ntests/data/invalid/array-missing-comma.toml\\ntests/data/invalid/array-of-tables/overwrite-array-in-parent.toml\\ntests/data/invalid/array-of-tables/overwrite-bool-with-aot.toml\\ntests/data/invalid/array/file-end-after-val.toml\\ntests/data/invalid/array/unclosed-after-item.toml\\ntests/data/invalid/array/unclosed-empty.toml\\ntests/data/invalid/basic-str-ends-in-escape.toml\\ntests/data/invalid/boolean/invalid-false-casing.toml\\ntests/data/invalid/boolean/invalid-true-casing.toml\\ntests/data/invalid/dates-and-times/invalid-day.toml\\ntests/data/invalid/dotted-keys/access-non-table.toml\\ntests/data/invalid/dotted-keys/extend-defined-aot.toml\\ntests/data/invalid/dotted-keys/extend-defined-table-with-subtable.toml\\ntests/data/invalid/dotted-keys/extend-defined-table.toml\\ntests/data/invalid/inline-table-missing-comma.toml\\ntests/data/invalid/inline-table/define-twice-in-subtable.toml\\ntests/data/invalid/inline-table/define-twice.toml\\ntests/data/invalid/inline-table/file-end-after-key-val.toml\\ntests/data/invalid/inline-table/mutate.toml\\ntests/data/invalid/inline-table/override-val-in-table.toml\\ntests/data/invalid/inline-table/override-val-with-array.toml\\ntests/data/invalid/inline-table/override-val-with-table.toml\\ntests/data/invalid/inline-table/overwrite-implicitly.toml\\ntests/data/invalid/inline-table/overwrite-value-in-inner-array.toml\\ntests/data/invalid/inline-table/overwrite-value-in-inner-table.toml\\ntests/data/invalid/inline-table/unclosed-empty.toml\\ntests/data/invalid/invalid-comment-char.toml\\ntests/data/invalid/invalid-escaped-unicode.toml\\ntests/data/invalid/invalid-hex.toml\\ntests/data/invalid/keys-and-vals/ends-early-table-def.toml\\ntests/data/invalid/keys-and-vals/ends-early.toml\\ntests/data/invalid/keys-and-vals/no-value.toml\\ntests/data/invalid/keys-and-vals/only-ws-after-dot.toml\\ntests/data/invalid/keys-and-vals/overwrite-with-deep-table.toml\\ntests/data/invalid/literal-str/unclosed.toml\\ntests/data/invalid/missing-closing-double-square-bracket.toml\\ntests/data/invalid/missing-closing-square-bracket.toml\\ntests/data/invalid/multiline-basic-str/carriage-return.toml\\ntests/data/invalid/multiline-basic-str/escape-only.toml\\ntests/data/invalid/multiline-basic-str/file-ends-after-opening.toml\\ntests/data/invalid/multiline-basic-str/last-line-escape.toml\\ntests/data/invalid/multiline-basic-str/unclosed-ends-in-whitespace-escape.toml\\ntests/data/invalid/multiline-literal-str/file-ends-after-opening.toml\\ntests/data/invalid/multiline-literal-str/unclosed.toml\\ntests/data/invalid/non-scalar-escaped.toml\\ntests/data/invalid/table/eof-after-opening.toml\\ntests/data/invalid/table/redefine-1.toml\\ntests/data/invalid/table/redefine-2.toml\\ntests/data/invalid/unclosed-multiline-string.toml\\ntests/data/invalid/unclosed-string.toml\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"The output was truncated at the start. Let me compute counts programmatically. The question: \\\"Count the .toml cases per top-level subdirectory\\\" \\u2014 top-level subdirectory under tests/data/invalid. So `_external` is one top-level subdirectory, `array-of-tables`, `array`, `boolean`, etc. Files directly in invalid/ go under \\\"(root)\\\".\\n\\nLet me write a script.\"}, {\"type\": \"tool_call\", \"id\": \"call_d1910bd09cf74459b64564c7\", \"name\": \"run_command\", \"arguments\": {\"cmd\": \"python3 - <<'EOF'\\nimport os, json, collections\\nroot='tests/data/invalid'\\nc=collections.Counter()\\nfor dirpath,dirs,files in os.walk(root):\\n    for f in files:\\n        if f.endswith('.toml'):\\n            rel=os.path.relpath(dirpath,root)\\n            top='(root)' if rel=='.' else rel.split(os.sep)[0]\\n            c[top]+=1\\nout={\\\"total\\\":sum(c.values()),\\\"by_directory\\\":dict(sorted(c.items()))}\\nos.makedirs('out',exist_ok=True)\\njson.dump(out,open('out/invalid-cases.json','w'),indent=2)\\nprint(json.dumps(out,indent=2))\\nEOF\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "baa819753142c941d7757e848d052d97",
+       "spanId": "c4f31aad682a161d",
+       "parentSpanId": "b897280d89e9d1ed",
+       "name": "execute_tool run_command",
+       "kind": 1,
+       "startTimeUnixNano": "1790458141516068000",
+       "endTimeUnixNano": "1790458141576491000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-029"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_command"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-3"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"cmd\": \"python3 - <<'EOF'\\nimport os, json, collections\\nroot='tests/data/invalid'\\nc=collections.Counter()\\nfor dirpath,dirs,files in os.walk(root):\\n    for f in files:\\n        if f.endswith('.toml'):\\n            rel=os.path.relpath(dirpath,root)\\n            top='(root)' if rel=='.' else rel.split(os.sep)[0]\\n            c[top]+=1\\nout={\\\"total\\\":sum(c.values()),\\\"by_directory\\\":dict(sorted(c.items()))}\\nos.makedirs('out',exist_ok=True)\\njson.dump(out,open('out/invalid-cases.json','w'),indent=2)\\nprint(json.dumps(out,indent=2))\\nEOF\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\n{\n  \"total\": 516,\n  \"by_directory\": {\n    \"(root)\": 11,\n    \"_external\": 466,\n    \"array\": 3,\n    \"array-of-tables\": 2,\n    \"boolean\": 2,\n    \"dates-and-times\": 1,\n    \"dotted-keys\": 4,\n    \"inline-table\": 11,\n    \"keys-and-vals\": 5,\n    \"literal-str\": 1,\n    \"multiline-basic-str\": 5,\n    \"multiline-literal-str\": 2,\n    \"table\": 3\n  }\n}"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "87"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "baa819753142c941d7757e848d052d97",
+       "spanId": "1262602d5c217210",
+       "parentSpanId": "1968ee1b4c920587",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458141576674000",
+       "endTimeUnixNano": "1790458143094350000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-029"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "2"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "5188"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "279"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "706"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:01.576598+00:00 request 365ba7f1f9e5\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_d1910bd09cf74459b64564c7\", \"response\": \"exit code: 0\\n{\\n  \\\"total\\\": 516,\\n  \\\"by_directory\\\": {\\n    \\\"(root)\\\": 11,\\n    \\\"_external\\\": 466,\\n    \\\"array\\\": 3,\\n    \\\"array-of-tables\\\": 2,\\n    \\\"boolean\\\": 2,\\n    \\\"dates-and-times\\\": 1,\\n    \\\"dotted-keys\\\": 4,\\n    \\\"inline-table\\\": 11,\\n    \\\"keys-and-vals\\\": 5,\\n    \\\"literal-str\\\": 1,\\n    \\\"multiline-basic-str\\\": 5,\\n    \\\"multiline-literal-str\\\": 2,\\n    \\\"table\\\": 3\\n  }\\n}\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Done. Note _external contains nested subdirs but top-level grouping is _external. Good.\"}, {\"type\": \"text\", \"content\": \"Wrote `out/invalid-cases.json`.\\n\\nThe invalid cases are grouped by feature area (e.g. `array`, `inline-table`, `table`, `dotted-keys`), with a large vendored `_external/` tree (the toml-test suite, itself nested by category) and 11 loose files directly under `invalid/` counted as `(root)`.\\n\\n```json\\n{\\n  \\\"total\\\": 516,\\n  \\\"by_directory\\\": {\\n    \\\"(root)\\\": 11,\\n    \\\"_external\\\": 466,\\n    \\\"array\\\": 3,\\n    \\\"array-of-tables\\\": 2,\\n    \\\"boolean\\\": 2,\\n    \\\"dates-and-times\\\": 1,\\n    \\\"dotted-keys\\\": 4,\\n    \\\"inline-table\\\": 11,\\n    \\\"keys-and-vals\\\": 5,\\n    \\\"literal-str\\\": 1,\\n    \\\"multiline-basic-str\\\": 5,\\n    \\\"multiline-literal-str\\\": 2,\\n    \\\"table\\\": 3\\n  }\\n}\\n```\\n\\nCounting is by top-level subdirectory only, so everything nested under `_external/` (e.g. `_external/toml-test/invalid/string/...`) rolls up into `_external`.\"}], \"finish_reason\": \"stop\"}]"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

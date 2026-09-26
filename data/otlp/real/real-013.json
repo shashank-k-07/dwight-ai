@@ -1,0 +1,585 @@
+{
+ "resourceSpans": [
+  {
+   "resource": {
+    "attributes": [
+     {
+      "key": "service.name",
+      "value": {
+       "stringValue": "kestrel-devagent"
+      }
+     },
+     {
+      "key": "dwight.member.id",
+      "value": {
+       "stringValue": "m062"
+      }
+     },
+     {
+      "key": "dwight.team",
+      "value": {
+       "stringValue": "Forecasting"
+      }
+     },
+     {
+      "key": "dwight.business_function",
+      "value": {
+       "stringValue": "Engineering"
+      }
+     },
+     {
+      "key": "dwight.dataset",
+      "value": {
+       "stringValue": "real"
+      }
+     }
+    ]
+   },
+   "scopeSpans": [
+    {
+     "scope": {
+      "name": "dwight.builder"
+     },
+     "spans": [
+      {
+       "traceId": "1e3dd3f210497e572f5aaba36cdbb2d1",
+       "spanId": "5fb783107a07df9a",
+       "name": "invoke_agent",
+       "kind": 1,
+       "startTimeUnixNano": "1790458072853449000",
+       "endTimeUnixNano": "1790458079524589000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "invoke_agent"
+         }
+        },
+        {
+         "key": "gen_ai.agent.name",
+         "value": {
+          "stringValue": "kestrel-devagent"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-013"
+         }
+        },
+        {
+         "key": "dwight.experiment.task_success",
+         "value": {
+          "boolValue": true
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "1e3dd3f210497e572f5aaba36cdbb2d1",
+       "spanId": "ce65dca71a2306b2",
+       "parentSpanId": "5fb783107a07df9a",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458072853449000",
+       "endTimeUnixNano": "1790458073388688000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-013"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "0"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "946"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "98"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "701"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"You are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"user\", \"parts\": [{\"type\": \"text\", \"content\": \"Add a unit test to tests/test_misc.py that checks tomli parses an offset datetime with fractional seconds (e.g. `t = 1979-05-27T00:32:00.999999-07:00`) into the right timezone-aware datetime. Run the test suite.\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me look at the test file and understand the structure.\"}, {\"type\": \"tool_call\", \"id\": \"call_9714639ad5f84bdda035d53e\", \"name\": \"read_file\", \"arguments\": {\"path\": \"tests/test_misc.py\"}}, {\"type\": \"tool_call\", \"id\": \"call_37b5b4b4dd9d46d6a145b62a\", \"name\": \"search\", \"arguments\": {\"pattern\": \"datetime\", \"path\": \"tests\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "1e3dd3f210497e572f5aaba36cdbb2d1",
+       "spanId": "089d81ac32b0ac14",
+       "parentSpanId": "ce65dca71a2306b2",
+       "name": "execute_tool read_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458073388767000",
+       "endTimeUnixNano": "1790458073389030000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-013"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "read_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-1"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests/test_misc.py\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "# SPDX-License-Identifier: MIT\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\n# Licensed to PSF under a Contributor Agreement.\n\nimport copy\nimport datetime\nfrom decimal import Decimal as D\nimport importlib\nfrom pathlib import Path\nimport sys\nimport tempfile\nimport unittest\n\nfrom . import tomllib\n\n\nclass TestMiscellaneous(unittest.TestCase):\n    def test_load(self):\n        content = \"one=1 \\n two='two' \\n arr=[]\"\n        expected = {\"one\": 1, \"two\": \"two\", \"arr\": []}\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\n            file_path = Path(tmp_dir_path) / \"test.toml\"\n            file_path.write_text(content)\n\n            with open(file_path, \"rb\") as bin_f:\n                actual = tomllib.load(bin_f)\n        self.assertEqual(actual, expected)\n\n    def test_incorrect_load(self):\n        content = \"one=1\"\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\n            file_path = Path(tmp_dir_path) / \"test.toml\"\n            file_path.write_text(content)\n\n            with open(file_path, \"r\") as txt_f:\n                with self.assertRaises(TypeError) as exc_info:\n                    tomllib.load(txt_f)  # type: ignore[arg-type]\n            # Mypyc extension leads to different message than pure Python\n            self.assertIn(\n                str(exc_info.exception),\n                (\n                    \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\",  # noqa: E501\n                    \"bytes object expected; got str\",\n                ),\n            )\n\n    def test_parse_float(self):\n        doc = \"\"\"\n              val=0.1\n              biggest1=inf\n              biggest2=+inf\n              smallest=-inf\n              notnum1=nan\n              notnum2=-nan\n              notnum3=+nan\n              \"\"\"\n        obj = tomllib.loads(doc, parse_float=D)\n        expected = {\n            \"val\": D(\"0.1\"),\n            \"biggest1\": D(\"inf\"),\n            \"biggest2\": D(\"inf\"),\n            \"smallest\": D(\"-inf\"),\n            \"notnum1\": D(\"nan\"),\n            \"notnum2\": D(\"-nan\"),\n            \"notnum3\": D(\"nan\"),\n        }\n        for k, expected_val in expected.items():\n            actual_val = obj[k]\n            self.assertIsInstance(actual_val, D)\n            if actual_val.is_nan():\n                self.assertTrue(expected_val.is_nan())\n            else:\n                self.assertEqual(actual_val, expected_val)\n\n    def test_deepcopy(self):\n        doc = \"\"\"\n              [bliibaa.diibaa]\n              offsettime=[1979-05-27T00:32:00.999999-07:00]\n              \"\"\"\n        obj = tomllib.loads(doc)\n        obj_copy = copy.deepcopy(obj)\n        self.assertEqual(obj_copy, obj)\n        expected_obj = {\n            \"bliibaa\": {\n                \"diibaa\": {\n                    \"offsettime\": [\n                        datetime.datetime(\n                            1979,\n                            5,\n                            27,\n                            0,\n                            32,\n                            0,\n                            999999,\n                            tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\n                        )\n                    ]\n                }\n            }\n        }\n        self.assertEqual(obj_copy, expected_obj)\n\n    def test_inline_array_recursion_limit(self):\n        nest_count = 470\n        recursive_array_toml = \"arr = \" + nest_count * \"[\" + nest_count * \"]\"\n        tomllib.loads(recursive_array_toml)\n\n        nest_count = sys.getrecursionlimit() + 2\n        recursive_array_toml = \"arr = \" + nest_count * \"[\" + nest_count * \"]\"\n        with self.assertRaisesRegex(\n            RecursionError,\n            r\"maximum recursion depth exceeded\"\n            r\"|\"\n            r\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\",\n        ):\n            tomllib.loads(recursive_array_toml)\n\n    def test_inline_table_recursion_limit(self):\n        nest_count = 310\n        recursive_table_toml = nest_count * \"key = {\" + nest_count * \"}\"\n        tomllib.loads(recursive_table_toml)\n\n        nest_count = sys.getrecursionlimit() + 2\n        recursive_table_toml = nest_count * \"key = {\" + nest_count * \"}\"\n        with self.assertRaisesRegex(\n            RecursionError,\n            r\"maximum recursion depth exceeded\"\n            r\"|\"\n            r\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\",\n        ):\n            tomllib.loads(recursive_table_toml)\n\n    def test_key_recursion_limit(self):\n        nest_count = 310\n        nested_key_toml = \"a.\" * nest_count + \"a = 1\"\n        tomllib.loads(nested_key_toml)\n\n        nest_count = sys.getrecursionlimit() - 2\n        nested_key_toml = \"a.\" * nest_count + \"a = 1\"\n        tomllib.loads(nested_key_toml)\n\n        nest_count = sys.getrecursionlimit() + 2\n        nested_key_toml = \"a.\" * nest_count + \"a = 1\"\n        with self.assertRaisesRegex(\n            RecursionError,\n            r\"TOML key has more than the allowed [0-9]+ parts\",\n        ):\n            tomllib.loads(nested_key_toml)\n\n    def test_types_import(self):\n        \"\"\"Test that `_types` module runs.\n\n        The module is for type annotations only, so it is otherwise\n        never imported by tests.\n        \"\"\"\n        importlib.import_module(f\"{tomllib.__name__}._types\")\n"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "1310"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "1e3dd3f210497e572f5aaba36cdbb2d1",
+       "spanId": "72246c2a1221abed",
+       "parentSpanId": "ce65dca71a2306b2",
+       "name": "execute_tool search",
+       "kind": 1,
+       "startTimeUnixNano": "1790458073389065000",
+       "endTimeUnixNano": "1790458073450360000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-013"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "search"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-2"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests\", \"pattern\": \"datetime\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "tests/burntsushi.py:7: import datetime\ntests/burntsushi.py:20: elif isinstance(obj, datetime.datetime):\ntests/burntsushi.py:21: val = _normalize_datetime_str(obj.isoformat())\ntests/burntsushi.py:23: return {\"type\": \"datetime\", \"value\": val}\ntests/burntsushi.py:24: return {\"type\": \"datetime-local\", \"value\": val}\ntests/burntsushi.py:25: elif isinstance(obj, datetime.time):\ntests/burntsushi.py:30: elif isinstance(obj, datetime.date):\ntests/burntsushi.py:54: elif type_ in {\"datetime\", \"datetime-local\"}:\ntests/burntsushi.py:55: norm_value = _normalize_datetime_str(value)\ntests/burntsushi.py:68: def _normalize_datetime_str(dt_str: str) -> str:\ntests/data/valid/_external/toml-test/valid/array/array.json:7: {\"type\": \"datetime\", \"value\": \"1987-07-05T17:45:00Z\"},\ntests/data/valid/_external/toml-test/valid/array/array.json:8: {\"type\": \"datetime-local\", \"value\": \"1979-05-27T07:32:00\"},\ntests/data/valid/_external/toml-test/valid/comment/everywhere.json:13: \"dt\":     {\"type\": \"datetime\", \"value\": \"1979-05-27T07:32:12-07:00\"},\ntests/data/valid/_external/toml-test/valid/comment/everywhere.toml:26: # Make sure the space between the datetime and \"#\" isn't lexed.\ntests/data/valid/_external/toml-test/valid/datetime/datetime.json:2: \"lower\": {\"type\": \"datetime\", \"value\": \"1987-07-05T17:45:00Z\"},\ntests/data/valid/_external/toml-test/valid/datetime/datetime.json:3: \"space\": {\"type\": \"datetime\", \"value\": \"1987-07-05T17:45:00Z\"}\ntests/data/valid/_external/toml-test/valid/datetime/edge.json:3: \"first-local\":  {\"type\": \"datetime-local\", \"value\": \"0001-01-01T00:00:00\"},\ntests/data/valid/_external/toml-test/valid/datetime/edge.json:4: \"first-offset\": {\"type\": \"datetime\", \"value\": \"0001-01-01T00:00:00Z\"},\ntests/data/valid/_external/toml-test/valid/datetime/edge.json:6: \"last-local\":   {\"type\": \"datetime-local\", \"value\": \"9999-12-31T23:59:59\"},\ntests/data/valid/_external/toml-test/valid/datetime/edge.json:7: \"last-offset\":  {\"type\": \"datetime\", \"value\": \"9999-12-31T23:59:59Z\"}\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.json:3: \"2000-datetime\":       {\"type\": \"datetime\", \"value\": \"2000-02-29T15:15:15Z\"},\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.json:4: \"2000-datetime-local\": {\"type\": \"datetime-local\", \"value\": \"2000-02-29T15:15:15\"},\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.json:6: \"2024-datetime\":       {\"type\": \"datetime\", \"value\": \"2024-02-29T15:15:15Z\"},\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.json:7: \"2024-datetime-local\": {\"type\": \"datetime-local\", \"value\": \"2024-02-29T15:15:15\"}\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.toml:1: 2000-datetime       = 2000-02-29 15:15:15Z\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.toml:2: 2000-datetime-local = 2000-02-29 15:15:15\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.toml:5: 2024-datetime       = 2024-02-29 15:15:15Z\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.toml:6: 2024-datetime-local = 2024-02-29 15:15:15\ntests/data/valid/_external/toml-test/valid/datetime/local.json:2: \"local\": {\"type\": \"datetime-local\", \"value\": \"1987-07-05T17:45:00\"},\ntests/data/valid/_external/toml-test/valid/datetime/local.json:3: \"milli\": {\"type\": \"datetime-local\", \"value\": \"1977-12-21T10:32:00.555\"},\ntests/data/valid/_external/toml-test/valid/datetime/local.json:4: \"space\": {\"type\": \"datetime-local\", \"value\": \"1987-07-05T17:45:00\"}\ntests/data/valid/_external/toml-test/valid/datetime/milliseconds.json:2: \"utc1\":  {\"type\": \"datetime\", \"value\": \"1987-07-05T17:45:56.123Z\"},\ntests/data/valid/_external/toml-test/valid/datetime/milliseconds.json:3: \"utc2\":  {\"type\": \"datetime\", \"value\": \"1987-07-05T17:45:56.600Z\"},\ntests/data/valid/_external/toml-test/valid/datetime/milliseconds.json:4: \"wita1\": {\"type\": \"datetime\", \"value\": \"1987-07-05T17:45:56.123+08:00\"},\ntests/data/valid/_external/toml-test/valid/datetime/milliseconds.json:5: \"wita2\": {\"type\": \"datetime\", \"value\": \"1987-07-05T17:45:56.600+08:00\"}\ntests/data/valid/_external/toml-test/valid/datetime/no-seconds.json:3: \"without-seconds-2\": {\"type\": \"datetime\", \"value\": \"1979-05-27T07:32:00Z\"},\ntests/data/valid/_external/toml-test/valid/datetime/no-seconds.json:4: \"without-seconds-3\": {\"type\": \"datetime\", \"value\": \"1979-05-27T07:32:00-07:00\"},\ntests/data/valid/_external/toml-test/valid/datetime/no-seconds.json:5: \"without-seconds-4\": {\"type\": \"datetime-local\", \"value\": \"1979-05-27T07:32:00\"}\ntests/data/valid/_external/toml-test/valid/datetime/timezone.json:2: \"nzdt\": {\"type\": \"datetime\", \"value\": \"1987-07-05T17:45:56+13:00\"},\ntests/data/valid/_external/toml-test/valid/datetime/timezone.json:3: \"nzst\": {\"type\": \"datetime\", \"value\": \"1987-07-05T17:45:56+12:00\"},\ntests/data/valid/_external/toml-test/valid/datetime/timezone.json:4: \"pdt\":  {\"type\": \"datetime\", \"value\": \"1987-07-05T17:45:56-05:00\"},\ntests/data/valid/_external/toml-test/valid/datetime/timezone.json:5: \"utc\":  {\"type\": \"datetime\", \"value\": \"1987-07-05T17:45:56Z\"}\ntests/data/valid/_external/toml-test/valid/example.json:2: \"best-day-ever\": {\"type\": \"datetime\", \"value\": \"1987-07-05T17:45:00Z\"},\ntests/data/valid/_external/toml-test/valid/key/like-date.toml:6: # Also include datetime and time for good measure; these need to be quoted as\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-27.json:2: \"odt1\": {\"type\": \"datetime\", \"value\": \"1979-05-27T07:32:00Z\"},\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-27.json:3: \"odt2\": {\"type\": \"datetime\", \"value\": \"1979-05-27T00:32:00-07:00\"},\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-27.json:4: \"odt3\": {\"type\": \"datetime\", \"value\": \"1979-05-27T00:32:00.5-07:00\"},\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-27.json:5: \"odt4\": {\"type\": \"datetime\", \"value\": \"1979-05-27T00:32:00.999-07:00\"}\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-28.json:2: \"odt4\": {\"type\": \"datetime\", \"value\": \"1979-05-27T07:32:00Z\"}\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-29.json:2: \"odt5\": {\"type\": \"datetime\", \"value\": \"1979-05-27T07:32:00Z\"},\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-29.json:3: \"odt6\": {\"type\": \"datetime\", \"value\": \"1979-05-27T07:32:00-07:00\"}\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-30.json:2: \"ldt1\": {\"type\": \"datetime-local\", \"value\": \"1979-05-27T07:32:00\"},\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-30.json:3: \"ldt2\": {\"type\": \"datetime-local\", \"value\": \"1979-05-27T07:32:00.5\"},\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-30.json:4: \"ldt3\": {\"type\": \"datetime-local\", \"value\": \"1979-05-27T00:32:00.999\"}\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-31.json:2: \"ldt3\": {\"type\": \"datetime-local\", \"value\": \"1979-05-27T07:32:00\"}\ntests/data/valid/_external/toml-test/valid/spec-example-1-compact.json:30: \"dob\":  {\"type\": \"datetime\", \"value\": \"1979-05-27T07:32:00-08:00\"},\ntests/data/valid/_external/toml-test/valid/spec-example-1.json:30: \"dob\":  {\"type\": \"datetime\", \"value\": \"1979-05-27T07:32:00-08:00\"},\ntests/data/valid/dates-and-times/datetimes.json:2: \"local-dt\": {\"type\":\"datetime-local\",\"value\":\"1988-10-27t01:01:01\"},\ntests/data/valid/dates-and-times/datetimes.json:3: \"local-dt-no-seconds\": {\"type\":\"datetime-local\",\"value\":\"2025-04-18t20:05:00\"},\ntests/data/valid/dates-and-times/datetimes.json:4: \"zulu-dt\": {\"type\":\"datetime\",\"value\":\"1988-10-27t01:01:01z\"}\ntests/test_misc.py:6: import datetime\ntests/test_misc.py:87: datetime.datetime(\ntests/test_misc.py:95: tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "1881"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "1e3dd3f210497e572f5aaba36cdbb2d1",
+       "spanId": "652997966183d016",
+       "parentSpanId": "5fb783107a07df9a",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458073450401000",
+       "endTimeUnixNano": "1790458078217997000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-013"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "1"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "5152"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "1469"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "701"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_9714639ad5f84bdda035d53e\", \"response\": \"# SPDX-License-Identifier: MIT\\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\\n# Licensed to PSF under a Contributor Agreement.\\n\\nimport copy\\nimport datetime\\nfrom decimal import Decimal as D\\nimport importlib\\nfrom pathlib import Path\\nimport sys\\nimport tempfile\\nimport unittest\\n\\nfrom . import tomllib\\n\\n\\nclass TestMiscellaneous(unittest.TestCase):\\n    def test_load(self):\\n        content = \\\"one=1 \\\\n two='two' \\\\n arr=[]\\\"\\n        expected = {\\\"one\\\": 1, \\\"two\\\": \\\"two\\\", \\\"arr\\\": []}\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"rb\\\") as bin_f:\\n                actual = tomllib.load(bin_f)\\n        self.assertEqual(actual, expected)\\n\\n    def test_incorrect_load(self):\\n        content = \\\"one=1\\\"\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"r\\\") as txt_f:\\n                with self.assertRaises(TypeError) as exc_info:\\n                    tomllib.load(txt_f)  # type: ignore[arg-type]\\n            # Mypyc extension leads to different message than pure Python\\n            self.assertIn(\\n                str(exc_info.exception),\\n                (\\n                    \\\"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\\\",  # noqa: E501\\n                    \\\"bytes object expected; got str\\\",\\n                ),\\n            )\\n\\n    def test_parse_float(self):\\n        doc = \\\"\\\"\\\"\\n              val=0.1\\n              biggest1=inf\\n              biggest2=+inf\\n              smallest=-inf\\n              notnum1=nan\\n              notnum2=-nan\\n              notnum3=+nan\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc, parse_float=D)\\n        expected = {\\n            \\\"val\\\": D(\\\"0.1\\\"),\\n            \\\"biggest1\\\": D(\\\"inf\\\"),\\n            \\\"biggest2\\\": D(\\\"inf\\\"),\\n            \\\"smallest\\\": D(\\\"-inf\\\"),\\n            \\\"notnum1\\\": D(\\\"nan\\\"),\\n            \\\"notnum2\\\": D(\\\"-nan\\\"),\\n            \\\"notnum3\\\": D(\\\"nan\\\"),\\n        }\\n        for k, expected_val in expected.items():\\n            actual_val = obj[k]\\n            self.assertIsInstance(actual_val, D)\\n            if actual_val.is_nan():\\n                self.assertTrue(expected_val.is_nan())\\n            else:\\n                self.assertEqual(actual_val, expected_val)\\n\\n    def test_deepcopy(self):\\n        doc = \\\"\\\"\\\"\\n              [bliibaa.diibaa]\\n              offsettime=[1979-05-27T00:32:00.999999-07:00]\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc)\\n        obj_copy = copy.deepcopy(obj)\\n        self.assertEqual(obj_copy, obj)\\n        expected_obj = {\\n            \\\"bliibaa\\\": {\\n                \\\"diibaa\\\": {\\n                    \\\"offsettime\\\": [\\n                        datetime.datetime(\\n                            1979,\\n                            5,\\n                            27,\\n                            0,\\n                            32,\\n                            0,\\n                            999999,\\n                            tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\\n                        )\\n                    ]\\n                }\\n            }\\n        }\\n        self.assertEqual(obj_copy, expected_obj)\\n\\n    def test_inline_array_recursion_limit(self):\\n        nest_count = 470\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        tomllib.loads(recursive_array_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_array_toml)\\n\\n    def test_inline_table_recursion_limit(self):\\n        nest_count = 310\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        tomllib.loads(recursive_table_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_table_toml)\\n\\n    def test_key_recursion_limit(self):\\n        nest_count = 310\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() - 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"TOML key has more than the allowed [0-9]+ parts\\\",\\n        ):\\n            tomllib.loads(nested_key_toml)\\n\\n    def test_types_import(self):\\n        \\\"\\\"\\\"Test that `_types` module runs.\\n\\n        The module is for type annotations only, so it is otherwise\\n        never imported by tests.\\n        \\\"\\\"\\\"\\n        importlib.import_module(f\\\"{tomllib.__name__}._types\\\")\\n\"}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_37b5b4b4dd9d46d6a145b62a\", \"response\": \"tests/burntsushi.py:7: import datetime\\ntests/burntsushi.py:20: elif isinstance(obj, datetime.datetime):\\ntests/burntsushi.py:21: val = _normalize_datetime_str(obj.isoformat())\\ntests/burntsushi.py:23: return {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": val}\\ntests/burntsushi.py:24: return {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": val}\\ntests/burntsushi.py:25: elif isinstance(obj, datetime.time):\\ntests/burntsushi.py:30: elif isinstance(obj, datetime.date):\\ntests/burntsushi.py:54: elif type_ in {\\\"datetime\\\", \\\"datetime-local\\\"}:\\ntests/burntsushi.py:55: norm_value = _normalize_datetime_str(value)\\ntests/burntsushi.py:68: def _normalize_datetime_str(dt_str: str) -> str:\\ntests/data/valid/_external/toml-test/valid/array/array.json:7: {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1987-07-05T17:45:00Z\\\"},\\ntests/data/valid/_external/toml-test/valid/array/array.json:8: {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"1979-05-27T07:32:00\\\"},\\ntests/data/valid/_external/toml-test/valid/comment/everywhere.json:13: \\\"dt\\\":     {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1979-05-27T07:32:12-07:00\\\"},\\ntests/data/valid/_external/toml-test/valid/comment/everywhere.toml:26: # Make sure the space between the datetime and \\\"#\\\" isn't lexed.\\ntests/data/valid/_external/toml-test/valid/datetime/datetime.json:2: \\\"lower\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1987-07-05T17:45:00Z\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/datetime.json:3: \\\"space\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1987-07-05T17:45:00Z\\\"}\\ntests/data/valid/_external/toml-test/valid/datetime/edge.json:3: \\\"first-local\\\":  {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"0001-01-01T00:00:00\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/edge.json:4: \\\"first-offset\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"0001-01-01T00:00:00Z\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/edge.json:6: \\\"last-local\\\":   {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"9999-12-31T23:59:59\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/edge.json:7: \\\"last-offset\\\":  {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"9999-12-31T23:59:59Z\\\"}\\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.json:3: \\\"2000-datetime\\\":       {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"2000-02-29T15:15:15Z\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.json:4: \\\"2000-datetime-local\\\": {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"2000-02-29T15:15:15\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.json:6: \\\"2024-datetime\\\":       {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"2024-02-29T15:15:15Z\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.json:7: \\\"2024-datetime-local\\\": {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"2024-02-29T15:15:15\\\"}\\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.toml:1: 2000-datetime       = 2000-02-29 15:15:15Z\\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.toml:2: 2000-datetime-local = 2000-02-29 15:15:15\\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.toml:5: 2024-datetime       = 2024-02-29 15:15:15Z\\ntests/data/valid/_external/toml-test/valid/datetime/leap-year.toml:6: 2024-datetime-local = 2024-02-29 15:15:15\\ntests/data/valid/_external/toml-test/valid/datetime/local.json:2: \\\"local\\\": {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"1987-07-05T17:45:00\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/local.json:3: \\\"milli\\\": {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"1977-12-21T10:32:00.555\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/local.json:4: \\\"space\\\": {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"1987-07-05T17:45:00\\\"}\\ntests/data/valid/_external/toml-test/valid/datetime/milliseconds.json:2: \\\"utc1\\\":  {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1987-07-05T17:45:56.123Z\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/milliseconds.json:3: \\\"utc2\\\":  {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1987-07-05T17:45:56.600Z\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/milliseconds.json:4: \\\"wita1\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1987-07-05T17:45:56.123+08:00\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/milliseconds.json:5: \\\"wita2\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1987-07-05T17:45:56.600+08:00\\\"}\\ntests/data/valid/_external/toml-test/valid/datetime/no-seconds.json:3: \\\"without-seconds-2\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1979-05-27T07:32:00Z\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/no-seconds.json:4: \\\"without-seconds-3\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1979-05-27T07:32:00-07:00\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/no-seconds.json:5: \\\"without-seconds-4\\\": {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"1979-05-27T07:32:00\\\"}\\ntests/data/valid/_external/toml-test/valid/datetime/timezone.json:2: \\\"nzdt\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1987-07-05T17:45:56+13:00\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/timezone.json:3: \\\"nzst\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1987-07-05T17:45:56+12:00\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/timezone.json:4: \\\"pdt\\\":  {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1987-07-05T17:45:56-05:00\\\"},\\ntests/data/valid/_external/toml-test/valid/datetime/timezone.json:5: \\\"utc\\\":  {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1987-07-05T17:45:56Z\\\"}\\ntests/data/valid/_external/toml-test/valid/example.json:2: \\\"best-day-ever\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1987-07-05T17:45:00Z\\\"},\\ntests/data/valid/_external/toml-test/valid/key/like-date.toml:6: # Also include datetime and time for good measure; these need to be quoted as\\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-27.json:2: \\\"odt1\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1979-05-27T07:32:00Z\\\"},\\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-27.json:3: \\\"odt2\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1979-05-27T00:32:00-07:00\\\"},\\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-27.json:4: \\\"odt3\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1979-05-27T00:32:00.5-07:00\\\"},\\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-27.json:5: \\\"odt4\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1979-05-27T00:32:00.999-07:00\\\"}\\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-28.json:2: \\\"odt4\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1979-05-27T07:32:00Z\\\"}\\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-29.json:2: \\\"odt5\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1979-05-27T07:32:00Z\\\"},\\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-29.json:3: \\\"odt6\\\": {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1979-05-27T07:32:00-07:00\\\"}\\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-30.json:2: \\\"ldt1\\\": {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"1979-05-27T07:32:00\\\"},\\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-30.json:3: \\\"ldt2\\\": {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"1979-05-27T07:32:00.5\\\"},\\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-30.json:4: \\\"ldt3\\\": {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"1979-05-27T00:32:00.999\\\"}\\ntests/data/valid/_external/toml-test/valid/spec-1.1.0/common-31.json:2: \\\"ldt3\\\": {\\\"type\\\": \\\"datetime-local\\\", \\\"value\\\": \\\"1979-05-27T07:32:00\\\"}\\ntests/data/valid/_external/toml-test/valid/spec-example-1-compact.json:30: \\\"dob\\\":  {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1979-05-27T07:32:00-08:00\\\"},\\ntests/data/valid/_external/toml-test/valid/spec-example-1.json:30: \\\"dob\\\":  {\\\"type\\\": \\\"datetime\\\", \\\"value\\\": \\\"1979-05-27T07:32:00-08:00\\\"},\\ntests/data/valid/dates-and-times/datetimes.json:2: \\\"local-dt\\\": {\\\"type\\\":\\\"datetime-local\\\",\\\"value\\\":\\\"1988-10-27t01:01:01\\\"},\\ntests/data/valid/dates-and-times/datetimes.json:3: \\\"local-dt-no-seconds\\\": {\\\"type\\\":\\\"datetime-local\\\",\\\"value\\\":\\\"2025-04-18t20:05:00\\\"},\\ntests/data/valid/dates-and-times/datetimes.json:4: \\\"zulu-dt\\\": {\\\"type\\\":\\\"datetime\\\",\\\"value\\\":\\\"1988-10-27t01:01:01z\\\"}\\ntests/test_misc.py:6: import datetime\\ntests/test_misc.py:87: datetime.datetime(\\ntests/test_misc.py:95: tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Add a test. Let me add after test_deepcopy or somewhere.\"}, {\"type\": \"tool_call\", \"id\": \"call_71430a8341a94588ad4bb269\", \"name\": \"write_file\", \"arguments\": {\"path\": \"tests/test_misc.py\", \"content\": \"# SPDX-License-Identifier: MIT\\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\\n# Licensed to PSF under a Contributor Agreement.\\n\\nimport copy\\nimport datetime\\nfrom decimal import Decimal as D\\nimport importlib\\nfrom pathlib import Path\\nimport sys\\nimport tempfile\\nimport unittest\\n\\nfrom . import tomllib\\n\\n\\nclass TestMiscellaneous(unittest.TestCase):\\n    def test_load(self):\\n        content = \\\"one=1 \\\\n two='two' \\\\n arr=[]\\\"\\n        expected = {\\\"one\\\": 1, \\\"two\\\": \\\"two\\\", \\\"arr\\\": []}\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"rb\\\") as bin_f:\\n                actual = tomllib.load(bin_f)\\n        self.assertEqual(actual, expected)\\n\\n    def test_incorrect_load(self):\\n        content = \\\"one=1\\\"\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"r\\\") as txt_f:\\n                with self.assertRaises(TypeError) as exc_info:\\n                    tomllib.load(txt_f)  # type: ignore[arg-type]\\n            # Mypyc extension leads to different message than pure Python\\n            self.assertIn(\\n                str(exc_info.exception),\\n                (\\n                    \\\"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\\\",  # noqa: E501\\n                    \\\"bytes object expected; got str\\\",\\n                ),\\n            )\\n\\n    def test_parse_float(self):\\n        doc = \\\"\\\"\\\"\\n              val=0.1\\n              biggest1=inf\\n              biggest2=+inf\\n              smallest=-inf\\n              notnum1=nan\\n              notnum2=-nan\\n              notnum3=+nan\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc, parse_float=D)\\n        expected = {\\n            \\\"val\\\": D(\\\"0.1\\\"),\\n            \\\"biggest1\\\": D(\\\"inf\\\"),\\n            \\\"biggest2\\\": D(\\\"inf\\\"),\\n            \\\"smallest\\\": D(\\\"-inf\\\"),\\n            \\\"notnum1\\\": D(\\\"nan\\\"),\\n            \\\"notnum2\\\": D(\\\"-nan\\\"),\\n            \\\"notnum3\\\": D(\\\"nan\\\"),\\n        }\\n        for k, expected_val in expected.items():\\n            actual_val = obj[k]\\n            self.assertIsInstance(actual_val, D)\\n            if actual_val.is_nan():\\n                self.assertTrue(expected_val.is_nan())\\n            else:\\n                self.assertEqual(actual_val, expected_val)\\n\\n    def test_deepcopy(self):\\n        doc = \\\"\\\"\\\"\\n              [bliibaa.diibaa]\\n              offsettime=[1979-05-27T00:32:00.999999-07:00]\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc)\\n        obj_copy = copy.deepcopy(obj)\\n        self.assertEqual(obj_copy, obj)\\n        expected_obj = {\\n            \\\"bliibaa\\\": {\\n                \\\"diibaa\\\": {\\n                    \\\"offsettime\\\": [\\n                        datetime.datetime(\\n                            1979,\\n                            5,\\n                            27,\\n                            0,\\n                            32,\\n                            0,\\n                            999999,\\n                            tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\\n                        )\\n                    ]\\n                }\\n            }\\n        }\\n        self.assertEqual(obj_copy, expected_obj)\\n\\n    def test_offset_datetime_with_fractional_seconds(self):\\n        obj = tomllib.loads(\\\"t = 1979-05-27T00:32:00.999999-07:00\\\")\\n        expected = datetime.datetime(\\n            1979,\\n            5,\\n            27,\\n            0,\\n            32,\\n            0,\\n            999999,\\n            tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\\n        )\\n        self.assertEqual(obj[\\\"t\\\"], expected)\\n        self.assertIsNotNone(obj[\\\"t\\\"].tzinfo)\\n\\n    def test_inline_array_recursion_limit(self):\\n        nest_count = 470\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        tomllib.loads(recursive_array_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_array_toml)\\n\\n    def test_inline_table_recursion_limit(self):\\n        nest_count = 310\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        tomllib.loads(recursive_table_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_table_toml)\\n\\n    def test_key_recursion_limit(self):\\n        nest_count = 310\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() - 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"TOML key has more than the allowed [0-9]+ parts\\\",\\n        ):\\n            tomllib.loads(nested_key_toml)\\n\\n    def test_types_import(self):\\n        \\\"\\\"\\\"Test that `_types` module runs.\\n\\n        The module is for type annotations only, so it is otherwise\\n        never imported by tests.\\n        \\\"\\\"\\\"\\n        importlib.import_module(f\\\"{tomllib.__name__}._types\\\")\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "1e3dd3f210497e572f5aaba36cdbb2d1",
+       "spanId": "f5cb55d52c7ce91c",
+       "parentSpanId": "652997966183d016",
+       "name": "execute_tool write_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458078218106000",
+       "endTimeUnixNano": "1790458078218336000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-013"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "write_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-4"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"content\": \"# SPDX-License-Identifier: MIT\\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\\n# Licensed to PSF under a Contributor Agreement.\\n\\nimport copy\\nimport datetime\\nfrom decimal import Decimal as D\\nimport importlib\\nfrom pathlib import Path\\nimport sys\\nimport tempfile\\nimport unittest\\n\\nfrom . import tomllib\\n\\n\\nclass TestMiscellaneous(unittest.TestCase):\\n    def test_load(self):\\n        content = \\\"one=1 \\\\n two='two' \\\\n arr=[]\\\"\\n        expected = {\\\"one\\\": 1, \\\"two\\\": \\\"two\\\", \\\"arr\\\": []}\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"rb\\\") as bin_f:\\n                actual = tomllib.load(bin_f)\\n        self.assertEqual(actual, expected)\\n\\n    def test_incorrect_load(self):\\n        content = \\\"one=1\\\"\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"r\\\") as txt_f:\\n                with self.assertRaises(TypeError) as exc_info:\\n                    tomllib.load(txt_f)  # type: ignore[arg-type]\\n            # Mypyc extension leads to different message than pure Python\\n            self.assertIn(\\n                str(exc_info.exception),\\n                (\\n                    \\\"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\\\",  # noqa: E501\\n                    \\\"bytes object expected; got str\\\",\\n                ),\\n            )\\n\\n    def test_parse_float(self):\\n        doc = \\\"\\\"\\\"\\n              val=0.1\\n              biggest1=inf\\n              biggest2=+inf\\n              smallest=-inf\\n              notnum1=nan\\n              notnum2=-nan\\n              notnum3=+nan\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc, parse_float=D)\\n        expected = {\\n            \\\"val\\\": D(\\\"0.1\\\"),\\n            \\\"biggest1\\\": D(\\\"inf\\\"),\\n            \\\"biggest2\\\": D(\\\"inf\\\"),\\n            \\\"smallest\\\": D(\\\"-inf\\\"),\\n            \\\"notnum1\\\": D(\\\"nan\\\"),\\n            \\\"notnum2\\\": D(\\\"-nan\\\"),\\n            \\\"notnum3\\\": D(\\\"nan\\\"),\\n        }\\n        for k, expected_val in expected.items():\\n            actual_val = obj[k]\\n            self.assertIsInstance(actual_val, D)\\n            if actual_val.is_nan():\\n                self.assertTrue(expected_val.is_nan())\\n            else:\\n                self.assertEqual(actual_val, expected_val)\\n\\n    def test_deepcopy(self):\\n        doc = \\\"\\\"\\\"\\n              [bliibaa.diibaa]\\n              offsettime=[1979-05-27T00:32:00.999999-07:00]\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc)\\n        obj_copy = copy.deepcopy(obj)\\n        self.assertEqual(obj_copy, obj)\\n        expected_obj = {\\n            \\\"bliibaa\\\": {\\n                \\\"diibaa\\\": {\\n                    \\\"offsettime\\\": [\\n                        datetime.datetime(\\n                            1979,\\n                            5,\\n                            27,\\n                            0,\\n                            32,\\n                            0,\\n                            999999,\\n                            tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\\n                        )\\n                    ]\\n                }\\n            }\\n        }\\n        self.assertEqual(obj_copy, expected_obj)\\n\\n    def test_offset_datetime_with_fractional_seconds(self):\\n        obj = tomllib.loads(\\\"t = 1979-05-27T00:32:00.999999-07:00\\\")\\n        expected = datetime.datetime(\\n            1979,\\n            5,\\n            27,\\n            0,\\n            32,\\n            0,\\n            999999,\\n            tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\\n        )\\n        self.assertEqual(obj[\\\"t\\\"], expected)\\n        self.assertIsNotNone(obj[\\\"t\\\"].tzinfo)\\n\\n    def test_inline_array_recursion_limit(self):\\n        nest_count = 470\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        tomllib.loads(recursive_array_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_array_toml)\\n\\n    def test_inline_table_recursion_limit(self):\\n        nest_count = 310\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        tomllib.loads(recursive_table_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_table_toml)\\n\\n    def test_key_recursion_limit(self):\\n        nest_count = 310\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() - 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"TOML key has more than the allowed [0-9]+ parts\\\",\\n        ):\\n            tomllib.loads(nested_key_toml)\\n\\n    def test_types_import(self):\\n        \\\"\\\"\\\"Test that `_types` module runs.\\n\\n        The module is for type annotations only, so it is otherwise\\n        never imported by tests.\\n        \\\"\\\"\\\"\\n        importlib.import_module(f\\\"{tomllib.__name__}._types\\\")\", \"path\": \"tests/test_misc.py\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "Wrote 5748 bytes to tests/test_misc.py"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "9"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "1e3dd3f210497e572f5aaba36cdbb2d1",
+       "spanId": "160206da9c361447",
+       "parentSpanId": "5fb783107a07df9a",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458078218381000",
+       "endTimeUnixNano": "1790458078700292000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-013"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "2"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "6629"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "44"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "701"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_71430a8341a94588ad4bb269\", \"response\": \"Wrote 5748 bytes to tests/test_misc.py\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"tool_call\", \"id\": \"call_e4947e41be5c44f28eb20a62\", \"name\": \"run_tests\", \"arguments\": {\"path\": \"tests/test_misc.py\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "1e3dd3f210497e572f5aaba36cdbb2d1",
+       "spanId": "e71e4faa709bc316",
+       "parentSpanId": "160206da9c361447",
+       "name": "execute_tool run_tests",
+       "kind": 1,
+       "startTimeUnixNano": "1790458078700419000",
+       "endTimeUnixNano": "1790458078896428000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-013"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_tests"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-6"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests/test_misc.py\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\n.........                                                                [100%]\n9 passed in <duration>"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "28"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "1e3dd3f210497e572f5aaba36cdbb2d1",
+       "spanId": "acae0c13db5741fe",
+       "parentSpanId": "5fb783107a07df9a",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458078896474000",
+       "endTimeUnixNano": "1790458079524589000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-013"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "3"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "6701"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "95"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "701"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_e4947e41be5c44f28eb20a62\", \"response\": \"exit code: 0\\n.........                                                                [100%]\\n9 passed in <duration>\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"text\", \"content\": \"Added `test_offset_datetime_with_fractional_seconds` to `tests/test_misc.py`, which parses `t = 1979-05-27T00:32:00.999999-07:00` and asserts it equals the expected timezone-aware `datetime` (with `-07:00` offset and 999999 microseconds), plus checks `tzinfo` is set.\\n\\nRan the test file: 9 passed.\"}], \"finish_reason\": \"stop\"}]"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
