@@ -16,3 +16,5 @@
 
 
 **From 13 (merged):** take the token drop from `dwight.api.routes.before_after.compute(conn, initiative_id)` or `measured_drop(...)`, and use `token_drop_pct` only when `success_held` / `counts` is true. On the fixture pair it is 71.5% (124,548 → 35,460 tokens per Session), with tasks going from 5/6 to 6/6.
+
+**From 14 (merged):** the only dollar figures on the Policy screen are Recommendation savings, shown through `<Money>`. Cut-list item 2 ("show the rendered config only") is no longer needed, because Apply works end to end.

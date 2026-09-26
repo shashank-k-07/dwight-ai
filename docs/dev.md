@@ -61,6 +61,8 @@ npm run dev                                   # http://localhost:3000, proxies /
 DWIGHT_API_URL=http://host:8000 npm run build && npm start
 ```
 
+In a git worktree whose `dashboard/node_modules` is a symlink to another checkout, `npm run build` (Turbopack) fails; use `./node_modules/.bin/next build --webpack` there. `npm run typecheck` is unaffected.
+
 The default store is `backend/var/dwight.sqlite`. **Set `DWIGHT_DB=/some/scratch.sqlite` while you develop**, so your experiments don't pollute the shared store. The same env var must be set for the API process if you want it to read your scratch store. `DWIGHT_FORCE_FIXTURES=1` makes every endpoint serve fixtures.
 
 ## Fixtures

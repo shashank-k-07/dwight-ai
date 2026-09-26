@@ -16,3 +16,8 @@
 - [ ] The top 3 Initiatives each have ≥ 2 Recommendations, each citing a real Practice and a real Infra Profile item
 - [ ] No endpoint still serves fixture data, and every screen renders from the real store
 - [ ] Any gaps found are fixed, or written up as new tickets
+
+## Comments
+
+
+**From 14 (merged):** policy endpoints are already served from the store, so there's nothing to switch. Apply writes `<out dir>/<team id>.yaml`; set `DWIGHT_OUT_DIR` if it shouldn't write into the repo's (gitignored) `out/`.
