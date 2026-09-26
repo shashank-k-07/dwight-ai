@@ -4,14 +4,14 @@
 
 **Blocked by:** 02, 09
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] GLM gets the source docs plus the Initiative's Discoveries and Session summaries, and nothing from raw prompts
-- [ ] The initiative doc is ≤ 25% of the source tokens, and a check verifies every planted fact that sits in the docs is still present
-- [ ] The memory file has one instruction-style line per repeated Discovery
-- [ ] Each Draft is stored with `source_resource_ids` and `tokens`, and attached to a Recommendation that cites the consolidated-initiative-doc or initiative-memory-file Practice
-- [ ] Estimated Saving for the doc = (common-path tokens − Draft tokens) × Sessions per month × input rate. For memory entries = the repeated Discovery's `spend_usd` scaled to a month. Both are labelled Estimated.
-- [ ] The Draft viewer renders the markdown and downloads the doc and the memory file as files
+- [x] GLM gets the source docs plus the Initiative's Discoveries and Session summaries, and nothing from raw prompts
+- [x] The initiative doc is ≤ 25% of the source tokens, and a check verifies every planted fact that sits in the docs is still present
+- [x] The memory file has one instruction-style line per repeated Discovery
+- [x] Each Draft is stored with `source_resource_ids` and `tokens`, and attached to a Recommendation that cites the consolidated-initiative-doc or initiative-memory-file Practice
+- [x] Estimated Saving for the doc = (common-path tokens − Draft tokens) × Sessions per month × input rate. For memory entries = the repeated Discovery's `spend_usd` scaled to a month. Both are labelled Estimated.
+- [x] The Draft viewer renders the markdown and downloads the doc and the memory file as files
 
 ## Comments
 
@@ -21,3 +21,15 @@
 **From 11 (merged):** repeated-Discovery ids are `rd-<initiative_id>-repNN` (not the fixture's `rd-scr-env`), so look them up by `initiative_id` + `form='repeated_discovery'`. Each `statement` is already a single instruction-style line you can use directly in the memory file. Live fixture run: "Set STORAGE_ENV=staging before running blobctl plan or any other blobctl command, otherwise blobctl fails (exit status 2)." It covers 6 of 8 Sessions, spend $0.13183248 (Measured).
 
 **From 09 (merged):** attach the Draft to the Recommendation with `target_id=<iid>`, `recurring_discovery_id=<rd id>` and `practice_id` in `library.DRAFT_PRACTICE` (`consolidated-initiative-doc` for the common path, `initiative-memory-file` for a repeated Discovery). Every RecurringDiscovery gets exactly one such Recommendation. Set its `draft_id`, `usd` (your §4.6.4 formula replaces 09's placeholder, which is the RD's `spend_usd`) and `kind='estimated'`, and write `drafts.recommendation_id`. If recommend re-runs, it keeps `draft_id`/`usd`/`kind` on rows that already have a Draft. The Recommendations panel links to `#draft-<draft_id>`, so the Draft viewer must use that element id. Checked on the merged build (live, fixtures): ids resolve to `rd-cp-storage-cost-reduction` and `rd-storage-cost-reduction-rep01`.
+
+**From 12 (done):**
+- **Run it:** `run draft` (ORDER 70, in run-all), after `recommend`. Flags: `--initiative`, `--target-share 0.25`, `--no-glm` (memory file only), `--tier`, `--workers 4`, `--out-dir`. Then run `run draft_check` (not in run-all). It's the acceptance check: ≤ 25% of source tokens, plus every `draft_must_keep` string from `data/ground-truth/planted_facts.yaml`. It exits non-zero on a failure. It is the only reader of ground truth here; the draft stage never reads it.
+- **Where the files land (15, 16):** `out/drafts/storage-cost-reduction.md` (initiative doc) and `out/drafts/storage-cost-reduction.memory.md` (memory file), under `DWIGHT_OUT_DIR` or the repo's gitignored `out/`. `draft.draft_files(iid)` returns both paths. The same text is in `drafts.content` and at `GET /api/drafts/{draft_id}/download`. Draft ids are `d-<iid>-doc` and `d-<iid>-memory`. **16:** load both files, doc first, into the "after" runs' starting context, and use the exact files from 15's run (copy them somewhere stable, because re-running `draft` regenerates them).
+- **Tokens:** `len(text) // 4`, the same chars/4 rule ingest uses for tool results. The ≤ 25% base is the smaller of the common path's stored `tokens` and the source docs counted the same way (19,700 and 22,186 on fixtures). If the real harness counts Trail tokens differently, the stored base changes with it.
+- **Live results (DeepSeek-V4.1-Flash via the pool):** fixture-derived store, 4 runs: 3,196 to 4,791 tokens (16 to 24%). The first run, before the self-review pass was added, missed 2 price-sheet values. With the review pass, 3 of 3 runs kept 23/23 doc facts. On the real upstream (raw fixtures → classify … recommend → draft): 4,524 tokens = 23.0%, 23/23 kept, attached to `r-storage-cost-reduction-consolidated-initiative-doc` and `r-storage-cost-reduction-initiative-memory-file`. A run normally takes 20 to 100s (4 sections in parallel, 2 to 4 model calls each). It took 460s today while the provider was slow (classify also took 600s). **15:** if `draft_check` fails, re-run `draft`; the model output varies from run to run.
+- **Memory file:** one `- ` line per repeated Discovery. The model rewords the statement, and if the rewrite drops a literal (`STORAGE_ENV=staging`, a flag, a code) the stored statement is kept. The planted bare-bucket fact (pf2) appears only if 11 finds it; `draft_check` reports it (informational only).
+- **Estimated Saving (code):** doc = (path tokens − Draft tokens) × (reading Sessions / months observed) × the uncached input rate weighted by input tokens. Memory = Σ repeated-Discovery `spend_usd` / months observed. Months observed = the analysed Sessions' span / 30 days, floored at 1, so a short window is never extrapolated up. The stage sets `usd`, `kind='estimated'` and `draft_id` on the Recommendation, and `drafts.recommendation_id`. With no matching Recommendation the Draft is still stored, with `recommendation_id` NULL, so run `recommend` first.
+- **Idempotent:** a Draft is replaced only once its replacement has been built, so a failed model call keeps the old one. A full run drops the Drafts of Initiatives that no longer have a RecurringDiscovery. Common-path resources that aren't under `company-docs/` (repo files, Perch pages) can't be fetched and are left out, so synthetic Initiatives get only memory files.
+- **API:** the drafts endpoints serve from the store once any Draft exists (an unknown id is a 404). Before that they serve fixtures labelled `source: fixture`.
+- **Viewer:** renders the markdown (headings, tables, lists, code), has a Markdown/Rendered toggle and one download button per Draft, and shows the linked Recommendation's Estimated Saving through `<Money>`. Element id: `draft-<draft_id>`.
+
