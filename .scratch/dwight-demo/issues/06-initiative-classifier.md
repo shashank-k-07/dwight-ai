@@ -4,12 +4,28 @@
 
 **Blocked by:** 01
 
-**Status:** ready-for-agent
+**Status:** done
 
-- [ ] The GLM prompt returns structured JSON: summary, Initiative, complexity (low/med/high), and Discoveries (each one redacted, generalisable sentence plus the `call_seq` where it was established)
-- [ ] The Discovery prompt catches the fixture's trial-and-error env-var fact and doesn't invent Discoveries for Sessions with no failed attempt or late answer
-- [ ] The Trail is built by code: resource IDs from read-type tool calls, normalised (paths, doc IDs, URLs), with result tokens and `call_seq`
-- [ ] Raw prompt content is deleted after classification, and the code says so (ADRs 0005, 0008)
-- [ ] Initiative records carry `session_count` and `spend_usd`
-- [ ] The Initiatives table is ranked by Spend and shows Session count, the Measured/Estimated Waste split (labelled) and top Waste Pattern. It reads WasteFindings from the store (fixture findings until 05 lands) and links to Initiative detail.
-- [ ] The classifier never reads the ground-truth file or the planted-pattern label file
+- [x] The GLM prompt returns structured JSON: summary, Initiative, complexity (low/med/high), and Discoveries (each one redacted, generalisable sentence plus the `call_seq` where it was established)
+- [x] The Discovery prompt catches the fixture's trial-and-error env-var fact and doesn't invent Discoveries for Sessions with no failed attempt or late answer
+- [x] The Trail is built by code: resource IDs from read-type tool calls, normalised (paths, doc IDs, URLs), with result tokens and `call_seq`
+- [x] Raw prompt content is deleted after classification, and the code says so (ADRs 0005, 0008)
+- [x] Initiative records carry `session_count` and `spend_usd`
+- [x] The Initiatives table is ranked by Spend and shows Session count, the Measured/Estimated Waste split (labelled) and top Waste Pattern. It reads WasteFindings from the store (fixture findings until 05 lands) and links to Initiative detail.
+- [x] The classifier never reads the ground-truth file or the planted-pattern label file
+
+## Comments
+
+**Done (ticket 06).** Code: `backend/dwight/classifier/` (`model.py` prompt + schema + redaction, `transcript.py` staged content -> call-numbered transcript, `trail.py` Trail builder, `run.py` batch driver) and the stage `backend/dwight/pipeline/stages/classify.py`. Endpoints `initiatives`, `initiative`, `initiative_sessions` are now real from the store. Tests: `backend/tests/test_classify.py` (model mocked).
+
+**Live fixture run** (DeepSeek-V4.1-Flash via the Sciforium pool, prompt `classify-v2`): 22/22 Sessions classified in about 8s with 8 workers, 1.00 model calls per Session, no invalid JSON. All 14 storage Sessions went to `storage-cost-reduction`, and the other 7 fixture Sessions matched the Initiatives in `derived.json`. The tracer has no good match and went to `k8s-upgrade`. There were 7 Discoveries: the env-var fact in b01–b05 and 07 (6 wordings, all at `call_seq` 5; b01 once left out the value `staging`) and REDIS_URL in fx-rr-01. None came from the `after` runs, b06, or the clean or loop Sessions. Complexity was `low` for the typo, marketing summary and checklist Sessions. The `after` runs were a mix of low and med.
+
+Notes for later tickets:
+- **08 (eval):** call `dwight.classifier.classify_transcript(render_transcript(load_staged(conn, sid)), candidates(), context={"team":..., "business_function":...})` per Session, or `classify_sessions(conn, ids)` for a batch. Classifying deletes staging, so to re-score after a prompt change, re-ingest the OTLP files (`run ingest data/otlp/synthetic`); re-ingest re-stages content and the stage picks those Sessions up again. Only Sessions with staged content are selected. Bump `PROMPT_VERSION` in `model.py` for your eval label. The model sees only org.yaml ids, names and descriptions, plus the Session's team and business function (telemetry). It never sees `usual_resources`, `repeated_discoveries`, `weight` or `primary_teams`. The classifier always picks one of the 15 Initiatives, with no "other" option.
+- **15 (full run):** `run classify [--dataset synthetic] [--workers 8] [--limit N]`. It costs one model call per Session: chat_json re-asks up to 2 more times on invalid output, and there are up to 3 outer attempts with backoff on API errors. Throughput was about 3 Sessions/s at 8 workers, so 5K Sessions should take about 30 minutes. Raise `--workers` (or `DWIGHT_CLASSIFY_WORKERS`) if Sciforium allows. DB writes stay on the main thread, with one commit per Session, so a crash loses nothing and a rerun resumes. A failed Session keeps its staging and is retried on the next run. Transcripts are capped at 16K chars, and tool results at 500 chars each. `run classify --totals-only` recomputes Initiative `session_count`/`spend_usd` without calling the model. Run classify **after** the final ingest, because it deletes content.
+- **05 (detect):** `complexity` is set here (low/med/high) and Model Overkill uses it. The model is told to judge the task, not how smoothly it went.
+- **10 (common paths):** Trail `resource_id`s are `company-docs/<doc_id>.md` for `read_doc` of a bare id. `perch:`/`repo:` ids are kept as is. Paths are normalised (`./`, `..`, backslashes; an absolute path into `company-docs/` is cut to the repo-relative id; `.blobctl/...` keeps its dot, unlike `derived.json`'s `blobctl/ledger.jsonl`). URLs have a lower-cased host and no fragment, tracking params or trailing slash. Read tools are matched by name (`read`/`fetch`/`get`/`open`/`view`/... and not `write`/`run`/`search`/`list`). `cat <file>` through a shell tool also counts. `tokens` = `tool_calls.result_tokens`; `call_seq` = the Call that requested the read.
+- **11 (repeated Discoveries):** statements are redacted by code (emails, keys, long tokens) as well as by the prompt. Env-var names and values such as `STORAGE_ENV=staging` are kept. `call_seq` is the Call where the Agent first acted on the fact, clamped to the Session's Calls. There are at most 3 per Session.
+- **03/07 (emitters):** the transcript renderer reads OTel GenAI `parts` messages as well as OpenAI-style `{role, content, tool_calls}`. It falls back to the staged tool args/results when no messages were sent. Put the task text in the first user message, since that is what drives the Initiative choice.
+- **API:** `/api/initiatives` lists only Initiatives with `session_count > 0`, ranked by Spend. Measured Waste and Estimated Saving are sums of `waste_findings` by kind over the Initiative's Sessions. The top Waste Pattern is the pattern with the most dollars across both kinds. `/api/initiatives/{id}` for an org.yaml Initiative with no Sessions returns zeros; an unknown id returns 404. Sessions are sorted by Spend, highest first. The panel shows 25 at a time with a "Show all" button.
+- No contract changes were needed.
