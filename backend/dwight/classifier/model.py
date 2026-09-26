@@ -20,7 +20,7 @@ from pydantic import BaseModel, Field, create_model
 
 from dwight import company, glm
 
-PROMPT_VERSION = "classify-v2"
+PROMPT_VERSION = "classify-v3"
 MAX_DISCOVERIES = 3
 
 
@@ -29,7 +29,7 @@ class Candidate:
     initiative_id: str
     name: str
     description: str
-    business_function: str | None = None   # display name; stored, not shown to the model
+    business_function: str | None = None   # display name; stored, and shown to the model (classify-v3+)
 
 
 def display_name(name: str) -> str:
@@ -76,7 +76,11 @@ SYSTEM = """You classify one AI Agent Session from a company's telemetry. A Sess
 
 1. summary: one line, at most 20 words, saying what the Session did. Redact it: no personal names, emails, member ids, credentials, hostnames, bucket names, ticket numbers or file contents. Describe the work generically ("Prepared a lifecycle rule for one storage bucket", "Fixed a typo in a postmortem").
 
-2. initiative_id: the business goal this Session served, chosen from the Initiatives listed below. Pick the single best match by the goal of the work, not by incidental tools. You must pick one of the listed ids.
+2. initiative_id: the business goal this Session served, chosen from the Initiatives listed below (each is shown with the Business Function that owns it). You must pick one of the listed ids. Decide from the evidence, in this order:
+   a. The work actually done: which docs, pages, repos, tickets and systems the Agent opened, and what it changed or produced. Resources that belong to one Initiative's area are the strongest evidence.
+   b. The goal the Member stated in the request.
+   c. The Session context: the Member's Team and Business Function. Teams mostly work on the Initiatives of their own Business Function and area, so an Initiative owned by a different Business Function, or clearly outside the Team's area, needs clear evidence from (a) or (b).
+   Requests are often worded loosely: they borrow another Initiative's vocabulary, mention another area's system in passing, or are a quick lookup or question with little detail. Do not match on a keyword or an incidental tool. When the request alone could fit several Initiatives, choose the one that both the resources read and the Team's area point to. Two Initiatives in the same Business Function are told apart by the deliverable and the resources, not by shared words.
 
 3. complexity: judge the TASK (how much the work needed), not how smoothly this Agent did it or whether it succeeded.
    - low: trivial or mechanical work a small model could do: a typo or wording fix, a one-line change, a lookup, a short summary or reformat.
@@ -94,8 +98,9 @@ Never output dollar figures."""
 
 
 def _user_prompt(transcript: str, cands: list[Candidate], context: dict | None) -> str:
-    lines = ["Initiatives (id: name — description):"]
-    lines += [f"- {c.initiative_id}: {c.name} — {c.description}" for c in cands]
+    lines = ["Initiatives (id: name [owning Business Function] — description):"]
+    lines += [f"- {c.initiative_id}: {c.name}" + (f" [{c.business_function}]" if c.business_function else "")
+              + f" — {c.description}" for c in cands]
     if context:
         ctx = ", ".join(f"{k}={v}" for k, v in context.items() if v)
         if ctx:
