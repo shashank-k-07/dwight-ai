@@ -315,3 +315,39 @@ def test_draft_check_passes_and_fails(seeded, tmp_path):
     with pytest.raises(draft_check.DraftCheckFailed):
         draft_check.run(seeded, [])
     assert draft_check.missing_facts("STANDARD_IA", {"x": ["STANDARD_IA", "730"]}) == {"x": ["730"]}
+
+
+def test_pinned_drafts_are_imported_verbatim_and_still_priced(seeded, tmp_path):
+    """Ticket 15: --pinned imports the committed Draft files instead of regenerating them."""
+    pin = tmp_path / "pinned"
+    pin.mkdir()
+    doc_text = "# Pinned doc\n\nSource: [company-docs/storage-tiering-policy.md](company-docs/storage-tiering-policy.md)\n"
+    mem_text = "# Pinned memory\n\n- Set STORAGE_ENV=staging before running blobctl.\n- Pass bare bucket names.\n"
+    (pin / f"{SCR}.md").write_text(doc_text)
+    (pin / f"{SCR}.memory.md").write_text(mem_text)
+    msg = _run(seeded, tmp_path, "--pinned", str(pin))
+    assert "pinned from" in msg and "memory file with 2 lines" in msg
+    assert glm.chat.calls == [] and glm.chat_json.calls == []   # no model call for a pinned Draft
+    ds = _drafts(seeded)
+    doc, mem = ds[DOC_ID], ds[MEM_ID]
+    assert doc["content"] == doc_text and mem["content"] == mem_text
+    assert doc["tokens"] == d.count_tokens(doc_text) and doc["source_tokens"] == 19700
+    rec_doc = _rec(seeded, doc["recommendation_id"])
+    assert (rec_doc["draft_id"], rec_doc["kind"]) == (DOC_ID, "estimated") and rec_doc["usd"] > 0
+    assert draft.draft_files(SCR, tmp_path / "drafts")["initiative_doc"].read_text() == doc_text
+    # an Initiative without a pinned file is generated as usual
+    (pin / f"{SCR}.md").unlink()
+    _run(seeded, tmp_path, "--pinned", str(pin))
+    assert _drafts(seeded)[DOC_ID]["content"] != doc_text and glm.chat.calls
+
+
+def test_committed_real_draft_passes_draft_check():
+    """The pinned real Draft (15 -> 16) stays within 25% of the docs and keeps every planted doc fact."""
+    doc = (config.DATA_DIR / "drafts" / f"{SCR}.md").read_text()
+    mem = (config.DATA_DIR / "drafts" / f"{SCR}.memory.md").read_text()
+    must = yaml.safe_load(draft_check.PLANTED_FACTS.read_text())["draft_must_keep"]
+    assert sum(len(v) for v in must.values()) >= 20
+    assert draft_check.missing_facts(doc, must) == {}
+    counted = sum(d.count_tokens(p.read_text()) for p in config.COMPANY_DOCS_DIR.glob("*.md"))
+    assert d.count_tokens(doc) <= 0.25 * counted
+    assert "STORAGE_ENV=staging" in mem and "E_BADREF" in mem
