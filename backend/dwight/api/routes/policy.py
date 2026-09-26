@@ -1,19 +1,44 @@
-"""Policy screen + gateway config export. Owner: 14. FIXTURE until real=... is set.
-"Apply" must write the LiteLLM config under config.POLICY_OUT_DIR and store a policies row.
-The Customer's gateway enforces it, not Dwight (ADR 0002)."""
+"""Policy screen + gateway config export. Owner: 14.
+"Apply" writes the LiteLLM config under config.POLICY_OUT_DIR and stores a policies row.
+The Customer's gateway enforces it, not Dwight (ADR 0002). Logic: dwight/policy_export.py."""
 from __future__ import annotations
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
+from dwight import policy_export
 from dwight.api.contract import Policy, PolicyList, PolicyOptions, PolicyRender, PolicyRequest
 from dwight.api.serving import Endpoint, get_conn
 
 router = APIRouter()
 
-policy_options = Endpoint("policy_options", PolicyOptions, real=None)
-policy_render = Endpoint("policy_render", PolicyRender, real=None)
-policy_apply = Endpoint("policy_apply", Policy, real=None)
-policies = Endpoint("policies", PolicyList, real=None)
+
+def _checked(fn, *args):
+    try:
+        return fn(*args)
+    except policy_export.PolicyError as e:
+        raise HTTPException(400, str(e)) from e
+
+
+def _options(conn, **_):
+    return policy_export.options()
+
+
+def _render(conn, req: PolicyRequest, **_):
+    return _checked(policy_export.render, req.team, req.allowed_models)
+
+
+def _apply(conn, req: PolicyRequest, **_):
+    return _checked(policy_export.apply, conn, req.team, req.allowed_models)
+
+
+def _policies(conn, **_):
+    return policy_export.list_policies(conn)
+
+
+policy_options = Endpoint("policy_options", PolicyOptions, real=_options)
+policy_render = Endpoint("policy_render", PolicyRender, real=_render)
+policy_apply = Endpoint("policy_apply", Policy, real=_apply)
+policies = Endpoint("policies", PolicyList, real=_policies)
 
 
 @router.get("/api/policy/options", response_model=PolicyOptions)
