@@ -38,7 +38,9 @@ def _sha(data: bytes | str) -> str:
 
 def _tree_sha(root: Path) -> str:
     h = hashlib.sha256()
-    for p in sorted(x for x in root.rglob("*") if x.is_file()):
+    # Skip out/: the harness creates it as scratch per run (workspace.py), and a local
+    # checkout may hold an ignored out/.keep that a fresh clone doesn't.
+    for p in sorted(x for x in root.rglob("*") if x.is_file() and x.relative_to(root).parts[0] != "out"):
         h.update(str(p.relative_to(root)).encode() + b"\0" + p.read_bytes() + b"\0")
     return h.hexdigest()[:16]
 
