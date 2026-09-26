@@ -18,3 +18,5 @@
 **From 13 (merged):** take the token drop from `dwight.api.routes.before_after.compute(conn, initiative_id)` or `measured_drop(...)`, and use `token_drop_pct` only when `success_held` / `counts` is true. On the fixture pair it is 71.5% (124,548 → 35,460 tokens per Session), with tasks going from 5/6 to 6/6.
 
 **From 14 (merged):** the only dollar figures on the Policy screen are Recommendation savings, shown through `<Money>`. Cut-list item 2 ("show the rendered config only") is no longer needed, because Apply works end to end.
+
+**From 08 (merged):** the strip shows the latest `eval_runs` row by `created_at`, so run `python -m dwight.pipeline run eval_classifier score --label "classify-v3 thinking=off full store"` on the frozen store LAST. Run `eval_classifier sample` only in a scratch store: it re-ingests and re-classifies Sessions, and would replace the on-stage number with a sample number. Sample results (300 Sessions, reasoning off): classify-v2 0.920 → classify-v3 0.950 (clear 1.000, ambiguous 0.833; 0.975 re-weighted to the dataset's 15% ambiguous share).
