@@ -12,3 +12,8 @@
 - [ ] The Sessions are ingested and tagged `dwight.experiment=before`, with per-task success/fail stored
 - [ ] Most Trails include the 4 `company-docs/` docs
 - [ ] At least 5 Sessions hit the planted fact by trial and error (a failed attempt, then success). If they don't, adjust the tasks and rerun.
+
+## Comments
+
+
+**From 05 (merged):** the detectors need stable `result_hash` / `args_hash` values (identical results must hash identically), and `prefix_hash` + `prefix_tokens` on every Call. Cache Miss flags a Call that has the same prefix hash and model as the previous Call but cache reads below 0.5 × prefix tokens, so check what the provider reports for cached tokens (see 03's Comments).
