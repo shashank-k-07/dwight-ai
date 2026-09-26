@@ -57,8 +57,10 @@ models:
   glm-4.7-flash:  {tier: light,    input: 0.00, cache_read: 0.00, cache_write: 0.00, output: 0.00}
   glm-4.5-flash:  {tier: light,    input: 0.00, cache_read: 0.00, cache_write: 0.00, output: 0.00}
   # Real-layer pool models (Sciforium). See the header note.
-  deepseek-v4.1-flash: {tier: light, input: 0.30, cache_read: 0.006, cache_write: 0.00, output: 1.20}
-  glm-5.3-flash:       {tier: light, input: 0.15, cache_read: 0.03,  cache_write: 0.00, output: 0.50}
+  # reports_cache_usage: false = Sciforium returns no cached-token fields (ticket 03), so
+  # cache_read_tokens is always 0 and Cache Miss is not observable (detect skips it).
+  deepseek-v4.1-flash: {tier: light, input: 0.30, cache_read: 0.006, cache_write: 0.00, output: 1.20, reports_cache_usage: false}
+  glm-5.3-flash:       {tier: light, input: 0.15, cache_read: 0.03,  cache_write: 0.00, output: 0.50, reports_cache_usage: false}
 
 aliases:
   zai/glm-5.1: glm-5.1

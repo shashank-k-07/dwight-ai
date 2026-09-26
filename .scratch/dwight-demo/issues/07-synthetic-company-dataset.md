@@ -14,3 +14,8 @@
 - [ ] Each Session's true Initiative is written to a separate ground-truth file the classifier never reads
 - [ ] The dataset is generated and ingested through the normal OTLP path, not written straight into the store
 - [ ] Overview shows Spend by Business Function, stacked by Team
+
+## Comments
+
+
+**Coordinator note (2026-09-26):** Sciforium reports no cached tokens, so Cache Miss can't be observed on the real layer. Like Model Overkill, **Cache Miss appears only in synthetic data**. Your synthetic GLM-tier models (`reports_cache_usage` defaults to true) must report realistic `cache_read_tokens` on clean Calls, and near-zero on planted misses.

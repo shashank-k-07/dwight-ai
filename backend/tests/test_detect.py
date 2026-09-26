@@ -117,6 +117,18 @@ def test_no_cache_miss_when_the_model_changes_between_calls():
     assert by_pattern(find_waste(calls, complexity="med"), "cache_miss") == []
 
 
+@pytest.mark.parametrize("model", ["deepseek-v4.1-flash",
+                                   "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+                                   "glm-5.3-flash"])
+def test_no_cache_miss_on_models_whose_provider_never_reports_cache_reads(model):
+    # Sciforium returns no cached-token fields (ticket 03): cache_read_tokens is always 0,
+    # which is not evidence of a miss. Cache Miss is not observable there.
+    p = ("sys-v", 2000)
+    calls = [call(0, prefix=p, model=model), call(1, prefix=p, model=model, cr=0),
+             call(2, prefix=p, model=model, cr=0)]
+    assert by_pattern(find_waste(calls, complexity="med"), "cache_miss") == []
+
+
 # --- Runaway Loop --------------------------------------------------------------
 # Each Call below: 1000 uncached input + 100 output on glm-4.7 = 0.0006 + 0.00022 = 0.00082.
 def looping_session():
@@ -138,6 +150,14 @@ def test_runaway_loop_is_the_spend_of_every_call_after_the_first_in_the_run():
 def test_runaway_loop_length_is_configurable():
     assert by_pattern(find_waste(looping_session(), complexity="med", loop_min=4), "runaway_loop")
     assert by_pattern(find_waste(looping_session(), complexity="med", loop_min=5), "runaway_loop") == []
+
+
+def test_repeating_the_same_tool_call_inside_one_call_does_not_break_the_loop():
+    # Real runs (ticket 03) send 1-3 identical run_tests per Call; still the same action.
+    t = lambda: run_cmd("pytest", "fail")
+    calls = [call(0, t()), call(1, t(), t()), call(2, t()), call(3, t(), t(), t()), call(4)]
+    [f] = by_pattern(find_waste(calls, complexity="med"), "runaway_loop")
+    assert f.evidence == ["s:0", "s:1", "s:2", "s:3"]
 
 
 def test_a_single_retry_is_not_a_loop():

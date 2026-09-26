@@ -111,11 +111,13 @@ def _cache_misses(calls: list[Call], ratio: float, in_loop: set[str]) -> list[Fi
     """A Call whose prompt_prefix_hash matches the previous Call's (same model), but
     whose cache_read_tokens is much smaller than the shared prefix. Priced as
     (shared prefix - cache read) x (uncached - cached input price). One finding
-    per Session, evidence = the Calls that missed."""
+    per Session, evidence = the Calls that missed. Skipped for models whose provider
+    never reports cache reads (prices.yaml reports_cache_usage: false): a zero there is
+    not evidence of a miss, so Cache Miss is not observable on them."""
     usd, missed = 0.0, []
     for prev, c in zip(calls, calls[1:]):
         prefix = c.prompt_prefix_tokens or 0
-        if (c.call_id in in_loop or not c.prompt_prefix_hash or c.prompt_prefix_hash != prev.prompt_prefix_hash
+        if (not pricing.reports_cache_usage(c.model) or c.call_id in in_loop or not c.prompt_prefix_hash or c.prompt_prefix_hash != prev.prompt_prefix_hash
                 or pricing.normalise_model(c.model) != pricing.normalise_model(prev.model)
                 or prefix <= 0 or c.cache_read_tokens >= ratio * prefix):
             continue
@@ -131,11 +133,13 @@ def _cache_misses(calls: list[Call], ratio: float, in_loop: set[str]) -> list[Fi
 
 
 def _action(c: Call) -> tuple | None:
-    """What a Call asked for: its tool calls' (name, args hash), or None if it asked
-    for nothing or we can't tell (a missing hash)."""
+    """What a Call asked for: the set of distinct (tool name, args hash) it requested,
+    or None if it asked for nothing or we can't tell (a missing hash). A set, because
+    models often repeat the same tool call inside one Call (ticket 03's real runs send
+    1-3 identical run_tests per Call); that is still the same action."""
     if not c.tools or any(not t.args_hash or not t.result_hash for t in c.tools):
         return None
-    return tuple((t.name, t.args_hash) for t in c.tools)
+    return frozenset((t.name, t.args_hash) for t in c.tools)
 
 
 def _runaway_loops(calls: list[Call], n: int) -> list[Finding]:

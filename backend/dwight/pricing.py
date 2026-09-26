@@ -24,6 +24,7 @@ class ModelPrice:
     cache_read: float  # USD per 1M cache-read input tokens
     cache_write: float # USD per 1M cache-write input tokens
     output: float      # USD per 1M output tokens
+    reports_cache_usage: bool = True  # False: the provider never reports cache reads for this model
 
 
 class UnknownModel(KeyError):
@@ -58,7 +59,8 @@ def price(model: str) -> ModelPrice:
         raise UnknownModel(f"model {model!r} is not in {config.PRICES_PATH}; add its list price")
     return ModelPrice(model=m, tier=entry["tier"], input=entry["input"],
                       cache_read=entry["cache_read"], cache_write=entry["cache_write"],
-                      output=entry["output"])
+                      output=entry["output"],
+                      reports_cache_usage=entry.get("reports_cache_usage", True))
 
 
 def call_spend(model: str, input_tokens: int, output_tokens: int,
@@ -75,6 +77,12 @@ def input_rate(model: str, cached: bool) -> float:
     that price 'the input rate that Call actually paid'."""
     p = price(model)
     return (p.cache_read if cached else p.input) / PER
+
+
+def reports_cache_usage(model: str) -> bool:
+    """False when the provider never reports cache reads for `model`, so a zero
+    cache_read_tokens says nothing about whether the cache was hit."""
+    return price(model).reports_cache_usage
 
 
 def cheaper_model(model: str) -> str | None:
