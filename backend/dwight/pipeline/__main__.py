@@ -2,6 +2,14 @@
    python -m dwight.pipeline run <stage> [stage args...]
    python -m dwight.pipeline run-all            # every IN_DEFAULT_RUN stage, in ORDER
    python -m dwight.pipeline reset              # delete the store file (DWIGHT_DB)
+   python -m dwight.pipeline rebuild [--keep]   # ticket 15: the whole demo store in one command
+
+rebuild = reset the store (unless --keep), generate the synthetic OTLP if
+data/otlp/synthetic/ is empty (no model calls; the content library is committed),
+then run-all over data/otlp/ (real + synthetic) with the draft stage importing the
+committed Drafts in data/drafts/ (--pinned), then draft_check and acceptance.
+It stops at the first stage that errors. Classify is the only slow stage (about
+4 min for 4K Sessions at 32 workers with reasoning off, the default).
 """
 from __future__ import annotations
 
@@ -38,6 +46,43 @@ def _run(stage, args: list[str]) -> bool:
     return status != "error"
 
 
+def _reset() -> None:
+    for suffix in ("", "-wal", "-shm"):
+        p = config.DB_PATH.with_name(config.DB_PATH.name + suffix)
+        if p.exists():
+            p.unlink()
+    print(f"deleted {config.DB_PATH}")
+
+
+PINNED_DRAFTS_DIR = config.DATA_DIR / "drafts"   # the committed Drafts (15 -> 16)
+SYNTHETIC_OTLP_DIR = config.DATA_DIR / "otlp" / "synthetic"
+
+
+def rebuild_args() -> dict[str, list[str]]:
+    """Per-stage args for `rebuild` (every other stage runs with its defaults)."""
+    return {"draft": ["--pinned", str(PINNED_DRAFTS_DIR)]}
+
+
+def rebuild(stages, keep: bool = False) -> int:
+    if not keep:
+        _reset()
+    if not any(SYNTHETIC_OTLP_DIR.glob("*.json*")):
+        from dwight.synth.__main__ import main as synth_main
+        print(f"[rebuild] {SYNTHETIC_OTLP_DIR} is empty: generating the synthetic dataset (no model calls)")
+        if synth_main(["build"]) != 0:
+            return 1
+    extra = rebuild_args()
+    plan = [s for s in stages.values() if s.in_default_run] + [stages[n] for n in ("draft_check", "acceptance")
+                                                                 if n in stages]
+    t0 = time.time()
+    for s in plan:
+        if not _run(s, extra.get(s.name, [])):
+            print(f"[rebuild] stopped: {s.name} failed ({time.time() - t0:.0f}s)")
+            return 1
+    print(f"[rebuild] done in {time.time() - t0:.0f}s: store {config.DB_PATH}")
+    return 0
+
+
 def main(argv: list[str]) -> int:
     stages = discover()
     if not argv or argv[0] in ("-h", "--help", "help"):
@@ -62,12 +107,10 @@ def main(argv: list[str]) -> int:
                 ok = _run(s, []) and ok
         return 0 if ok else 1
     if cmd == "reset":
-        for suffix in ("", "-wal", "-shm"):
-            p = config.DB_PATH.with_name(config.DB_PATH.name + suffix)
-            if p.exists():
-                p.unlink()
-        print(f"deleted {config.DB_PATH}")
+        _reset()
         return 0
+    if cmd == "rebuild":
+        return rebuild(stages, keep="--keep" in rest)
     print(__doc__)
     return 2
 
