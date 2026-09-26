@@ -14,3 +14,5 @@
 
 
 **From 06 (merged):** the classifier is callable as functions in `backend/dwight/classifier/` (`model.py`: one `glm.chat_json` call per Session; `run.py`: thread pool). Classifying deletes staging, so to re-score after a prompt change, re-ingest the OTLP files and rerun the stage. Label eval runs with `classifier.model.PROMPT_VERSION`. The model sees only each Initiative's id, name and description from `org.yaml` plus the Session's team and Business Function. It always picks one of the 15 known Initiatives, so there's no "none" answer (the tracer Session lands in `k8s-upgrade`).
+
+**From 03 (merged):** real-layer labels (planted Waste Pattern per Session) are in `data/ground-truth/real_layer_labels.yaml`. The 40 tomli Sessions don't match any org.yaml Initiative well, so expect them to be classified loosely; score Initiative accuracy on the synthetic layer.

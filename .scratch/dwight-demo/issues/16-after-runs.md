@@ -15,3 +15,5 @@
 
 
 **From 13 (merged):** the Before/After panel computes everything from stored Sessions. Each after run needs `dwight.experiment=after`, the same `dwight.experiment.task_id` as its before run, `dwight.experiment.task_success`, and `dwight.dataset=real`. Run classify after ingest so the runs land in `storage-cost-reduction`: the panel selects by `sessions.initiative_id`, so an unclassified run won't appear. Once any real experiment Session exists, only real ones are used. Every run counts, so don't re-run failures until they pass.
+
+**From 03 (merged):** run the after batch with the exact settings 04 recorded (see 04's Comments), changing only the context files: `python -m dwight.harness storage --experiment after --prefix real-scr-a --context-file <draft> --context-file <memory> --ingest`. The harness keeps before and after settings identical apart from the context files, and a test checks this. Use the same pinned model as 04; the pool round-robins otherwise.
