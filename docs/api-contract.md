@@ -5,7 +5,7 @@ The source of truth for the response shapes is `backend/dwight/api/contract.py` 
 ## Rules that apply to every response
 
 - **Every dollar figure is a `Money` object**: `{"usd": 12.3, "kind": "measured" | "estimated", "note": null | "conservative upper bound"}`. No response has a bare `*_usd` number (`tests/test_contract.py` checks this). Spend is always `measured`.
-- **Every response has `source`**: `"store"` or `"fixture"`. The dashboard shows a red "fixture data" badge on any panel still reading fixture data. Ticket 15 is done when `/api/health` shows `store` for every endpoint.
+- **Every response has `source`**: `"store"` or `"fixture"`. The dashboard shows a red "fixture data" badge on any panel still reading fixture data. Ticket 15 is done when `/api/health` shows `store` for every endpoint. (Since ticket 15, every endpoint serves the store; the drafts endpoints fall back to fixtures only while the store has no Drafts at all, and `DWIGHT_FORCE_FIXTURES=1` still forces fixtures.)
 - List responses are wrapped: `{"source": ..., "items": [...]}`.
 
 ## Endpoints
@@ -13,22 +13,22 @@ The source of truth for the response shapes is `backend/dwight/api/contract.py` 
 | Endpoint name (fixture file) | Method + path | Response model | Owner | Serves now |
 |---|---|---|---|---|
 | `overview` | `GET /api/overview` | `Overview` | 01 / 05 / 07 | **store** |
-| `closing_numbers` | `GET /api/closing-numbers` | `ClosingNumbers` | 17 (08, 13/16) | fixture |
-| `initiatives` | `GET /api/initiatives` | `InitiativeList` (ranked by spend) | 06 | fixture |
-| `initiative` | `GET /api/initiatives/{initiative_id}` | `Initiative` | 06 | fixture |
-| `initiative_sessions` | `GET /api/initiatives/{initiative_id}/sessions` | `SessionList` | 06 | fixture |
-| `initiative_waste` | `GET /api/initiatives/{initiative_id}/waste` | `WasteBreakdown` | 09 (reads 05's findings) | fixture |
-| `initiative_recurring_discoveries` | `GET /api/initiatives/{initiative_id}/recurring-discoveries` | `RecurringDiscoveries` (both forms) | 10 (11 writes rows) | fixture |
-| `initiative_recommendations` | `GET /api/initiatives/{initiative_id}/recommendations` | `RecommendationList` | 09 (+12 draft_id, 13 measured_drop) | fixture |
-| `recommendations` | `GET /api/recommendations?target_type=team\|policy\|initiative` | `RecommendationList` | 09 (14 reads policy ones) | fixture |
-| `initiative_drafts` | `GET /api/initiatives/{initiative_id}/drafts` | `DraftList` | 12 | fixture |
-| `draft` | `GET /api/drafts/{draft_id}` | `Draft` | 12 | fixture |
-| (uses `draft`) | `GET /api/drafts/{draft_id}/download` | `text/markdown` attachment | 12 | fixture |
-| `initiative_before_after` | `GET /api/initiatives/{initiative_id}/before-after` | `BeforeAfter` (`has_runs=false` hides the panel) | 13 | fixture |
-| `policy_options` | `GET /api/policy/options` | `PolicyOptions` (teams from org, models from Infra Profile) | 14 | fixture |
-| `policy_render` | `POST /api/policy/render` body `PolicyRequest` | `PolicyRender` (LiteLLM YAML) | 14 | fixture |
-| `policy_apply` | `POST /api/policy/apply` body `PolicyRequest` | `Policy` (writes a file under `out/policies/`) | 14 | fixture |
-| `policies` | `GET /api/policies` | `PolicyList` | 14 | fixture |
+| `closing_numbers` | `GET /api/closing-numbers` | `ClosingNumbers` | 17 (08, 13/16) | store |
+| `initiatives` | `GET /api/initiatives` | `InitiativeList` (ranked by spend) | 06 | store |
+| `initiative` | `GET /api/initiatives/{initiative_id}` | `Initiative` | 06 | store |
+| `initiative_sessions` | `GET /api/initiatives/{initiative_id}/sessions` | `SessionList` | 06 | store |
+| `initiative_waste` | `GET /api/initiatives/{initiative_id}/waste` | `WasteBreakdown` | 09 (reads 05's findings) | store |
+| `initiative_recurring_discoveries` | `GET /api/initiatives/{initiative_id}/recurring-discoveries` | `RecurringDiscoveries` (both forms) | 10 (11 writes rows) | store |
+| `initiative_recommendations` | `GET /api/initiatives/{initiative_id}/recommendations` | `RecommendationList` | 09 (+12 draft_id, 13 measured_drop) | store |
+| `recommendations` | `GET /api/recommendations?target_type=team\|policy\|initiative` | `RecommendationList` | 09 (14 reads policy ones) | store |
+| `initiative_drafts` | `GET /api/initiatives/{initiative_id}/drafts` | `DraftList` | 12 | store |
+| `draft` | `GET /api/drafts/{draft_id}` | `Draft` | 12 | store |
+| (uses `draft`) | `GET /api/drafts/{draft_id}/download` | `text/markdown` attachment | 12 | store |
+| `initiative_before_after` | `GET /api/initiatives/{initiative_id}/before-after` | `BeforeAfter` (`has_runs=false` hides the panel) | 13 | store |
+| `policy_options` | `GET /api/policy/options` | `PolicyOptions` (teams from org, models from Infra Profile) | 14 | store |
+| `policy_render` | `POST /api/policy/render` body `PolicyRequest` | `PolicyRender` (LiteLLM YAML) | 14 | store |
+| `policy_apply` | `POST /api/policy/apply` body `PolicyRequest` | `Policy` (writes a file under `out/policies/`) | 14 | store |
+| `policies` | `GET /api/policies` | `PolicyList` | 14 | store |
 | — | `GET /api/health` | `Health`: session count and each endpoint's source | 01 | store |
 | — | `POST /v1/traces` | OTLP/HTTP **JSON** trace receiver (no protobuf) | 01 | store |
 
