@@ -1,0 +1,3 @@
+# Classify Sessions in the Customer's tenant with open-weight GLM, and discard raw prompts
+
+Initiative attribution and Waste diagnosis require reading prompt content, which is the first thing an enterprise security review rejects. The classifier therefore uses open-weight GLM models that the Customer can host inside its own cloud. Dwight keeps only the Initiative, the Waste Pattern findings, a redacted one-line summary and the token metrics; raw prompts are discarded after classification. A hosted API model would have been faster to integrate, but it would send prompts outside the Customer and could never be run in the Customer's own tenant. For the hackathon, in-tenant hosting is a stated deployment path, not something we build.

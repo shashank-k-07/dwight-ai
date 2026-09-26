@@ -1,0 +1,3 @@
+# Ingest OpenTelemetry GenAI telemetry, not vendor-specific formats
+
+Dwight ingests Sessions as OTLP data following the OpenTelemetry GenAI semantic conventions (`gen_ai.*` attributes). Business Function, Team and Member arrive as resource attributes. We rejected building on vendor admin APIs (Anthropic Usage/Cost, OpenAI Usage, Cursor Admin): they report daily or per-request totals without the Session content that Initiative attribution needs, and each one would tie us to a single vendor. We also rejected copying Claude Code's own telemetry format, since the team doesn't use Claude Code and it would narrow the pitch to one Agent. Vendor-specific sources become connectors that translate into this format.
