@@ -141,7 +141,8 @@ def _clean(raw: BaseModel, max_seq: int | None) -> Classification:
 
 
 def classify_transcript(transcript: str, cands: list[Candidate] | None = None, *, context: dict | None = None,
-                        max_seq: int | None = None, tier: str | None = None) -> Classification:
+                        max_seq: int | None = None, tier: str | None = None,
+                        thinking: bool | None = None) -> Classification:
     """Classify one Session from its rendered transcript. One model call (chat_json
     re-asks up to twice on invalid JSON or an unknown Initiative id).
 
@@ -154,5 +155,6 @@ def classify_transcript(transcript: str, cands: list[Candidate] | None = None, *
     schema = _schema([c.initiative_id for c in cands])
     raw = glm.chat_json([{"role": "system", "content": SYSTEM},
                          {"role": "user", "content": _user_prompt(transcript, cands, context)}],
-                        schema=schema, tier=tier, temperature=0.0, max_tokens=1500)
+                        schema=schema, tier=tier, temperature=0.0, max_tokens=1500,
+                        **({} if thinking is None else {"thinking": thinking}))
     return _clean(raw, max_seq)

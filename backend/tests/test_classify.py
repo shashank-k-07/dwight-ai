@@ -219,6 +219,24 @@ def test_selection_flags(raw, fake):
     assert "fixture" not in {r[0] for r in left}
 
 
+def test_thinking_switch_reaches_the_model_call(raw, monkeypatch):
+    """Ticket 15: classify turns reasoning off by default (thinking=False); --thinking on sends nothing extra."""
+    seen = []
+    model = FakeModel()
+
+    def spy(messages, **kw):
+        seen.append(kw.get("thinking", "unset"))
+        return model(messages, **kw)
+
+    monkeypatch.setattr(glm, "chat_json", spy)
+    classify(raw, "--session", "fx-rr-01")
+    assert seen == [False]
+    classify(raw, "--session", "fx-mo-01", "--thinking", "on")
+    assert seen[1] == "unset"
+    assert glm._extra_body(False)["chat_template_kwargs"] == {"thinking": False, "enable_thinking": False}
+    assert "chat_template_kwargs" not in glm._extra_body(None)
+
+
 def test_failed_session_keeps_staging_for_retry(raw, monkeypatch):
     monkeypatch.setattr(glm, "chat_json", FakeModel(fail_on={"postmortem"}))
     monkeypatch.setattr("dwight.classifier.run.time.sleep", lambda s: None)
