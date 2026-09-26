@@ -1,0 +1,154 @@
+# Synthetic company dataset: generator parameters (ticket 07).
+#
+# GENERATOR INPUT, NOT FOR THE PIPELINE. This file (and content_library.json next
+# to it) is keyed by Initiative, so it is effectively ground truth. The classifier,
+# detectors and cross-session stages must never read data/synthetic/.
+#
+# Regenerate (from backend/):
+#   .venv/bin/python -m dwight.synth build --ingest       # content (cached) + OTLP + ground truth + ingest
+#   .venv/bin/python -m dwight.synth calibrate            # re-fit `shapes` from real-layer OTLP (ticket 03), then build again
+#
+# Session shapes below are sensible defaults. `calibrate` measures the real layer
+# (data/otlp/real/) and writes data/synthetic/calibration.yaml, which overlays the
+# keys it has measured (see dwight/synth/params.py). Waste Pattern rates are NOT
+# measurable from real OTLP without 03's label file, so they stay here; edit them
+# directly (or pass `--rates-from <yaml>` to calibrate).
+
+seed: 7
+sessions: 4000
+# 30 days ending just before the demo ("last month").
+period:
+  start: "2026-08-27T00:00:00Z"
+  days: 30
+  weekend_factor: 0.25          # relative Session volume on Sat/Sun
+  hour_utc_mean: 15.5           # Kestrel is in Columbus (UTC-4): ~11:30 local
+  hour_utc_sd: 3.0
+
+# Member activity: each Member gets a lognormal weight, so a few Members run
+# many Sessions and some run few (all ~200 still appear).
+member_activity_sigma: 0.8
+# Within an Initiative's primary_teams (org.yaml), the first Team gets this
+# share and the rest split the remainder equally.
+primary_team_share: 0.55
+
+# Agent per Business Function (names from infra_profile.yaml agents.list).
+agents:
+  by_business_function:
+    Engineering: kestrel-devagent
+    Operations: ops-copilot
+    Customer Experience: desk-agent
+    Finance: desk-agent
+    Marketing: desk-agent
+  # Stable prompt prefix per agent (system prompt + tool definitions + AGENTS.md).
+  prefix_tokens:
+    kestrel-devagent: 11500
+    ops-copilot: 6200
+    desk-agent: 4800
+  # Tools each agent's Sessions use for routine work (content_library asks GLM
+  # to write steps with these tool names).
+  work_tools:
+    kestrel-devagent: [run_command, write_file, code.search, incidents.get, finops.query_cost]
+    ops-copilot: [tms.get_shipment, tms.update_eta, carrier.send_message, sheets.read_range, write_file]
+    desk-agent: [sheets.read_range, netsuite.query, zendesk.get_macro, zendesk.update_macro, perch.search, write_file]
+
+# Model tier per Session (one model for the whole Session). The Infra Profile
+# says every agent defaults to the flagship alias, so flagship is common, and some
+# Teams barely use anything else: that is where Model Overkill concentrates
+# (low-complexity Sessions on glm-5.1). Model Overkill is planted ONLY here; the
+# real layer runs on light-tier pool models.
+model_mix:
+  default: {glm-5.1: 0.50, glm-4.7: 0.38, glm-4.5-air: 0.12}
+  teams:
+    Routing:              {glm-5.1: 0.88, glm-4.7: 0.12}
+    Growth Marketing:     {glm-5.1: 0.85, glm-4.5-air: 0.15}
+    Customer Care:        {glm-5.1: 0.80, glm-4.7: 0.10, glm-4.5-air: 0.10}
+    Mobile:               {glm-5.1: 0.70, glm-4.7: 0.30}
+    Data Infrastructure:  {glm-5.1: 0.25, glm-4.7: 0.65, glm-4.5-air: 0.10}
+    Billing:              {glm-5.1: 0.30, glm-4.7: 0.60, glm-4.5-air: 0.10}
+    Accounting & FP&A:    {glm-5.1: 0.35, glm-4.7: 0.25, glm-4.5-air: 0.40}
+
+# Complexity of the Member's request (picks a task of that complexity from the
+# content library). Ground-truth complexity is recorded per Session.
+complexity_mix:
+  Engineering: {low: 0.26, med: 0.49, high: 0.25}
+  default:     {low: 0.38, med: 0.47, high: 0.15}
+
+# Session shapes by complexity. Ranges are [min, max] inclusive, sampled uniformly.
+shapes:
+  low:
+    work_steps: [1, 3]
+    extra_reads: [0, 1]
+    usual_read_factor: 0.5      # x each usual resource's read probability
+    tools_per_call_2_prob: 0.15 # chance a Call requests two tools at once
+  med:
+    work_steps: [5, 12]
+    extra_reads: [1, 3]
+    usual_read_factor: 1.0
+    tools_per_call_2_prob: 0.30
+  high:
+    work_steps: [12, 24]
+    extra_reads: [2, 6]
+    usual_read_factor: 1.0
+    tools_per_call_2_prob: 0.30
+  output_tokens:
+    tool_call: [40, 320]        # a Call that only requests tools
+    write: [350, 1800]          # a Call that writes a file / long content
+    final: [90, 650]            # the closing answer
+  user_prompt_overhead_tokens: 40
+  result_tokens:
+    extra_resource: [800, 6000] # size of a non-usual doc/file read (fixed per resource id)
+    command: [60, 2400]
+    write: [8, 24]
+    search: [180, 900]
+  call_gap_seconds: [3, 28]
+
+# "Usual" docs: each usual resource of an Initiative is read by a Session with a
+# probability drawn once per resource from this range (then x usual_read_factor),
+# so every Initiative has a common path with varied strength.
+usual_read_prob: [0.78, 0.97]
+# Chance a Session also reads one usual resource of another Initiative in the same
+# Business Function (realistic overlap / classifier ambiguity).
+cross_read_prob: 0.06
+
+# Discoveries. Repeated ones come from org.yaml `repeated_discoveries` with their
+# `strength` (share of the Initiative's Sessions). They are planted only in med/high
+# Sessions, so the per-Session probability is scaled up to keep the overall share.
+# One-off Discoveries: plausible facts from the content library, each rare.
+discoveries:
+  eligible_complexity: [med, high]
+  one_off_prob: 0.04
+
+# Waste Pattern rates (share of Sessions). `agents` overrides `default`.
+# kestrel-devagent's Cache Miss rate is high because its system prompt header
+# carries a timestamp + git status on an older agent-config (Infra Profile note).
+waste_rates:
+  redundant_read:
+    default: 0.08
+    agents: {kestrel-devagent: 0.13}
+    rereads: [1, 3]             # extra re-reads of already-read resources
+  cache_miss:
+    default: 0.05
+    agents: {kestrel-devagent: 0.28}
+    miss_prob_per_call: 0.85    # share of that Session's Calls that miss the cache
+  runaway_loop:
+    default: 0.02
+    agents: {kestrel-devagent: 0.05}
+    repeats: [5, 9]             # consecutive identical failing tool calls
+    eligible_complexity: [med, high]
+  # model_overkill is not a rate: it follows from complexity_mix x model_mix.
+
+caching:
+  enabled: true                 # Infra Profile: GLM prefix caching on
+  block: 128                    # cache_read = previous Call's input rounded down to this
+
+# GLM content library (dwight/synth/content.py). Bounded: jobs = Initiatives x
+# (task_batches + 2), run <= max_concurrency at a time, each retried.
+content:
+  task_batches: 2
+  tasks_per_batch: 20
+  extra_resources: 8
+  work_steps: 14
+  failing_steps: 3
+  one_offs: 6
+  max_concurrency: 4
+  retries: 3
