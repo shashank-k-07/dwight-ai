@@ -12,7 +12,13 @@ Each Draft is attached to the Initiative's Recommendation that cites the matchin
 Practice (recommend.library.DRAFT_PRACTICE), which gets the Draft's Estimated Saving.
 
   run draft [--initiative ID ...] [--target-share 0.25] [--no-glm] [--tier T] [--workers 4]
-            [--out-dir DIR]
+            [--out-dir DIR] [--pinned DIR]
+
+--pinned DIR (or DWIGHT_DRAFT_PINNED_DIR; ticket 15): where DIR/<initiative_id>.md or
+DIR/<initiative_id>.memory.md exists, that committed file is imported verbatim instead of
+being regenerated, so the store shows the exact Draft the after runs (16) loaded. It is
+still counted, attached to its Recommendation and priced in code, like a generated one.
+The committed Drafts live in data/drafts/.
 
 Reads:  recurring_discoveries, discoveries, sessions (summary, times), calls (model, input tokens),
         recommendations, company-docs/ (re-fetched by resource_id via dwight.company.company_doc_path)
@@ -119,6 +125,9 @@ def run(conn, args):
     p.add_argument("--tier", default=None, help="model tier or name for the Drafter's calls (default: the pool)")
     p.add_argument("--workers", type=int, default=4, help="model calls in flight per initiative doc")
     p.add_argument("--out-dir", type=Path, default=None, help="where Draft files go (default out/drafts/)")
+    p.add_argument("--pinned", type=Path, default=config.DRAFT_PINNED_DIR,
+                   help="import committed Drafts from DIR/<iid>.md and DIR/<iid>.memory.md where they exist, "
+                        "instead of regenerating (default DWIGHT_DRAFT_PINNED_DIR; unset = regenerate)")
     ns = p.parse_args(args)
     out_dir = Path(ns.out_dir or config.DRAFT_OUT_DIR)
 
@@ -147,7 +156,7 @@ def _draft_initiative(conn, iid: str, ns, out_dir: Path) -> list[str]:
     common = next((r for r in rds if r["form"] == "common_path"), None)
     if common is None:
         _remove(conn, iid, "initiative_doc", out_dir)
-    elif ns.no_glm:
+    elif ns.no_glm and not _pinned(ns, iid, "initiative_doc"):
         notes.append(f"{iid}: initiative doc skipped (--no-glm)")
     else:
         try:
@@ -187,7 +196,8 @@ def _initiative_doc(conn, iid, name, description, rd, analysed, months, ns, out_
         discoveries=_distinct(conn, "SELECT statement FROM discoveries WHERE session_id IN ({}) "
                                     "GROUP BY statement ORDER BY COUNT(*) DESC, statement", analysed, d.MAX_DISCOVERIES),
         readers=rd["session_count"], analysed=len(analysed), path_tokens=path_tokens, tier=ns.tier, workers=ns.workers)
-    content = d.build_initiative_doc(ctx, docs, target)
+    pinned = _pinned(ns, iid, "initiative_doc")
+    content = pinned.read_text() if pinned else d.build_initiative_doc(ctx, docs, target)
     tokens = d.count_tokens(content)
 
     sessions_per_month = rd["session_count"] / months
@@ -197,18 +207,33 @@ def _initiative_doc(conn, iid, name, description, rd, analysed, months, ns, out_
     ratio = tokens / base if base else 0.0
     flag = "" if tokens <= target else f", OVER the {ns.target_share:.0%} target of {target}"
     extra = f", skipped {len(skipped)} non-doc resources" if skipped else ""
+    extra += f", pinned from {pinned}" if pinned else ""
     return (f"{iid}: initiative doc {tokens} tokens = {ratio:.1%} of {base} source tokens "
             f"({len(docs)} docs{extra}{flag})")
 
 
 def _memory(conn, iid, name, reps, months, ns, out_dir) -> str:
     log: list[str] = []
-    lines = d.memory_lines([r["statement"] or "" for r in reps], use_glm=not ns.no_glm, tier=ns.tier, log=log)
-    content = d.memory_file(name, lines)
+    pinned = _pinned(ns, iid, "memory")
+    if pinned:
+        content = pinned.read_text()
+        lines = [l for l in content.splitlines() if l.startswith("- ")]
+        log.append(f"pinned from {pinned}")
+    else:
+        lines = d.memory_lines([r["statement"] or "" for r in reps], use_glm=not ns.no_glm, tier=ns.tier, log=log)
+        content = d.memory_file(name, lines)
     usd = sum(memory_saving_usd(r["spend_usd"] or 0.0, months) for r in reps)
     _store(conn, iid, "memory", f"{name}: memory file", content, [], d.count_tokens(content), None,
            "repeated_discovery", reps[0]["recurring_discovery_id"], usd, out_dir)
     return f"{iid}: memory file with {len(lines)} lines" + (f" ({log[0]})" if log else "")
+
+
+def _pinned(ns, iid: str, type_: str) -> Path | None:
+    """The committed Draft file to import for this Initiative and type, if --pinned has one."""
+    if not ns.pinned:
+        return None
+    f = Path(ns.pinned) / draft_filename(iid, type_)
+    return f if f.is_file() else None
 
 
 def _distinct(conn, sql: str, session_ids: list[str], limit: int) -> list[str]:

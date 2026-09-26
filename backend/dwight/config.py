@@ -67,6 +67,9 @@ FORCE_FIXTURES = os.environ.get("DWIGHT_FORCE_FIXTURES", "0") == "1"
 OUT_DIR = _path("DWIGHT_OUT_DIR", REPO_ROOT / "out")
 POLICY_OUT_DIR = OUT_DIR / "policies"   # ticket 14: "Apply" writes here
 DRAFT_OUT_DIR = OUT_DIR / "drafts"      # ticket 12: exported Draft files
+# Ticket 15: committed Drafts that `draft` imports instead of regenerating (so the demo
+# store shows the exact files the after runs (16) loaded). Unset = always regenerate.
+DRAFT_PINNED_DIR = _path("DWIGHT_DRAFT_PINNED_DIR", None) if os.environ.get("DWIGHT_DRAFT_PINNED_DIR") else None
 
 # --- GLM (see dwight/glm.py) -------------------------------------------------
 GLM_API_KEY = os.environ.get("SCIFORIUM_API_KEY") or os.environ.get("DWIGHT_GLM_API_KEY")

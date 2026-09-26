@@ -20,9 +20,10 @@ totals are recomputed from sessions on every run.
   run classify --dataset synthetic   one dataset only (real | synthetic | fixture)
   run classify --session ID ...      only these Sessions (repeatable)
   run classify --limit 50            at most N Sessions (oldest first)
-  run classify --workers 8           concurrent model calls (default 8, or DWIGHT_CLASSIFY_WORKERS)
+  run classify --workers 32          concurrent model calls (default 32, or DWIGHT_CLASSIFY_WORKERS)
   run classify --tier standard       model tier or name (default: round-robin over DWIGHT_GLM_MODEL_POOL)
   run classify --attempts 3          attempts per Session on API errors / invalid output
+  run classify --thinking on         let the model reason first (default off, or DWIGHT_CLASSIFY_THINKING)
   run classify --totals-only         only recompute Initiative session_count / spend_usd
 
 Model calls: 1 per Session (up to 3 if the JSON fails validation), plus retries on errors.
@@ -49,6 +50,7 @@ def run(conn, args):
     p.add_argument("--tier")
     p.add_argument("--attempts", type=int, default=runner.DEFAULT_ATTEMPTS)
     p.add_argument("--totals-only", action="store_true")
+    p.add_argument("--thinking", choices=["on", "off"], default="on" if runner.DEFAULT_THINKING else "off")
     ns = p.parse_args(args)
 
     cands = candidates()
@@ -58,5 +60,6 @@ def run(conn, args):
         conn.commit()
         return f"recomputed totals for {len(cands)} Initiatives"
     ids = runner.pending_sessions(conn, session_ids=ns.sessions, dataset=ns.dataset, limit=ns.limit)
-    stats = runner.classify_sessions(conn, ids, workers=ns.workers, tier=ns.tier, attempts=ns.attempts, cands=cands)
+    stats = runner.classify_sessions(conn, ids, workers=ns.workers, tier=ns.tier, attempts=ns.attempts, cands=cands,
+                                     thinking=ns.thinking == "on")
     return stats.line()
