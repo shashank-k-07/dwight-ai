@@ -7,7 +7,9 @@
 rebuild = reset the store (unless --keep), generate the synthetic OTLP if
 data/otlp/synthetic/ is empty (no model calls; the content library is committed),
 then run-all over data/otlp/ (real + synthetic) with the draft stage importing the
-committed Drafts in data/drafts/ (--pinned), then draft_check and acceptance.
+committed Drafts in data/drafts/ (--pinned), then the checks: eval_classifier score
+(no model calls; writes the eval_runs row closing-numbers serves), draft_check and
+acceptance.
 It stops at the first stage that errors. Classify is the only slow stage (about
 4 min for 4K Sessions at 32 workers with reasoning off, the default).
 """
@@ -60,7 +62,11 @@ SYNTHETIC_OTLP_DIR = config.DATA_DIR / "otlp" / "synthetic"
 
 def rebuild_args() -> dict[str, list[str]]:
     """Per-stage args for `rebuild` (every other stage runs with its defaults)."""
-    return {"draft": ["--pinned", str(PINNED_DRAFTS_DIR)]}
+    return {"draft": ["--pinned", str(PINNED_DRAFTS_DIR)],
+            "eval_classifier": ["score", "--label", "rebuild: full store"]}
+
+
+REBUILD_CHECKS = ("eval_classifier", "draft_check", "acceptance")   # after run-all, in this order
 
 
 def rebuild(stages, keep: bool = False) -> int:
@@ -72,8 +78,7 @@ def rebuild(stages, keep: bool = False) -> int:
         if synth_main(["build"]) != 0:
             return 1
     extra = rebuild_args()
-    plan = [s for s in stages.values() if s.in_default_run] + [stages[n] for n in ("draft_check", "acceptance")
-                                                                 if n in stages]
+    plan = [s for s in stages.values() if s.in_default_run] + [stages[n] for n in REBUILD_CHECKS if n in stages]
     t0 = time.time()
     for s in plan:
         if not _run(s, extra.get(s.name, [])):

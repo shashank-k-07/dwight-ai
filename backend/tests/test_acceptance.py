@@ -17,12 +17,14 @@ def test_rebuild_runs_every_stage_in_order_then_the_checks(monkeypatch, tmp_path
     ran = []
     stages = {n: SimpleNamespace(name=n, in_default_run=d) for n, d in
               [("ingest", True), ("classify", True), ("draft", True), ("draft_check", False),
-               ("seed_fixtures", False), ("acceptance", False)]}
+               ("seed_fixtures", False), ("acceptance", False), ("eval_classifier", False)]}
     monkeypatch.setattr(cli, "_run", lambda s, args: ran.append((s.name, args)) or True)
     monkeypatch.setattr(cli, "_reset", lambda: ran.append(("reset", [])))
     monkeypatch.setattr(cli, "SYNTHETIC_OTLP_DIR", REAL)   # non-empty: no generation
     assert cli.rebuild(stages) == 0
-    assert [n for n, _ in ran] == ["reset", "ingest", "classify", "draft", "draft_check", "acceptance"]
+    assert [n for n, _ in ran] == ["reset", "ingest", "classify", "draft", "eval_classifier", "draft_check",
+                                   "acceptance"]
+    assert dict(ran)["eval_classifier"][0] == "score"   # no model calls
     assert dict(ran)["draft"] == ["--pinned", str(config.DATA_DIR / "drafts")]
 
     ran.clear()
