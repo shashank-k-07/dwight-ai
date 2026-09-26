@@ -14,7 +14,7 @@ Only stored Discoveries, never prompt content: this stage does not touch
 staging_content (ADR 0008).
 
 Rules (all computed in code, never by the model):
-- Population: the Initiative's Sessions except `experiment=after` runs (they ran
+- Population: common_paths.analysed_session_ids(), the Initiative's Sessions except `experiment=after` runs (they ran
   with the Draft loaded, so they would dilute the share; same rule as ticket 10).
 - A cluster counts once per Session. It is repeated when it is found in at least
   `floor` Sessions (a one-off is never "repeated") and in >= `min_sessions`
@@ -36,6 +36,7 @@ from typing import Iterable, Mapping
 from dwight import db
 from dwight.db import dumps
 from dwight.pipeline.stages._discovery_clusters import (DEFAULT_BATCH_SIZE, Cluster, cluster_statements)
+from dwight.pipeline.stages.common_paths import analysed_session_ids
 
 ORDER = 50
 TICKET = "11"
@@ -88,23 +89,26 @@ def score(initiative_id: str, clusters: Iterable[Cluster], discoveries: Mapping[
             for i, (statement, per_session) in enumerate(found)]
 
 
-def _population(conn) -> dict[str, int]:
-    return {r["initiative_id"]: r["n"] for r in db.rows(
-        conn, "SELECT initiative_id, COUNT(*) n FROM sessions WHERE initiative_id IS NOT NULL "
-              "AND COALESCE(experiment, '') != 'after' GROUP BY initiative_id")}
+def _population(conn) -> dict[str, set[str]]:
+    """Initiative -> the Sessions analysed, shared with common paths (10) and the API's
+    `initiative_session_count`: its Sessions minus experiment='after' runs."""
+    ids = [r["initiative_id"] for r in db.rows(
+        conn, "SELECT DISTINCT initiative_id FROM sessions WHERE initiative_id IS NOT NULL")]
+    return {iid: set(analysed_session_ids(conn, iid)) for iid in ids}
 
 
-def _discoveries(conn) -> dict[str, list[Discovery]]:
+def _discoveries(conn, population: Mapping[str, set[str]]) -> dict[str, list[Discovery]]:
     out: dict[str, list[Discovery]] = {}
     for r in db.rows(conn, """
             SELECT s.initiative_id, d.session_id, d.idx, d.statement, d.call_seq,
                    (SELECT COALESCE(SUM(c.spend_usd), 0) FROM calls c
                      WHERE c.session_id = d.session_id AND c.seq <= d.call_seq) AS spend_upto_usd
               FROM discoveries d JOIN sessions s ON s.session_id = d.session_id
-             WHERE s.initiative_id IS NOT NULL AND COALESCE(s.experiment, '') != 'after'
+             WHERE s.initiative_id IS NOT NULL
              ORDER BY s.initiative_id, d.session_id, d.idx"""):
         iid = r.pop("initiative_id")
-        out.setdefault(iid, []).append(Discovery(**r))
+        if r["session_id"] in population.get(iid, ()):
+            out.setdefault(iid, []).append(Discovery(**r))
     return out
 
 
@@ -141,13 +145,13 @@ def run(conn, args):
     thresholds = Thresholds(ns.min_sessions, ns.min_share, ns.floor)
 
     population = _population(conn)
-    discoveries = _discoveries(conn)
+    discoveries = _discoveries(conn, population)
     targets = sorted(ns.initiative or population)
     limiter = threading.BoundedSemaphore(max(1, ns.workers))
 
     def work(iid: str):
         try:
-            return iid, _analyse(iid, discoveries.get(iid, []), population.get(iid, 0), thresholds,
+            return iid, _analyse(iid, discoveries.get(iid, []), len(population.get(iid, ())), thresholds,
                                  ns.batch_size, ns.workers, ns.tier, limiter), None
         except Exception as e:  # noqa: BLE001 - one Initiative failing keeps its old rows
             return iid, None, e

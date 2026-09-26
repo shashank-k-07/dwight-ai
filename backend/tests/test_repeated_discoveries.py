@@ -135,6 +135,29 @@ def test_rerunning_gives_the_same_rows_and_leaves_common_paths_alone(seeded, mon
     assert db.rows(seeded, "SELECT * FROM recurring_discoveries WHERE form='common_path'") == common_before
 
 
+def test_the_panel_endpoint_serves_the_rows_unchanged(seeded, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from dwight.api.main import app
+    from dwight.api.serving import get_conn
+
+    monkeypatch.setattr(glm, "chat_json", keyword_model())
+    discover()["repeated_discoveries"].run(seeded, [])
+    app.dependency_overrides[get_conn] = lambda: seeded
+    try:
+        r = TestClient(app).get("/api/initiatives/storage-cost-reduction/recurring-discoveries").json()
+    finally:
+        app.dependency_overrides.pop(get_conn, None)
+    assert r["source"] == "store"
+    [rep] = [i for i in r["items"] if i["form"] == "repeated_discovery"]
+    assert rep["statement"] == "Always set STORAGE_ENV before running the tool."
+    assert rep["session_count"] == 6
+    assert rep["session_share"] == pytest.approx(rep["session_count"] / r["initiative_session_count"])
+    assert rep["cost"]["kind"] == "measured" and rep["cost"]["note"] == "conservative upper bound"
+    assert rep["cost"]["usd"] == pytest.approx(ENV_SPEND_USD, abs=1e-6)
+    assert set(rep["evidence"]) == ENV_SESSIONS
+
+
 def test_prompt_content_never_reaches_the_model(seeded, monkeypatch):
     """ADR 0008: only stored Discoveries go to the model, never staged prompt content."""
     seeded.execute("INSERT INTO staging_content (session_id, seq, kind, content) VALUES (?,?,?,?)",
