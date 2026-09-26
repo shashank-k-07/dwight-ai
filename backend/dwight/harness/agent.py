@@ -41,6 +41,8 @@ from dwight.ingest.builder import SessionBuilder
 AGENT_NAME = "kestrel-devagent"
 VARIANTS = ("clean", "redundant_read", "cache_miss", "runaway_loop")
 MAX_TOKENS_PER_CALL = 4096
+LENGTH_CONTINUE = ("[kestrel-devagent] Your last reply hit the output token limit before you called a tool or "
+                   "answered. Continue the task: keep your reasoning short and make the next tool call.")
 API_ATTEMPTS = 5            # on top of the openai client's own 3 retries
 
 
@@ -66,6 +68,8 @@ class SessionSpec:
     check: Callable[[Path], tuple[bool, list[str]]] | None = None
     model: str | None = None           # None = glm.model_for() once per Session
     temperature: float = 0.2
+    max_tokens: int = MAX_TOKENS_PER_CALL
+    continue_on_length: bool = False   # a reply cut off by max_tokens (no tool call) gets LENGTH_CONTINUE, not "done"
     agent: str = AGENT_NAME
 
 
@@ -147,7 +151,7 @@ def _extra_body() -> dict:
 
 
 def complete(client: Any, *, model: str, messages: list[dict], tools: list[dict], temperature: float,
-             sleep: Callable[[float], None] = time.sleep) -> Any:
+             max_tokens: int = MAX_TOKENS_PER_CALL, sleep: Callable[[float], None] = time.sleep) -> Any:
     """One Chat Completions request, retried with backoff on API errors (not on 4xx other than 408/409/429)."""
     from openai import APIError, APIStatusError
 
@@ -155,7 +159,7 @@ def complete(client: Any, *, model: str, messages: list[dict], tools: list[dict]
         try:
             return client.chat.completions.create(
                 model=model, messages=messages, tools=tools or None, temperature=temperature,
-                max_tokens=MAX_TOKENS_PER_CALL, extra_body=_extra_body())
+                max_tokens=max_tokens, extra_body=_extra_body())
         except APIError as e:
             status = getattr(e, "status_code", None) if isinstance(e, APIStatusError) else None
             if status is not None and 400 <= status < 500 and status not in (408, 409, 429):
@@ -206,7 +210,8 @@ def run_session(spec: SessionSpec, *, client: Any = None, sleep: Callable[[float
         system = (volatile_header() + stable_system) if spec.variant == "cache_miss" else stable_system
         request = [{"role": "system", "content": system}] + messages
         t0 = time.time_ns()
-        resp = complete(client, model=model, messages=request, tools=tools, temperature=spec.temperature, sleep=sleep)
+        resp = complete(client, model=model, messages=request, tools=tools, temperature=spec.temperature,
+                        max_tokens=spec.max_tokens, sleep=sleep)
         t1 = time.time_ns()
 
         usage = resp.usage
@@ -287,6 +292,10 @@ def run_session(spec: SessionSpec, *, client: Any = None, sleep: Callable[[float
                 new_otel.append({"role": "user", "parts": [{"type": "text", "content": note}]})
             continue
 
+        if spec.continue_on_length and choice.finish_reason == "length":   # cut off mid-thought, not finished
+            messages.append({"role": "user", "content": LENGTH_CONTINUE})
+            new_otel.append({"role": "user", "parts": [{"type": "text", "content": LENGTH_CONTINUE}]})
+            continue
         final_answer = text
         if spec.retry_prompt and last_exit_code not in (None, 0):   # naive retry wrapper: no exit condition
             messages.append({"role": "user", "content": spec.retry_prompt})

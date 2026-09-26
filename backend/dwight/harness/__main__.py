@@ -4,6 +4,9 @@
   python -m dwight.harness real [--only real-001,real-007] [--variant cache_miss] [--workers 4] [--ingest]
   python -m dwight.harness storage --experiment before --prefix real-scr-b [--tasks t01,t02]
                                    [--context-file PATH ...] [--model MODEL] [--repeat N] [--ingest]
+  python -m dwight.harness storage --settings ../data/real_scr_settings.json --experiment before|after ...
+                                   # model + settings pinned by the file (04 writes it, 16 reuses it)
+  python -m dwight.harness storage-settings --model MODEL [--out ../data/real_scr_settings.json]
   python -m dwight.harness stats                        # -> data/real_layer_stats.json
 
 Outputs: data/otlp/real/<session_id>.json (OTLP JSON), data/real_layer_runs.json
@@ -17,7 +20,7 @@ import json
 import sys
 from pathlib import Path
 
-from dwight.harness import runner, stats, tasks
+from dwight.harness import runner, settings, stats, tasks
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -39,12 +42,23 @@ def main(argv: list[str] | None = None) -> int:
     s.add_argument("--tasks", help="comma-separated task ids or t-numbers (t01,t02)")
     s.add_argument("--context-file", type=Path, action="append", default=[],
                    help="file loaded into the Agent's starting context (repeatable)")
+    s.add_argument("--settings", type=Path,
+                   help="settings file (storage-settings) that pins model, max-calls, repeat, tasks, workers; "
+                        "refuses to run if the harness drifted since it was written")
     s.add_argument("--model", help="model string (default: glm.model_for())")
-    s.add_argument("--repeat", type=int, default=1)
-    s.add_argument("--max-calls", type=int, default=tasks.STORAGE_MAX_CALLS)
-    s.add_argument("--workers", type=int, default=runner.MAX_WORKERS)
+    s.add_argument("--repeat", type=int)
+    s.add_argument("--max-calls", type=int)
+    s.add_argument("--workers", type=int)
     s.add_argument("--out", type=Path, default=runner.OTLP_REAL_DIR)
     s.add_argument("--ingest", action="store_true")
+
+    w = sub.add_parser("storage-settings", help="write the storage-run settings file (pins one model)")
+    w.add_argument("--model", required=True)
+    w.add_argument("--max-calls", type=int, default=tasks.STORAGE_MAX_CALLS)
+    w.add_argument("--repeat", type=int, default=1)
+    w.add_argument("--tasks", help="comma-separated task ids (default: all)")
+    w.add_argument("--workers", type=int, default=runner.MAX_WORKERS)
+    w.add_argument("--out", type=Path, default=settings.DEFAULT_PATH)
 
     sub.add_parser("stats", help="write data/real_layer_stats.json")
 
@@ -64,14 +78,27 @@ def main(argv: list[str] | None = None) -> int:
         print(f"{len(specs) - len(failed)} ok, {len(failed)} failed{': ' + ','.join(failed) if failed else ''}")
         return 1 if failed else 0
     if a.cmd == "storage":
+        opts = {"model": a.model, "max_calls": a.max_calls, "repeat": a.repeat, "workers": a.workers,
+                "tasks": a.tasks.split(",") if a.tasks else None}
+        if a.settings:
+            given = [k for k, v in opts.items() if v is not None]
+            if given:
+                p.error(f"--settings pins {', '.join(given)}; don't pass them too")
+            opts = settings.load(a.settings)
         specs = tasks.storage_specs(
             experiment=None if a.experiment == "none" else a.experiment, session_prefix=a.prefix,
-            task_ids=a.tasks.split(",") if a.tasks else None, context_files=a.context_file, model=a.model,
-            repeat=a.repeat, max_calls=a.max_calls)
-        results, failed = runner.run_batch(specs, workers=a.workers, out_dir=a.out, ingest=a.ingest)
+            task_ids=opts["tasks"], context_files=a.context_file, model=opts["model"],
+            repeat=opts["repeat"] or 1, max_calls=opts["max_calls"] or tasks.STORAGE_MAX_CALLS)
+        results, failed = runner.run_batch(specs, workers=opts["workers"] or runner.MAX_WORKERS, out_dir=a.out,
+                                           ingest=a.ingest)
         passed = sum(1 for x in results if x.task_success)
         print(f"{passed}/{len(results)} tasks passed, {len(failed)} failed to run")
         return 1 if failed else 0
+    if a.cmd == "storage-settings":
+        settings.write(a.out, model=a.model, max_calls=a.max_calls, repeat=a.repeat, workers=a.workers,
+                       task_ids=a.tasks.split(",") if a.tasks else None)
+        print(f"wrote {a.out}")
+        return 0
     if a.cmd == "stats":
         out = stats.write()
         print(json.dumps({k: out[k] for k in ("models", "cache", "pattern_rates")}, indent=1))

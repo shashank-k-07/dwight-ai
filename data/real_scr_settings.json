@@ -1,0 +1,50 @@
+{
+ "about": "Harness settings shared by the storage before (04) and after (16) runs. Run with: python -m dwight.harness storage --settings <this file> ...",
+ "params": {
+  "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+  "max_calls": 30,
+  "repeat": 1,
+  "tasks": null,
+  "workers": 4
+ },
+ "fingerprint": {
+  "system_prompt_sha": "a076415fb6e1df87",
+  "tools": [
+   "list_docs",
+   "read_doc",
+   "list_files",
+   "read_file",
+   "search",
+   "write_file",
+   "run_command"
+  ],
+  "tool_specs_sha": "4abba5810e09b5ab",
+  "temperature": 0.2,
+  "max_tokens_per_call": 16384,
+  "continue_on_length": true,
+  "length_continue_prompt_sha": "896444ec2c6f5d4c",
+  "thinking": null,
+  "base_url": "https://api.sciforium.com/v1",
+  "task_ids": [
+   "t01-telemetry-prod-plan",
+   "t02-telemetry-eu-plan",
+   "t03-pod-images-plan",
+   "t04-app-logs-plan",
+   "t05-ml-snapshots-plan",
+   "t06-support-attachments-plan",
+   "t07-savings-ranking",
+   "t08-pod-images-apply",
+   "t09-ml-snapshots-apply",
+   "t10-exception-codes"
+  ],
+  "tasks_sha": "0d39cc6a099637e5",
+  "docs": [
+   "blobctl-migration-runbook",
+   "storage-cost-dashboard",
+   "storage-service-ownership",
+   "storage-tiering-policy"
+  ],
+  "docs_sha": "9def51f3e29abd28",
+  "workspace_sha": "205808dc093b1c0e"
+ }
+}
