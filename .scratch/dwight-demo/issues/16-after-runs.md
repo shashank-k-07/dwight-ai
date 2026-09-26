@@ -4,7 +4,7 @@
 
 **Blocked by:** 13, 15
 
-**Status:** done (task success dropped 10/10 → 8/10, so the drop does NOT count; see Comments)
+**Status:** in-progress (Draft v1 attempt archived: 8/10, success not held; Draft v2 re-run pending)
 
 - [x] Uses the exact model and harness settings recorded in 04
 - [x] Runs are ingested, tagged `dwight.experiment=after`, with per-task success/fail stored
@@ -20,7 +20,7 @@
 
 **From 12 (merged):** the Draft files land in `out/drafts/storage-cost-reduction.md` (doc) and `out/drafts/storage-cost-reduction.memory.md`, under `DWIGHT_OUT_DIR` or else the gitignored `out/`. `draft.draft_files(iid)` returns both paths, and `GET /api/drafts/{id}/download` serves the same text. Load both as context files, doc first. **Copy 15's files somewhere stable and commit them** before running the after batch, because re-running `draft` regenerates them with different wording.
 
-**Done (ticket 16). Task success dropped from 10/10 to 8/10, so `success_held` is false and the token drop does not count as a saving.** Nothing was re-run or tuned.
+**Attempt 1, with Draft v1 (ARCHIVED; superseded by the Draft v2 attempt below). Result: 8/10 tasks passed, −28.3% tokens per Session, `success_held` false.** Task success dropped from 10/10 to 8/10, so the token drop does not count as a saving. Nothing was re-run or tuned. Archived: the OTLP was moved to `data/archive/draft-v1-after-runs/` (out of `data/otlp/`, so no ingest path picks it up), along with the v1 Draft as `draft-v1.md` / `draft-v1.memory.md`. The v1 entries in `data/real_layer_runs.json` and `data/ground-truth/real_layer_labels.yaml` now sit under `archived.draft-v1-after` (kept, not deleted). The user then approved: fix the Drafter, regenerate v2, and re-run the whole after batch once.
 
 **Command** (from `backend/`, 04's settings file used as-is; fingerprint check passed with no drift):
 
@@ -29,7 +29,7 @@ python -m dwight.harness storage --settings ../data/real_scr_settings.json --exp
     --context-file ../data/drafts/storage-cost-reduction.md --context-file ../data/drafts/storage-cost-reduction.memory.md --ingest
 ```
 
-One batch, 10 Sessions, 0 harness errors, no reply hit the length cap. Outputs: `data/otlp/real/real-scr-a-t01..t10.json`, plus new entries in `data/real_layer_runs.json` and `data/ground-truth/real_layer_labels.yaml`. Every run is tagged `dwight.experiment=after`, with the same `dwight.experiment.task_id` as its before run, `task_success`, and `dwight.dataset=real`.
+One batch, 10 Sessions, 0 harness errors, no reply hit the length cap. Outputs (now archived): `data/archive/draft-v1-after-runs/real-scr-a-t01..t10.json`, plus new entries in `data/real_layer_runs.json` and `data/ground-truth/real_layer_labels.yaml`. Every run is tagged `dwight.experiment=after`, with the same `dwight.experiment.task_id` as its before run, `task_success`, and `dwight.dataset=real`.
 
 **Verified on a real-only store** (fresh store, ingest all 60 files in `data/otlp/real/`, live `classify --dataset real`): 20/20 `real-scr-*` Sessions → `storage-cost-reduction`. `before_after.compute(conn, "storage-cost-reduction")` and `GET /api/initiatives/storage-cost-reduction/before-after` (source `store`) agree:
 

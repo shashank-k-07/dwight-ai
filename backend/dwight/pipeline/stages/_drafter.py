@@ -82,6 +82,219 @@ def doc_title(text: str, resource_id: str) -> str:
     return m.group(1) if m else Path(resource_id).stem.replace("-", " ").capitalize()
 
 
+# ---------------------------------------------------------------- tables and the columns rules depend on
+#
+# A lookup table often carries a column that a rule in ANOTHER section or doc depends on:
+# the tiering policy's small-objects override reads the dashboard's "Avg object" column,
+# the runbook's scope rule reads its "Policy compliant" column. A section is condensed
+# from its own doc alone, so the model can't see that dependency and may drop the column
+# (Draft v1 did, and the after runs then mispriced the small-object bucket). Code finds
+# these columns from the docs' prose, tells the model to keep them, and puts back any
+# the model still drops (repair_tables), with the source's values for the rows it kept.
+
+ABBREVIATIONS = {"avg": "average", "no": "number", "num": "number", "pct": "percent", "min": "minimum",
+                 "max": "maximum", "qty": "quantity", "req": "required", "env": "environment"}
+_HEADER_NOISE = {"the", "a", "an", "of", "per", "in", "usd", "tb", "gb", "mb", "kb", "eur", "days", "day"}
+
+
+@dataclass
+class Table:
+    header: list[str]
+    rows: list[list[str]]
+    section: str          # the `##` section it sits in ("" before the first one)
+    start: int            # line index of the header row
+    end: int              # line index after the last row
+
+
+def _cells(line: str) -> list[str]:
+    s = line.strip()
+    s = s[1:] if s.startswith("|") else s
+    s = s[:-1] if s.endswith("|") else s
+    return [c.strip() for c in s.split("|")]
+
+
+def _is_separator(line: str) -> bool:
+    return bool(re.fullmatch(r"\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)*\|?", line.strip()))
+
+
+def parse_tables(text: str) -> list[Table]:
+    """Every markdown table (header row + separator + rows) in `text`."""
+    lines = text.splitlines()
+    tables, section, i = [], "", 0
+    while i < len(lines):
+        line = lines[i]
+        if re.match(r"^##\s", line):
+            section = line.lstrip("#").strip()
+        if line.strip().startswith("|") and i + 1 < len(lines) and _is_separator(lines[i + 1]):
+            j = i + 2
+            while j < len(lines) and lines[j].strip().startswith("|"):
+                j += 1
+            tables.append(Table(_cells(line), [_cells(r) for r in lines[i + 2:j]], section, i, j))
+            i = j
+            continue
+        i += 1
+    return tables
+
+
+def _plain(s: str) -> str:
+    return re.sub(r"[*`_\"]", "", s).strip()
+
+
+def _words(s: str) -> list[str]:
+    return [ABBREVIATIONS.get(w, w) for w in re.findall(r"[a-z0-9]+", _plain(s).lower())]
+
+
+def _content_words(header: str) -> list[str]:
+    return [w for w in _words(header) if w not in _HEADER_NOISE]
+
+
+def _prose_by_section(text: str) -> list[tuple[str, str]]:
+    """(section, prose) pairs: each `##` section's text with its tables removed."""
+    out, section, buf = [], "", []
+    for line in text.splitlines():
+        if re.match(r"^##\s", line):
+            out.append((section, "\n".join(buf)))
+            section, buf = line.lstrip("#").strip(), []
+        elif not line.strip().startswith("|"):
+            buf.append(line)
+    out.append((section, "\n".join(buf)))
+    return out
+
+
+def _sentences(prose: str) -> list[str]:
+    return [s.strip() for s in re.split(r"(?<=[.!?])\s+|\n(?=\s*[-*#>\d])|\n\s*\n", prose) if s.strip()]
+
+
+def _mentions(sentence: str, header: str) -> bool:
+    """Does this sentence refer to the column `header`? A multi-word header counts when its
+    content words appear in order with at most one word between them ("Avg object" ~
+    "average object size"); a one-word header only when quoted ("Objects", `Objects`)."""
+    want = _content_words(header)
+    if not want:
+        return False
+    if len(want) == 1:
+        h = re.escape(_plain(header))
+        return bool(re.search(rf"[\"`]\**{h}\**[\"`]", sentence, re.I))
+    got = _words(sentence)
+    for start, w in enumerate(got):
+        if w != want[0]:
+            continue
+        pos, ok = start, True
+        for nxt in want[1:]:
+            window = got[pos + 1:pos + 3]
+            if nxt not in window:
+                ok = False
+                break
+            pos = pos + 1 + window.index(nxt)
+        if ok:
+            return True
+    return False
+
+
+@dataclass(frozen=True)
+class ColumnNeed:
+    column: str
+    evidence: str         # the sentence that depends on it
+    evidence_doc: str     # resource_id of the doc that sentence is in
+
+
+def required_columns(docs: list["SourceDoc"]) -> dict[str, list[tuple[Table, list[ColumnNeed]]]]:
+    """{resource_id: [(table, [columns a rule elsewhere depends on])]} over all source docs.
+    A sentence in the table's own `##` section (its caption, its notes) doesn't count: that
+    describes the table rather than using it."""
+    prose = [(doc.resource_id, sec, s) for doc in docs for sec, p in _prose_by_section(doc.text)
+             for s in _sentences(p)]
+    out: dict[str, list[tuple[Table, list[ColumnNeed]]]] = {}
+    for doc in docs:
+        for t in parse_tables(doc.text):
+            if not t.rows:
+                continue
+            needs = []
+            for col in t.header:
+                hit = next(((rid, s) for rid, sec, s in prose
+                            if not (rid == doc.resource_id and sec == t.section) and _mentions(s, col)), None)
+                if hit:
+                    needs.append(ColumnNeed(col, hit[1][:240], hit[0]))
+            if needs:
+                out.setdefault(doc.resource_id, []).append((t, needs))
+    return out
+
+
+def _norm_cell(s: str) -> str:
+    return " ".join(_plain(s).lower().split())
+
+
+def _match_source(out_table: Table, sources: list[Table]) -> Table | None:
+    """The source table an output table was condensed from: most shared column names (at
+    least two, and at least half of the output's columns)."""
+    have = {_norm_cell(h) for h in out_table.header}
+    best, best_n = None, 0
+    for t in sources:
+        n = len(have & {_norm_cell(h) for h in t.header})
+        if n > best_n:
+            best, best_n = t, n
+    if best is None or best_n < 2 or best_n * 2 < len(have):
+        return None
+    return best
+
+
+def _row_line(cells: list[str]) -> str:
+    return "| " + " | ".join(cells) + " |"
+
+
+def repair_tables(section: str, needs: list[tuple[Table, list[ColumnNeed]]]) -> tuple[str, list[str]]:
+    """Put back required columns the model dropped from a table it kept. Values come from the
+    source row whose key (the output's first column) matches; a row that can't be matched gets
+    `(see source)`. Returns (section, one note per column put back)."""
+    if not needs:
+        return section, []
+    lines, notes = section.splitlines(), []
+    sources = [t for t, _ in needs]
+    need_by_table = {id(t): [n.column for n in ns] for t, ns in needs}
+    for out in reversed(parse_tables(section)):          # bottom-up keeps earlier line numbers valid
+        src = _match_source(out, sources)
+        if src is None:
+            continue
+        have = [_norm_cell(h) for h in out.header]
+        missing = [c for c in need_by_table[id(src)] if _norm_cell(c) not in have]
+        if not missing:
+            continue
+        src_cols = [_norm_cell(h) for h in src.header]
+        key_out = have[0]
+        key_src = src_cols.index(key_out) if key_out in src_cols else 0
+        by_key = {_norm_cell(r[key_src]): r for r in src.rows if len(r) > key_src}
+        header, rows = list(out.header), [list(r) for r in out.rows]
+        for col in missing:
+            ci = src_cols.index(_norm_cell(col))
+            # insert after the nearest earlier source column the output kept, else at the end
+            pos = len(header)
+            for prev in reversed(src_cols[:ci]):
+                if prev in [_norm_cell(h) for h in header]:
+                    pos = [_norm_cell(h) for h in header].index(prev) + 1
+                    break
+            header.insert(pos, col)
+            for r in rows:
+                s = by_key.get(_norm_cell(r[0])) if r else None
+                r.insert(pos, s[ci] if s and len(s) > ci else "(see source)")
+            notes.append(f"put back column {col!r}")
+        sep = _row_line(["---"] * len(header))
+        lines[out.start:out.end] = [_row_line(header), sep] + [_row_line(r) for r in rows]
+    return "\n".join(lines), notes
+
+
+def needs_prompt(needs: list[tuple[Table, list[ColumnNeed]]]) -> str:
+    """The instruction listing, per table in this doc, the columns other rules depend on."""
+    if not needs:
+        return ""
+    parts = []
+    for t, ns in needs:
+        cols = "; ".join(f"`{n.column}` (used by: \"{n.evidence}\")" for n in ns)
+        parts.append(f"- Table with columns {' | '.join(t.header)}: keep {cols}")
+    return ("Columns that rules, overrides or scoping criteria in these docs depend on. If you keep one of "
+            "these tables, keep these columns, with their exact values for every row you keep:\n"
+            + "\n".join(parts) + "\n\n")
+
+
 # ---------------------------------------------------------------- initiative doc
 
 @dataclass
@@ -99,6 +312,8 @@ class DocContext:
     tier: str | None = None
     workers: int = 4
     log: list[str] = field(default_factory=list)
+    # {resource_id: [(table, columns other rules depend on)]}, from required_columns()
+    column_needs: dict = field(default_factory=dict)
 
 
 def header(ctx: DocContext, docs: list[SourceDoc]) -> str:
@@ -106,8 +321,10 @@ def header(ctx: DocContext, docs: list[SourceDoc]) -> str:
     return (f"# {ctx.name}: initiative doc\n\n"
             f"Written by Dwight for Agents working on {ctx.name}. {ctx.readers} of {ctx.analysed} Sessions "
             f"read the same {len(docs)} docs to get started (about {ctx.path_tokens:,} tokens each time). "
-            f"This doc keeps only what those Sessions needed, with exact values copied from the sources. "
-            f"For anything not covered here, open the linked source.\n\nSources: {links}\n")
+            f"**This doc replaces those {len(docs)} source docs for {ctx.name} work.** It keeps every rule, "
+            f"table and value those Sessions needed, copied exactly from the sources. Work from this doc; "
+            f"open a source doc only if a value you need is missing here.\n\n"
+            f"Sources (for provenance): {links}\n")
 
 
 def section_heading(doc: SourceDoc) -> str:
@@ -122,12 +339,12 @@ def section_budgets(docs: list[SourceDoc], target_tokens: int, fixed_tokens: int
     return [max(int(room * d.tokens / total), 50) for d in docs]
 
 
-SYSTEM = """You are Dwight's Drafter. You condense a company's internal docs into one consolidated initiative doc that coding Agents load into their context before they start a task for one Initiative. The Agents can't ask follow-up questions, so every value they need must be written out exactly. They pay for every token, so everything else must go.
+SYSTEM = """You are Dwight's Drafter. You condense a company's internal docs into one consolidated initiative doc that coding Agents load into their context before they start a task for one Initiative. The doc replaces the source docs: the Agents work from it and open a source only if a value they need is missing, so every rule and value they need must be written out exactly. They pay for every token, so everything else must go.
 
 Rules:
 - Keep only what the Sessions described below actually needed to do their work.
 - Copy exact values verbatim, character for character: numbers, prices, thresholds, day counts, sizes with units, storage classes, bucket/service/team names, rule id formats, command syntax and flags, exception/override codes and their precedence, owners and their @handles.
-- Keep lookup tables the Sessions would consult (schedules, price sheets, inventories, owner lists), condensed: drop only columns and rows that are clearly irrelevant to this work.
+- Keep lookup tables the Sessions would consult (schedules, price sheets, inventories, owner lists), condensed: drop only rows that are clearly irrelevant to this work, and only columns that no rule, override, scoping criterion or calculation depends on. A column another doc's rule reads (for example a per-row size, reader or status that decides whether an override applies) must stay, with its values.
 - Drop history, background, rationale, incident stories, comms templates, revision history, FAQs that repeat the body, and processes these Sessions never touched.
 - Terse markdown: `###` subheadings, bullets and compact tables. No introduction, no conclusion, no filler.
 - End each `###` subheading with the source section it came from, like `### Override codes (§5.3)`.
@@ -147,6 +364,7 @@ def section_messages(ctx: DocContext, doc: SourceDoc, budget: int) -> list[dict]
             f"What the Sessions found out along the way (Discoveries):\n{_bullets(ctx.discoveries)}\n\n"
             f"Source doc `{doc.resource_id}` (\"{doc.title}\", about {doc.tokens:,} tokens):\n"
             f"<<<DOC\n{doc.text}\nDOC>>>\n\n"
+            f"{needs_prompt(ctx.column_needs.get(doc.resource_id, []))}"
             f"Write this doc's section of the consolidated initiative doc. Output only the section body, "
             f"starting at the first `###` subheading (no `#` or `##` heading, no source line: Dwight adds those). "
             f"Hard limit: {budget:,} tokens, about {budget * CHARS_PER_TOKEN:,} characters. "
@@ -187,7 +405,7 @@ def review_prompt(budget: int, used: int) -> str:
     return (f"Now check that section against the source doc, line by line. Which exact values would an Agent "
             f"doing these Sessions' work need that the section leaves out: prices or rates used in calculations, "
             f"thresholds, day counts, sizes, codes and their precedence, command syntax and flags, names, owners "
-            f"and @handles, table rows? Put them back. Remove anything the Sessions didn't need. The section is "
+            f"and @handles, table rows, table columns that a rule or override depends on? Put them back. Remove anything the Sessions didn't need. The section is "
             f"{used:,} tokens and may use up to {budget:,} tokens (about {budget * CHARS_PER_TOKEN:,} characters). "
             f"Reply with the complete revised section only.")
 
@@ -206,6 +424,8 @@ def write_section(ctx: DocContext, doc: SourceDoc, budget: int) -> str:
             ctx.log.append(f"{doc.resource_id}: review over budget, kept the first pass")
             break
         text, raw, msgs = text2, raw2, msgs2
+    text, notes = repair_tables(text, ctx.column_needs.get(doc.resource_id, []))
+    ctx.log.extend(f"{doc.resource_id}: {n}" for n in notes)
     return text
 
 
@@ -245,8 +465,11 @@ def assemble(ctx: DocContext, docs: list[SourceDoc], sections: list[str]) -> str
 
 def build_initiative_doc(ctx: DocContext, docs: list[SourceDoc], target_tokens: int) -> str:
     """The consolidated initiative doc, at most `target_tokens` if the model can manage it
-    (the caller checks and reports). Sections are written in parallel."""
-    fixed = count_tokens(header(ctx, docs)) + sum(count_tokens(section_heading(d)) for d in docs)
+    (the caller checks and reports). Sections are written in parallel. Table columns that a
+    rule in any of the docs depends on are kept (prompt) and put back if dropped (code)."""
+    if not ctx.column_needs:
+        ctx.column_needs = required_columns(docs)
+    fixed =count_tokens(header(ctx, docs)) + sum(count_tokens(section_heading(d)) for d in docs)
     budgets = section_budgets(docs, target_tokens, fixed)
     with ThreadPoolExecutor(max_workers=max(1, min(ctx.workers, len(docs)))) as pool:
         sections = list(pool.map(lambda db_: write_section(ctx, *db_), zip(docs, budgets)))

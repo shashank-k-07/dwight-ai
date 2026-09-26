@@ -50,8 +50,16 @@ facts:
 # Doc-resident facts the storage tasks depend on. Ticket 12's check: the
 # consolidated initiative doc Draft must still contain every string below
 # (case-sensitive substring match). Grouped by the doc that is their source.
+# Ticket 16 added the per-bucket values the tiering policy's section 6 overrides are
+# decided on, which Draft v1 lost with the dashboard's "Avg object" column: the in-scope
+# buckets' average object sizes (38 KB triggers 6.1 small objects for kst-app-logs-prod;
+# 850 KB is the smallest one above the 128 KB line), the "Policy compliant" column the
+# runbook's scope rule reads, and claims-portal, the second Tier-1 reader (6.2) of
+# kst-pod-images-prod. This is the Drafter's acceptance check, not a hint to any Agent.
 draft_must_keep:
   storage-tiering-policy:    ["STANDARD_IA", "GLACIER_IR", "DEEP_ARCHIVE", "128 KB", "1095", "2555", "1825", "730"]
-  storage-cost-dashboard:    ["0.0125", "0.00099", "18,860", "mobile-apps-pod-images-prod-v1"]
-  storage-service-ownership: ["replay-api", "@priya.raman", "@marcus.lindqvist", "@tomas.okafor", "platform-core", "mobile-apps"]
+  storage-cost-dashboard:    ["0.0125", "0.00099", "18,860", "mobile-apps-pod-images-prod-v1",
+                              "38 KB", "850 KB", "480 MB", "Policy compliant"]
+  storage-service-ownership: ["replay-api", "claims-portal", "@priya.raman", "@marcus.lindqvist", "@tomas.okafor",
+                              "platform-core", "mobile-apps"]
   blobctl-migration-runbook: ["STATUTORY_RETENTION", "TIER1_READER", "DATA_CLASS_CAP", "SMALL_OBJECTS", "--approver"]

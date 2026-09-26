@@ -1332,374 +1332,6 @@
    "task_success": null,
    "check_notes": []
   },
-  "real-scr-a-t01": {
-   "task_id": "t01-telemetry-prod-plan",
-   "experiment": "after",
-   "recorded_at": "2026-09-26T22:26:36Z",
-   "member_id": "m023",
-   "team": "Data Infrastructure",
-   "settings": {
-    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
-    "agent": "kestrel-devagent",
-    "temperature": 0.2,
-    "max_calls": 30,
-    "max_tokens_per_call": 16384,
-    "continue_on_length": true,
-    "tools": null,
-    "docs": [
-     "blobctl-migration-runbook",
-     "storage-cost-dashboard",
-     "storage-service-ownership",
-     "storage-tiering-policy"
-    ],
-    "system_prompt_sha": "a076415fb6e1",
-    "context_files": [
-     "../data/drafts/storage-cost-reduction.md",
-     "../data/drafts/storage-cost-reduction.memory.md"
-    ],
-    "retry_prompt": null
-   },
-   "calls": 8,
-   "input_tokens": 187662,
-   "output_tokens": 5379,
-   "stop_reason": "final_answer",
-   "task_success": true,
-   "check_notes": [
-    "plan data-infra-telemetry-raw-prod-v1: ok",
-    "out/t01.json: ok"
-   ]
-  },
-  "real-scr-a-t02": {
-   "task_id": "t02-telemetry-eu-plan",
-   "experiment": "after",
-   "recorded_at": "2026-09-26T22:26:36Z",
-   "member_id": "m001",
-   "team": "Platform",
-   "settings": {
-    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
-    "agent": "kestrel-devagent",
-    "temperature": 0.2,
-    "max_calls": 30,
-    "max_tokens_per_call": 16384,
-    "continue_on_length": true,
-    "tools": null,
-    "docs": [
-     "blobctl-migration-runbook",
-     "storage-cost-dashboard",
-     "storage-service-ownership",
-     "storage-tiering-policy"
-    ],
-    "system_prompt_sha": "a076415fb6e1",
-    "context_files": [
-     "../data/drafts/storage-cost-reduction.md",
-     "../data/drafts/storage-cost-reduction.memory.md"
-    ],
-    "retry_prompt": null
-   },
-   "calls": 9,
-   "input_tokens": 217522,
-   "output_tokens": 5066,
-   "stop_reason": "final_answer",
-   "task_success": true,
-   "check_notes": [
-    "plan data-infra-telemetry-raw-eu-v1: ok",
-    "out/t02.json: ok"
-   ]
-  },
-  "real-scr-a-t03": {
-   "task_id": "t03-pod-images-plan",
-   "experiment": "after",
-   "recorded_at": "2026-09-26T22:26:33Z",
-   "member_id": "m061",
-   "team": "Forecasting",
-   "settings": {
-    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
-    "agent": "kestrel-devagent",
-    "temperature": 0.2,
-    "max_calls": 30,
-    "max_tokens_per_call": 16384,
-    "continue_on_length": true,
-    "tools": null,
-    "docs": [
-     "blobctl-migration-runbook",
-     "storage-cost-dashboard",
-     "storage-service-ownership",
-     "storage-tiering-policy"
-    ],
-    "system_prompt_sha": "a076415fb6e1",
-    "context_files": [
-     "../data/drafts/storage-cost-reduction.md",
-     "../data/drafts/storage-cost-reduction.memory.md"
-    ],
-    "retry_prompt": null
-   },
-   "calls": 8,
-   "input_tokens": 187109,
-   "output_tokens": 4484,
-   "stop_reason": "final_answer",
-   "task_success": true,
-   "check_notes": [
-    "plan mobile-apps-pod-images-prod-v2: ok",
-    "out/t03.json: ok"
-   ]
-  },
-  "real-scr-a-t04": {
-   "task_id": "t04-app-logs-plan",
-   "experiment": "after",
-   "recorded_at": "2026-09-26T22:26:29Z",
-   "member_id": "m043",
-   "team": "Mobile",
-   "settings": {
-    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
-    "agent": "kestrel-devagent",
-    "temperature": 0.2,
-    "max_calls": 30,
-    "max_tokens_per_call": 16384,
-    "continue_on_length": true,
-    "tools": null,
-    "docs": [
-     "blobctl-migration-runbook",
-     "storage-cost-dashboard",
-     "storage-service-ownership",
-     "storage-tiering-policy"
-    ],
-    "system_prompt_sha": "a076415fb6e1",
-    "context_files": [
-     "../data/drafts/storage-cost-reduction.md",
-     "../data/drafts/storage-cost-reduction.memory.md"
-    ],
-    "retry_prompt": null
-   },
-   "calls": 9,
-   "input_tokens": 133639,
-   "output_tokens": 3452,
-   "stop_reason": "final_answer",
-   "task_success": false,
-   "check_notes": [
-    "plan platform-core-app-logs-prod-v1: ok",
-    "out/t04.json: wrong ['monthly_cost_after_usd', 'monthly_saving_usd']"
-   ]
-  },
-  "real-scr-a-t05": {
-   "task_id": "t05-ml-snapshots-plan",
-   "experiment": "after",
-   "recorded_at": "2026-09-26T22:27:16Z",
-   "member_id": "m024",
-   "team": "Data Infrastructure",
-   "settings": {
-    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
-    "agent": "kestrel-devagent",
-    "temperature": 0.2,
-    "max_calls": 30,
-    "max_tokens_per_call": 16384,
-    "continue_on_length": true,
-    "tools": null,
-    "docs": [
-     "blobctl-migration-runbook",
-     "storage-cost-dashboard",
-     "storage-service-ownership",
-     "storage-tiering-policy"
-    ],
-    "system_prompt_sha": "a076415fb6e1",
-    "context_files": [
-     "../data/drafts/storage-cost-reduction.md",
-     "../data/drafts/storage-cost-reduction.memory.md"
-    ],
-    "retry_prompt": null
-   },
-   "calls": 8,
-   "input_tokens": 187700,
-   "output_tokens": 10152,
-   "stop_reason": "final_answer",
-   "task_success": true,
-   "check_notes": [
-    "plan forecasting-ml-snapshots-v1: ok",
-    "out/t05.json: ok"
-   ]
-  },
-  "real-scr-a-t06": {
-   "task_id": "t06-support-attachments-plan",
-   "experiment": "after",
-   "recorded_at": "2026-09-26T22:27:02Z",
-   "member_id": "m002",
-   "team": "Platform",
-   "settings": {
-    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
-    "agent": "kestrel-devagent",
-    "temperature": 0.2,
-    "max_calls": 30,
-    "max_tokens_per_call": 16384,
-    "continue_on_length": true,
-    "tools": null,
-    "docs": [
-     "blobctl-migration-runbook",
-     "storage-cost-dashboard",
-     "storage-service-ownership",
-     "storage-tiering-policy"
-    ],
-    "system_prompt_sha": "a076415fb6e1",
-    "context_files": [
-     "../data/drafts/storage-cost-reduction.md",
-     "../data/drafts/storage-cost-reduction.memory.md"
-    ],
-    "retry_prompt": null
-   },
-   "calls": 9,
-   "input_tokens": 217023,
-   "output_tokens": 5411,
-   "stop_reason": "final_answer",
-   "task_success": true,
-   "check_notes": [
-    "plan integrations-support-attachments-v1: ok",
-    "out/t06.json: ok"
-   ]
-  },
-  "real-scr-a-t07": {
-   "task_id": "t07-savings-ranking",
-   "experiment": "after",
-   "recorded_at": "2026-09-26T22:26:58Z",
-   "member_id": "m062",
-   "team": "Forecasting",
-   "settings": {
-    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
-    "agent": "kestrel-devagent",
-    "temperature": 0.2,
-    "max_calls": 30,
-    "max_tokens_per_call": 16384,
-    "continue_on_length": true,
-    "tools": null,
-    "docs": [
-     "blobctl-migration-runbook",
-     "storage-cost-dashboard",
-     "storage-service-ownership",
-     "storage-tiering-policy"
-    ],
-    "system_prompt_sha": "a076415fb6e1",
-    "context_files": [
-     "../data/drafts/storage-cost-reduction.md",
-     "../data/drafts/storage-cost-reduction.memory.md"
-    ],
-    "retry_prompt": null
-   },
-   "calls": 7,
-   "input_tokens": 145130,
-   "output_tokens": 4787,
-   "stop_reason": "final_answer",
-   "task_success": false,
-   "check_notes": [
-    "out/t07.json: wrong ['total_monthly_saving_usd']"
-   ]
-  },
-  "real-scr-a-t08": {
-   "task_id": "t08-pod-images-apply",
-   "experiment": "after",
-   "recorded_at": "2026-09-26T22:26:56Z",
-   "member_id": "m044",
-   "team": "Mobile",
-   "settings": {
-    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
-    "agent": "kestrel-devagent",
-    "temperature": 0.2,
-    "max_calls": 30,
-    "max_tokens_per_call": 16384,
-    "continue_on_length": true,
-    "tools": null,
-    "docs": [
-     "blobctl-migration-runbook",
-     "storage-cost-dashboard",
-     "storage-service-ownership",
-     "storage-tiering-policy"
-    ],
-    "system_prompt_sha": "a076415fb6e1",
-    "context_files": [
-     "../data/drafts/storage-cost-reduction.md",
-     "../data/drafts/storage-cost-reduction.memory.md"
-    ],
-    "retry_prompt": null
-   },
-   "calls": 8,
-   "input_tokens": 188190,
-   "output_tokens": 4270,
-   "stop_reason": "final_answer",
-   "task_success": true,
-   "check_notes": [
-    "plan mobile-apps-pod-images-prod-v2: ok",
-    "apply mobile-apps-pod-images-prod-v2: ok"
-   ]
-  },
-  "real-scr-a-t09": {
-   "task_id": "t09-ml-snapshots-apply",
-   "experiment": "after",
-   "recorded_at": "2026-09-26T22:27:16Z",
-   "member_id": "m025",
-   "team": "Data Infrastructure",
-   "settings": {
-    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
-    "agent": "kestrel-devagent",
-    "temperature": 0.2,
-    "max_calls": 30,
-    "max_tokens_per_call": 16384,
-    "continue_on_length": true,
-    "tools": null,
-    "docs": [
-     "blobctl-migration-runbook",
-     "storage-cost-dashboard",
-     "storage-service-ownership",
-     "storage-tiering-policy"
-    ],
-    "system_prompt_sha": "a076415fb6e1",
-    "context_files": [
-     "../data/drafts/storage-cost-reduction.md",
-     "../data/drafts/storage-cost-reduction.memory.md"
-    ],
-    "retry_prompt": null
-   },
-   "calls": 8,
-   "input_tokens": 187602,
-   "output_tokens": 2654,
-   "stop_reason": "final_answer",
-   "task_success": true,
-   "check_notes": [
-    "plan forecasting-ml-snapshots-v1: ok",
-    "apply forecasting-ml-snapshots-v1: ok"
-   ]
-  },
-  "real-scr-a-t10": {
-   "task_id": "t10-exception-codes",
-   "experiment": "after",
-   "recorded_at": "2026-09-26T22:27:17Z",
-   "member_id": "m003",
-   "team": "Platform",
-   "settings": {
-    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
-    "agent": "kestrel-devagent",
-    "temperature": 0.2,
-    "max_calls": 30,
-    "max_tokens_per_call": 16384,
-    "continue_on_length": true,
-    "tools": null,
-    "docs": [
-     "blobctl-migration-runbook",
-     "storage-cost-dashboard",
-     "storage-service-ownership",
-     "storage-tiering-policy"
-    ],
-    "system_prompt_sha": "a076415fb6e1",
-    "context_files": [
-     "../data/drafts/storage-cost-reduction.md",
-     "../data/drafts/storage-cost-reduction.memory.md"
-    ],
-    "retry_prompt": null
-   },
-   "calls": 5,
-   "input_tokens": 87168,
-   "output_tokens": 4568,
-   "stop_reason": "final_answer",
-   "task_success": true,
-   "check_notes": [
-    "out/t10.json: ok"
-   ]
-  },
   "real-scr-b-t01": {
    "task_id": "t01-telemetry-prod-plan",
    "experiment": "before",
@@ -2037,6 +1669,382 @@
    "check_notes": [
     "out/t10.json: ok"
    ]
+  }
+ },
+ "archived": {
+  "draft-v1-after": {
+   "note": "Draft v1 after runs (ticket 16, first attempt): 8/10 passed, -28.3% tokens/Session, success_held false. Superseded by the Draft v2 after runs under the same session ids. OTLP moved to data/archive/draft-v1-after-runs/ so no ingest path picks it up; kept here for the record.",
+   "otlp_dir": "data/archive/draft-v1-after-runs",
+   "sessions": {
+    "real-scr-a-t01": {
+     "task_id": "t01-telemetry-prod-plan",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:26:36Z",
+     "member_id": "m023",
+     "team": "Data Infrastructure",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 8,
+     "input_tokens": 187662,
+     "output_tokens": 5379,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan data-infra-telemetry-raw-prod-v1: ok",
+      "out/t01.json: ok"
+     ]
+    },
+    "real-scr-a-t02": {
+     "task_id": "t02-telemetry-eu-plan",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:26:36Z",
+     "member_id": "m001",
+     "team": "Platform",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 9,
+     "input_tokens": 217522,
+     "output_tokens": 5066,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan data-infra-telemetry-raw-eu-v1: ok",
+      "out/t02.json: ok"
+     ]
+    },
+    "real-scr-a-t03": {
+     "task_id": "t03-pod-images-plan",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:26:33Z",
+     "member_id": "m061",
+     "team": "Forecasting",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 8,
+     "input_tokens": 187109,
+     "output_tokens": 4484,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan mobile-apps-pod-images-prod-v2: ok",
+      "out/t03.json: ok"
+     ]
+    },
+    "real-scr-a-t04": {
+     "task_id": "t04-app-logs-plan",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:26:29Z",
+     "member_id": "m043",
+     "team": "Mobile",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 9,
+     "input_tokens": 133639,
+     "output_tokens": 3452,
+     "stop_reason": "final_answer",
+     "task_success": false,
+     "check_notes": [
+      "plan platform-core-app-logs-prod-v1: ok",
+      "out/t04.json: wrong ['monthly_cost_after_usd', 'monthly_saving_usd']"
+     ]
+    },
+    "real-scr-a-t05": {
+     "task_id": "t05-ml-snapshots-plan",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:27:16Z",
+     "member_id": "m024",
+     "team": "Data Infrastructure",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 8,
+     "input_tokens": 187700,
+     "output_tokens": 10152,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan forecasting-ml-snapshots-v1: ok",
+      "out/t05.json: ok"
+     ]
+    },
+    "real-scr-a-t06": {
+     "task_id": "t06-support-attachments-plan",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:27:02Z",
+     "member_id": "m002",
+     "team": "Platform",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 9,
+     "input_tokens": 217023,
+     "output_tokens": 5411,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan integrations-support-attachments-v1: ok",
+      "out/t06.json: ok"
+     ]
+    },
+    "real-scr-a-t07": {
+     "task_id": "t07-savings-ranking",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:26:58Z",
+     "member_id": "m062",
+     "team": "Forecasting",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 7,
+     "input_tokens": 145130,
+     "output_tokens": 4787,
+     "stop_reason": "final_answer",
+     "task_success": false,
+     "check_notes": [
+      "out/t07.json: wrong ['total_monthly_saving_usd']"
+     ]
+    },
+    "real-scr-a-t08": {
+     "task_id": "t08-pod-images-apply",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:26:56Z",
+     "member_id": "m044",
+     "team": "Mobile",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 8,
+     "input_tokens": 188190,
+     "output_tokens": 4270,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan mobile-apps-pod-images-prod-v2: ok",
+      "apply mobile-apps-pod-images-prod-v2: ok"
+     ]
+    },
+    "real-scr-a-t09": {
+     "task_id": "t09-ml-snapshots-apply",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:27:16Z",
+     "member_id": "m025",
+     "team": "Data Infrastructure",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 8,
+     "input_tokens": 187602,
+     "output_tokens": 2654,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan forecasting-ml-snapshots-v1: ok",
+      "apply forecasting-ml-snapshots-v1: ok"
+     ]
+    },
+    "real-scr-a-t10": {
+     "task_id": "t10-exception-codes",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:27:17Z",
+     "member_id": "m003",
+     "team": "Platform",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 5,
+     "input_tokens": 87168,
+     "output_tokens": 4568,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "out/t10.json: ok"
+     ]
+    }
+   }
   }
  }
 }
