@@ -1,0 +1,1335 @@
+{
+ "resourceSpans": [
+  {
+   "resource": {
+    "attributes": [
+     {
+      "key": "service.name",
+      "value": {
+       "stringValue": "kestrel-devagent"
+      }
+     },
+     {
+      "key": "dwight.member.id",
+      "value": {
+       "stringValue": "m027"
+      }
+     },
+     {
+      "key": "dwight.team",
+      "value": {
+       "stringValue": "Data Infrastructure"
+      }
+     },
+     {
+      "key": "dwight.business_function",
+      "value": {
+       "stringValue": "Engineering"
+      }
+     },
+     {
+      "key": "dwight.dataset",
+      "value": {
+       "stringValue": "real"
+      }
+     }
+    ]
+   },
+   "scopeSpans": [
+    {
+     "scope": {
+      "name": "dwight.builder"
+     },
+     "spans": [
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "9cda4701e7491db3",
+       "name": "invoke_agent",
+       "kind": 1,
+       "startTimeUnixNano": "1790458143544836000",
+       "endTimeUnixNano": "1790458162257179000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "invoke_agent"
+         }
+        },
+        {
+         "key": "gen_ai.agent.name",
+         "value": {
+          "stringValue": "kestrel-devagent"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "dwight.experiment.task_success",
+         "value": {
+          "boolValue": true
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "50e343af811aa2f7",
+       "parentSpanId": "9cda4701e7491db3",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458143544836000",
+       "endTimeUnixNano": "1790458144710331000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "0"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "971"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "69"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "701"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:03.544795+00:00 request 74686fe64f4b\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"user\", \"parts\": [{\"type\": \"text\", \"content\": \"Summarise the changes in the three most recent releases listed in CHANGELOG.md for Kestrel's platform team, highlighting anything that could affect callers of tomli.loads. Write the summary to out/release-notes.md.\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"text\", \"content\": \"I'll start by reading the changelog and understanding the repo structure.\"}, {\"type\": \"tool_call\", \"id\": \"call_cfe914750249423f883196ab\", \"name\": \"read_file\", \"arguments\": {\"path\": \"CHANGELOG.md\"}}, {\"type\": \"tool_call\", \"id\": \"call_cbda542cd19840a89501c2a3\", \"name\": \"list_files\", \"arguments\": {}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "5832ba65cbe44f2c",
+       "parentSpanId": "50e343af811aa2f7",
+       "name": "execute_tool read_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458144710427000",
+       "endTimeUnixNano": "1790458144710671000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "read_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-1"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"CHANGELOG.md\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "# Changelog\n\n## 2.3.1\n\n- Fixed\n  - Backport: Limit number of parts of a TOML key to address quadratic time complexity\n\n## 2.4.1\n\n- Fixed\n  - Limit number of parts of a TOML key to address quadratic time complexity\n\n## 2.4.0\n\n- Added\n  - TOML v1.1.0 compatibility\n  - Binary wheels for Windows arm64\n\n## 2.3.0\n\n- Added\n  - Binary wheels for Python 3.14 (also free-threaded)\n- Performance\n  - Reduced import time\n\n## 2.2.1\n\n- Fixed\n  - Don't attempt to compile binary wheels for Python 3.8, 3.9 and 3.10 where cibuildwheel depends on a conflicting Tomli version\n\n## 2.2.0\n\n- Added\n  - mypyc generated binary wheels for common platforms\n\n## 2.1.0\n\n- Deprecated\n  - Instantiating `TOMLDecodeError` with free-form arguments.\n    `msg`, `doc` and `pos` arguments should be given.\n- Added\n  - `msg`, `doc`, `pos`, `lineno` and `colno` attributes to `TOMLDecodeError`\n\n## 2.0.2\n\n- Removed\n  - Python 3.7 support\n- Improved\n  - Make `loads` raise `TypeError` not `AttributeError` on bad input types that do not have the `replace` attribute.\n    Improve error message when `bytes` is received.\n- Type annotations\n  - Type annotate `load` input as `typing.IO[bytes]` (previously `typing.BinaryIO`).\n\n## 2.0.1\n\n- Improved\n  - Make bundling easier by using relative imports internally and adding license and copyright notice to source files.\n  - Make error messages more uniform\n  - Raise a friendly `TypeError` for wrong file mode\n  - Allow `parse_float` to return objects having the `append` attr\n  - Eagerly raise an error if `parse_float` returns an illegal type\n- Packaging\n  - Move from `pytest` testing framework to `unittest` and remove `python-dateutil` test dependency.\n    Tests now only require Python interpreter.\n\n## 1.2.3\n\n- Fixed\n  - Backport: Allow lower case \"t\" and \"z\" in datetimes\n\n## 2.0.0\n\n- Removed\n  - Python 3.6 support\n  - Support for text file objects as `load` input. Use binary file objects instead.\n  - First argument of `load` and `loads` can no longer be passed by keyword.\n- Fixed\n  - Allow lower case \"t\" and \"z\" in datetimes\n- Improved\n  - Raise an error when dotted keys define values outside the \"current table\".\n    Technically speaking TOML v1.0.0 does allow such assignments\n    but that isn't intended by specification writers,\n    and will change in a future specification version (see the [pull request](https://github.com/toml-lang/toml/pull/848)).\n\n## 1.2.2\n\n- Fixed\n  - Illegal characters in error messages were surrounded by two pairs of quotation marks\n- Improved\n  - `TOMLDecodeError.__module__` is now the public import path (`tomli`) instead of private import path (`tomli._parser`)\n  - Eliminated an import cycle when `typing.TYPE_CHECKING` is `True`.\n    This allows `sphinx-autodoc-typehints` to resolve type annotations.\n\n## 1.2.1\n\n- Fixed\n  - Raise an error if a carriage return (without a following line feed) is found in a multi-line basic string\n- Type annotations\n  - Type annotate `load` input as `typing.BinaryIO` only to discourage use of deprecated text file objects.\n- Packaging\n  - Remove legacy `setup.py` from PyPI source distribution.\n    If you're a packager and absolutely need this file, please create an issue.\n\n## 1.2.0\n\n- Deprecated\n  - Text file objects as input to `load`.\n    Binary file objects should be used instead to avoid opening a TOML file with universal newlines or with an encoding other than UTF-8.\n\n## 1.1.0\n\n- Added\n  - `load` can now take a binary file object\n\n## 1.0.4\n\n- Performance\n  - Minor boost (~4%)\n\n## 1.0.3\n\n- Fixed\n  - Raise `TOMLDecodeError` instead of `ValueError` when parsing dates and datetimes that pass the regex check but don't correspond to a valid date or datetime.\n- Performance\n  - Improved multiline literal string parsing performance\n\n## 1.0.2\n\n- Performance\n  - Minor boost (~4%)\n\n## 1.0.1\n\n- Performance\n  - A significant boost\n\n## 1.0.0\n\n- Fixed\n  - Raise `TOMLDecodeError` instead of `KeyError` when overwriting implicitly in an inline table\n\n## 0.2.10\n\n- Fixed\n  - Raise `TOMLDecodeError` if overwriting nested inline tables from the parent inline\n  - Raise `TOMLDecodeError` if escaped Unicode character is not a Unicode scalar value\n- Performance\n  - Increased parsing speed of single line basic strings, and multi-line literal and basic strings\n\n## 0.2.9\n\n- Fixed\n  - `TOMLDecodeError` now raised when opening a table implicitly created by a key/value pair\n  - Don't error when two array-of-tables items open a subtable with the same name\n  - Don't error when opening parent table of an already defined array-of-tables item\n\n## 0.2.8\n\n- Performance\n  - Significant boost to comment parsing speed\n\n## 0.2.7\n\n- Added\n  - Improved `TOMLDecodeError` error messages.\n    Line and column are included when applicable.\n\n## 0.2.6\n\n- Performance\n  - Over 5% boost\n\n## 0.2.5\n\n- Fixed\n  - Made exception type `TOMLDecodeError` when overwriting a value with a deeply nested table\n\n## 0.2.4\n\n- Fixed\n  - `TOMLDecodeError` is now raised when attempting to overwrite a value in an inline table's or array's namespace with a table definition\n\n## 0.2.3\n\n- Fixed\n  - Error type was not TOMLDecodeError in some obscure cases\n\n## 0.2.2\n\n- Added\n  - `tomli.load` for parsing IO streams returned by `open()`\n  - `parse_float` keyword argument to `tomli.loads`.\n    Allows parsing TOML floats to a non-float type in Python.\n\n## 0.2.1\n\n- Fixed\n  - `TOMLDecodeError` is now raised for duplicate keys in inline tables,\n    as opposed to silently overriding the previous value\n\n## 0.2.0\n\n- Changed\n  - Project name to Tomli\n- Performance\n  - A performance boost\n\n## 0.1.0\n\n- Added\n  - `tomli.loads` for parsing TOML strings\n  - `tomli.TOMLDecodeError` that is raised for parse errors\n"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "1401"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "d8d4df11f419b96f",
+       "parentSpanId": "50e343af811aa2f7",
+       "name": "execute_tool list_files",
+       "kind": 1,
+       "startTimeUnixNano": "1790458144710704000",
+       "endTimeUnixNano": "1790458144710925000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "list_files"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-2"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": ".bumpversion.cfg\n.flake8\n.github/\n.gitignore\n.pre-commit-config.yaml\nCHANGELOG.md\nLICENSE\nLICENSE-HEADER\nMANIFEST.in\nREADME.md\nbenchmark/\nfuzzer/\nprofiler/\npyproject.toml\nscripts/\nsetup.py\nsrc/\ntests/\ntomllib.md"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "52"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "cc8a2597cfa01381",
+       "parentSpanId": "9cda4701e7491db3",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458144710968000",
+       "endTimeUnixNano": "1790458145979894000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "1"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "2762"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "264"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "701"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:04.710942+00:00 request 786be14ad2e6\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_cfe914750249423f883196ab\", \"response\": \"# Changelog\\n\\n## 2.3.1\\n\\n- Fixed\\n  - Backport: Limit number of parts of a TOML key to address quadratic time complexity\\n\\n## 2.4.1\\n\\n- Fixed\\n  - Limit number of parts of a TOML key to address quadratic time complexity\\n\\n## 2.4.0\\n\\n- Added\\n  - TOML v1.1.0 compatibility\\n  - Binary wheels for Windows arm64\\n\\n## 2.3.0\\n\\n- Added\\n  - Binary wheels for Python 3.14 (also free-threaded)\\n- Performance\\n  - Reduced import time\\n\\n## 2.2.1\\n\\n- Fixed\\n  - Don't attempt to compile binary wheels for Python 3.8, 3.9 and 3.10 where cibuildwheel depends on a conflicting Tomli version\\n\\n## 2.2.0\\n\\n- Added\\n  - mypyc generated binary wheels for common platforms\\n\\n## 2.1.0\\n\\n- Deprecated\\n  - Instantiating `TOMLDecodeError` with free-form arguments.\\n    `msg`, `doc` and `pos` arguments should be given.\\n- Added\\n  - `msg`, `doc`, `pos`, `lineno` and `colno` attributes to `TOMLDecodeError`\\n\\n## 2.0.2\\n\\n- Removed\\n  - Python 3.7 support\\n- Improved\\n  - Make `loads` raise `TypeError` not `AttributeError` on bad input types that do not have the `replace` attribute.\\n    Improve error message when `bytes` is received.\\n- Type annotations\\n  - Type annotate `load` input as `typing.IO[bytes]` (previously `typing.BinaryIO`).\\n\\n## 2.0.1\\n\\n- Improved\\n  - Make bundling easier by using relative imports internally and adding license and copyright notice to source files.\\n  - Make error messages more uniform\\n  - Raise a friendly `TypeError` for wrong file mode\\n  - Allow `parse_float` to return objects having the `append` attr\\n  - Eagerly raise an error if `parse_float` returns an illegal type\\n- Packaging\\n  - Move from `pytest` testing framework to `unittest` and remove `python-dateutil` test dependency.\\n    Tests now only require Python interpreter.\\n\\n## 1.2.3\\n\\n- Fixed\\n  - Backport: Allow lower case \\\"t\\\" and \\\"z\\\" in datetimes\\n\\n## 2.0.0\\n\\n- Removed\\n  - Python 3.6 support\\n  - Support for text file objects as `load` input. Use binary file objects instead.\\n  - First argument of `load` and `loads` can no longer be passed by keyword.\\n- Fixed\\n  - Allow lower case \\\"t\\\" and \\\"z\\\" in datetimes\\n- Improved\\n  - Raise an error when dotted keys define values outside the \\\"current table\\\".\\n    Technically speaking TOML v1.0.0 does allow such assignments\\n    but that isn't intended by specification writers,\\n    and will change in a future specification version (see the [pull request](https://github.com/toml-lang/toml/pull/848)).\\n\\n## 1.2.2\\n\\n- Fixed\\n  - Illegal characters in error messages were surrounded by two pairs of quotation marks\\n- Improved\\n  - `TOMLDecodeError.__module__` is now the public import path (`tomli`) instead of private import path (`tomli._parser`)\\n  - Eliminated an import cycle when `typing.TYPE_CHECKING` is `True`.\\n    This allows `sphinx-autodoc-typehints` to resolve type annotations.\\n\\n## 1.2.1\\n\\n- Fixed\\n  - Raise an error if a carriage return (without a following line feed) is found in a multi-line basic string\\n- Type annotations\\n  - Type annotate `load` input as `typing.BinaryIO` only to discourage use of deprecated text file objects.\\n- Packaging\\n  - Remove legacy `setup.py` from PyPI source distribution.\\n    If you're a packager and absolutely need this file, please create an issue.\\n\\n## 1.2.0\\n\\n- Deprecated\\n  - Text file objects as input to `load`.\\n    Binary file objects should be used instead to avoid opening a TOML file with universal newlines or with an encoding other than UTF-8.\\n\\n## 1.1.0\\n\\n- Added\\n  - `load` can now take a binary file object\\n\\n## 1.0.4\\n\\n- Performance\\n  - Minor boost (~4%)\\n\\n## 1.0.3\\n\\n- Fixed\\n  - Raise `TOMLDecodeError` instead of `ValueError` when parsing dates and datetimes that pass the regex check but don't correspond to a valid date or datetime.\\n- Performance\\n  - Improved multiline literal string parsing performance\\n\\n## 1.0.2\\n\\n- Performance\\n  - Minor boost (~4%)\\n\\n## 1.0.1\\n\\n- Performance\\n  - A significant boost\\n\\n## 1.0.0\\n\\n- Fixed\\n  - Raise `TOMLDecodeError` instead of `KeyError` when overwriting implicitly in an inline table\\n\\n## 0.2.10\\n\\n- Fixed\\n  - Raise `TOMLDecodeError` if overwriting nested inline tables from the parent inline\\n  - Raise `TOMLDecodeError` if escaped Unicode character is not a Unicode scalar value\\n- Performance\\n  - Increased parsing speed of single line basic strings, and multi-line literal and basic strings\\n\\n## 0.2.9\\n\\n- Fixed\\n  - `TOMLDecodeError` now raised when opening a table implicitly created by a key/value pair\\n  - Don't error when two array-of-tables items open a subtable with the same name\\n  - Don't error when opening parent table of an already defined array-of-tables item\\n\\n## 0.2.8\\n\\n- Performance\\n  - Significant boost to comment parsing speed\\n\\n## 0.2.7\\n\\n- Added\\n  - Improved `TOMLDecodeError` error messages.\\n    Line and column are included when applicable.\\n\\n## 0.2.6\\n\\n- Performance\\n  - Over 5% boost\\n\\n## 0.2.5\\n\\n- Fixed\\n  - Made exception type `TOMLDecodeError` when overwriting a value with a deeply nested table\\n\\n## 0.2.4\\n\\n- Fixed\\n  - `TOMLDecodeError` is now raised when attempting to overwrite a value in an inline table's or array's namespace with a table definition\\n\\n## 0.2.3\\n\\n- Fixed\\n  - Error type was not TOMLDecodeError in some obscure cases\\n\\n## 0.2.2\\n\\n- Added\\n  - `tomli.load` for parsing IO streams returned by `open()`\\n  - `parse_float` keyword argument to `tomli.loads`.\\n    Allows parsing TOML floats to a non-float type in Python.\\n\\n## 0.2.1\\n\\n- Fixed\\n  - `TOMLDecodeError` is now raised for duplicate keys in inline tables,\\n    as opposed to silently overriding the previous value\\n\\n## 0.2.0\\n\\n- Changed\\n  - Project name to Tomli\\n- Performance\\n  - A performance boost\\n\\n## 0.1.0\\n\\n- Added\\n  - `tomli.loads` for parsing TOML strings\\n  - `tomli.TOMLDecodeError` that is raised for parse errors\\n\"}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_cbda542cd19840a89501c2a3\", \"response\": \".bumpversion.cfg\\n.flake8\\n.github/\\n.gitignore\\n.pre-commit-config.yaml\\nCHANGELOG.md\\nLICENSE\\nLICENSE-HEADER\\nMANIFEST.in\\nREADME.md\\nbenchmark/\\nfuzzer/\\nprofiler/\\npyproject.toml\\nscripts/\\nsetup.py\\nsrc/\\ntests/\\ntomllib.md\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"The three most recent releases: 2.3.1, 2.4.1, 2.4.0. Note the changelog order is odd \\u2014 2.3.1 appears first, then 2.4.1, then 2.4.0. The \\\"three most recent releases\\\" \\u2014 by version order, the latest are 2.4.1, 2.4.0, 2.3.1. Let me check the actual source to understand the key limit change and TOML 1.1.0 compatibility, and how it affects loads callers.\\n\\nLet me inspect the source for relevant details.\"}, {\"type\": \"text\", \"content\": \"Let me inspect the source to understand the impact of these changes on `tomli.loads` callers.\"}, {\"type\": \"tool_call\", \"id\": \"call_e7b6bd404d664ebcb29307fc\", \"name\": \"list_files\", \"arguments\": {\"path\": \"src/tomli\"}}, {\"type\": \"tool_call\", \"id\": \"call_449183bf18bb4967bd5add2f\", \"name\": \"search\", \"arguments\": {\"pattern\": \"MAX|quadratic|1\\\\.1|parse_float|TOMLDecodeError\", \"path\": \"src/tomli\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "6fa9a1360a511d4d",
+       "parentSpanId": "cc8a2597cfa01381",
+       "name": "execute_tool list_files",
+       "kind": 1,
+       "startTimeUnixNano": "1790458145980174000",
+       "endTimeUnixNano": "1790458145980755000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "list_files"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-4"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"src/tomli\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "__init__.py\n_parser.py\n_re.py\n_types.py\npy.typed"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "12"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "655728acb9c0eca7",
+       "parentSpanId": "cc8a2597cfa01381",
+       "name": "execute_tool search",
+       "kind": 1,
+       "startTimeUnixNano": "1790458145980823000",
+       "endTimeUnixNano": "1790458145984269000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "search"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-5"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"src/tomli\", \"pattern\": \"MAX|quadratic|1\\\\.1|parse_float|TOMLDecodeError\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "src/tomli/__init__.py:5: __all__ = (\"loads\", \"load\", \"TOMLDecodeError\")\nsrc/tomli/__init__.py:8: from ._parser import TOMLDecodeError, load, loads\nsrc/tomli/_parser.py:35: MAX_INLINE_NESTING: Final = sys.getrecursionlimit()\nsrc/tomli/_parser.py:37: # Pathologically excessive number of parts in a key runs into quadratic\nsrc/tomli/_parser.py:42: MAX_KEY_PARTS: Final = sys.getrecursionlimit()\nsrc/tomli/_parser.py:80: period of TOMLDecodeError's free-form arguments.\"\"\"\nsrc/tomli/_parser.py:83: class TOMLDecodeError(ValueError):\nsrc/tomli/_parser.py:110: \"Free-form arguments for TOMLDecodeError are deprecated. \"\nsrc/tomli/_parser.py:144: def load(__fp: IO[bytes], *, parse_float: ParseFloat = float) -> dict[str, Any]:\nsrc/tomli/_parser.py:153: return loads(s, parse_float=parse_float)\nsrc/tomli/_parser.py:156: def loads(__s: str, *, parse_float: ParseFloat = float) -> dict[str, Any]:\nsrc/tomli/_parser.py:170: parse_float = make_safe_parse_float(parse_float)\nsrc/tomli/_parser.py:194: pos = key_value_rule(src, pos, out, header, parse_float)\nsrc/tomli/_parser.py:208: raise TOMLDecodeError(\"Invalid statement\", src, pos)\nsrc/tomli/_parser.py:219: raise TOMLDecodeError(\nsrc/tomli/_parser.py:347: raise TOMLDecodeError(f\"Expected {expect!r}\", src, new_pos) from None\nsrc/tomli/_parser.py:352: raise TOMLDecodeError(f\"Found invalid character {src[pos]!r}\", src, pos)\nsrc/tomli/_parser.py:383: raise TOMLDecodeError(f\"Cannot declare {key} twice\", src, pos)\nsrc/tomli/_parser.py:388: raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None\nsrc/tomli/_parser.py:391: raise TOMLDecodeError(\nsrc/tomli/_parser.py:403: raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)\nsrc/tomli/_parser.py:411: raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None\nsrc/tomli/_parser.py:414: raise TOMLDecodeError(\nsrc/tomli/_parser.py:421: src: str, pos: Pos, out: Output, header: Key, parse_float: ParseFloat\nsrc/tomli/_parser.py:423: pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl=0)\nsrc/tomli/_parser.py:431: raise TOMLDecodeError(f\"Cannot redefine namespace {cont_key}\", src, pos)\nsrc/tomli/_parser.py:437: raise TOMLDecodeError(\nsrc/tomli/_parser.py:444: raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None\nsrc/tomli/_parser.py:446: raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos)\nsrc/tomli/_parser.py:455: src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\nsrc/tomli/_parser.py:463: raise TOMLDecodeError(\"Expected '=' after a key in a key/value pair\", src, pos)\nsrc/tomli/_parser.py:466: pos, value = parse_value(src, pos, parse_float, nest_lvl)\nsrc/tomli/_parser.py:485: if len(key) > MAX_KEY_PARTS:\nsrc/tomli/_parser.py:487: f\"TOML key has more than the allowed {MAX_KEY_PARTS} parts\"\nsrc/tomli/_parser.py:505: raise TOMLDecodeError(\"Invalid initial character for a key part\", src, pos)\nsrc/tomli/_parser.py:514: src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\nsrc/tomli/_parser.py:523: pos, val = parse_value(src, pos, parse_float, nest_lvl)\nsrc/tomli/_parser.py:531: raise TOMLDecodeError(\"Unclosed array\", src, pos)\nsrc/tomli/_parser.py:540: src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\nsrc/tomli/_parser.py:550: pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl)\nsrc/tomli/_parser.py:553: raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)\nsrc/tomli/_parser.py:557: raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None\nsrc/tomli/_parser.py:559: raise TOMLDecodeError(f\"Duplicate inline table key {key_stem!r}\", src, pos)\nsrc/tomli/_parser.py:566: raise TOMLDecodeError(\"Unclosed inline table\", src, pos)\nsrc/tomli/_parser.py:590: raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos)\nsrc/tomli/_parser.py:603: raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos) from None\nsrc/tomli/_parser.py:613: raise TOMLDecodeError(\"Invalid hex value\", src, pos)\nsrc/tomli/_parser.py:617: raise TOMLDecodeError(\nsrc/tomli/_parser.py:676: raise TOMLDecodeError(\"Unterminated string\", src, pos) from None\nsrc/tomli/_parser.py:691: raise TOMLDecodeError(f\"Illegal character {char!r}\", src, pos)\nsrc/tomli/_parser.py:696: src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\nsrc/tomli/_parser.py:698: if nest_lvl > MAX_INLINE_NESTING:\nsrc/tomli/_parser.py:703: f\" {MAX_INLINE_NESTING} levels\"\nsrc/tomli/_parser.py:735: return parse_array(src, pos, parse_float, nest_lvl + 1)\nsrc/tomli/_parser.py:739: return parse_inline_table(src, pos, parse_float, nest_lvl + 1)\nsrc/tomli/_parser.py:747: raise TOMLDecodeError(\"Invalid date or datetime\", src, pos) from e\nsrc/tomli/_parser.py:758: return number_match.end(), match_to_number(number_match, parse_float)\nsrc/tomli/_parser.py:763: return pos + 3, parse_float(first_three)\nsrc/tomli/_parser.py:766: return pos + 4, parse_float(first_four)\nsrc/tomli/_parser.py:768: raise TOMLDecodeError(\"Invalid value\", src, pos)\nsrc/tomli/_parser.py:775: def make_safe_parse_float(parse_float: ParseFloat) -> ParseFloat:\nsrc/tomli/_parser.py:776: \"\"\"A decorator to make `parse_float` safe.\nsrc/tomli/_parser.py:778: `parse_float` must not return dicts or lists, because these types\nsrc/tomli/_parser.py:784: if parse_float is float:\nsrc/tomli/_parser.py:787: def safe_parse_float(float_str: str) -> Any:\nsrc/tomli/_parser.py:788: float_value = parse_float(float_str)\nsrc/tomli/_parser.py:790: raise ValueError(\"parse_float must not return dicts or lists\")\nsrc/tomli/_parser.py:793: return safe_parse_float\nsrc/tomli/_re.py:116: def match_to_number(match: re.Match[str], parse_float: ParseFloat) -> Any:\nsrc/tomli/_re.py:118: return parse_float(match.group())"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "1408"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "6f7bcf19e76a407b",
+       "parentSpanId": "9cda4701e7491db3",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458145984408000",
+       "endTimeUnixNano": "1790458147574380000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "2"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "4813"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "341"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "701"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:05.984364+00:00 request ccec2cc1cc8a\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_e7b6bd404d664ebcb29307fc\", \"response\": \"__init__.py\\n_parser.py\\n_re.py\\n_types.py\\npy.typed\"}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_449183bf18bb4967bd5add2f\", \"response\": \"src/tomli/__init__.py:5: __all__ = (\\\"loads\\\", \\\"load\\\", \\\"TOMLDecodeError\\\")\\nsrc/tomli/__init__.py:8: from ._parser import TOMLDecodeError, load, loads\\nsrc/tomli/_parser.py:35: MAX_INLINE_NESTING: Final = sys.getrecursionlimit()\\nsrc/tomli/_parser.py:37: # Pathologically excessive number of parts in a key runs into quadratic\\nsrc/tomli/_parser.py:42: MAX_KEY_PARTS: Final = sys.getrecursionlimit()\\nsrc/tomli/_parser.py:80: period of TOMLDecodeError's free-form arguments.\\\"\\\"\\\"\\nsrc/tomli/_parser.py:83: class TOMLDecodeError(ValueError):\\nsrc/tomli/_parser.py:110: \\\"Free-form arguments for TOMLDecodeError are deprecated. \\\"\\nsrc/tomli/_parser.py:144: def load(__fp: IO[bytes], *, parse_float: ParseFloat = float) -> dict[str, Any]:\\nsrc/tomli/_parser.py:153: return loads(s, parse_float=parse_float)\\nsrc/tomli/_parser.py:156: def loads(__s: str, *, parse_float: ParseFloat = float) -> dict[str, Any]:\\nsrc/tomli/_parser.py:170: parse_float = make_safe_parse_float(parse_float)\\nsrc/tomli/_parser.py:194: pos = key_value_rule(src, pos, out, header, parse_float)\\nsrc/tomli/_parser.py:208: raise TOMLDecodeError(\\\"Invalid statement\\\", src, pos)\\nsrc/tomli/_parser.py:219: raise TOMLDecodeError(\\nsrc/tomli/_parser.py:347: raise TOMLDecodeError(f\\\"Expected {expect!r}\\\", src, new_pos) from None\\nsrc/tomli/_parser.py:352: raise TOMLDecodeError(f\\\"Found invalid character {src[pos]!r}\\\", src, pos)\\nsrc/tomli/_parser.py:383: raise TOMLDecodeError(f\\\"Cannot declare {key} twice\\\", src, pos)\\nsrc/tomli/_parser.py:388: raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos) from None\\nsrc/tomli/_parser.py:391: raise TOMLDecodeError(\\nsrc/tomli/_parser.py:403: raise TOMLDecodeError(f\\\"Cannot mutate immutable namespace {key}\\\", src, pos)\\nsrc/tomli/_parser.py:411: raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos) from None\\nsrc/tomli/_parser.py:414: raise TOMLDecodeError(\\nsrc/tomli/_parser.py:421: src: str, pos: Pos, out: Output, header: Key, parse_float: ParseFloat\\nsrc/tomli/_parser.py:423: pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl=0)\\nsrc/tomli/_parser.py:431: raise TOMLDecodeError(f\\\"Cannot redefine namespace {cont_key}\\\", src, pos)\\nsrc/tomli/_parser.py:437: raise TOMLDecodeError(\\nsrc/tomli/_parser.py:444: raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos) from None\\nsrc/tomli/_parser.py:446: raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos)\\nsrc/tomli/_parser.py:455: src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\\nsrc/tomli/_parser.py:463: raise TOMLDecodeError(\\\"Expected '=' after a key in a key/value pair\\\", src, pos)\\nsrc/tomli/_parser.py:466: pos, value = parse_value(src, pos, parse_float, nest_lvl)\\nsrc/tomli/_parser.py:485: if len(key) > MAX_KEY_PARTS:\\nsrc/tomli/_parser.py:487: f\\\"TOML key has more than the allowed {MAX_KEY_PARTS} parts\\\"\\nsrc/tomli/_parser.py:505: raise TOMLDecodeError(\\\"Invalid initial character for a key part\\\", src, pos)\\nsrc/tomli/_parser.py:514: src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\\nsrc/tomli/_parser.py:523: pos, val = parse_value(src, pos, parse_float, nest_lvl)\\nsrc/tomli/_parser.py:531: raise TOMLDecodeError(\\\"Unclosed array\\\", src, pos)\\nsrc/tomli/_parser.py:540: src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\\nsrc/tomli/_parser.py:550: pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl)\\nsrc/tomli/_parser.py:553: raise TOMLDecodeError(f\\\"Cannot mutate immutable namespace {key}\\\", src, pos)\\nsrc/tomli/_parser.py:557: raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos) from None\\nsrc/tomli/_parser.py:559: raise TOMLDecodeError(f\\\"Duplicate inline table key {key_stem!r}\\\", src, pos)\\nsrc/tomli/_parser.py:566: raise TOMLDecodeError(\\\"Unclosed inline table\\\", src, pos)\\nsrc/tomli/_parser.py:590: raise TOMLDecodeError(\\\"Unescaped '\\\\\\\\' in a string\\\", src, pos)\\nsrc/tomli/_parser.py:603: raise TOMLDecodeError(\\\"Unescaped '\\\\\\\\' in a string\\\", src, pos) from None\\nsrc/tomli/_parser.py:613: raise TOMLDecodeError(\\\"Invalid hex value\\\", src, pos)\\nsrc/tomli/_parser.py:617: raise TOMLDecodeError(\\nsrc/tomli/_parser.py:676: raise TOMLDecodeError(\\\"Unterminated string\\\", src, pos) from None\\nsrc/tomli/_parser.py:691: raise TOMLDecodeError(f\\\"Illegal character {char!r}\\\", src, pos)\\nsrc/tomli/_parser.py:696: src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\\nsrc/tomli/_parser.py:698: if nest_lvl > MAX_INLINE_NESTING:\\nsrc/tomli/_parser.py:703: f\\\" {MAX_INLINE_NESTING} levels\\\"\\nsrc/tomli/_parser.py:735: return parse_array(src, pos, parse_float, nest_lvl + 1)\\nsrc/tomli/_parser.py:739: return parse_inline_table(src, pos, parse_float, nest_lvl + 1)\\nsrc/tomli/_parser.py:747: raise TOMLDecodeError(\\\"Invalid date or datetime\\\", src, pos) from e\\nsrc/tomli/_parser.py:758: return number_match.end(), match_to_number(number_match, parse_float)\\nsrc/tomli/_parser.py:763: return pos + 3, parse_float(first_three)\\nsrc/tomli/_parser.py:766: return pos + 4, parse_float(first_four)\\nsrc/tomli/_parser.py:768: raise TOMLDecodeError(\\\"Invalid value\\\", src, pos)\\nsrc/tomli/_parser.py:775: def make_safe_parse_float(parse_float: ParseFloat) -> ParseFloat:\\nsrc/tomli/_parser.py:776: \\\"\\\"\\\"A decorator to make `parse_float` safe.\\nsrc/tomli/_parser.py:778: `parse_float` must not return dicts or lists, because these types\\nsrc/tomli/_parser.py:784: if parse_float is float:\\nsrc/tomli/_parser.py:787: def safe_parse_float(float_str: str) -> Any:\\nsrc/tomli/_parser.py:788: float_value = parse_float(float_str)\\nsrc/tomli/_parser.py:790: raise ValueError(\\\"parse_float must not return dicts or lists\\\")\\nsrc/tomli/_parser.py:793: return safe_parse_float\\nsrc/tomli/_re.py:116: def match_to_number(match: re.Match[str], parse_float: ParseFloat) -> Any:\\nsrc/tomli/_re.py:118: return parse_float(match.group())\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"The three most recent releases in CHANGELOG.md are 2.3.1, 2.4.1, 2.4.0 (in the order listed). Wait, \\\"three most recent releases\\\" \\u2014 the changelog is ordered newest first: 2.3.1, 2.4.1, 2.4.0, 2.3.0... Hmm, but 2.3.1 appears before 2.4.1. That's odd ordering. Actually the top three entries are 2.3.1, 2.4.1, 2.4.0. But semantically the three most recent releases by version would be 2.4.1, 2.4.0, 2.3.1. Let me consider. The changelog lists 2.3.1 first (a backport release), then 2.4.1, then 2.4.0. The \\\"three most recent releases listed\\\" = the top three entries: 2.3.1, 2.4.1, 2.4.0.\\n\\nLet me look at the parser for TOML 1.1 changes and key parts limit to describe impact on loads callers. Let me read relevant portions.\"}, {\"type\": \"text\", \"content\": \"Let me look at the key parts limit and TOML 1.1 related code to describe caller impact accurately.\"}, {\"type\": \"tool_call\", \"id\": \"call_3df1d3f83d3143079362ead1\", \"name\": \"read_file\", \"arguments\": {\"path\": \"src/tomli/_parser.py\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "06841aa3975f1367",
+       "parentSpanId": "6f7bcf19e76a407b",
+       "name": "execute_tool read_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458147574587000",
+       "endTimeUnixNano": "1790458147575032000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "read_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-7"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"src/tomli/_parser.py\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "# SPDX-License-Identifier: MIT\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\n# Licensed to PSF under a Contributor Agreement.\n\nfrom __future__ import annotations\n\nimport sys\nfrom types import MappingProxyType\n\nfrom ._re import (\n    RE_DATETIME,\n    RE_LOCALTIME,\n    RE_NUMBER,\n    match_to_datetime,\n    match_to_localtime,\n    match_to_number,\n)\n\nTYPE_CHECKING = False\nif TYPE_CHECKING:\n    from collections.abc import Iterable\n    from typing import IO, Any, Final\n\n    from ._types import Key, ParseFloat, Pos\n\n# Inline tables/arrays are implemented using recursion. Pathologically\n# nested documents cause pure Python to raise RecursionError (which is OK),\n# but mypyc binary wheels will crash unrecoverably (not OK). According to\n# mypyc docs this will be fixed in the future:\n# https://mypyc.readthedocs.io/en/latest/differences_from_python.html#stack-overflows\n# Before mypyc's fix is in, recursion needs to be limited by this library.\n# Choosing `sys.getrecursionlimit()` as maximum inline table/array nesting\n# level, as it allows more nesting than pure Python, but still seems a far\n# lower number than where mypyc binaries crash.\nMAX_INLINE_NESTING: Final = sys.getrecursionlimit()\n\n# Pathologically excessive number of parts in a key runs into quadratic\n# behavior (e.g. in Flags.is_).\n# Even if keys aren't currently parsed using recursion, they name a\n# recursive structure, so it makes sense to limit it using getrecursionlimit()\n# and RecursionError.\nMAX_KEY_PARTS: Final = sys.getrecursionlimit()\n\nASCII_CTRL: Final = frozenset(chr(i) for i in range(32)) | frozenset(chr(127))\n\n# Neither of these sets include quotation mark or backslash. They are\n# currently handled as separate cases in the parser functions.\nILLEGAL_BASIC_STR_CHARS: Final = ASCII_CTRL - frozenset(\"\\t\")\nILLEGAL_MULTILINE_BASIC_STR_CHARS: Final = ASCII_CTRL - frozenset(\"\\t\\n\")\n\nILLEGAL_LITERAL_STR_CHARS: Final = ILLEGAL_BASIC_STR_CHARS\nILLEGAL_MULTILINE_LITERAL_STR_CHARS: Final = ILLEGAL_MULTILINE_BASIC_STR_CHARS\n\nILLEGAL_COMMENT_CHARS: Final = ILLEGAL_BASIC_STR_CHARS\n\nTOML_WS: Final = frozenset(\" \\t\")\nTOML_WS_AND_NEWLINE: Final = TOML_WS | frozenset(\"\\n\")\nBARE_KEY_CHARS: Final = frozenset(\n    \"abcdefghijklmnopqrstuvwxyz\" \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\" \"0123456789\" \"-_\"\n)\nKEY_INITIAL_CHARS: Final = BARE_KEY_CHARS | frozenset(\"\\\"'\")\nHEXDIGIT_CHARS: Final = frozenset(\"abcdef\" \"ABCDEF\" \"0123456789\")\n\nBASIC_STR_ESCAPE_REPLACEMENTS: Final = MappingProxyType(\n    {\n        \"\\\\b\": \"\\u0008\",  # backspace\n        \"\\\\t\": \"\\u0009\",  # tab\n        \"\\\\n\": \"\\u000a\",  # linefeed\n        \"\\\\f\": \"\\u000c\",  # form feed\n        \"\\\\r\": \"\\u000d\",  # carriage return\n        \"\\\\e\": \"\\u001b\",  # escape\n        '\\\\\"': \"\\u0022\",  # quote\n        \"\\\\\\\\\": \"\\u005c\",  # backslash\n    }\n)\n\n\nclass DEPRECATED_DEFAULT:\n    \"\"\"Sentinel to be used as default arg during deprecation\n    period of TOMLDecodeError's free-form arguments.\"\"\"\n\n\nclass TOMLDecodeError(ValueError):\n    \"\"\"An error raised if a document is not valid TOML.\n\n    Adds the following attributes to ValueError:\n    msg: The unformatted error message\n    doc: The TOML document being parsed\n    pos: The index of doc where parsing failed\n    lineno: The line corresponding to pos\n    colno: The column corresponding to pos\n    \"\"\"\n\n    def __init__(\n        self,\n        msg: str | type[DEPRECATED_DEFAULT] = DEPRECATED_DEFAULT,\n        doc: str | type[DEPRECATED_DEFAULT] = DEPRECATED_DEFAULT,\n        pos: Pos | type[DEPRECATED_DEFAULT] = DEPRECATED_DEFAULT,\n        *args: Any,\n    ):\n        if (\n            args\n            or not isinstance(msg, str)\n            or not isinstance(doc, str)\n            or not isinstance(pos, int)\n        ):\n            import warnings\n\n            warnings.warn(\n                \"Free-form arguments for TOMLDecodeError are deprecated. \"\n                \"Please set 'msg' (str), 'doc' (str) and 'pos' (int) arguments only.\",\n                DeprecationWarning,\n                stacklevel=2,\n            )\n            if pos is not DEPRECATED_DEFAULT:\n                args = pos, *args\n            if doc is not DEPRECATED_DEFAULT:\n                args = doc, *args\n            if msg is not DEPRECATED_DEFAULT:\n                args = msg, *args\n            ValueError.__init__(self, *args)\n            return\n\n        lineno = doc.count(\"\\n\", 0, pos) + 1\n        if lineno == 1:\n            colno = pos + 1\n        else:\n            colno = pos - doc.rindex(\"\\n\", 0, pos)\n\n        if pos >= len(doc):\n            coord_repr = \"end of document\"\n        else:\n            coord_repr = f\"line {lineno}, column {colno}\"\n        errmsg = f\"{msg} (at {coord_repr})\"\n        ValueError.__init__(self, errmsg)\n\n        self.msg = msg\n        self.doc = doc\n        self.pos = pos\n        self.lineno = lineno\n        self.colno = colno\n\n\ndef load(__fp: IO[bytes], *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a binary file object.\"\"\"\n    b = __fp.read()\n    try:\n        s = b.decode()\n    except AttributeError:\n        raise TypeError(\n            \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"\n        ) from None\n    return loads(s, parse_float=parse_float)\n\n\ndef loads(__s: str, *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a string.\"\"\"\n\n    # The spec allows converting \"\\r\\n\" to \"\\n\", even in string\n    # literals. Let's do so to simplify parsing.\n    try:\n        src = __s.replace(\"\\r\\n\", \"\\n\")\n    except (AttributeError, TypeError):\n        raise TypeError(\n            f\"Expected str object, not '{type(__s).__qualname__}'\"\n        ) from None\n    pos = 0\n    out = Output()\n    header: Key = ()\n    parse_float = make_safe_parse_float(parse_float)\n\n    # Parse one statement at a time\n    # (typically means one line in TOML source)\n    while True:\n        # 1. Skip line leading whitespace\n        pos = skip_chars(src, pos, TOML_WS)\n\n        # 2. Parse rules. Expect one of the following:\n        #    - end of file\n        #    - end of line\n        #    - comment\n        #    - key/value pair\n        #    - append dict to list (and move to its namespace)\n        #    - create dict (and move to its namespace)\n        # Skip trailing whitespace when applicable.\n        try:\n            char = src[pos]\n        except IndexError:\n            break\n        if char == \"\\n\":\n            pos += 1\n            continue\n        if char in KEY_INITIAL_CHARS:\n            pos = key_value_rule(src, pos, out, header, parse_float)\n            pos = skip_chars(src, pos, TOML_WS)\n        elif char == \"[\":\n            try:\n                second_char: str | None = src[pos + 1]\n            except IndexError:\n                second_char = None\n            out.flags.finalize_pending()\n            if second_char == \"[\":\n                pos, header = create_list_rule(src, pos, out)\n            else:\n                pos, header = create_dict_rule(src, pos, out)\n            pos = skip_chars(src, pos, TOML_WS)\n        elif char != \"#\":\n            raise TOMLDecodeError(\"Invalid statement\", src, pos)\n\n        # 3. Skip comment\n        pos = skip_comment(src, pos)\n\n        # 4. Expect end of line or end of file\n        try:\n            char = src[pos]\n        except IndexError:\n            break\n        if char != \"\\n\":\n            raise TOMLDecodeError(\n                \"Expected newline or end of document after a statement\", src, pos\n            )\n        pos += 1\n\n    return out.data.dict\n\n\nclass Flags:\n    \"\"\"Flags that map to parsed keys/namespaces.\"\"\"\n\n    # Marks an immutable namespace (inline array or inline table).\n    FROZEN: Final = 0\n    # Marks a nest that has been explicitly created and can no longer\n    # be opened using the \"[table]\" syntax.\n    EXPLICIT_NEST: Final = 1\n\n    def __init__(self) -> None:\n        self._flags: dict[str, dict[Any, Any]] = {}\n        self._pending_flags: set[tuple[Key, int]] = set()\n\n    def add_pending(self, key: Key, flag: int) -> None:\n        self._pending_flags.add((key, flag))\n\n    def finalize_pending(self) -> None:\n        for key, flag in self._pending_flags:\n            self.set(key, flag, recursive=False)\n        self._pending_flags.clear()\n\n    def unset_all(self, key: Key) -> None:\n        cont = self._flags\n        for k in key[:-1]:\n            if k not in cont:\n                return\n            cont = cont[k][\"nested\"]\n        cont.pop(key[-1], None)\n\n    def set(self, key: Key, flag: int, *, recursive: bool) -> None:  # noqa: A003\n        cont = self._flags\n        key_parent, key_stem = key[:-1], key[-1]\n        for k in key_parent:\n            if k not in cont:\n                cont[k] = {\"flags\": set(), \"recursive_flags\": set(), \"nested\": {}}\n            cont = cont[k][\"nested\"]\n        if key_stem not in cont:\n            cont[key_stem] = {\"flags\": set(), \"recursive_flags\": set(), \"nested\": {}}\n        cont[key_stem][\"recursive_flags\" if recursive else \"flags\"].add(flag)\n\n    def is_(self, key: Key, flag: int) -> bool:\n        if not key:\n            return False  # document root has no flags\n        cont = self._flags\n        for k in key[:-1]:\n            if k not in cont:\n                return False\n            inner_cont = cont[k]\n            if flag in inner_cont[\"recursive_flags\"]:\n                return True\n            cont = inner_cont[\"nested\"]\n        key_stem = key[-1]\n        if key_stem in cont:\n            inner_cont = cont[key_stem]\n            return flag in inner_cont[\"flags\"] or flag in inner_cont[\"recursive_flags\"]\n        return False\n\n\nclass NestedDict:\n    def __init__(self) -> None:\n        # The parsed content of the TOML document\n        self.dict: dict[str, Any] = {}\n\n    def get_or_create_nest(\n        self,\n        key: Key,\n        *,\n        access_lists: bool = True,\n    ) -> dict[str, Any]:\n        cont: Any = self.dict\n        for k in key:\n            if k not in cont:\n                cont[k] = {}\n            cont = cont[k]\n            if access_lists and isinstance(cont, list):\n                cont = cont[-1]\n            if not isinstance(cont, dict):\n                raise KeyError(\"There is no nest behind this key\")\n        return cont  # type: ignore[no-any-return]\n\n    def append_nest_to_list(self, key: Key) -> None:\n        cont = self.get_or_create_nest(key[:-1])\n        last_key = key[-1]\n        if last_key in cont:\n            list_ = cont[last_key]\n            if not isinstance(list_, list):\n                raise KeyError(\"An object other than list found behind this key\")\n            list_.append({})\n        else:\n            cont[last_key] = [{}]\n\n\nclass Output:\n    def __init__(self) -> None:\n        self.data = NestedDict()\n        self.flags = Flags()\n\n\ndef skip_chars(src: str, pos: Pos, chars: Iterable[str]) -> Pos:\n    try:\n        while src[pos] in chars:\n            pos += 1\n    except IndexError:\n        pass\n    return pos\n\n\ndef skip_until(\n    src: str,\n    pos: Pos,\n    expect: str,\n    *,\n    error_on: frozenset[str],\n    error_on_eof: bool,\n) -> Pos:\n    try:\n        new_pos = src.index(expect, pos)\n    except ValueError:\n        new_pos = len(src)\n        if error_on_eof:\n            raise TOMLDecodeError(f\"Expected {expect!r}\", src, new_pos) from None\n\n    if not error_on.isdisjoint(src[pos:new_pos]):\n        while src[pos] not in error_on:\n            pos += 1\n        raise TOMLDecodeError(f\"Found invalid character {src[pos]!r}\", src, pos)\n    return new_pos\n\n\ndef skip_comment(src: str, pos: Pos) -> Pos:\n    try:\n        char: str | None = src[pos]\n    except IndexError:\n        char = None\n    if char == \"#\":\n        return skip_until(\n            src, pos + 1, \"\\n\", error_on=ILLEGAL_COMMENT_CHARS, error_on_eof=False\n        )\n    return pos\n\n\ndef skip_comments_and_array_ws(src: str, pos: Pos) -> Pos:\n    while True:\n        pos_before_skip = pos\n        pos = skip_chars(src, pos, TOML_WS_AND_NEWLINE)\n        pos = skip_comment(src, pos)\n        if pos == pos_before_skip:\n            return pos\n\n\ndef create_dict_rule(src: str, pos: Pos, out: Output) -> tuple[Pos, Key]:\n    pos += 1  # Skip \"[\"\n    pos = skip_chars(src, pos, TOML_WS)\n    pos, key = parse_key(src, pos)\n\n    if out.flags.is_(key, Flags.EXPLICIT_NEST) or out.flags.is_(key, Flags.FROZEN):\n        raise TOMLDecodeError(f\"Cannot declare {key} twice\", src, pos)\n    out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)\n    try:\n        out.data.get_or_create_nest(key)\n    except KeyError:\n        raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None\n\n    if not src.startswith(\"]\", pos):\n        raise TOMLDecodeError(\n            \"Expected ']' at the end of a table declaration\", src, pos\n        )\n    return pos + 1, key\n\n\ndef create_list_rule(src: str, pos: Pos, out: Output) -> tuple[Pos, Key]:\n    pos += 2  # Skip \"[[\"\n    pos = skip_chars(src, pos, TOML_WS)\n    pos, key = parse_key(src, pos)\n\n    if out.flags.is_(key, Flags.FROZEN):\n        raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)\n    # Free the namespace now that it points to another empty list item...\n    out.flags.unset_all(key)\n    # ...but this key precisely is still prohibited from table declaration\n    out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)\n    try:\n        out.data.append_nest_to_list(key)\n    except KeyError:\n        raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None\n\n    if not src.startswith(\"]]\", pos):\n        raise TOMLDecodeError(\n            \"Expected ']]' at the end of an array declaration\", src, pos\n        )\n    return pos + 2, key\n\n\ndef key_value_rule(\n    src: str, pos: Pos, out: Output, header: Key, parse_float: ParseFloat\n) -> Pos:\n    pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl=0)\n    key_parent, key_stem = key[:-1], key[-1]\n    abs_key_parent = header + key_parent\n\n    relative_path_cont_keys = (header + key[:i] for i in range(1, len(key)))\n    for cont_key in relative_path_cont_keys:\n        # Check that dotted key syntax does not redefine an existing table\n        if out.flags.is_(cont_key, Flags.EXPLICIT_NEST):\n            raise TOMLDecodeError(f\"Cannot redefine namespace {cont_key}\", src, pos)\n        # Containers in the relative path can't be opened with the table syntax or\n        # dotted key/value syntax in following table sections.\n        out.flags.add_pending(cont_key, Flags.EXPLICIT_NEST)\n\n    if out.flags.is_(abs_key_parent, Flags.FROZEN):\n        raise TOMLDecodeError(\n            f\"Cannot mutate immutable namespace {abs_key_parent}\", src, pos\n        )\n\n    try:\n        nest = out.data.get_or_create_nest(abs_key_parent)\n    except KeyError:\n        raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None\n    if key_stem in nest:\n        raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos)\n    # Mark inline table and array namespaces recursively immutable\n    if isinstance(value, (dict, list)):\n        out.flags.set(header + key, Flags.FROZEN, recursive=True)\n    nest[key_stem] = value\n    return pos\n\n\ndef parse_key_value_pair(\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\n) -> tuple[Pos, Key, Any]:\n    pos, key = parse_key(src, pos)\n    try:\n        char: str | None = src[pos]\n    except IndexError:\n        char = None\n    if char != \"=\":\n        raise TOMLDecodeError(\"Expected '=' after a key in a key/value pair\", src, pos)\n    pos += 1\n    pos = skip_chars(src, pos, TOML_WS)\n    pos, value = parse_value(src, pos, parse_float, nest_lvl)\n    return pos, key, value\n\n\ndef parse_key(src: str, pos: Pos) -> tuple[Pos, Key]:\n    pos, key_part = parse_key_part(src, pos)\n    key: Key = (key_part,)\n    pos = skip_chars(src, pos, TOML_WS)\n    while True:\n        try:\n            char: str | None = src[pos]\n        except IndexError:\n            char = None\n        if char != \".\":\n            return pos, key\n        pos += 1\n        pos = skip_chars(src, pos, TOML_WS)\n        pos, key_part = parse_key_part(src, pos)\n        key += (key_part,)\n        if len(key) > MAX_KEY_PARTS:\n            raise RecursionError(\n                f\"TOML key has more than the allowed {MAX_KEY_PARTS} parts\"\n            )\n        pos = skip_chars(src, pos, TOML_WS)\n\n\ndef parse_key_part(src: str, pos: Pos) -> tuple[Pos, str]:\n    try:\n        char: str | None = src[pos]\n    except IndexError:\n        char = None\n    if char in BARE_KEY_CHARS:\n        start_pos = pos\n        pos = skip_chars(src, pos, BARE_KEY_CHARS)\n        return pos, src[start_pos:pos]\n    if char == \"'\":\n        return parse_literal_str(src, pos)\n    if char == '\"':\n        return parse_one_line_basic_str(src, pos)\n    raise TOMLDecodeError(\"Invalid initial character for a key part\", src, pos)\n\n\ndef parse_one_line_basic_str(src: str, pos: Pos) -> tuple[Pos, str]:\n    pos += 1\n    return parse_basic_str(src, pos, multiline=False)\n\n\ndef parse_array(\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\n) -> tuple[Pos, list[Any]]:\n    pos += 1\n    array: list[Any] = []\n\n    pos = skip_comments_and_array_ws(src, pos)\n    if src.startswith(\"]\", pos):\n        return pos + 1, array\n    while True:\n        pos, val = parse_value(src, pos, parse_float, nest_lvl)\n        array.append(val)\n        pos = skip_comments_and_array_ws(src, pos)\n\n        c = src[pos : pos + 1]\n        if c == \"]\":\n            return pos + 1, array\n        if c != \",\":\n            raise TOMLDecodeError(\"Unclosed array\", src, pos)\n        pos += 1\n\n        pos = skip_comments_and_array_ws(src, pos)\n        if src.startswith(\"]\", pos):\n            return pos + 1, array\n\n\ndef parse_inline_table(\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\n) -> tuple[Pos, dict[str, Any]]:\n    pos += 1\n    nested_dict = NestedDict()\n    flags = Flags()\n\n    pos = skip_comments_and_array_ws(src, pos)\n    if src.startswith(\"}\", pos):\n        return pos + 1, nested_dict.dict\n    while True:\n        pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl)\n        key_parent, key_stem = key[:-1], key[-1]\n        if flags.is_(key, Flags.FROZEN):\n            raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)\n        try:\n            nest = nested_dict.get_or_create_nest(key_parent, access_lists=False)\n        except KeyError:\n            raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None\n        if key_stem in nest:\n            raise TOMLDecodeError(f\"Duplicate inline table key {key_stem!r}\", src, pos)\n        nest[key_stem] = value\n        pos = skip_comments_and_array_ws(src, pos)\n        c = src[pos : pos + 1]\n        if c == \"}\":\n            return pos + 1, nested_dict.dict\n        if c != \",\":\n            raise TOMLDecodeError(\"Unclosed inline table\", src, pos)\n        pos += 1\n        pos = skip_comments_and_array_ws(src, pos)\n        if src.startswith(\"}\", pos):\n            return pos + 1, nested_dict.dict\n        if isinstance(value, (dict, list)):\n            flags.set(key, Flags.FROZEN, recursive=True)\n\n\ndef parse_basic_str_escape(\n    src: str, pos: Pos, *, multiline: bool = False\n) -> tuple[Pos, str]:\n    escape_id = src[pos : pos + 2]\n    pos += 2\n    if multiline and escape_id in {\"\\\\ \", \"\\\\\\t\", \"\\\\\\n\"}:\n        # Skip whitespace until next non-whitespace character or end of\n        # the doc. Error if non-whitespace is found before newline.\n        if escape_id != \"\\\\\\n\":\n            pos = skip_chars(src, pos, TOML_WS)\n            try:\n                char = src[pos]\n            except IndexError:\n                return pos, \"\"\n            if char != \"\\n\":\n                raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos)\n            pos += 1\n        pos = skip_chars(src, pos, TOML_WS_AND_NEWLINE)\n        return pos, \"\"\n    if escape_id == \"\\\\x\":\n        return parse_hex_char(src, pos, 2)\n    if escape_id == \"\\\\u\":\n        return parse_hex_char(src, pos, 4)\n    if escape_id == \"\\\\U\":\n        return parse_hex_char(src, pos, 8)\n    try:\n        return pos, BASIC_STR_ESCAPE_REPLACEMENTS[escape_id]\n    except KeyError:\n        raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos) from None\n\n\ndef parse_basic_str_escape_multiline(src: str, pos: Pos) -> tuple[Pos, str]:\n    return parse_basic_str_escape(src, pos, multiline=True)\n\n\ndef parse_hex_char(src: str, pos: Pos, hex_len: int) -> tuple[Pos, str]:\n    hex_str = src[pos : pos + hex_len]\n    if len(hex_str) != hex_len or not HEXDIGIT_CHARS.issuperset(hex_str):\n        raise TOMLDecodeError(\"Invalid hex value\", src, pos)\n    pos += hex_len\n    hex_int = int(hex_str, 16)\n    if not is_unicode_scalar_value(hex_int):\n        raise TOMLDecodeError(\n            \"Escaped character is not a Unicode scalar value\", src, pos\n        )\n    return pos, chr(hex_int)\n\n\ndef parse_literal_str(src: str, pos: Pos) -> tuple[Pos, str]:\n    pos += 1  # Skip starting apostrophe\n    start_pos = pos\n    pos = skip_until(\n        src, pos, \"'\", error_on=ILLEGAL_LITERAL_STR_CHARS, error_on_eof=True\n    )\n    return pos + 1, src[start_pos:pos]  # Skip ending apostrophe\n\n\ndef parse_multiline_str(src: str, pos: Pos, *, literal: bool) -> tuple[Pos, str]:\n    pos += 3\n    if src.startswith(\"\\n\", pos):\n        pos += 1\n\n    if literal:\n        delim = \"'\"\n        end_pos = skip_until(\n            src,\n            pos,\n            \"'''\",\n            error_on=ILLEGAL_MULTILINE_LITERAL_STR_CHARS,\n            error_on_eof=True,\n        )\n        result = src[pos:end_pos]\n        pos = end_pos + 3\n    else:\n        delim = '\"'\n        pos, result = parse_basic_str(src, pos, multiline=True)\n\n    # Add at maximum two extra apostrophes/quotes if the end sequence\n    # is 4 or 5 chars long instead of just 3.\n    if not src.startswith(delim, pos):\n        return pos, result\n    pos += 1\n    if not src.startswith(delim, pos):\n        return pos, result + delim\n    pos += 1\n    return pos, result + (delim * 2)\n\n\ndef parse_basic_str(src: str, pos: Pos, *, multiline: bool) -> tuple[Pos, str]:\n    if multiline:\n        error_on = ILLEGAL_MULTILINE_BASIC_STR_CHARS\n        parse_escapes = parse_basic_str_escape_multiline\n    else:\n        error_on = ILLEGAL_BASIC_STR_CHARS\n        parse_escapes = parse_basic_str_escape\n    result = \"\"\n    start_pos = pos\n    while True:\n        try:\n            char = src[pos]\n        except IndexError:\n            raise TOMLDecodeError(\"Unterminated string\", src, pos) from None\n        if char == '\"':\n            if not multiline:\n                return pos + 1, result + src[start_pos:pos]\n            if src.startswith('\"\"\"', pos):\n                return pos + 3, result + src[start_pos:pos]\n            pos += 1\n            continue\n        if char == \"\\\\\":\n            result += src[start_pos:pos]\n            pos, parsed_escape = parse_escapes(src, pos)\n            result += parsed_escape\n            start_pos = pos\n            continue\n        if char in error_on:\n            raise TOMLDecodeError(f\"Illegal character {char!r}\", src, pos)\n        pos += 1\n\n\ndef parse_value(\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\n) -> tuple[Pos, Any]:\n    if nest_lvl > MAX_INLINE_NESTING:\n        # Pure Python should have raised RecursionError already.\n        # This ensures mypyc binaries eventually do the same.\n        raise RecursionError(  # pragma: no cover\n            \"TOML inline arrays/tables are nested more than the allowed\"\n            f\" {MAX_INLINE_NESTING} levels\"\n        )\n\n    try:\n        char: str | None = src[pos]\n    except IndexError:\n        char = None\n\n    # IMPORTANT: order conditions based on speed of checking and likelihood\n\n    # Basic strings\n    if char == '\"':\n        if src.startswith('\"\"\"', pos):\n            return parse_multiline_str(src, pos, literal=False)\n        return parse_one_line_basic_str(src, pos)\n\n    # Literal strings\n    if char == \"'\":\n        if src.startswith(\"'''\", pos):\n            return parse_multiline_str(src, pos, literal=True)\n        return parse_literal_str(src, pos)\n\n    # Booleans\n    if char == \"t\":\n        if src.startswith(\"true\", pos):\n            return pos + 4, True\n    if char == \"f\":\n        if src.startswith(\"false\", pos):\n            return pos + 5, False\n\n    # Arrays\n    if char == \"[\":\n        return parse_array(src, pos, parse_float, nest_lvl + 1)\n\n    # Inline tables\n    if char == \"{\":\n        return parse_inline_table(src, pos, parse_float, nest_lvl + 1)\n\n    # Dates and times\n    datetime_match = RE_DATETIME.match(src, pos)\n    if datetime_match:\n        try:\n            datetime_obj = match_to_datetime(datetime_match)\n        except ValueError as e:\n            raise TOMLDecodeError(\"Invalid date or datetime\", src, pos) from e\n        return datetime_match.end(), datetime_obj\n    localtime_match = RE_LOCALTIME.match(src, pos)\n    if localtime_match:\n        return localtime_match.end(), match_to_localtime(localtime_match)\n\n    # Integers and \"normal\" floats.\n    # The regex will greedily match any type starting with a decimal\n    # char, so needs to be located after handling of dates and times.\n    number_match = RE_NUMBER.match(src, pos)\n    if number_match:\n        return number_match.end(), match_to_number(number_match, parse_float)\n\n    # Special floats\n    first_three = src[pos : pos + 3]\n    if first_three in {\"inf\", \"nan\"}:\n        return pos + 3, parse_float(first_three)\n    first_four = src[pos : pos + 4]\n    if first_four in {\"-inf\", \"+inf\", \"-nan\", \"+nan\"}:\n        return pos + 4, parse_float(first_four)\n\n    raise TOMLDecodeError(\"Invalid value\", src, pos)\n\n\ndef is_unicode_scalar_value(codepoint: int) -> bool:\n    return (0 <= codepoint <= 55295) or (57344 <= codepoint <= 1114111)\n\n\ndef make_safe_parse_float(parse_float: ParseFloat) -> ParseFloat:\n    \"\"\"A decorator to make `parse_float` safe.\n\n    `parse_float` must not return dicts or lists, because these types\n    would be mixed with parsed TOML tables and arrays, thus confusing\n    the parser. The returned decorated callable raises `ValueError`\n    instead of returning illegal types.\n    \"\"\"\n    # The default `float` callable never returns illegal types. Optimize it.\n    if parse_float is float:\n        return float\n\n    def safe_parse_float(float_str: str) -> Any:\n        float_value = parse_float(float_str)\n        if isinstance(float_value, (dict, list)):\n            raise ValueError(\"parse_float must not return dicts or lists\")\n        return float_value\n\n    return safe_parse_float\n"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "6534"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "a005eb66c9eea8b6",
+       "parentSpanId": "9cda4701e7491db3",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458147575180000",
+       "endTimeUnixNano": "1790458148742716000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "3"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "12191"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "182"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "701"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:07.575120+00:00 request 5b0665cc8d8f\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_3df1d3f83d3143079362ead1\", \"response\": \"# SPDX-License-Identifier: MIT\\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\\n# Licensed to PSF under a Contributor Agreement.\\n\\nfrom __future__ import annotations\\n\\nimport sys\\nfrom types import MappingProxyType\\n\\nfrom ._re import (\\n    RE_DATETIME,\\n    RE_LOCALTIME,\\n    RE_NUMBER,\\n    match_to_datetime,\\n    match_to_localtime,\\n    match_to_number,\\n)\\n\\nTYPE_CHECKING = False\\nif TYPE_CHECKING:\\n    from collections.abc import Iterable\\n    from typing import IO, Any, Final\\n\\n    from ._types import Key, ParseFloat, Pos\\n\\n# Inline tables/arrays are implemented using recursion. Pathologically\\n# nested documents cause pure Python to raise RecursionError (which is OK),\\n# but mypyc binary wheels will crash unrecoverably (not OK). According to\\n# mypyc docs this will be fixed in the future:\\n# https://mypyc.readthedocs.io/en/latest/differences_from_python.html#stack-overflows\\n# Before mypyc's fix is in, recursion needs to be limited by this library.\\n# Choosing `sys.getrecursionlimit()` as maximum inline table/array nesting\\n# level, as it allows more nesting than pure Python, but still seems a far\\n# lower number than where mypyc binaries crash.\\nMAX_INLINE_NESTING: Final = sys.getrecursionlimit()\\n\\n# Pathologically excessive number of parts in a key runs into quadratic\\n# behavior (e.g. in Flags.is_).\\n# Even if keys aren't currently parsed using recursion, they name a\\n# recursive structure, so it makes sense to limit it using getrecursionlimit()\\n# and RecursionError.\\nMAX_KEY_PARTS: Final = sys.getrecursionlimit()\\n\\nASCII_CTRL: Final = frozenset(chr(i) for i in range(32)) | frozenset(chr(127))\\n\\n# Neither of these sets include quotation mark or backslash. They are\\n# currently handled as separate cases in the parser functions.\\nILLEGAL_BASIC_STR_CHARS: Final = ASCII_CTRL - frozenset(\\\"\\\\t\\\")\\nILLEGAL_MULTILINE_BASIC_STR_CHARS: Final = ASCII_CTRL - frozenset(\\\"\\\\t\\\\n\\\")\\n\\nILLEGAL_LITERAL_STR_CHARS: Final = ILLEGAL_BASIC_STR_CHARS\\nILLEGAL_MULTILINE_LITERAL_STR_CHARS: Final = ILLEGAL_MULTILINE_BASIC_STR_CHARS\\n\\nILLEGAL_COMMENT_CHARS: Final = ILLEGAL_BASIC_STR_CHARS\\n\\nTOML_WS: Final = frozenset(\\\" \\\\t\\\")\\nTOML_WS_AND_NEWLINE: Final = TOML_WS | frozenset(\\\"\\\\n\\\")\\nBARE_KEY_CHARS: Final = frozenset(\\n    \\\"abcdefghijklmnopqrstuvwxyz\\\" \\\"ABCDEFGHIJKLMNOPQRSTUVWXYZ\\\" \\\"0123456789\\\" \\\"-_\\\"\\n)\\nKEY_INITIAL_CHARS: Final = BARE_KEY_CHARS | frozenset(\\\"\\\\\\\"'\\\")\\nHEXDIGIT_CHARS: Final = frozenset(\\\"abcdef\\\" \\\"ABCDEF\\\" \\\"0123456789\\\")\\n\\nBASIC_STR_ESCAPE_REPLACEMENTS: Final = MappingProxyType(\\n    {\\n        \\\"\\\\\\\\b\\\": \\\"\\\\u0008\\\",  # backspace\\n        \\\"\\\\\\\\t\\\": \\\"\\\\u0009\\\",  # tab\\n        \\\"\\\\\\\\n\\\": \\\"\\\\u000a\\\",  # linefeed\\n        \\\"\\\\\\\\f\\\": \\\"\\\\u000c\\\",  # form feed\\n        \\\"\\\\\\\\r\\\": \\\"\\\\u000d\\\",  # carriage return\\n        \\\"\\\\\\\\e\\\": \\\"\\\\u001b\\\",  # escape\\n        '\\\\\\\\\\\"': \\\"\\\\u0022\\\",  # quote\\n        \\\"\\\\\\\\\\\\\\\\\\\": \\\"\\\\u005c\\\",  # backslash\\n    }\\n)\\n\\n\\nclass DEPRECATED_DEFAULT:\\n    \\\"\\\"\\\"Sentinel to be used as default arg during deprecation\\n    period of TOMLDecodeError's free-form arguments.\\\"\\\"\\\"\\n\\n\\nclass TOMLDecodeError(ValueError):\\n    \\\"\\\"\\\"An error raised if a document is not valid TOML.\\n\\n    Adds the following attributes to ValueError:\\n    msg: The unformatted error message\\n    doc: The TOML document being parsed\\n    pos: The index of doc where parsing failed\\n    lineno: The line corresponding to pos\\n    colno: The column corresponding to pos\\n    \\\"\\\"\\\"\\n\\n    def __init__(\\n        self,\\n        msg: str | type[DEPRECATED_DEFAULT] = DEPRECATED_DEFAULT,\\n        doc: str | type[DEPRECATED_DEFAULT] = DEPRECATED_DEFAULT,\\n        pos: Pos | type[DEPRECATED_DEFAULT] = DEPRECATED_DEFAULT,\\n        *args: Any,\\n    ):\\n        if (\\n            args\\n            or not isinstance(msg, str)\\n            or not isinstance(doc, str)\\n            or not isinstance(pos, int)\\n        ):\\n            import warnings\\n\\n            warnings.warn(\\n                \\\"Free-form arguments for TOMLDecodeError are deprecated. \\\"\\n                \\\"Please set 'msg' (str), 'doc' (str) and 'pos' (int) arguments only.\\\",\\n                DeprecationWarning,\\n                stacklevel=2,\\n            )\\n            if pos is not DEPRECATED_DEFAULT:\\n                args = pos, *args\\n            if doc is not DEPRECATED_DEFAULT:\\n                args = doc, *args\\n            if msg is not DEPRECATED_DEFAULT:\\n                args = msg, *args\\n            ValueError.__init__(self, *args)\\n            return\\n\\n        lineno = doc.count(\\\"\\\\n\\\", 0, pos) + 1\\n        if lineno == 1:\\n            colno = pos + 1\\n        else:\\n            colno = pos - doc.rindex(\\\"\\\\n\\\", 0, pos)\\n\\n        if pos >= len(doc):\\n            coord_repr = \\\"end of document\\\"\\n        else:\\n            coord_repr = f\\\"line {lineno}, column {colno}\\\"\\n        errmsg = f\\\"{msg} (at {coord_repr})\\\"\\n        ValueError.__init__(self, errmsg)\\n\\n        self.msg = msg\\n        self.doc = doc\\n        self.pos = pos\\n        self.lineno = lineno\\n        self.colno = colno\\n\\n\\ndef load(__fp: IO[bytes], *, parse_float: ParseFloat = float) -> dict[str, Any]:\\n    \\\"\\\"\\\"Parse TOML from a binary file object.\\\"\\\"\\\"\\n    b = __fp.read()\\n    try:\\n        s = b.decode()\\n    except AttributeError:\\n        raise TypeError(\\n            \\\"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\\\"\\n        ) from None\\n    return loads(s, parse_float=parse_float)\\n\\n\\ndef loads(__s: str, *, parse_float: ParseFloat = float) -> dict[str, Any]:\\n    \\\"\\\"\\\"Parse TOML from a string.\\\"\\\"\\\"\\n\\n    # The spec allows converting \\\"\\\\r\\\\n\\\" to \\\"\\\\n\\\", even in string\\n    # literals. Let's do so to simplify parsing.\\n    try:\\n        src = __s.replace(\\\"\\\\r\\\\n\\\", \\\"\\\\n\\\")\\n    except (AttributeError, TypeError):\\n        raise TypeError(\\n            f\\\"Expected str object, not '{type(__s).__qualname__}'\\\"\\n        ) from None\\n    pos = 0\\n    out = Output()\\n    header: Key = ()\\n    parse_float = make_safe_parse_float(parse_float)\\n\\n    # Parse one statement at a time\\n    # (typically means one line in TOML source)\\n    while True:\\n        # 1. Skip line leading whitespace\\n        pos = skip_chars(src, pos, TOML_WS)\\n\\n        # 2. Parse rules. Expect one of the following:\\n        #    - end of file\\n        #    - end of line\\n        #    - comment\\n        #    - key/value pair\\n        #    - append dict to list (and move to its namespace)\\n        #    - create dict (and move to its namespace)\\n        # Skip trailing whitespace when applicable.\\n        try:\\n            char = src[pos]\\n        except IndexError:\\n            break\\n        if char == \\\"\\\\n\\\":\\n            pos += 1\\n            continue\\n        if char in KEY_INITIAL_CHARS:\\n            pos = key_value_rule(src, pos, out, header, parse_float)\\n            pos = skip_chars(src, pos, TOML_WS)\\n        elif char == \\\"[\\\":\\n            try:\\n                second_char: str | None = src[pos + 1]\\n            except IndexError:\\n                second_char = None\\n            out.flags.finalize_pending()\\n            if second_char == \\\"[\\\":\\n                pos, header = create_list_rule(src, pos, out)\\n            else:\\n                pos, header = create_dict_rule(src, pos, out)\\n            pos = skip_chars(src, pos, TOML_WS)\\n        elif char != \\\"#\\\":\\n            raise TOMLDecodeError(\\\"Invalid statement\\\", src, pos)\\n\\n        # 3. Skip comment\\n        pos = skip_comment(src, pos)\\n\\n        # 4. Expect end of line or end of file\\n        try:\\n            char = src[pos]\\n        except IndexError:\\n            break\\n        if char != \\\"\\\\n\\\":\\n            raise TOMLDecodeError(\\n                \\\"Expected newline or end of document after a statement\\\", src, pos\\n            )\\n        pos += 1\\n\\n    return out.data.dict\\n\\n\\nclass Flags:\\n    \\\"\\\"\\\"Flags that map to parsed keys/namespaces.\\\"\\\"\\\"\\n\\n    # Marks an immutable namespace (inline array or inline table).\\n    FROZEN: Final = 0\\n    # Marks a nest that has been explicitly created and can no longer\\n    # be opened using the \\\"[table]\\\" syntax.\\n    EXPLICIT_NEST: Final = 1\\n\\n    def __init__(self) -> None:\\n        self._flags: dict[str, dict[Any, Any]] = {}\\n        self._pending_flags: set[tuple[Key, int]] = set()\\n\\n    def add_pending(self, key: Key, flag: int) -> None:\\n        self._pending_flags.add((key, flag))\\n\\n    def finalize_pending(self) -> None:\\n        for key, flag in self._pending_flags:\\n            self.set(key, flag, recursive=False)\\n        self._pending_flags.clear()\\n\\n    def unset_all(self, key: Key) -> None:\\n        cont = self._flags\\n        for k in key[:-1]:\\n            if k not in cont:\\n                return\\n            cont = cont[k][\\\"nested\\\"]\\n        cont.pop(key[-1], None)\\n\\n    def set(self, key: Key, flag: int, *, recursive: bool) -> None:  # noqa: A003\\n        cont = self._flags\\n        key_parent, key_stem = key[:-1], key[-1]\\n        for k in key_parent:\\n            if k not in cont:\\n                cont[k] = {\\\"flags\\\": set(), \\\"recursive_flags\\\": set(), \\\"nested\\\": {}}\\n            cont = cont[k][\\\"nested\\\"]\\n        if key_stem not in cont:\\n            cont[key_stem] = {\\\"flags\\\": set(), \\\"recursive_flags\\\": set(), \\\"nested\\\": {}}\\n        cont[key_stem][\\\"recursive_flags\\\" if recursive else \\\"flags\\\"].add(flag)\\n\\n    def is_(self, key: Key, flag: int) -> bool:\\n        if not key:\\n            return False  # document root has no flags\\n        cont = self._flags\\n        for k in key[:-1]:\\n            if k not in cont:\\n                return False\\n            inner_cont = cont[k]\\n            if flag in inner_cont[\\\"recursive_flags\\\"]:\\n                return True\\n            cont = inner_cont[\\\"nested\\\"]\\n        key_stem = key[-1]\\n        if key_stem in cont:\\n            inner_cont = cont[key_stem]\\n            return flag in inner_cont[\\\"flags\\\"] or flag in inner_cont[\\\"recursive_flags\\\"]\\n        return False\\n\\n\\nclass NestedDict:\\n    def __init__(self) -> None:\\n        # The parsed content of the TOML document\\n        self.dict: dict[str, Any] = {}\\n\\n    def get_or_create_nest(\\n        self,\\n        key: Key,\\n        *,\\n        access_lists: bool = True,\\n    ) -> dict[str, Any]:\\n        cont: Any = self.dict\\n        for k in key:\\n            if k not in cont:\\n                cont[k] = {}\\n            cont = cont[k]\\n            if access_lists and isinstance(cont, list):\\n                cont = cont[-1]\\n            if not isinstance(cont, dict):\\n                raise KeyError(\\\"There is no nest behind this key\\\")\\n        return cont  # type: ignore[no-any-return]\\n\\n    def append_nest_to_list(self, key: Key) -> None:\\n        cont = self.get_or_create_nest(key[:-1])\\n        last_key = key[-1]\\n        if last_key in cont:\\n            list_ = cont[last_key]\\n            if not isinstance(list_, list):\\n                raise KeyError(\\\"An object other than list found behind this key\\\")\\n            list_.append({})\\n        else:\\n            cont[last_key] = [{}]\\n\\n\\nclass Output:\\n    def __init__(self) -> None:\\n        self.data = NestedDict()\\n        self.flags = Flags()\\n\\n\\ndef skip_chars(src: str, pos: Pos, chars: Iterable[str]) -> Pos:\\n    try:\\n        while src[pos] in chars:\\n            pos += 1\\n    except IndexError:\\n        pass\\n    return pos\\n\\n\\ndef skip_until(\\n    src: str,\\n    pos: Pos,\\n    expect: str,\\n    *,\\n    error_on: frozenset[str],\\n    error_on_eof: bool,\\n) -> Pos:\\n    try:\\n        new_pos = src.index(expect, pos)\\n    except ValueError:\\n        new_pos = len(src)\\n        if error_on_eof:\\n            raise TOMLDecodeError(f\\\"Expected {expect!r}\\\", src, new_pos) from None\\n\\n    if not error_on.isdisjoint(src[pos:new_pos]):\\n        while src[pos] not in error_on:\\n            pos += 1\\n        raise TOMLDecodeError(f\\\"Found invalid character {src[pos]!r}\\\", src, pos)\\n    return new_pos\\n\\n\\ndef skip_comment(src: str, pos: Pos) -> Pos:\\n    try:\\n        char: str | None = src[pos]\\n    except IndexError:\\n        char = None\\n    if char == \\\"#\\\":\\n        return skip_until(\\n            src, pos + 1, \\\"\\\\n\\\", error_on=ILLEGAL_COMMENT_CHARS, error_on_eof=False\\n        )\\n    return pos\\n\\n\\ndef skip_comments_and_array_ws(src: str, pos: Pos) -> Pos:\\n    while True:\\n        pos_before_skip = pos\\n        pos = skip_chars(src, pos, TOML_WS_AND_NEWLINE)\\n        pos = skip_comment(src, pos)\\n        if pos == pos_before_skip:\\n            return pos\\n\\n\\ndef create_dict_rule(src: str, pos: Pos, out: Output) -> tuple[Pos, Key]:\\n    pos += 1  # Skip \\\"[\\\"\\n    pos = skip_chars(src, pos, TOML_WS)\\n    pos, key = parse_key(src, pos)\\n\\n    if out.flags.is_(key, Flags.EXPLICIT_NEST) or out.flags.is_(key, Flags.FROZEN):\\n        raise TOMLDecodeError(f\\\"Cannot declare {key} twice\\\", src, pos)\\n    out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)\\n    try:\\n        out.data.get_or_create_nest(key)\\n    except KeyError:\\n        raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos) from None\\n\\n    if not src.startswith(\\\"]\\\", pos):\\n        raise TOMLDecodeError(\\n            \\\"Expected ']' at the end of a table declaration\\\", src, pos\\n        )\\n    return pos + 1, key\\n\\n\\ndef create_list_rule(src: str, pos: Pos, out: Output) -> tuple[Pos, Key]:\\n    pos += 2  # Skip \\\"[[\\\"\\n    pos = skip_chars(src, pos, TOML_WS)\\n    pos, key = parse_key(src, pos)\\n\\n    if out.flags.is_(key, Flags.FROZEN):\\n        raise TOMLDecodeError(f\\\"Cannot mutate immutable namespace {key}\\\", src, pos)\\n    # Free the namespace now that it points to another empty list item...\\n    out.flags.unset_all(key)\\n    # ...but this key precisely is still prohibited from table declaration\\n    out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)\\n    try:\\n        out.data.append_nest_to_list(key)\\n    except KeyError:\\n        raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos) from None\\n\\n    if not src.startswith(\\\"]]\\\", pos):\\n        raise TOMLDecodeError(\\n            \\\"Expected ']]' at the end of an array declaration\\\", src, pos\\n        )\\n    return pos + 2, key\\n\\n\\ndef key_value_rule(\\n    src: str, pos: Pos, out: Output, header: Key, parse_float: ParseFloat\\n) -> Pos:\\n    pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl=0)\\n    key_parent, key_stem = key[:-1], key[-1]\\n    abs_key_parent = header + key_parent\\n\\n    relative_path_cont_keys = (header + key[:i] for i in range(1, len(key)))\\n    for cont_key in relative_path_cont_keys:\\n        # Check that dotted key syntax does not redefine an existing table\\n        if out.flags.is_(cont_key, Flags.EXPLICIT_NEST):\\n            raise TOMLDecodeError(f\\\"Cannot redefine namespace {cont_key}\\\", src, pos)\\n        # Containers in the relative path can't be opened with the table syntax or\\n        # dotted key/value syntax in following table sections.\\n        out.flags.add_pending(cont_key, Flags.EXPLICIT_NEST)\\n\\n    if out.flags.is_(abs_key_parent, Flags.FROZEN):\\n        raise TOMLDecodeError(\\n            f\\\"Cannot mutate immutable namespace {abs_key_parent}\\\", src, pos\\n        )\\n\\n    try:\\n        nest = out.data.get_or_create_nest(abs_key_parent)\\n    except KeyError:\\n        raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos) from None\\n    if key_stem in nest:\\n        raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos)\\n    # Mark inline table and array namespaces recursively immutable\\n    if isinstance(value, (dict, list)):\\n        out.flags.set(header + key, Flags.FROZEN, recursive=True)\\n    nest[key_stem] = value\\n    return pos\\n\\n\\ndef parse_key_value_pair(\\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\\n) -> tuple[Pos, Key, Any]:\\n    pos, key = parse_key(src, pos)\\n    try:\\n        char: str | None = src[pos]\\n    except IndexError:\\n        char = None\\n    if char != \\\"=\\\":\\n        raise TOMLDecodeError(\\\"Expected '=' after a key in a key/value pair\\\", src, pos)\\n    pos += 1\\n    pos = skip_chars(src, pos, TOML_WS)\\n    pos, value = parse_value(src, pos, parse_float, nest_lvl)\\n    return pos, key, value\\n\\n\\ndef parse_key(src: str, pos: Pos) -> tuple[Pos, Key]:\\n    pos, key_part = parse_key_part(src, pos)\\n    key: Key = (key_part,)\\n    pos = skip_chars(src, pos, TOML_WS)\\n    while True:\\n        try:\\n            char: str | None = src[pos]\\n        except IndexError:\\n            char = None\\n        if char != \\\".\\\":\\n            return pos, key\\n        pos += 1\\n        pos = skip_chars(src, pos, TOML_WS)\\n        pos, key_part = parse_key_part(src, pos)\\n        key += (key_part,)\\n        if len(key) > MAX_KEY_PARTS:\\n            raise RecursionError(\\n                f\\\"TOML key has more than the allowed {MAX_KEY_PARTS} parts\\\"\\n            )\\n        pos = skip_chars(src, pos, TOML_WS)\\n\\n\\ndef parse_key_part(src: str, pos: Pos) -> tuple[Pos, str]:\\n    try:\\n        char: str | None = src[pos]\\n    except IndexError:\\n        char = None\\n    if char in BARE_KEY_CHARS:\\n        start_pos = pos\\n        pos = skip_chars(src, pos, BARE_KEY_CHARS)\\n        return pos, src[start_pos:pos]\\n    if char == \\\"'\\\":\\n        return parse_literal_str(src, pos)\\n    if char == '\\\"':\\n        return parse_one_line_basic_str(src, pos)\\n    raise TOMLDecodeError(\\\"Invalid initial character for a key part\\\", src, pos)\\n\\n\\ndef parse_one_line_basic_str(src: str, pos: Pos) -> tuple[Pos, str]:\\n    pos += 1\\n    return parse_basic_str(src, pos, multiline=False)\\n\\n\\ndef parse_array(\\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\\n) -> tuple[Pos, list[Any]]:\\n    pos += 1\\n    array: list[Any] = []\\n\\n    pos = skip_comments_and_array_ws(src, pos)\\n    if src.startswith(\\\"]\\\", pos):\\n        return pos + 1, array\\n    while True:\\n        pos, val = parse_value(src, pos, parse_float, nest_lvl)\\n        array.append(val)\\n        pos = skip_comments_and_array_ws(src, pos)\\n\\n        c = src[pos : pos + 1]\\n        if c == \\\"]\\\":\\n            return pos + 1, array\\n        if c != \\\",\\\":\\n            raise TOMLDecodeError(\\\"Unclosed array\\\", src, pos)\\n        pos += 1\\n\\n        pos = skip_comments_and_array_ws(src, pos)\\n        if src.startswith(\\\"]\\\", pos):\\n            return pos + 1, array\\n\\n\\ndef parse_inline_table(\\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\\n) -> tuple[Pos, dict[str, Any]]:\\n    pos += 1\\n    nested_dict = NestedDict()\\n    flags = Flags()\\n\\n    pos = skip_comments_and_array_ws(src, pos)\\n    if src.startswith(\\\"}\\\", pos):\\n        return pos + 1, nested_dict.dict\\n    while True:\\n        pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl)\\n        key_parent, key_stem = key[:-1], key[-1]\\n        if flags.is_(key, Flags.FROZEN):\\n            raise TOMLDecodeError(f\\\"Cannot mutate immutable namespace {key}\\\", src, pos)\\n        try:\\n            nest = nested_dict.get_or_create_nest(key_parent, access_lists=False)\\n        except KeyError:\\n            raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos) from None\\n        if key_stem in nest:\\n            raise TOMLDecodeError(f\\\"Duplicate inline table key {key_stem!r}\\\", src, pos)\\n        nest[key_stem] = value\\n        pos = skip_comments_and_array_ws(src, pos)\\n        c = src[pos : pos + 1]\\n        if c == \\\"}\\\":\\n            return pos + 1, nested_dict.dict\\n        if c != \\\",\\\":\\n            raise TOMLDecodeError(\\\"Unclosed inline table\\\", src, pos)\\n        pos += 1\\n        pos = skip_comments_and_array_ws(src, pos)\\n        if src.startswith(\\\"}\\\", pos):\\n            return pos + 1, nested_dict.dict\\n        if isinstance(value, (dict, list)):\\n            flags.set(key, Flags.FROZEN, recursive=True)\\n\\n\\ndef parse_basic_str_escape(\\n    src: str, pos: Pos, *, multiline: bool = False\\n) -> tuple[Pos, str]:\\n    escape_id = src[pos : pos + 2]\\n    pos += 2\\n    if multiline and escape_id in {\\\"\\\\\\\\ \\\", \\\"\\\\\\\\\\\\t\\\", \\\"\\\\\\\\\\\\n\\\"}:\\n        # Skip whitespace until next non-whitespace character or end of\\n        # the doc. Error if non-whitespace is found before newline.\\n        if escape_id != \\\"\\\\\\\\\\\\n\\\":\\n            pos = skip_chars(src, pos, TOML_WS)\\n            try:\\n                char = src[pos]\\n            except IndexError:\\n                return pos, \\\"\\\"\\n            if char != \\\"\\\\n\\\":\\n                raise TOMLDecodeError(\\\"Unescaped '\\\\\\\\' in a string\\\", src, pos)\\n            pos += 1\\n        pos = skip_chars(src, pos, TOML_WS_AND_NEWLINE)\\n        return pos, \\\"\\\"\\n    if escape_id == \\\"\\\\\\\\x\\\":\\n        return parse_hex_char(src, pos, 2)\\n    if escape_id == \\\"\\\\\\\\u\\\":\\n        return parse_hex_char(src, pos, 4)\\n    if escape_id == \\\"\\\\\\\\U\\\":\\n        return parse_hex_char(src, pos, 8)\\n    try:\\n        return pos, BASIC_STR_ESCAPE_REPLACEMENTS[escape_id]\\n    except KeyError:\\n        raise TOMLDecodeError(\\\"Unescaped '\\\\\\\\' in a string\\\", src, pos) from None\\n\\n\\ndef parse_basic_str_escape_multiline(src: str, pos: Pos) -> tuple[Pos, str]:\\n    return parse_basic_str_escape(src, pos, multiline=True)\\n\\n\\ndef parse_hex_char(src: str, pos: Pos, hex_len: int) -> tuple[Pos, str]:\\n    hex_str = src[pos : pos + hex_len]\\n    if len(hex_str) != hex_len or not HEXDIGIT_CHARS.issuperset(hex_str):\\n        raise TOMLDecodeError(\\\"Invalid hex value\\\", src, pos)\\n    pos += hex_len\\n    hex_int = int(hex_str, 16)\\n    if not is_unicode_scalar_value(hex_int):\\n        raise TOMLDecodeError(\\n            \\\"Escaped character is not a Unicode scalar value\\\", src, pos\\n        )\\n    return pos, chr(hex_int)\\n\\n\\ndef parse_literal_str(src: str, pos: Pos) -> tuple[Pos, str]:\\n    pos += 1  # Skip starting apostrophe\\n    start_pos = pos\\n    pos = skip_until(\\n        src, pos, \\\"'\\\", error_on=ILLEGAL_LITERAL_STR_CHARS, error_on_eof=True\\n    )\\n    return pos + 1, src[start_pos:pos]  # Skip ending apostrophe\\n\\n\\ndef parse_multiline_str(src: str, pos: Pos, *, literal: bool) -> tuple[Pos, str]:\\n    pos += 3\\n    if src.startswith(\\\"\\\\n\\\", pos):\\n        pos += 1\\n\\n    if literal:\\n        delim = \\\"'\\\"\\n        end_pos = skip_until(\\n            src,\\n            pos,\\n            \\\"'''\\\",\\n            error_on=ILLEGAL_MULTILINE_LITERAL_STR_CHARS,\\n            error_on_eof=True,\\n        )\\n        result = src[pos:end_pos]\\n        pos = end_pos + 3\\n    else:\\n        delim = '\\\"'\\n        pos, result = parse_basic_str(src, pos, multiline=True)\\n\\n    # Add at maximum two extra apostrophes/quotes if the end sequence\\n    # is 4 or 5 chars long instead of just 3.\\n    if not src.startswith(delim, pos):\\n        return pos, result\\n    pos += 1\\n    if not src.startswith(delim, pos):\\n        return pos, result + delim\\n    pos += 1\\n    return pos, result + (delim * 2)\\n\\n\\ndef parse_basic_str(src: str, pos: Pos, *, multiline: bool) -> tuple[Pos, str]:\\n    if multiline:\\n        error_on = ILLEGAL_MULTILINE_BASIC_STR_CHARS\\n        parse_escapes = parse_basic_str_escape_multiline\\n    else:\\n        error_on = ILLEGAL_BASIC_STR_CHARS\\n        parse_escapes = parse_basic_str_escape\\n    result = \\\"\\\"\\n    start_pos = pos\\n    while True:\\n        try:\\n            char = src[pos]\\n        except IndexError:\\n            raise TOMLDecodeError(\\\"Unterminated string\\\", src, pos) from None\\n        if char == '\\\"':\\n            if not multiline:\\n                return pos + 1, result + src[start_pos:pos]\\n            if src.startswith('\\\"\\\"\\\"', pos):\\n                return pos + 3, result + src[start_pos:pos]\\n            pos += 1\\n            continue\\n        if char == \\\"\\\\\\\\\\\":\\n            result += src[start_pos:pos]\\n            pos, parsed_escape = parse_escapes(src, pos)\\n            result += parsed_escape\\n            start_pos = pos\\n            continue\\n        if char in error_on:\\n            raise TOMLDecodeError(f\\\"Illegal character {char!r}\\\", src, pos)\\n        pos += 1\\n\\n\\ndef parse_value(\\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\\n) -> tuple[Pos, Any]:\\n    if nest_lvl > MAX_INLINE_NESTING:\\n        # Pure Python should have raised RecursionError already.\\n        # This ensures mypyc binaries eventually do the same.\\n        raise RecursionError(  # pragma: no cover\\n            \\\"TOML inline arrays/tables are nested more than the allowed\\\"\\n            f\\\" {MAX_INLINE_NESTING} levels\\\"\\n        )\\n\\n    try:\\n        char: str | None = src[pos]\\n    except IndexError:\\n        char = None\\n\\n    # IMPORTANT: order conditions based on speed of checking and likelihood\\n\\n    # Basic strings\\n    if char == '\\\"':\\n        if src.startswith('\\\"\\\"\\\"', pos):\\n            return parse_multiline_str(src, pos, literal=False)\\n        return parse_one_line_basic_str(src, pos)\\n\\n    # Literal strings\\n    if char == \\\"'\\\":\\n        if src.startswith(\\\"'''\\\", pos):\\n            return parse_multiline_str(src, pos, literal=True)\\n        return parse_literal_str(src, pos)\\n\\n    # Booleans\\n    if char == \\\"t\\\":\\n        if src.startswith(\\\"true\\\", pos):\\n            return pos + 4, True\\n    if char == \\\"f\\\":\\n        if src.startswith(\\\"false\\\", pos):\\n            return pos + 5, False\\n\\n    # Arrays\\n    if char == \\\"[\\\":\\n        return parse_array(src, pos, parse_float, nest_lvl + 1)\\n\\n    # Inline tables\\n    if char == \\\"{\\\":\\n        return parse_inline_table(src, pos, parse_float, nest_lvl + 1)\\n\\n    # Dates and times\\n    datetime_match = RE_DATETIME.match(src, pos)\\n    if datetime_match:\\n        try:\\n            datetime_obj = match_to_datetime(datetime_match)\\n        except ValueError as e:\\n            raise TOMLDecodeError(\\\"Invalid date or datetime\\\", src, pos) from e\\n        return datetime_match.end(), datetime_obj\\n    localtime_match = RE_LOCALTIME.match(src, pos)\\n    if localtime_match:\\n        return localtime_match.end(), match_to_localtime(localtime_match)\\n\\n    # Integers and \\\"normal\\\" floats.\\n    # The regex will greedily match any type starting with a decimal\\n    # char, so needs to be located after handling of dates and times.\\n    number_match = RE_NUMBER.match(src, pos)\\n    if number_match:\\n        return number_match.end(), match_to_number(number_match, parse_float)\\n\\n    # Special floats\\n    first_three = src[pos : pos + 3]\\n    if first_three in {\\\"inf\\\", \\\"nan\\\"}:\\n        return pos + 3, parse_float(first_three)\\n    first_four = src[pos : pos + 4]\\n    if first_four in {\\\"-inf\\\", \\\"+inf\\\", \\\"-nan\\\", \\\"+nan\\\"}:\\n        return pos + 4, parse_float(first_four)\\n\\n    raise TOMLDecodeError(\\\"Invalid value\\\", src, pos)\\n\\n\\ndef is_unicode_scalar_value(codepoint: int) -> bool:\\n    return (0 <= codepoint <= 55295) or (57344 <= codepoint <= 1114111)\\n\\n\\ndef make_safe_parse_float(parse_float: ParseFloat) -> ParseFloat:\\n    \\\"\\\"\\\"A decorator to make `parse_float` safe.\\n\\n    `parse_float` must not return dicts or lists, because these types\\n    would be mixed with parsed TOML tables and arrays, thus confusing\\n    the parser. The returned decorated callable raises `ValueError`\\n    instead of returning illegal types.\\n    \\\"\\\"\\\"\\n    # The default `float` callable never returns illegal types. Optimize it.\\n    if parse_float is float:\\n        return float\\n\\n    def safe_parse_float(float_str: str) -> Any:\\n        float_value = parse_float(float_str)\\n        if isinstance(float_value, (dict, list)):\\n            raise ValueError(\\\"parse_float must not return dicts or lists\\\")\\n        return float_value\\n\\n    return safe_parse_float\\n\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Now let me check the TOML 1.1 changes in _re.py and _parser.py. The changelog says 2.4.0 added TOML v1.1.0 compatibility. Let me look at _re.py to see what changed. Also check README for version info. Let me check git log maybe.\\n\\nLet me look at _re.py and README.\"}, {\"type\": \"tool_call\", \"id\": \"call_404b237a166b4a42bb36fa6e\", \"name\": \"read_file\", \"arguments\": {\"path\": \"src/tomli/_re.py\"}}, {\"type\": \"tool_call\", \"id\": \"call_e485364f78184fff8ab869c8\", \"name\": \"run_command\", \"arguments\": {\"cmd\": \"git log --oneline -20 2>/dev/null; echo ---; git tag 2>/dev/null | tail -20\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "5ee908e140889b8b",
+       "parentSpanId": "a005eb66c9eea8b6",
+       "name": "execute_tool read_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458148742869000",
+       "endTimeUnixNano": "1790458148743074000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "read_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-9"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"src/tomli/_re.py\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "# SPDX-License-Identifier: MIT\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\n# Licensed to PSF under a Contributor Agreement.\n\nfrom __future__ import annotations\n\nfrom datetime import date, datetime, time, timedelta, timezone, tzinfo\nfrom functools import lru_cache\nimport re\n\nTYPE_CHECKING = False\nif TYPE_CHECKING:\n    from typing import Any, Final\n\n    from ._types import ParseFloat\n\n_TIME_RE_STR: Final = r\"\"\"\n([01][0-9]|2[0-3])             # hours\n:([0-5][0-9])                  # minutes\n(?:\n    :([0-5][0-9])              # optional seconds\n    (?:\\.([0-9]{1,6})[0-9]*)?  # optional fractions of a second\n)?\n\"\"\"\n\nRE_NUMBER: Final = re.compile(\n    r\"\"\"\n0\n(?:\n    x[0-9A-Fa-f](?:_?[0-9A-Fa-f])*   # hex\n    |\n    b[01](?:_?[01])*                 # bin\n    |\n    o[0-7](?:_?[0-7])*               # oct\n)\n|\n[+-]?(?:0|[1-9](?:_?[0-9])*)         # dec, integer part\n(?P<floatpart>\n    (?:\\.[0-9](?:_?[0-9])*)?         # optional fractional part\n    (?:[eE][+-]?[0-9](?:_?[0-9])*)?  # optional exponent part\n)\n\"\"\",\n    flags=re.VERBOSE,\n)\nRE_LOCALTIME: Final = re.compile(_TIME_RE_STR, flags=re.VERBOSE)\nRE_DATETIME: Final = re.compile(\n    rf\"\"\"\n([0-9]{{4}})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])  # date, e.g. 1988-10-27\n(?:\n    [Tt ]\n    {_TIME_RE_STR}\n    (?:([Zz])|([+-])([01][0-9]|2[0-3]):([0-5][0-9]))?  # optional time offset\n)?\n\"\"\",\n    flags=re.VERBOSE,\n)\n\n\ndef match_to_datetime(match: re.Match[str]) -> datetime | date:\n    \"\"\"Convert a `RE_DATETIME` match to `datetime.datetime` or `datetime.date`.\n\n    Raises ValueError if the match does not correspond to a valid date\n    or datetime.\n    \"\"\"\n    (\n        year_str,\n        month_str,\n        day_str,\n        hour_str,\n        minute_str,\n        sec_str,\n        micros_str,\n        zulu_time,\n        offset_sign_str,\n        offset_hour_str,\n        offset_minute_str,\n    ) = match.groups()\n    year, month, day = int(year_str), int(month_str), int(day_str)\n    if hour_str is None:\n        return date(year, month, day)\n    hour, minute = int(hour_str), int(minute_str)\n    sec = int(sec_str) if sec_str else 0\n    micros = int(micros_str.ljust(6, \"0\")) if micros_str else 0\n    if offset_sign_str:\n        tz: tzinfo | None = cached_tz(\n            offset_hour_str, offset_minute_str, offset_sign_str\n        )\n    elif zulu_time:\n        tz = timezone.utc\n    else:  # local date-time\n        tz = None\n    return datetime(year, month, day, hour, minute, sec, micros, tzinfo=tz)\n\n\n# No need to limit cache size. This is only ever called on input\n# that matched RE_DATETIME, so there is an implicit bound of\n# 24 (hours) * 60 (minutes) * 2 (offset direction) = 2880.\n@lru_cache(maxsize=None)\ndef cached_tz(hour_str: str, minute_str: str, sign_str: str) -> timezone:\n    sign = 1 if sign_str == \"+\" else -1\n    return timezone(\n        timedelta(\n            hours=sign * int(hour_str),\n            minutes=sign * int(minute_str),\n        )\n    )\n\n\ndef match_to_localtime(match: re.Match[str]) -> time:\n    hour_str, minute_str, sec_str, micros_str = match.groups()\n    sec = int(sec_str) if sec_str else 0\n    micros = int(micros_str.ljust(6, \"0\")) if micros_str else 0\n    return time(int(hour_str), int(minute_str), sec, micros)\n\n\ndef match_to_number(match: re.Match[str], parse_float: ParseFloat) -> Any:\n    if match.group(\"floatpart\"):\n        return parse_float(match.group())\n    return int(match.group(), 0)\n"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "839"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "21f38412a4e77b34",
+       "parentSpanId": "a005eb66c9eea8b6",
+       "name": "execute_tool run_command",
+       "kind": 1,
+       "startTimeUnixNano": "1790458148743103000",
+       "endTimeUnixNano": "1790458148788314000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_command"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-10"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"cmd\": \"git log --oneline -20 2>/dev/null; echo ---; git tag 2>/dev/null | tail -20\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\n---"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "4"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "75e1c33f1834f132",
+       "parentSpanId": "9cda4701e7491db3",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458148788484000",
+       "endTimeUnixNano": "1790458152632901000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "4"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "13442"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "840"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "701"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:08.788422+00:00 request 8c6c0ad8553c\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_404b237a166b4a42bb36fa6e\", \"response\": \"# SPDX-License-Identifier: MIT\\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\\n# Licensed to PSF under a Contributor Agreement.\\n\\nfrom __future__ import annotations\\n\\nfrom datetime import date, datetime, time, timedelta, timezone, tzinfo\\nfrom functools import lru_cache\\nimport re\\n\\nTYPE_CHECKING = False\\nif TYPE_CHECKING:\\n    from typing import Any, Final\\n\\n    from ._types import ParseFloat\\n\\n_TIME_RE_STR: Final = r\\\"\\\"\\\"\\n([01][0-9]|2[0-3])             # hours\\n:([0-5][0-9])                  # minutes\\n(?:\\n    :([0-5][0-9])              # optional seconds\\n    (?:\\\\.([0-9]{1,6})[0-9]*)?  # optional fractions of a second\\n)?\\n\\\"\\\"\\\"\\n\\nRE_NUMBER: Final = re.compile(\\n    r\\\"\\\"\\\"\\n0\\n(?:\\n    x[0-9A-Fa-f](?:_?[0-9A-Fa-f])*   # hex\\n    |\\n    b[01](?:_?[01])*                 # bin\\n    |\\n    o[0-7](?:_?[0-7])*               # oct\\n)\\n|\\n[+-]?(?:0|[1-9](?:_?[0-9])*)         # dec, integer part\\n(?P<floatpart>\\n    (?:\\\\.[0-9](?:_?[0-9])*)?         # optional fractional part\\n    (?:[eE][+-]?[0-9](?:_?[0-9])*)?  # optional exponent part\\n)\\n\\\"\\\"\\\",\\n    flags=re.VERBOSE,\\n)\\nRE_LOCALTIME: Final = re.compile(_TIME_RE_STR, flags=re.VERBOSE)\\nRE_DATETIME: Final = re.compile(\\n    rf\\\"\\\"\\\"\\n([0-9]{{4}})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])  # date, e.g. 1988-10-27\\n(?:\\n    [Tt ]\\n    {_TIME_RE_STR}\\n    (?:([Zz])|([+-])([01][0-9]|2[0-3]):([0-5][0-9]))?  # optional time offset\\n)?\\n\\\"\\\"\\\",\\n    flags=re.VERBOSE,\\n)\\n\\n\\ndef match_to_datetime(match: re.Match[str]) -> datetime | date:\\n    \\\"\\\"\\\"Convert a `RE_DATETIME` match to `datetime.datetime` or `datetime.date`.\\n\\n    Raises ValueError if the match does not correspond to a valid date\\n    or datetime.\\n    \\\"\\\"\\\"\\n    (\\n        year_str,\\n        month_str,\\n        day_str,\\n        hour_str,\\n        minute_str,\\n        sec_str,\\n        micros_str,\\n        zulu_time,\\n        offset_sign_str,\\n        offset_hour_str,\\n        offset_minute_str,\\n    ) = match.groups()\\n    year, month, day = int(year_str), int(month_str), int(day_str)\\n    if hour_str is None:\\n        return date(year, month, day)\\n    hour, minute = int(hour_str), int(minute_str)\\n    sec = int(sec_str) if sec_str else 0\\n    micros = int(micros_str.ljust(6, \\\"0\\\")) if micros_str else 0\\n    if offset_sign_str:\\n        tz: tzinfo | None = cached_tz(\\n            offset_hour_str, offset_minute_str, offset_sign_str\\n        )\\n    elif zulu_time:\\n        tz = timezone.utc\\n    else:  # local date-time\\n        tz = None\\n    return datetime(year, month, day, hour, minute, sec, micros, tzinfo=tz)\\n\\n\\n# No need to limit cache size. This is only ever called on input\\n# that matched RE_DATETIME, so there is an implicit bound of\\n# 24 (hours) * 60 (minutes) * 2 (offset direction) = 2880.\\n@lru_cache(maxsize=None)\\ndef cached_tz(hour_str: str, minute_str: str, sign_str: str) -> timezone:\\n    sign = 1 if sign_str == \\\"+\\\" else -1\\n    return timezone(\\n        timedelta(\\n            hours=sign * int(hour_str),\\n            minutes=sign * int(minute_str),\\n        )\\n    )\\n\\n\\ndef match_to_localtime(match: re.Match[str]) -> time:\\n    hour_str, minute_str, sec_str, micros_str = match.groups()\\n    sec = int(sec_str) if sec_str else 0\\n    micros = int(micros_str.ljust(6, \\\"0\\\")) if micros_str else 0\\n    return time(int(hour_str), int(minute_str), sec, micros)\\n\\n\\ndef match_to_number(match: re.Match[str], parse_float: ParseFloat) -> Any:\\n    if match.group(\\\"floatpart\\\"):\\n        return parse_float(match.group())\\n    return int(match.group(), 0)\\n\"}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_e485364f78184fff8ab869c8\", \"response\": \"exit code: 0\\n---\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"No git. Let me check the tests for TOML 1.1 features and the README/tomllib.md for context. Actually the task is just to summarize the three most recent releases from CHANGELOG.md. The three most recent are 2.3.1, 2.4.1, 2.4.0 (in file order). Wait, \\\"three most recent releases listed in CHANGELOG.md\\\" \\u2014 the file lists 2.3.1 first, then 2.4.1, then 2.4.0. That's odd ordering. The most recent releases by version would be 2.4.1, 2.4.0, 2.3.1. Hmm.\\n\\nThe changelog order is unusual: 2.3.1, 2.4.1, 2.4.0, 2.3.0, 2.2.1... This looks like the actual tomli changelog where 2.3.1 is a backport release listed at top? Let me think. Actually real tomli changelog: 2.2.1, 2.2.0, 2.1.0... The 2.3.0, 2.4.0, 2.4.1 are newer. The file has 2.3.1 at top which is a backport. Hmm, this is a synthetic changelog.\\n\\n\\\"three most recent releases listed in CHANGELOG.md\\\" \\u2014 I should interpret as the top three entries in the file: 2.3.1, 2.4.1, 2.4.0. But \\\"most recent\\\" by version number would be 2.4.1, 2.4.0, 2.3.1. Either way the set is the same three: {2.3.1, 2.4.1, 2.4.0}. Good \\u2014 the set is identical. So I can summarize those three.\\n\\nNow highlight anything affecting callers of tomli.loads:\\n- 2.4.1: Limit number of parts of a TOML key to address quadratic time complexity. This is a behavior change: keys with more than MAX_KEY_PARTS (= sys.getrecursionlimit(), default 1000) parts now raise RecursionError. Affects loads callers parsing deeply dotted keys.\\n- 2.3.1: Backport of same fix.\\n- 2.4.0: TOML v1.1.0 compatibility \\u2014 new syntax accepted by loads (e.g., \\\\e escape, \\\\x hex escapes, seconds optional in times, etc.). Binary wheels for Windows arm64 \\u2014 no API impact.\\n\\nLet me verify what TOML 1.1 features are present. The code has \\\\e escape and \\\\x hex escapes, optional seconds in times. Those are TOML 1.1 features. So loads now accepts documents it previously rejected.\\n\\nLet me check tests to confirm 1.1 features. Actually I have enough. But let me quickly check README for version support statement.\\n\\nLet me write the report. I should be accurate about MAX_KEY_PARTS = sys.getrecursionlimit() (default 1000). And note it raises RecursionError, not TOMLDecodeError.\\n\\nLet me check tests for key parts to confirm behavior.\"}, {\"type\": \"tool_call\", \"id\": \"call_978a2beba64b496da29ca3ea\", \"name\": \"search\", \"arguments\": {\"pattern\": \"MAX_KEY_PARTS|RecursionError|1\\\\.1|\\\\\\\\\\\\\\\\e|\\\\\\\\\\\\\\\\x\", \"path\": \"tests\"}}, {\"type\": \"tool_call\", \"id\": \"call_98d1acac06a74a99988353d4\", \"name\": \"search\", \"arguments\": {\"pattern\": \"1\\\\.1|1\\\\.0|version\", \"path\": \"README.md\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "4f7873fca50a1692",
+       "parentSpanId": "75e1c33f1834f132",
+       "name": "execute_tool search",
+       "kind": 1,
+       "startTimeUnixNano": "1790458152639901000",
+       "endTimeUnixNano": "1790458152714451000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "search"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-12"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests\", \"pattern\": \"MAX_KEY_PARTS|RecursionError|1\\\\.1|\\\\\\\\\\\\\\\\e|\\\\\\\\\\\\\\\\x\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "tests/data/invalid/_external/toml-test/invalid/key/only-float.toml:1: 1.1\ntests/data/valid/_external/toml-test/valid/array/array.json:13: {\"type\": \"float\", \"value\": \"1.1\"},\ntests/data/valid/_external/toml-test/valid/array/array.toml:2: floats = [1.1, 2.1, 3.1]\ntests/data/valid/_external/toml-test/valid/array/hetergeneous.json:12: {\"type\": \"float\", \"value\": \"1.1\"},\ntests/data/valid/_external/toml-test/valid/array/hetergeneous.toml:1: mixed = [[1, 2], [\"a\", \"b\"], [1.1, 2.1]]\ntests/data/valid/_external/toml-test/valid/array/mixed-int-float.json:4: {\"type\": \"float\", \"value\": \"1.1\"}\ntests/data/valid/_external/toml-test/valid/array/mixed-int-float.toml:1: ints-and-floats = [1, 1.1]\ntests/data/valid/_external/toml-test/valid/comment/tricky.json:22: \"eleven\": {\"type\": \"float\", \"value\": \"11.1\"},\ntests/data/valid/_external/toml-test/valid/comment/tricky.toml:16: eleven = 1.11e1#23\ntests/data/valid/_external/toml-test/valid/inline-table/newline.toml:1: # TOML 1.1 supports newlines in inline tables and trailing commas.\ntests/data/valid/_external/toml-test/valid/spec-example-1-compact.json:22: \"server\":         {\"type\": \"string\", \"value\": \"192.168.1.1\"},\ntests/data/valid/_external/toml-test/valid/spec-example-1-compact.toml:7: server=\"192.168.1.1\"\ntests/data/valid/_external/toml-test/valid/spec-example-1.json:22: \"server\":         {\"type\": \"string\", \"value\": \"192.168.1.1\"},\ntests/data/valid/_external/toml-test/valid/spec-example-1.toml:10: server = \"192.168.1.1\"\ntests/data/valid/_external/toml-test/valid/string/escaped-escape.json:2: \"answer\": {\"type\": \"string\", \"value\": \"\\\\x64\"}\ntests/data/valid/_external/toml-test/valid/string/escaped-escape.toml:1: answer = \"\\\\x64\"\ntests/data/valid/_external/toml-test/valid/string/hex-escape.json:5: \"literal\":           {\"type\": \"string\", \"value\": \"\\\\x20 \\\\x09 \\\\x0d\\\\x0a\"},\ntests/data/valid/_external/toml-test/valid/string/hex-escape.json:7: \"multiline-literal\": {\"type\": \"string\", \"value\": \"\\\\x20 \\\\x09 \\\\x0d\\\\x0a\\n\"},\ntests/test_misc.py:111: RecursionError,\ntests/test_misc.py:126: RecursionError,\ntests/test_misc.py:145: RecursionError,"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "518"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "4c3d4bfbda3964d6",
+       "parentSpanId": "75e1c33f1834f132",
+       "name": "execute_tool search",
+       "kind": 1,
+       "startTimeUnixNano": "1790458152714522000",
+       "endTimeUnixNano": "1790458152714789000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "search"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-13"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"README.md\", \"pattern\": \"1\\\\.1|1\\\\.0|version\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "README.md:3: [![PyPI version](https://img.shields.io/pypi/v/tomli)](https://pypi.org/project/tomli)\nREADME.md:35: Version 2.4.0 and later are compatible with [TOML v1.1.0](https://toml.io/en/v1.1.0).\nREADME.md:36: Older versions are [TOML v1.0.0](https://toml.io/en/v1.0.0) compatible.\nREADME.md:38: A version of Tomli, the `tomllib` module,\nREADME.md:41: Tomli continues to provide a backport on PyPI for Python versions\nREADME.md:104: They should not be assumed to stay constant across Tomli versions.\nREADME.md:125: Python versions 3.11+ ship with a version of Tomli:\nREADME.md:136: tomli >= 1.1.0 ; python_version < \"3.11\"\nREADME.md:144: if sys.version_info >= (3, 11):\nREADME.md:210: foo@bar:~/dev/tomli$ python --version\nREADME.md:213: pytomlpp==1.1.0"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "187"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "7a61f9ee18f39f2b",
+       "parentSpanId": "9cda4701e7491db3",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458152714872000",
+       "endTimeUnixNano": "1790458153827049000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "5"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "14590"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "125"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "701"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:12.714809+00:00 request 092db0d9179d\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_978a2beba64b496da29ca3ea\", \"response\": \"tests/data/invalid/_external/toml-test/invalid/key/only-float.toml:1: 1.1\\ntests/data/valid/_external/toml-test/valid/array/array.json:13: {\\\"type\\\": \\\"float\\\", \\\"value\\\": \\\"1.1\\\"},\\ntests/data/valid/_external/toml-test/valid/array/array.toml:2: floats = [1.1, 2.1, 3.1]\\ntests/data/valid/_external/toml-test/valid/array/hetergeneous.json:12: {\\\"type\\\": \\\"float\\\", \\\"value\\\": \\\"1.1\\\"},\\ntests/data/valid/_external/toml-test/valid/array/hetergeneous.toml:1: mixed = [[1, 2], [\\\"a\\\", \\\"b\\\"], [1.1, 2.1]]\\ntests/data/valid/_external/toml-test/valid/array/mixed-int-float.json:4: {\\\"type\\\": \\\"float\\\", \\\"value\\\": \\\"1.1\\\"}\\ntests/data/valid/_external/toml-test/valid/array/mixed-int-float.toml:1: ints-and-floats = [1, 1.1]\\ntests/data/valid/_external/toml-test/valid/comment/tricky.json:22: \\\"eleven\\\": {\\\"type\\\": \\\"float\\\", \\\"value\\\": \\\"11.1\\\"},\\ntests/data/valid/_external/toml-test/valid/comment/tricky.toml:16: eleven = 1.11e1#23\\ntests/data/valid/_external/toml-test/valid/inline-table/newline.toml:1: # TOML 1.1 supports newlines in inline tables and trailing commas.\\ntests/data/valid/_external/toml-test/valid/spec-example-1-compact.json:22: \\\"server\\\":         {\\\"type\\\": \\\"string\\\", \\\"value\\\": \\\"192.168.1.1\\\"},\\ntests/data/valid/_external/toml-test/valid/spec-example-1-compact.toml:7: server=\\\"192.168.1.1\\\"\\ntests/data/valid/_external/toml-test/valid/spec-example-1.json:22: \\\"server\\\":         {\\\"type\\\": \\\"string\\\", \\\"value\\\": \\\"192.168.1.1\\\"},\\ntests/data/valid/_external/toml-test/valid/spec-example-1.toml:10: server = \\\"192.168.1.1\\\"\\ntests/data/valid/_external/toml-test/valid/string/escaped-escape.json:2: \\\"answer\\\": {\\\"type\\\": \\\"string\\\", \\\"value\\\": \\\"\\\\\\\\x64\\\"}\\ntests/data/valid/_external/toml-test/valid/string/escaped-escape.toml:1: answer = \\\"\\\\\\\\x64\\\"\\ntests/data/valid/_external/toml-test/valid/string/hex-escape.json:5: \\\"literal\\\":           {\\\"type\\\": \\\"string\\\", \\\"value\\\": \\\"\\\\\\\\x20 \\\\\\\\x09 \\\\\\\\x0d\\\\\\\\x0a\\\"},\\ntests/data/valid/_external/toml-test/valid/string/hex-escape.json:7: \\\"multiline-literal\\\": {\\\"type\\\": \\\"string\\\", \\\"value\\\": \\\"\\\\\\\\x20 \\\\\\\\x09 \\\\\\\\x0d\\\\\\\\x0a\\\\n\\\"},\\ntests/test_misc.py:111: RecursionError,\\ntests/test_misc.py:126: RecursionError,\\ntests/test_misc.py:145: RecursionError,\"}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_98d1acac06a74a99988353d4\", \"response\": \"README.md:3: [![PyPI version](https://img.shields.io/pypi/v/tomli)](https://pypi.org/project/tomli)\\nREADME.md:35: Version 2.4.0 and later are compatible with [TOML v1.1.0](https://toml.io/en/v1.1.0).\\nREADME.md:36: Older versions are [TOML v1.0.0](https://toml.io/en/v1.0.0) compatible.\\nREADME.md:38: A version of Tomli, the `tomllib` module,\\nREADME.md:41: Tomli continues to provide a backport on PyPI for Python versions\\nREADME.md:104: They should not be assumed to stay constant across Tomli versions.\\nREADME.md:125: Python versions 3.11+ ship with a version of Tomli:\\nREADME.md:136: tomli >= 1.1.0 ; python_version < \\\"3.11\\\"\\nREADME.md:144: if sys.version_info >= (3, 11):\\nREADME.md:210: foo@bar:~/dev/tomli$ python --version\\nREADME.md:213: pytomlpp==1.1.0\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me check the README section on TOML 1.1 compatibility and the test_misc for key parts. Also check what TOML 1.1 changes affect loads callers. Let me read README around lines 30-110.\"}, {\"type\": \"tool_call\", \"id\": \"call_d95a2922994c41b1b2b4a3c0\", \"name\": \"read_file\", \"arguments\": {\"path\": \"README.md\"}}, {\"type\": \"tool_call\", \"id\": \"call_98643af8d0eb47458f91e304\", \"name\": \"read_file\", \"arguments\": {\"path\": \"tests/test_misc.py\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "70c74b9f6adba358",
+       "parentSpanId": "7a61f9ee18f39f2b",
+       "name": "execute_tool read_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458153827130000",
+       "endTimeUnixNano": "1790458153827299000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "read_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-15"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"README.md\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "[![Build Status](https://github.com/hukkin/tomli/actions/workflows/tests.yaml/badge.svg?branch=master)](https://github.com/hukkin/tomli/actions?query=workflow%3ATests+branch%3Amaster+event%3Apush)\n[![codecov.io](https://codecov.io/gh/hukkin/tomli/branch/master/graph/badge.svg)](https://codecov.io/gh/hukkin/tomli)\n[![PyPI version](https://img.shields.io/pypi/v/tomli)](https://pypi.org/project/tomli)\n\n# Tomli\n\n> A lil' TOML parser\n\n**Table of Contents** *generated with [mdformat-toc](https://github.com/hukkin/mdformat-toc)*\n\n<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->\n\n- [Intro](#intro)\n- [Installation](#installation)\n- [Usage](#usage)\n  - [Parse a TOML string](#parse-a-toml-string)\n  - [Parse a TOML file](#parse-a-toml-file)\n  - [Handle invalid TOML](#handle-invalid-toml)\n  - [Construct `decimal.Decimal`s from TOML floats](#construct-decimaldecimals-from-toml-floats)\n  - [Building a `tomli`/`tomllib` compatibility layer](#building-a-tomlitomllib-compatibility-layer)\n- [FAQ](#faq)\n  - [Why this parser?](#why-this-parser)\n  - [Is comment preserving round-trip parsing supported?](#is-comment-preserving-round-trip-parsing-supported)\n  - [Is there a `dumps`, `write` or `encode` function?](#is-there-a-dumps-write-or-encode-function)\n  - [How do TOML types map into Python types?](#how-do-toml-types-map-into-python-types)\n- [Performance](#performance)\n  - [Mypyc generated wheel](#mypyc-generated-wheel)\n  - [Pure Python](#pure-python)\n\n<!-- mdformat-toc end -->\n\n## Intro<a name=\"intro\"></a>\n\nTomli is a Python library for parsing [TOML](https://toml.io).\nVersion 2.4.0 and later are compatible with [TOML v1.1.0](https://toml.io/en/v1.1.0).\nOlder versions are [TOML v1.0.0](https://toml.io/en/v1.0.0) compatible.\n\nA version of Tomli, the `tomllib` module,\nwas added to the standard library in Python 3.11\nvia [PEP 680](https://www.python.org/dev/peps/pep-0680/).\nTomli continues to provide a backport on PyPI for Python versions\nwhere the standard library module is not available\nand that have not yet reached their end-of-life.\n\nTomli uses [mypyc](https://github.com/mypyc/mypyc)\nto generate binary wheels for most of the widely used platforms,\nso Python 3.11+ users may prefer it over `tomllib` for improved performance.\nPure Python wheels are available on any platform and should perform the same as `tomllib`.\n\n## Installation<a name=\"installation\"></a>\n\n```bash\npip install tomli\n```\n\n## Usage<a name=\"usage\"></a>\n\n### Parse a TOML string<a name=\"parse-a-toml-string\"></a>\n\n```python\nimport tomli\n\ntoml_str = \"\"\"\n[[players]]\nname = \"Lehtinen\"\nnumber = 26\n\n[[players]]\nname = \"Numminen\"\nnumber = 27\n\"\"\"\n\ntoml_dict = tomli.loads(toml_str)\nassert toml_dict == {\n    \"players\": [{\"name\": \"Lehtinen\", \"number\": 26}, {\"name\": \"Numminen\", \"number\": 27}]\n}\n```\n\n### Parse a TOML file<a name=\"parse-a-toml-file\"></a>\n\n```python\nimport tomli\n\nwith open(\"path_to_file/conf.toml\", \"rb\") as f:\n    toml_dict = tomli.load(f)\n```\n\nThe file must be opened in binary mode (with the `\"rb\"` flag).\nBinary mode will enforce decoding the file as UTF-8 with universal newlines disabled,\nboth of which are required to correctly parse TOML.\n\n### Handle invalid TOML<a name=\"handle-invalid-toml\"></a>\n\n```python\nimport tomli\n\ntry:\n    toml_dict = tomli.loads(\"]] this is invalid TOML [[\")\nexcept tomli.TOMLDecodeError:\n    print(\"Yep, definitely not valid.\")\n```\n\nNote that error messages are considered informational only.\nThey should not be assumed to stay constant across Tomli versions.\n\n### Construct `decimal.Decimal`s from TOML floats<a name=\"construct-decimaldecimals-from-toml-floats\"></a>\n\n```python\nfrom decimal import Decimal\nimport tomli\n\ntoml_dict = tomli.loads(\"precision-matters = 0.982492\", parse_float=Decimal)\nassert isinstance(toml_dict[\"precision-matters\"], Decimal)\nassert toml_dict[\"precision-matters\"] == Decimal(\"0.982492\")\n```\n\nNote that `decimal.Decimal` can be replaced with another callable that converts a TOML float from string to a Python type.\nThe `decimal.Decimal` is, however, a practical choice for use cases where float inaccuracies can not be tolerated.\n\nIllegal types are `dict` and `list`, and their subtypes.\nA `ValueError` will be raised if `parse_float` produces illegal types.\n\n### Building a `tomli`/`tomllib` compatibility layer<a name=\"building-a-tomlitomllib-compatibility-layer\"></a>\n\nPython versions 3.11+ ship with a version of Tomli:\nthe `tomllib` standard library module.\nTo build code that uses the standard library if available,\nbut still works seamlessly with Python 3.6+,\ndo the following.\n\nInstead of a hard Tomli dependency, use the following\n[dependency specifier](https://packaging.python.org/en/latest/specifications/dependency-specifiers/)\nto only require Tomli when the standard library module is not available:\n\n```\ntomli >= 1.1.0 ; python_version < \"3.11\"\n```\n\nThen, in your code, import a TOML parser using the following fallback mechanism:\n\n```python\nimport sys\n\nif sys.version_info >= (3, 11):\n    import tomllib\nelse:\n    import tomli as tomllib\n\ntomllib.loads(\"['This parses fine with Python 3.6+']\")\n```\n\n## FAQ<a name=\"faq\"></a>\n\n### Why this parser?<a name=\"why-this-parser\"></a>\n\n- it's lil'\n- pure Python with zero dependencies\n- the fastest pure Python parser [\\*](#pure-python):\n  14x as fast as [tomlkit](https://pypi.org/project/tomlkit/),\n  2.1x as fast as [toml](https://pypi.org/project/toml/)\n- outputs [basic data types](#how-do-toml-types-map-into-python-types) only\n- 100% spec compliant: passes all tests in\n  [toml-lang/toml-test](https://github.com/toml-lang/toml-test)\n  test suite\n- thoroughly tested: 100% branch coverage\n\n### Is comment preserving round-trip parsing supported?<a name=\"is-comment-preserving-round-trip-parsing-supported\"></a>\n\nNo.\n\nThe `tomli.loads` function returns a plain `dict` that is populated with builtin types and types from the standard library only.\nPreserving comments requires a custom type to be returned so will not be supported,\nat least not by the `tomli.loads` and `tomli.load` functions.\n\nLook into [TOML Kit](https://github.com/sdispater/tomlkit) if preservation of style is what you need.\n\n### Is there a `dumps`, `write` or `encode` function?<a name=\"is-there-a-dumps-write-or-encode-function\"></a>\n\n[Tomli-W](https://github.com/hukkin/tomli-w) is the write-only counterpart of Tomli, providing `dump` and `dumps` functions.\n\nThe core library does not include write capability, as most TOML use cases are read-only, and Tomli intends to be minimal.\n\n### How do TOML types map into Python types?<a name=\"how-do-toml-types-map-into-python-types\"></a>\n\n| TOML type        | Python type         | Details                                                      |\n| ---------------- | ------------------- | ------------------------------------------------------------ |\n| Document Root    | `dict`              |                                                              |\n| Key              | `str`               |                                                              |\n| String           | `str`               |                                                              |\n| Integer          | `int`               |                                                              |\n| Float            | `float`             |                                                              |\n| Boolean          | `bool`              |                                                              |\n| Offset Date-Time | `datetime.datetime` | `tzinfo` attribute set to an instance of `datetime.timezone` |\n| Local Date-Time  | `datetime.datetime` | `tzinfo` attribute set to `None`                             |\n| Local Date       | `datetime.date`     |                                                              |\n| Local Time       | `datetime.time`     |                                                              |\n| Array            | `list`              |                                                              |\n| Table            | `dict`              |                                                              |\n| Inline Table     | `dict`              |                                                              |\n\n## Performance<a name=\"performance\"></a>\n\nThe `benchmark/` folder in this repository contains a performance benchmark for comparing the various Python TOML parsers.\n\nBelow are the results for commit [064e492](https://github.com/hukkin/tomli/tree/064e492919b2338def788753b8c981c9131334c0).\n\n### Mypyc generated wheel<a name=\"mypyc-generated-wheel\"></a>\n\n```console\nfoo@bar:~/dev/tomli$ python --version\nPython 3.14.2\nfoo@bar:~/dev/tomli$ pip freeze\npytomlpp==1.1.0\nrtoml==0.13.0\ntoml==0.10.2\ntomli @ file:///home/foo/dev/tomli\ntomlkit==0.13.3\nfoo@bar:~/dev/tomli$ python benchmark/run.py\nParsing data.toml 5000 times:\n------------------------------------------------------\n    parser |  exec time | performance (more is better)\n-----------+------------+-----------------------------\n     rtoml |    0.328 s | baseline (100%)\n  pytomlpp |    0.365 s | 89.75%\n     tomli |    0.838 s | 39.12%\n      toml |     3.01 s | 10.90%\n   tomlkit |     20.7 s | 1.59%\n```\n\n### Pure Python<a name=\"pure-python\"></a>\n\n```console\nfoo@bar:~/dev/tomli$ python benchmark/run.py\nParsing data.toml 5000 times:\n------------------------------------------------------\n    parser |  exec time | performance (more is better)\n-----------+------------+-----------------------------\n     rtoml |    0.323 s | baseline (100%)\n  pytomlpp |    0.365 s | 88.40%\n     tomli |     1.44 s | 22.36%\n      toml |     3.03 s | 10.65%\n   tomlkit |     20.6 s | 1.57%\n```\n"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "2378"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "3b3e71526b791a38",
+       "parentSpanId": "7a61f9ee18f39f2b",
+       "name": "execute_tool read_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458153827323000",
+       "endTimeUnixNano": "1790458153827409000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "read_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-16"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests/test_misc.py\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "# SPDX-License-Identifier: MIT\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\n# Licensed to PSF under a Contributor Agreement.\n\nimport copy\nimport datetime\nfrom decimal import Decimal as D\nimport importlib\nfrom pathlib import Path\nimport sys\nimport tempfile\nimport unittest\n\nfrom . import tomllib\n\n\nclass TestMiscellaneous(unittest.TestCase):\n    def test_load(self):\n        content = \"one=1 \\n two='two' \\n arr=[]\"\n        expected = {\"one\": 1, \"two\": \"two\", \"arr\": []}\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\n            file_path = Path(tmp_dir_path) / \"test.toml\"\n            file_path.write_text(content)\n\n            with open(file_path, \"rb\") as bin_f:\n                actual = tomllib.load(bin_f)\n        self.assertEqual(actual, expected)\n\n    def test_incorrect_load(self):\n        content = \"one=1\"\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\n            file_path = Path(tmp_dir_path) / \"test.toml\"\n            file_path.write_text(content)\n\n            with open(file_path, \"r\") as txt_f:\n                with self.assertRaises(TypeError) as exc_info:\n                    tomllib.load(txt_f)  # type: ignore[arg-type]\n            # Mypyc extension leads to different message than pure Python\n            self.assertIn(\n                str(exc_info.exception),\n                (\n                    \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\",  # noqa: E501\n                    \"bytes object expected; got str\",\n                ),\n            )\n\n    def test_parse_float(self):\n        doc = \"\"\"\n              val=0.1\n              biggest1=inf\n              biggest2=+inf\n              smallest=-inf\n              notnum1=nan\n              notnum2=-nan\n              notnum3=+nan\n              \"\"\"\n        obj = tomllib.loads(doc, parse_float=D)\n        expected = {\n            \"val\": D(\"0.1\"),\n            \"biggest1\": D(\"inf\"),\n            \"biggest2\": D(\"inf\"),\n            \"smallest\": D(\"-inf\"),\n            \"notnum1\": D(\"nan\"),\n            \"notnum2\": D(\"-nan\"),\n            \"notnum3\": D(\"nan\"),\n        }\n        for k, expected_val in expected.items():\n            actual_val = obj[k]\n            self.assertIsInstance(actual_val, D)\n            if actual_val.is_nan():\n                self.assertTrue(expected_val.is_nan())\n            else:\n                self.assertEqual(actual_val, expected_val)\n\n    def test_deepcopy(self):\n        doc = \"\"\"\n              [bliibaa.diibaa]\n              offsettime=[1979-05-27T00:32:00.999999-07:00]\n              \"\"\"\n        obj = tomllib.loads(doc)\n        obj_copy = copy.deepcopy(obj)\n        self.assertEqual(obj_copy, obj)\n        expected_obj = {\n            \"bliibaa\": {\n                \"diibaa\": {\n                    \"offsettime\": [\n                        datetime.datetime(\n                            1979,\n                            5,\n                            27,\n                            0,\n                            32,\n                            0,\n                            999999,\n                            tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\n                        )\n                    ]\n                }\n            }\n        }\n        self.assertEqual(obj_copy, expected_obj)\n\n    def test_inline_array_recursion_limit(self):\n        nest_count = 470\n        recursive_array_toml = \"arr = \" + nest_count * \"[\" + nest_count * \"]\"\n        tomllib.loads(recursive_array_toml)\n\n        nest_count = sys.getrecursionlimit() + 2\n        recursive_array_toml = \"arr = \" + nest_count * \"[\" + nest_count * \"]\"\n        with self.assertRaisesRegex(\n            RecursionError,\n            r\"maximum recursion depth exceeded\"\n            r\"|\"\n            r\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\",\n        ):\n            tomllib.loads(recursive_array_toml)\n\n    def test_inline_table_recursion_limit(self):\n        nest_count = 310\n        recursive_table_toml = nest_count * \"key = {\" + nest_count * \"}\"\n        tomllib.loads(recursive_table_toml)\n\n        nest_count = sys.getrecursionlimit() + 2\n        recursive_table_toml = nest_count * \"key = {\" + nest_count * \"}\"\n        with self.assertRaisesRegex(\n            RecursionError,\n            r\"maximum recursion depth exceeded\"\n            r\"|\"\n            r\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\",\n        ):\n            tomllib.loads(recursive_table_toml)\n\n    def test_key_recursion_limit(self):\n        nest_count = 310\n        nested_key_toml = \"a.\" * nest_count + \"a = 1\"\n        tomllib.loads(nested_key_toml)\n\n        nest_count = sys.getrecursionlimit() - 2\n        nested_key_toml = \"a.\" * nest_count + \"a = 1\"\n        tomllib.loads(nested_key_toml)\n\n        nest_count = sys.getrecursionlimit() + 2\n        nested_key_toml = \"a.\" * nest_count + \"a = 1\"\n        with self.assertRaisesRegex(\n            RecursionError,\n            r\"TOML key has more than the allowed [0-9]+ parts\",\n        ):\n            tomllib.loads(nested_key_toml)\n\n    def test_types_import(self):\n        \"\"\"Test that `_types` module runs.\n\n        The module is for type annotations only, so it is otherwise\n        never imported by tests.\n        \"\"\"\n        importlib.import_module(f\"{tomllib.__name__}._types\")\n"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "1309"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "0d8c1a5471185dbe",
+       "parentSpanId": "9cda4701e7491db3",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458153827448000",
+       "endTimeUnixNano": "1790458160063406000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "6"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "18518"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "1396"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "701"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:13.827426+00:00 request 9e319409403c\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_d95a2922994c41b1b2b4a3c0\", \"response\": \"[![Build Status](https://github.com/hukkin/tomli/actions/workflows/tests.yaml/badge.svg?branch=master)](https://github.com/hukkin/tomli/actions?query=workflow%3ATests+branch%3Amaster+event%3Apush)\\n[![codecov.io](https://codecov.io/gh/hukkin/tomli/branch/master/graph/badge.svg)](https://codecov.io/gh/hukkin/tomli)\\n[![PyPI version](https://img.shields.io/pypi/v/tomli)](https://pypi.org/project/tomli)\\n\\n# Tomli\\n\\n> A lil' TOML parser\\n\\n**Table of Contents** *generated with [mdformat-toc](https://github.com/hukkin/mdformat-toc)*\\n\\n<!-- mdformat-toc start --slug=github --maxlevel=6 --minlevel=2 -->\\n\\n- [Intro](#intro)\\n- [Installation](#installation)\\n- [Usage](#usage)\\n  - [Parse a TOML string](#parse-a-toml-string)\\n  - [Parse a TOML file](#parse-a-toml-file)\\n  - [Handle invalid TOML](#handle-invalid-toml)\\n  - [Construct `decimal.Decimal`s from TOML floats](#construct-decimaldecimals-from-toml-floats)\\n  - [Building a `tomli`/`tomllib` compatibility layer](#building-a-tomlitomllib-compatibility-layer)\\n- [FAQ](#faq)\\n  - [Why this parser?](#why-this-parser)\\n  - [Is comment preserving round-trip parsing supported?](#is-comment-preserving-round-trip-parsing-supported)\\n  - [Is there a `dumps`, `write` or `encode` function?](#is-there-a-dumps-write-or-encode-function)\\n  - [How do TOML types map into Python types?](#how-do-toml-types-map-into-python-types)\\n- [Performance](#performance)\\n  - [Mypyc generated wheel](#mypyc-generated-wheel)\\n  - [Pure Python](#pure-python)\\n\\n<!-- mdformat-toc end -->\\n\\n## Intro<a name=\\\"intro\\\"></a>\\n\\nTomli is a Python library for parsing [TOML](https://toml.io).\\nVersion 2.4.0 and later are compatible with [TOML v1.1.0](https://toml.io/en/v1.1.0).\\nOlder versions are [TOML v1.0.0](https://toml.io/en/v1.0.0) compatible.\\n\\nA version of Tomli, the `tomllib` module,\\nwas added to the standard library in Python 3.11\\nvia [PEP 680](https://www.python.org/dev/peps/pep-0680/).\\nTomli continues to provide a backport on PyPI for Python versions\\nwhere the standard library module is not available\\nand that have not yet reached their end-of-life.\\n\\nTomli uses [mypyc](https://github.com/mypyc/mypyc)\\nto generate binary wheels for most of the widely used platforms,\\nso Python 3.11+ users may prefer it over `tomllib` for improved performance.\\nPure Python wheels are available on any platform and should perform the same as `tomllib`.\\n\\n## Installation<a name=\\\"installation\\\"></a>\\n\\n```bash\\npip install tomli\\n```\\n\\n## Usage<a name=\\\"usage\\\"></a>\\n\\n### Parse a TOML string<a name=\\\"parse-a-toml-string\\\"></a>\\n\\n```python\\nimport tomli\\n\\ntoml_str = \\\"\\\"\\\"\\n[[players]]\\nname = \\\"Lehtinen\\\"\\nnumber = 26\\n\\n[[players]]\\nname = \\\"Numminen\\\"\\nnumber = 27\\n\\\"\\\"\\\"\\n\\ntoml_dict = tomli.loads(toml_str)\\nassert toml_dict == {\\n    \\\"players\\\": [{\\\"name\\\": \\\"Lehtinen\\\", \\\"number\\\": 26}, {\\\"name\\\": \\\"Numminen\\\", \\\"number\\\": 27}]\\n}\\n```\\n\\n### Parse a TOML file<a name=\\\"parse-a-toml-file\\\"></a>\\n\\n```python\\nimport tomli\\n\\nwith open(\\\"path_to_file/conf.toml\\\", \\\"rb\\\") as f:\\n    toml_dict = tomli.load(f)\\n```\\n\\nThe file must be opened in binary mode (with the `\\\"rb\\\"` flag).\\nBinary mode will enforce decoding the file as UTF-8 with universal newlines disabled,\\nboth of which are required to correctly parse TOML.\\n\\n### Handle invalid TOML<a name=\\\"handle-invalid-toml\\\"></a>\\n\\n```python\\nimport tomli\\n\\ntry:\\n    toml_dict = tomli.loads(\\\"]] this is invalid TOML [[\\\")\\nexcept tomli.TOMLDecodeError:\\n    print(\\\"Yep, definitely not valid.\\\")\\n```\\n\\nNote that error messages are considered informational only.\\nThey should not be assumed to stay constant across Tomli versions.\\n\\n### Construct `decimal.Decimal`s from TOML floats<a name=\\\"construct-decimaldecimals-from-toml-floats\\\"></a>\\n\\n```python\\nfrom decimal import Decimal\\nimport tomli\\n\\ntoml_dict = tomli.loads(\\\"precision-matters = 0.982492\\\", parse_float=Decimal)\\nassert isinstance(toml_dict[\\\"precision-matters\\\"], Decimal)\\nassert toml_dict[\\\"precision-matters\\\"] == Decimal(\\\"0.982492\\\")\\n```\\n\\nNote that `decimal.Decimal` can be replaced with another callable that converts a TOML float from string to a Python type.\\nThe `decimal.Decimal` is, however, a practical choice for use cases where float inaccuracies can not be tolerated.\\n\\nIllegal types are `dict` and `list`, and their subtypes.\\nA `ValueError` will be raised if `parse_float` produces illegal types.\\n\\n### Building a `tomli`/`tomllib` compatibility layer<a name=\\\"building-a-tomlitomllib-compatibility-layer\\\"></a>\\n\\nPython versions 3.11+ ship with a version of Tomli:\\nthe `tomllib` standard library module.\\nTo build code that uses the standard library if available,\\nbut still works seamlessly with Python 3.6+,\\ndo the following.\\n\\nInstead of a hard Tomli dependency, use the following\\n[dependency specifier](https://packaging.python.org/en/latest/specifications/dependency-specifiers/)\\nto only require Tomli when the standard library module is not available:\\n\\n```\\ntomli >= 1.1.0 ; python_version < \\\"3.11\\\"\\n```\\n\\nThen, in your code, import a TOML parser using the following fallback mechanism:\\n\\n```python\\nimport sys\\n\\nif sys.version_info >= (3, 11):\\n    import tomllib\\nelse:\\n    import tomli as tomllib\\n\\ntomllib.loads(\\\"['This parses fine with Python 3.6+']\\\")\\n```\\n\\n## FAQ<a name=\\\"faq\\\"></a>\\n\\n### Why this parser?<a name=\\\"why-this-parser\\\"></a>\\n\\n- it's lil'\\n- pure Python with zero dependencies\\n- the fastest pure Python parser [\\\\*](#pure-python):\\n  14x as fast as [tomlkit](https://pypi.org/project/tomlkit/),\\n  2.1x as fast as [toml](https://pypi.org/project/toml/)\\n- outputs [basic data types](#how-do-toml-types-map-into-python-types) only\\n- 100% spec compliant: passes all tests in\\n  [toml-lang/toml-test](https://github.com/toml-lang/toml-test)\\n  test suite\\n- thoroughly tested: 100% branch coverage\\n\\n### Is comment preserving round-trip parsing supported?<a name=\\\"is-comment-preserving-round-trip-parsing-supported\\\"></a>\\n\\nNo.\\n\\nThe `tomli.loads` function returns a plain `dict` that is populated with builtin types and types from the standard library only.\\nPreserving comments requires a custom type to be returned so will not be supported,\\nat least not by the `tomli.loads` and `tomli.load` functions.\\n\\nLook into [TOML Kit](https://github.com/sdispater/tomlkit) if preservation of style is what you need.\\n\\n### Is there a `dumps`, `write` or `encode` function?<a name=\\\"is-there-a-dumps-write-or-encode-function\\\"></a>\\n\\n[Tomli-W](https://github.com/hukkin/tomli-w) is the write-only counterpart of Tomli, providing `dump` and `dumps` functions.\\n\\nThe core library does not include write capability, as most TOML use cases are read-only, and Tomli intends to be minimal.\\n\\n### How do TOML types map into Python types?<a name=\\\"how-do-toml-types-map-into-python-types\\\"></a>\\n\\n| TOML type        | Python type         | Details                                                      |\\n| ---------------- | ------------------- | ------------------------------------------------------------ |\\n| Document Root    | `dict`              |                                                              |\\n| Key              | `str`               |                                                              |\\n| String           | `str`               |                                                              |\\n| Integer          | `int`               |                                                              |\\n| Float            | `float`             |                                                              |\\n| Boolean          | `bool`              |                                                              |\\n| Offset Date-Time | `datetime.datetime` | `tzinfo` attribute set to an instance of `datetime.timezone` |\\n| Local Date-Time  | `datetime.datetime` | `tzinfo` attribute set to `None`                             |\\n| Local Date       | `datetime.date`     |                                                              |\\n| Local Time       | `datetime.time`     |                                                              |\\n| Array            | `list`              |                                                              |\\n| Table            | `dict`              |                                                              |\\n| Inline Table     | `dict`              |                                                              |\\n\\n## Performance<a name=\\\"performance\\\"></a>\\n\\nThe `benchmark/` folder in this repository contains a performance benchmark for comparing the various Python TOML parsers.\\n\\nBelow are the results for commit [064e492](https://github.com/hukkin/tomli/tree/064e492919b2338def788753b8c981c9131334c0).\\n\\n### Mypyc generated wheel<a name=\\\"mypyc-generated-wheel\\\"></a>\\n\\n```console\\nfoo@bar:~/dev/tomli$ python --version\\nPython 3.14.2\\nfoo@bar:~/dev/tomli$ pip freeze\\npytomlpp==1.1.0\\nrtoml==0.13.0\\ntoml==0.10.2\\ntomli @ file:///home/foo/dev/tomli\\ntomlkit==0.13.3\\nfoo@bar:~/dev/tomli$ python benchmark/run.py\\nParsing data.toml 5000 times:\\n------------------------------------------------------\\n    parser |  exec time | performance (more is better)\\n-----------+------------+-----------------------------\\n     rtoml |    0.328 s | baseline (100%)\\n  pytomlpp |    0.365 s | 89.75%\\n     tomli |    0.838 s | 39.12%\\n      toml |     3.01 s | 10.90%\\n   tomlkit |     20.7 s | 1.59%\\n```\\n\\n### Pure Python<a name=\\\"pure-python\\\"></a>\\n\\n```console\\nfoo@bar:~/dev/tomli$ python benchmark/run.py\\nParsing data.toml 5000 times:\\n------------------------------------------------------\\n    parser |  exec time | performance (more is better)\\n-----------+------------+-----------------------------\\n     rtoml |    0.323 s | baseline (100%)\\n  pytomlpp |    0.365 s | 88.40%\\n     tomli |     1.44 s | 22.36%\\n      toml |     3.03 s | 10.65%\\n   tomlkit |     20.6 s | 1.57%\\n```\\n\"}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_98643af8d0eb47458f91e304\", \"response\": \"# SPDX-License-Identifier: MIT\\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\\n# Licensed to PSF under a Contributor Agreement.\\n\\nimport copy\\nimport datetime\\nfrom decimal import Decimal as D\\nimport importlib\\nfrom pathlib import Path\\nimport sys\\nimport tempfile\\nimport unittest\\n\\nfrom . import tomllib\\n\\n\\nclass TestMiscellaneous(unittest.TestCase):\\n    def test_load(self):\\n        content = \\\"one=1 \\\\n two='two' \\\\n arr=[]\\\"\\n        expected = {\\\"one\\\": 1, \\\"two\\\": \\\"two\\\", \\\"arr\\\": []}\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"rb\\\") as bin_f:\\n                actual = tomllib.load(bin_f)\\n        self.assertEqual(actual, expected)\\n\\n    def test_incorrect_load(self):\\n        content = \\\"one=1\\\"\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"r\\\") as txt_f:\\n                with self.assertRaises(TypeError) as exc_info:\\n                    tomllib.load(txt_f)  # type: ignore[arg-type]\\n            # Mypyc extension leads to different message than pure Python\\n            self.assertIn(\\n                str(exc_info.exception),\\n                (\\n                    \\\"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\\\",  # noqa: E501\\n                    \\\"bytes object expected; got str\\\",\\n                ),\\n            )\\n\\n    def test_parse_float(self):\\n        doc = \\\"\\\"\\\"\\n              val=0.1\\n              biggest1=inf\\n              biggest2=+inf\\n              smallest=-inf\\n              notnum1=nan\\n              notnum2=-nan\\n              notnum3=+nan\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc, parse_float=D)\\n        expected = {\\n            \\\"val\\\": D(\\\"0.1\\\"),\\n            \\\"biggest1\\\": D(\\\"inf\\\"),\\n            \\\"biggest2\\\": D(\\\"inf\\\"),\\n            \\\"smallest\\\": D(\\\"-inf\\\"),\\n            \\\"notnum1\\\": D(\\\"nan\\\"),\\n            \\\"notnum2\\\": D(\\\"-nan\\\"),\\n            \\\"notnum3\\\": D(\\\"nan\\\"),\\n        }\\n        for k, expected_val in expected.items():\\n            actual_val = obj[k]\\n            self.assertIsInstance(actual_val, D)\\n            if actual_val.is_nan():\\n                self.assertTrue(expected_val.is_nan())\\n            else:\\n                self.assertEqual(actual_val, expected_val)\\n\\n    def test_deepcopy(self):\\n        doc = \\\"\\\"\\\"\\n              [bliibaa.diibaa]\\n              offsettime=[1979-05-27T00:32:00.999999-07:00]\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc)\\n        obj_copy = copy.deepcopy(obj)\\n        self.assertEqual(obj_copy, obj)\\n        expected_obj = {\\n            \\\"bliibaa\\\": {\\n                \\\"diibaa\\\": {\\n                    \\\"offsettime\\\": [\\n                        datetime.datetime(\\n                            1979,\\n                            5,\\n                            27,\\n                            0,\\n                            32,\\n                            0,\\n                            999999,\\n                            tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\\n                        )\\n                    ]\\n                }\\n            }\\n        }\\n        self.assertEqual(obj_copy, expected_obj)\\n\\n    def test_inline_array_recursion_limit(self):\\n        nest_count = 470\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        tomllib.loads(recursive_array_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_array_toml)\\n\\n    def test_inline_table_recursion_limit(self):\\n        nest_count = 310\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        tomllib.loads(recursive_table_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_table_toml)\\n\\n    def test_key_recursion_limit(self):\\n        nest_count = 310\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() - 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"TOML key has more than the allowed [0-9]+ parts\\\",\\n        ):\\n            tomllib.loads(nested_key_toml)\\n\\n    def test_types_import(self):\\n        \\\"\\\"\\\"Test that `_types` module runs.\\n\\n        The module is for type annotations only, so it is otherwise\\n        never imported by tests.\\n        \\\"\\\"\\\"\\n        importlib.import_module(f\\\"{tomllib.__name__}._types\\\")\\n\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Now I have enough. Let me write the summary. The three most recent releases: 2.3.1, 2.4.1, 2.4.0. Note the changelog order is odd (2.3.1, 2.4.1, 2.4.0, 2.3.0...). The three most recent releases listed at the top: 2.3.1, 2.4.1, 2.4.0. Hmm, but chronologically 2.4.1 is likely after 2.4.0, and 2.3.1 is a backport. The task says \\\"the three most recent releases listed in CHANGELOG.md\\\" \\u2014 that's the top three entries: 2.3.1, 2.4.1, 2.4.0.\\n\\nLet me write out/release-notes.md.\\n\\nKey caller impacts:\\n- 2.4.0: TOML v1.1.0 compatibility \\u2014 new syntax accepted by loads (e.g. \\\\e and \\\\x escapes, newlines/trailing commas in inline tables, seconds optional in times). Callers relying on strict 1.0 rejection may see previously-invalid docs now parse. Binary wheels for Windows arm64 (no API change).\\n- 2.4.1: key parts limit \\u2014 quadratic time complexity fix. loads now raises RecursionError for keys with more than sys.getrecursionlimit() parts. This is a behavior change: previously such keys parsed (slowly). Note it raises RecursionError, not TOMLDecodeError.\\n- 2.3.1: backport of same fix on 2.3.x line.\\n\\nLet me verify the 1.1 features from tests. The inline-table newline test comment says TOML 1.1 supports newlines in inline tables and trailing commas. Also \\\\e and \\\\x escapes. Let me check the test data for 1.1 features quickly. Actually I have enough from _parser: BASIC_STR_ESCAPE_REPLACEMENTS includes \\\"\\\\\\\\e\\\" and parse_basic_str_escape handles \\\"\\\\\\\\x\\\". And _TIME_RE_STR makes seconds optional. Good.\\n\\nLet me write the file.\"}, {\"type\": \"text\", \"content\": \"I have what I need. Writing the summary.\"}, {\"type\": \"tool_call\", \"id\": \"call_d6a47ef9fc234041b7bcbaa6\", \"name\": \"write_file\", \"arguments\": {\"path\": \"out/release-notes.md\", \"content\": \"# Tomli release notes \\u2014 three most recent releases\\n\\nSummary of the top three entries in `CHANGELOG.md` (2.4.1, 2.4.0, 2.3.1), with a\\nfocus on anything that can affect callers of `tomli.loads` (and therefore\\n`tomli.load`, which delegates to `loads`).\\n\\n## 2.4.1 \\u2014 key-part limit (security/DoS fix)\\n\\n- **Fixed:** Limit the number of parts in a TOML key to address quadratic time\\n  complexity.\\n- **Caller impact (behaviour change):** `loads` now rejects keys with more than\\n  `sys.getrecursionlimit()` dotted parts (see `MAX_KEY_PARTS` in\\n  `src/tomli/_parser.py`). The limit is evaluated at import time from the\\n  interpreter's recursion limit, so it is not a fixed constant.\\n- **Exception type:** the limit is enforced by raising `RecursionError`, **not**\\n  `TOMLDecodeError`. Callers that only catch `TOMLDecodeError` around `loads`\\n  will not catch this case. If you parse untrusted input, catch `RecursionError`\\n  as well (or catch `Exception`).\\n- **Who is affected:** only pathologically deep keys (thousands of dotted parts).\\n  Normal config files are unaffected. The change is a hardening measure against\\n  CPU-exhaustion input, so it is worth taking even though it can turn a\\n  previously-slow-but-successful parse into an error.\\n\\n## 2.4.0 \\u2014 TOML v1.1.0 compatibility\\n\\n- **Added:** TOML v1.1.0 compatibility.\\n- **Added:** Binary wheels for Windows arm64 (packaging only, no API change).\\n- **Caller impact (behaviour change):** `loads` now accepts TOML v1.1.0 syntax\\n  that older versions rejected. Documents that previously raised\\n  `TOMLDecodeError` may now parse successfully. Notable additions visible in the\\n  parser:\\n  - `\\\\e` (escape) and `\\\\x` (2-digit hex) string escapes.\\n  - Newlines and trailing commas inside inline tables.\\n  - Seconds are optional in times/datetimes.\\n- **Migration note:** if any caller relies on strict TOML v1.0.0 validation\\n  (e.g. rejecting v1.1-only syntax), that guarantee no longer holds from 2.4.0\\n  onward. The README states 2.4.0+ targets TOML v1.1.0 and older versions target\\n  v1.0.0.\\n- No changes to the `loads` signature or return types.\\n\\n## 2.3.1 \\u2014 backport of the key-part limit\\n\\n- **Fixed:** Backport of the same \\\"limit number of parts of a TOML key\\\" fix to\\n  the 2.3.x line.\\n- **Caller impact:** identical to 2.4.1 for anyone still on the 2.3.x series \\u2014\\n  `loads` raises `RecursionError` for keys exceeding the allowed number of parts.\\n  Teams that cannot move to 2.4.x should take 2.3.1 to get the DoS fix.\\n\\n## Recommended actions for Kestrel platform team\\n\\n1. Upgrade to **2.4.1** (or 2.3.1 if pinned to the 2.3.x line) to pick up the\\n   quadratic-time key fix.\\n2. Audit error handling around `tomli.loads`/`tomli.load`: add `RecursionError`\\n   to the caught exceptions where untrusted TOML is parsed.\\n3. Review any code or tests that assume TOML v1.0.0-only syntax is rejected;\\n   from 2.4.0 the parser accepts TOML v1.1.0 constructs.\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "86b8d142c54da760",
+       "parentSpanId": "0d8c1a5471185dbe",
+       "name": "execute_tool write_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458160063689000",
+       "endTimeUnixNano": "1790458160064448000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "write_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-18"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"content\": \"# Tomli release notes \\u2014 three most recent releases\\n\\nSummary of the top three entries in `CHANGELOG.md` (2.4.1, 2.4.0, 2.3.1), with a\\nfocus on anything that can affect callers of `tomli.loads` (and therefore\\n`tomli.load`, which delegates to `loads`).\\n\\n## 2.4.1 \\u2014 key-part limit (security/DoS fix)\\n\\n- **Fixed:** Limit the number of parts in a TOML key to address quadratic time\\n  complexity.\\n- **Caller impact (behaviour change):** `loads` now rejects keys with more than\\n  `sys.getrecursionlimit()` dotted parts (see `MAX_KEY_PARTS` in\\n  `src/tomli/_parser.py`). The limit is evaluated at import time from the\\n  interpreter's recursion limit, so it is not a fixed constant.\\n- **Exception type:** the limit is enforced by raising `RecursionError`, **not**\\n  `TOMLDecodeError`. Callers that only catch `TOMLDecodeError` around `loads`\\n  will not catch this case. If you parse untrusted input, catch `RecursionError`\\n  as well (or catch `Exception`).\\n- **Who is affected:** only pathologically deep keys (thousands of dotted parts).\\n  Normal config files are unaffected. The change is a hardening measure against\\n  CPU-exhaustion input, so it is worth taking even though it can turn a\\n  previously-slow-but-successful parse into an error.\\n\\n## 2.4.0 \\u2014 TOML v1.1.0 compatibility\\n\\n- **Added:** TOML v1.1.0 compatibility.\\n- **Added:** Binary wheels for Windows arm64 (packaging only, no API change).\\n- **Caller impact (behaviour change):** `loads` now accepts TOML v1.1.0 syntax\\n  that older versions rejected. Documents that previously raised\\n  `TOMLDecodeError` may now parse successfully. Notable additions visible in the\\n  parser:\\n  - `\\\\e` (escape) and `\\\\x` (2-digit hex) string escapes.\\n  - Newlines and trailing commas inside inline tables.\\n  - Seconds are optional in times/datetimes.\\n- **Migration note:** if any caller relies on strict TOML v1.0.0 validation\\n  (e.g. rejecting v1.1-only syntax), that guarantee no longer holds from 2.4.0\\n  onward. The README states 2.4.0+ targets TOML v1.1.0 and older versions target\\n  v1.0.0.\\n- No changes to the `loads` signature or return types.\\n\\n## 2.3.1 \\u2014 backport of the key-part limit\\n\\n- **Fixed:** Backport of the same \\\"limit number of parts of a TOML key\\\" fix to\\n  the 2.3.x line.\\n- **Caller impact:** identical to 2.4.1 for anyone still on the 2.3.x series \\u2014\\n  `loads` raises `RecursionError` for keys exceeding the allowed number of parts.\\n  Teams that cannot move to 2.4.x should take 2.3.1 to get the DoS fix.\\n\\n## Recommended actions for Kestrel platform team\\n\\n1. Upgrade to **2.4.1** (or 2.3.1 if pinned to the 2.3.x line) to pick up the\\n   quadratic-time key fix.\\n2. Audit error handling around `tomli.loads`/`tomli.load`: add `RecursionError`\\n   to the caught exceptions where untrusted TOML is parsed.\\n3. Review any code or tests that assume TOML v1.0.0-only syntax is rejected;\\n   from 2.4.0 the parser accepts TOML v1.1.0 constructs.\", \"path\": \"out/release-notes.md\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "Wrote 2898 bytes to out/release-notes.md"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "10"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "6aca70e9c9e14682d20ca4e08e91ff5f",
+       "spanId": "c91ff2c4d2329e06",
+       "parentSpanId": "9cda4701e7491db3",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458160064624000",
+       "endTimeUnixNano": "1790458162257179000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-030"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "7"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "19457"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "365"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "701"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:20.064535+00:00 request 72920474e62b\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_d6a47ef9fc234041b7bcbaa6\", \"response\": \"Wrote 2898 bytes to out/release-notes.md\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"The task says run tests at most once after last edit. But this is a documentation task; no code changed. Running tests isn't necessary. I'll skip. Actually instructions say run tests at most once, after last edit \\u2014 not mandatory. I'll skip since no code changed.\\n\\nLet me verify the file exists.\"}, {\"type\": \"text\", \"content\": \"Wrote `out/release-notes.md`. No code was changed, so I didn't run the test suite.\\n\\nSummary of what I did:\\n- Read `CHANGELOG.md` and identified the three most recent releases: **2.4.1**, **2.4.0**, **2.3.1**.\\n- Cross-checked the source (`src/tomli/_parser.py`, `_re.py`) and `README.md` to describe the actual caller-facing impact on `tomli.loads`.\\n- Wrote the summary to `out/release-notes.md`.\\n\\nKey findings highlighted for the platform team:\\n- **2.4.1 / 2.3.1** add a key-part limit (`MAX_KEY_PARTS = sys.getrecursionlimit()`) to fix quadratic-time parsing. It raises **`RecursionError`, not `TOMLDecodeError`** \\u2014 so callers catching only `TOMLDecodeError` won't catch it.\\n- **2.4.0** adds TOML v1.1.0 compatibility, so documents that previously failed may now parse (new `\\\\e`/`\\\\x` escapes, newlines/trailing commas in inline tables, optional seconds). Callers relying on strict v1.0.0 rejection are affected.\\n- Recommended upgrading to 2.4.1, broadening exception handling, and reviewing v1.0.0-only assumptions.\"}], \"finish_reason\": \"stop\"}]"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

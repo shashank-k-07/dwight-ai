@@ -1,0 +1,494 @@
+{
+ "source": "data/otlp/real (40 files), ingested with dwight.ingest.otlp",
+ "models": {
+  "deepseek-v4.1-flash": 290
+ },
+ "cache": {
+  "calls_with_cache_read": 0,
+  "calls": 290,
+  "note": "Sciforium's API returned no cached-token fields (usage.prompt_tokens_details is null), so cache_read_tokens is 0 on every real Call. Do not calibrate cache-hit rates from this."
+ },
+ "experiments": {
+  "none": 40
+ },
+ "pattern_rates": {
+  "cache_miss": {
+   "sessions": 9,
+   "share": 0.225
+  },
+  "none": {
+   "sessions": 14,
+   "share": 0.35
+  },
+  "redundant_read": {
+   "sessions": 9,
+   "share": 0.225
+  },
+  "runaway_loop": {
+   "sessions": 8,
+   "share": 0.2
+  }
+ },
+ "all": {
+  "sessions": 40,
+  "calls_per_session": {
+   "n": 40,
+   "min": 3,
+   "p10": 3,
+   "p50": 7,
+   "p90": 11,
+   "max": 15,
+   "mean": 7.25
+  },
+  "input_tokens_per_call": {
+   "n": 290,
+   "min": 564,
+   "p10": 946,
+   "p50": 4390,
+   "p90": 18821,
+   "max": 48788,
+   "mean": 8382.22
+  },
+  "output_tokens_per_call": {
+   "n": 290,
+   "min": 24,
+   "p10": 55,
+   "p50": 218,
+   "p90": 1625,
+   "max": 4096,
+   "mean": 577.72
+  },
+  "input_tokens_per_session": {
+   "n": 40,
+   "min": 9539,
+   "p10": 11046,
+   "p50": 27576,
+   "p90": 159798,
+   "max": 256992,
+   "mean": 60771.12
+  },
+  "output_tokens_per_session": {
+   "n": 40,
+   "min": 600,
+   "p10": 1659,
+   "p50": 3937,
+   "p90": 5878,
+   "max": 17205,
+   "mean": 4188.45
+  },
+  "prefix_tokens": {
+   "n": 290,
+   "min": 303,
+   "p10": 303,
+   "p50": 693,
+   "p90": 704,
+   "max": 712,
+   "mean": 590.46
+  },
+  "tool_calls_per_call": {
+   "n": 290,
+   "min": 0,
+   "p10": 0,
+   "p50": 1,
+   "p90": 2,
+   "max": 5,
+   "mean": 1.13
+  },
+  "tool_result_tokens": {
+   "n": 327,
+   "min": 3,
+   "p10": 11,
+   "p50": 196,
+   "p90": 6224,
+   "max": 6566,
+   "mean": 1083.76
+  },
+  "tool_mix": {
+   "read_file": 111,
+   "run_tests": 80,
+   "search": 41,
+   "run_command": 41,
+   "list_files": 30,
+   "write_file": 24
+  },
+  "spend_usd_per_session": {
+   "n": 40,
+   "min": 0.004011,
+   "p10": 0.006089,
+   "p50": 0.012254,
+   "p90": 0.052419,
+   "max": 0.082354,
+   "mean": 0.02
+  },
+  "spend_usd_total": 0.930299
+ },
+ "by_variant": {
+  "cache_miss": {
+   "sessions": 9,
+   "calls_per_session": {
+    "n": 9,
+    "min": 3,
+    "p10": 3,
+    "p50": 5,
+    "p90": 11,
+    "max": 11,
+    "mean": 6.11
+   },
+   "input_tokens_per_call": {
+    "n": 55,
+    "min": 964,
+    "p10": 971,
+    "p50": 8578,
+    "p90": 13801,
+    "max": 19457,
+    "mean": 7939.8
+   },
+   "output_tokens_per_call": {
+    "n": 55,
+    "min": 24,
+    "p10": 52,
+    "p50": 261,
+    "p90": 2256,
+    "max": 4096,
+    "mean": 777.25
+   },
+   "input_tokens_per_session": {
+    "n": 9,
+    "min": 10772,
+    "p10": 11017,
+    "p50": 27635,
+    "p90": 111171,
+    "max": 111303,
+    "mean": 48521.0
+   },
+   "output_tokens_per_session": {
+    "n": 9,
+    "min": 621,
+    "p10": 1659,
+    "p50": 3216,
+    "p90": 9220,
+    "max": 15890,
+    "mean": 4749.89
+   },
+   "prefix_tokens": {
+    "n": 55,
+    "min": 699,
+    "p10": 701,
+    "p50": 703,
+    "p90": 711,
+    "max": 712,
+    "mean": 703.75
+   },
+   "tool_calls_per_call": {
+    "n": 55,
+    "min": 0,
+    "p10": 0,
+    "p50": 1,
+    "p90": 2,
+    "max": 3,
+    "mean": 1.16
+   },
+   "tool_result_tokens": {
+    "n": 64,
+    "min": 3,
+    "p10": 10,
+    "p50": 187,
+    "p90": 3000,
+    "max": 6566,
+    "mean": 1052.45
+   },
+   "tool_mix": {
+    "read_file": 20,
+    "run_command": 16,
+    "search": 13,
+    "list_files": 7,
+    "write_file": 6,
+    "run_tests": 2
+   },
+   "spend_usd_per_session": {
+    "n": 9,
+    "min": 0.00405,
+    "p10": 0.006089,
+    "p50": 0.01215,
+    "p90": 0.044455,
+    "max": 0.052419,
+    "mean": 0.02
+   },
+   "spend_usd_total": 0.182305
+  },
+  "clean": {
+   "sessions": 14,
+   "calls_per_session": {
+    "n": 14,
+    "min": 3,
+    "p10": 3,
+    "p50": 4,
+    "p90": 10,
+    "max": 15,
+    "mean": 5.79
+   },
+   "input_tokens_per_call": {
+    "n": 81,
+    "min": 926,
+    "p10": 932,
+    "p50": 8586,
+    "p90": 14860,
+    "max": 18821,
+    "mean": 7765.69
+   },
+   "output_tokens_per_call": {
+    "n": 81,
+    "min": 43,
+    "p10": 45,
+    "p50": 145,
+    "p90": 1655,
+    "max": 4096,
+    "mean": 621.05
+   },
+   "input_tokens_per_session": {
+    "n": 14,
+    "min": 10660,
+    "p10": 11046,
+    "p50": 21192,
+    "p90": 114252,
+    "max": 182409,
+    "mean": 44930.07
+   },
+   "output_tokens_per_session": {
+    "n": 14,
+    "min": 600,
+    "p10": 1706,
+    "p50": 3694,
+    "p90": 5878,
+    "max": 7987,
+    "mean": 3593.21
+   },
+   "prefix_tokens": {
+    "n": 81,
+    "min": 688,
+    "p10": 690,
+    "p50": 692,
+    "p90": 699,
+    "max": 701,
+    "mean": 692.7
+   },
+   "tool_calls_per_call": {
+    "n": 81,
+    "min": 0,
+    "p10": 0,
+    "p50": 1,
+    "p90": 2,
+    "max": 3,
+    "mean": 1.01
+   },
+   "tool_result_tokens": {
+    "n": 82,
+    "min": 3,
+    "p10": 10,
+    "p50": 167,
+    "p90": 6418,
+    "max": 6460,
+    "mean": 1142.3
+   },
+   "tool_mix": {
+    "read_file": 25,
+    "search": 17,
+    "run_command": 17,
+    "write_file": 11,
+    "list_files": 9,
+    "run_tests": 3
+   },
+   "spend_usd_per_session": {
+    "n": 14,
+    "min": 0.004104,
+    "p10": 0.005408,
+    "p50": 0.008857,
+    "p90": 0.04005,
+    "max": 0.061776,
+    "mean": 0.02
+   },
+   "spend_usd_total": 0.249072
+  },
+  "redundant_read": {
+   "sessions": 9,
+   "calls_per_session": {
+    "n": 9,
+    "min": 6,
+    "p10": 6,
+    "p50": 8,
+    "p90": 11,
+    "max": 12,
+    "mean": 8.22
+   },
+   "input_tokens_per_call": {
+    "n": 74,
+    "min": 961,
+    "p10": 980,
+    "p50": 15857,
+    "p90": 35502,
+    "max": 48788,
+    "mean": 16057.85
+   },
+   "output_tokens_per_call": {
+    "n": 74,
+    "min": 34,
+    "p10": 55,
+    "p50": 146,
+    "p90": 1668,
+    "max": 4096,
+    "mean": 555.41
+   },
+   "input_tokens_per_session": {
+    "n": 9,
+    "min": 9539,
+    "p10": 44918,
+    "p50": 145598,
+    "p90": 222260,
+    "max": 256992,
+    "mean": 132031.22
+   },
+   "output_tokens_per_session": {
+    "n": 9,
+    "min": 958,
+    "p10": 1012,
+    "p50": 3429,
+    "p90": 5031,
+    "max": 17205,
+    "mean": 4566.67
+   },
+   "prefix_tokens": {
+    "n": 74,
+    "min": 699,
+    "p10": 700,
+    "p50": 702,
+    "p90": 711,
+    "max": 711,
+    "mean": 702.66
+   },
+   "tool_calls_per_call": {
+    "n": 74,
+    "min": 0,
+    "p10": 0,
+    "p50": 1,
+    "p90": 3,
+    "max": 5,
+    "mean": 1.51
+   },
+   "tool_result_tokens": {
+    "n": 112,
+    "min": 3,
+    "p10": 11,
+    "p50": 664,
+    "p90": 6227,
+    "max": 6391,
+    "mean": 1603.04
+   },
+   "tool_mix": {
+    "read_file": 66,
+    "list_files": 14,
+    "search": 11,
+    "run_command": 8,
+    "write_file": 7,
+    "run_tests": 6
+   },
+   "spend_usd_per_session": {
+    "n": 9,
+    "min": 0.004011,
+    "p10": 0.015971,
+    "p50": 0.047794,
+    "p90": 0.073729,
+    "max": 0.082354,
+    "mean": 0.05
+   },
+   "spend_usd_total": 0.405804
+  },
+  "runaway_loop": {
+   "sessions": 8,
+   "calls_per_session": {
+    "n": 8,
+    "min": 10,
+    "p10": 10,
+    "p50": 10,
+    "p90": 10,
+    "max": 10,
+    "mean": 10.0
+   },
+   "input_tokens_per_call": {
+    "n": 80,
+    "min": 564,
+    "p10": 797,
+    "p50": 2002,
+    "p90": 3912,
+    "max": 5049,
+    "mean": 2210.68
+   },
+   "output_tokens_per_call": {
+    "n": 80,
+    "min": 55,
+    "p10": 81,
+    "p50": 393,
+    "p90": 740,
+    "max": 1226,
+    "mean": 417.3
+   },
+   "input_tokens_per_session": {
+    "n": 8,
+    "min": 18760,
+    "p10": 19852,
+    "p50": 21827,
+    "p90": 24354,
+    "max": 28421,
+    "mean": 22106.75
+   },
+   "output_tokens_per_session": {
+    "n": 8,
+    "min": 3911,
+    "p10": 3937,
+    "p50": 4160,
+    "p90": 4353,
+    "max": 4755,
+    "mean": 4173.0
+   },
+   "prefix_tokens": {
+    "n": 80,
+    "min": 303,
+    "p10": 303,
+    "p50": 306,
+    "p90": 307,
+    "max": 307,
+    "mean": 305.25
+   },
+   "tool_calls_per_call": {
+    "n": 80,
+    "min": 0,
+    "p10": 0,
+    "p50": 1,
+    "p90": 2,
+    "max": 3,
+    "mean": 0.86
+   },
+   "tool_result_tokens": {
+    "n": 69,
+    "min": 179,
+    "p10": 179,
+    "p50": 196,
+    "p90": 216,
+    "max": 218,
+    "mean": 200.32
+   },
+   "tool_mix": {
+    "run_tests": 69
+   },
+   "spend_usd_per_session": {
+    "n": 8,
+    "min": 0.010352,
+    "p10": 0.010649,
+    "p50": 0.011955,
+    "p90": 0.012254,
+    "max": 0.013518,
+    "mean": 0.01
+   },
+   "spend_usd_total": 0.093117
+  }
+ }
+}
