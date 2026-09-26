@@ -21,3 +21,5 @@
 
 
 **From 14 (merged):** policy endpoints are already served from the store, so there's nothing to switch. Apply writes `<out dir>/<team id>.yaml`; set `DWIGHT_OUT_DIR` if it shouldn't write into the repo's (gitignored) `out/`.
+
+**From 10 (merged):** run `common_paths` after classify. `experiment='after'` runs are excluded automatically, and Initiatives with fewer than 3 analysed Sessions get no common path (`--min-sessions`). If the real storage Initiative's share falls below 60%, adjust it with `--threshold`. Redundant Read (05) and common paths should use the same per-Call cache rule (`cache_read_tokens > 0` on that Call), so their Measured figures agree; `common_paths.read_cost()` implements it.
