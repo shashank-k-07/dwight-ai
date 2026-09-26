@@ -2,7 +2,8 @@
 
 Scores the classifier's Initiative choice against the synthetic ground truth
 (data/ground-truth/synthetic_sessions.jsonl) and records the result in
-`eval_runs`, which the closing-numbers strip serves.
+`eval_runs` (accuracy, n_sessions, created_at, label "<PROMPT_VERSION> ...",
+details_json). The closing-numbers route serves the latest row by created_at.
 
 This package and the acceptance checks (15) are the ONLY code allowed to read
 data/ground-truth/. Ground truth is used for picking the sample and for scoring,
@@ -49,9 +50,9 @@ class Truth:
     ambiguous: bool
 
 
-def load_truth(path: Path | str = GROUND_TRUTH_PATH) -> dict[str, Truth]:
+def load_truth(path: Path | str | None = None) -> dict[str, Truth]:
     out: dict[str, Truth] = {}
-    for line in Path(path).read_text().splitlines():
+    for line in Path(path or GROUND_TRUTH_PATH).read_text().splitlines():
         if not line.strip():
             continue
         r = json.loads(line)
@@ -80,7 +81,7 @@ def stratified_sample(truth: dict[str, Truth], *, per_initiative: int = DEFAULT_
 
 
 # --- re-ingest ------------------------------------------------------------------------
-def reingest(conn: sqlite3.Connection, session_ids: list[str], otlp_dir: Path | str = SYNTHETIC_OTLP_DIR) -> int:
+def reingest(conn: sqlite3.Connection, session_ids: list[str], otlp_dir: Path | str | None = None) -> int:
     """Ingest only the payloads that carry these Sessions (one JSON line per
     payload). Re-ingest restores staged content, so the classify stage picks the
     Session up again. Returns how many Sessions were written."""
@@ -89,7 +90,8 @@ def reingest(conn: sqlite3.Connection, session_ids: list[str], otlp_dir: Path | 
     wanted = set(session_ids)
     remaining = set(wanted)
     written: set[str] = set()
-    files = sorted(Path(otlp_dir).rglob("*.jsonl")) + sorted(Path(otlp_dir).rglob("*.json"))
+    root = Path(otlp_dir or SYNTHETIC_OTLP_DIR)
+    files = sorted(root.rglob("*.jsonl")) + sorted(root.rglob("*.json"))
     for f in files:
         with open(f) as fh:
             for line in fh:
@@ -185,21 +187,12 @@ def classified_predictions(conn: sqlite3.Connection, session_ids: list[str] | No
 def record(conn: sqlite3.Connection, result: dict, *, label: str, extra: dict | None = None) -> str:
     eval_id = "eval-" + uuid.uuid4().hex[:12]
     now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
-    details = {**result, **(extra or {})}
+    details = {**(extra or {}), **result}
     conn.execute("INSERT INTO eval_runs (eval_id, created_at, label, accuracy, n_sessions, details_json) "
                  "VALUES (?,?,?,?,?,?)",
                  (eval_id, now, label, result["accuracy"], result["n_sessions"], json.dumps(details)))
     conn.commit()
     return eval_id
-
-
-def latest(conn: sqlite3.Connection) -> dict | None:
-    """The most recent eval run (what the closing-numbers strip shows)."""
-    row = conn.execute("SELECT eval_id, created_at, label, accuracy, n_sessions FROM eval_runs "
-                       "ORDER BY created_at DESC, rowid DESC LIMIT 1").fetchone()
-    if row is None:
-        return None
-    return {"eval_id": row[0], "created_at": row[1], "label": row[2], "accuracy": row[3], "n_sessions": row[4]}
 
 
 def report(result: dict, label: str) -> str:

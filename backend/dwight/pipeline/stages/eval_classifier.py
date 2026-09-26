@@ -64,7 +64,7 @@ def run(conn, args):
     ids = ev.stratified_sample(truth, per_initiative=ns.per_initiative,
                                ambiguous_per_initiative=ns.ambiguous, seed=ns.seed)
     extra = {"mode": "sample", "prompt_version": PROMPT_VERSION, "seed": ns.seed, "thinking": ns.thinking,
-             "per_initiative": ns.per_initiative, "ambiguous_per_initiative": ns.ambiguous}
+             "sample_per_initiative": ns.per_initiative, "sample_ambiguous_per_initiative": ns.ambiguous}
     since = None
     if not ns.no_classify:
         since = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
