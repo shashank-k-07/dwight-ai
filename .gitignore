@@ -8,3 +8,5 @@ dashboard/.next/
 dashboard/next-env.d.ts
 dashboard/tsconfig.tsbuildinfo
 out/
+.claude/worktrees/
+dashboard/node_modules
