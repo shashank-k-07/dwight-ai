@@ -351,3 +351,92 @@ def test_committed_real_draft_passes_draft_check():
     counted = sum(d.count_tokens(p.read_text()) for p in config.COMPANY_DOCS_DIR.glob("*.md"))
     assert d.count_tokens(doc) <= 0.25 * counted
     assert "STORAGE_ENV=staging" in mem and "E_BADREF" in mem
+
+
+# ---------------------------------------------------------------- ticket 16: columns rules depend on, header
+
+INVENTORY = """# Inventory
+
+## 2. Inventory
+
+"Avg object" and "Objects" are from Storage Lens.
+
+| Bucket | Avg object | Objects | Monthly cost |
+|---|---|---|---|
+| b-small | 38 KB | 9B | 100.00 |
+| b-big | 2 MB | 1M | 200.00 |
+"""
+POLICY = """# Policy
+
+## 6. Overrides
+
+If a bucket's average object size is below 128 KB, it gets no transitions.
+"""
+
+
+def _toy_docs():
+    return [d.SourceDoc("company-docs/inventory.md", "Inventory", INVENTORY),
+            d.SourceDoc("company-docs/policy.md", "Policy", POLICY)]
+
+
+def test_columns_a_rule_elsewhere_reads_are_required():
+    needs = d.required_columns(_toy_docs())
+    [(table, cols)] = needs["company-docs/inventory.md"]
+    assert table.header == ["Bucket", "Avg object", "Objects", "Monthly cost"]
+    # "average object size" in the policy -> Avg object; the table's own caption quoting "Objects" doesn't count
+    assert [c.column for c in cols] == ["Avg object"]
+    assert cols[0].evidence_doc == "company-docs/policy.md" and "128 KB" in cols[0].evidence
+    assert "company-docs/policy.md" not in needs
+
+
+def test_real_inventory_keeps_the_override_and_scope_columns():
+    ids = ["blobctl-migration-runbook", "storage-cost-dashboard", "storage-service-ownership", "storage-tiering-policy"]
+    docs, _ = d.fetch_source_docs([f"company-docs/{i}.md" for i in ids])
+    needs = d.required_columns(docs)["company-docs/storage-cost-dashboard.md"]
+    inv = next(cols for t, cols in needs if "Avg object" in t.header)
+    names = {c.column for c in inv}
+    assert {"Avg object", "Policy compliant", "Writer service"} <= names and "Objects" not in names
+
+
+def test_dropped_required_column_is_put_back_with_source_values(monkeypatch):
+    replies = {"company-docs/inventory.md": "### Inventory (§2)\n| Bucket | Monthly cost |\n|---|---|\n"
+                                            "| b-small | 100.00 |\n| b-gone | 5.00 |",
+               "company-docs/policy.md": "### Overrides (§6)\n- average object size below 128 KB: no transitions."}
+    prompts = {}
+
+    def chat(messages, **kw):
+        user = messages[1]["content"]
+        rid = user.split("Source doc `", 1)[1].split("`", 1)[0]
+        prompts.setdefault(rid, user)
+        return replies[rid]
+
+    monkeypatch.setattr(glm, "chat", chat)
+    ctx = d.DocContext(initiative_id="x", name="X", description=None, summaries=[], discoveries=[],
+                       readers=3, analysed=3, path_tokens=400)
+    out = d.build_initiative_doc(ctx, _toy_docs(), target_tokens=5000)
+    assert "| Bucket | Avg object | Monthly cost |" in out
+    assert "| b-small | 38 KB | 100.00 |" in out
+    assert "| b-gone | (see source) | 5.00 |" in out          # a row the source doesn't have isn't invented
+    assert "Objects" not in out.split("## Inventory", 1)[1]    # not required, stays dropped
+    assert any("put back column 'Avg object'" in line for line in ctx.log)
+    # the model was told, with the rule that depends on it
+    assert "`Avg object`" in prompts["company-docs/inventory.md"]
+    assert "below 128 KB" in prompts["company-docs/inventory.md"]
+
+
+def test_repair_leaves_tables_alone_when_columns_are_kept_or_table_dropped():
+    needs = d.required_columns(_toy_docs())["company-docs/inventory.md"]
+    kept = "### I\n| Bucket | Avg object |\n|---|---|\n| b-small | 38 KB |"
+    assert d.repair_tables(kept, needs) == (kept, [])
+    other = "### I\n| Tier | Class |\n|---|---|\n| Warm | STANDARD_IA |"
+    assert d.repair_tables(other, needs) == (other, [])
+
+
+def test_header_says_the_doc_replaces_the_sources():
+    ctx = d.DocContext(initiative_id="x", name="Storage cost reduction", description=None, summaries=[],
+                       discoveries=[], readers=10, analysed=10, path_tokens=23892)
+    h = d.header(ctx, _toy_docs())
+    assert "replaces those 2 source docs" in h
+    assert "open a source doc only if a value you need is missing" in h
+    assert "For anything not covered here, open the linked source" not in h
+    assert "doc replaces the source docs" in d.SYSTEM
