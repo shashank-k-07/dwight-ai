@@ -19,7 +19,7 @@ from typing import Any
 import yaml
 
 from dwight import config, db
-from dwight.harness.agent import MAX_TOKENS_PER_CALL, SessionResult, SessionSpec, observed_signals, run_session
+from dwight.harness.agent import SessionResult, SessionSpec, observed_signals, run_session
 from dwight.ingest.otlp import ingest_file
 
 OTLP_REAL_DIR = config.DATA_DIR / "otlp" / "real"
@@ -59,7 +59,8 @@ def _settings(spec: SessionSpec, result: SessionResult) -> dict:
         "agent": spec.agent,
         "temperature": spec.temperature,
         "max_calls": spec.max_calls,
-        "max_tokens_per_call": MAX_TOKENS_PER_CALL,
+        "max_tokens_per_call": spec.max_tokens,
+        "continue_on_length": spec.continue_on_length,
         "tools": list(spec.tools) if spec.tools else None,
         "docs": sorted(spec.docs),
         "system_prompt_sha": hashlib.sha256(spec.system_prompt.encode()).hexdigest()[:12],

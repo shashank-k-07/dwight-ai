@@ -292,6 +292,11 @@ def real_specs(indices: list[int] | None = None) -> list[SessionSpec]:
 # ---------------------------------------------------------------------------
 
 STORAGE_MAX_CALLS = 30
+# The model thinks by default, and the storage tasks (policy precedence + savings maths over
+# ~22K tokens of docs) can think past 4096 output tokens in one Call. The first 04 batch lost
+# 2/10 tasks to replies cut off at 4096 that the loop took as final answers. So storage runs get
+# a larger cap, and a cut-off reply is continued instead of ending the Session.
+STORAGE_MAX_TOKENS = 16384
 
 
 def storage_docs() -> dict[str, Path]:
@@ -320,6 +325,7 @@ def storage_specs(*, experiment: str | None, session_prefix: str, task_ids: list
                 make_workspace=workspace.kestrel_workspace, task_id=t["id"], variant=variant,
                 experiment=experiment, tag_task_id=True, context_files=list(context_files or []), docs=docs,
                 max_calls=max_calls, check=partial(checks.evaluate, t["check"]), model=model,
+                max_tokens=STORAGE_MAX_TOKENS, continue_on_length=True,
                 **members[n % len(members)]))
             n += 1
     return out

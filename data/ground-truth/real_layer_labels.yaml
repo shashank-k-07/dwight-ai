@@ -494,3 +494,123 @@ sessions:
       cache_read_reported: false
     stop_reason: max_calls
     calls: 10
+  real-scr-b-t01:
+    task_id: t01-telemetry-prod-plan
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 13
+  real-scr-b-t02:
+    task_id: t02-telemetry-eu-plan
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 15
+  real-scr-b-t03:
+    task_id: t03-pod-images-plan
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 10
+  real-scr-b-t04:
+    task_id: t04-app-logs-plan
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 1
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 17
+  real-scr-b-t05:
+    task_id: t05-ml-snapshots-plan
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 11
+  real-scr-b-t06:
+    task_id: t06-support-attachments-plan
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 12
+  real-scr-b-t07:
+    task_id: t07-savings-ranking
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 6
+  real-scr-b-t08:
+    task_id: t08-pod-images-apply
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 13
+  real-scr-b-t09:
+    task_id: t09-ml-snapshots-apply
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 16
+  real-scr-b-t10:
+    task_id: t10-exception-codes
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 5
