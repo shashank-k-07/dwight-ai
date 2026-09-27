@@ -1,0 +1,427 @@
+{
+  "snapshot": "demo",
+  "created_at": "2026-09-27T05:12:57Z",
+  "source_store": "/Users/shashank/Projects/dwight-ai/backend/var/demo.sqlite",
+  "source_sha256": "3240d21e33c3b89c7d892bd6da6c71341d7416f19d6ed552afb740024bdcde38",
+  "source_had_wal": false,
+  "store_sha256": "5d07eff980ce09f5ef2eaaf46dfec53d81c13081e56e25592574c40d87d7dd91",
+  "store_bytes": 151797760,
+  "row_counts": {
+    "sessions": 4060,
+    "calls": 49726,
+    "tool_calls": 56090,
+    "staging_content": 0,
+    "trail_entries": 18168,
+    "discoveries": 2218,
+    "initiatives": 15,
+    "waste_findings": 2602,
+    "recurring_discoveries": 86,
+    "recommendations": 134,
+    "drafts": 16,
+    "policies": 0,
+    "eval_runs": 1
+  },
+  "drafts": [
+    {
+      "draft_id": "d-auth-migration-memory",
+      "initiative_id": "auth-migration",
+      "type": "memory",
+      "filename": "auth-migration.memory.md",
+      "tokens": 180,
+      "sha256": "a02b4cf1d2082bde8bdfd4ff368b6ab32864464ac2bdeb2fbd726cc4b7b9a8ce",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-carrier-api-onboarding-memory",
+      "initiative_id": "carrier-api-onboarding",
+      "type": "memory",
+      "filename": "carrier-api-onboarding.memory.md",
+      "tokens": 226,
+      "sha256": "9a0ee2c96589c1dbcfd3f8627548ae90a0b2557f13b9a424774840ac3cea03a1",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-dock-scheduling-memory",
+      "initiative_id": "dock-scheduling",
+      "type": "memory",
+      "filename": "dock-scheduling.memory.md",
+      "tokens": 84,
+      "sha256": "f736a9b72b7abe788b943463202a0358ebd5d9c30949d9a565224ef710b89c68",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-driver-app-offline-sync-memory",
+      "initiative_id": "driver-app-offline-sync",
+      "type": "memory",
+      "filename": "driver-app-offline-sync.memory.md",
+      "tokens": 278,
+      "sha256": "a1d4c64f571fc11fac1ca053c17e31080dbace774840feb9f7abfe1740ec3eb9",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-eta-model-retraining-memory",
+      "initiative_id": "eta-model-retraining",
+      "type": "memory",
+      "filename": "eta-model-retraining.memory.md",
+      "tokens": 150,
+      "sha256": "95968c757eb4f3311cca7201a87d0d8b0f904112152108def9771ae18d474a65",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-incident-postmortems-memory",
+      "initiative_id": "incident-postmortems",
+      "type": "memory",
+      "filename": "incident-postmortems.memory.md",
+      "tokens": 203,
+      "sha256": "b8f81d9dddafd3bcc8144c5e91686b7dfdab8c2212ae301e16d6b238739b1e79",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-invoicing-v2-memory",
+      "initiative_id": "invoicing-v2",
+      "type": "memory",
+      "filename": "invoicing-v2.memory.md",
+      "tokens": 396,
+      "sha256": "b03317976d4d1a26fdd5c3350289ec9765671f5d23e8e89f1d05c59b30aabdcd",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-k8s-upgrade-memory",
+      "initiative_id": "k8s-upgrade",
+      "type": "memory",
+      "filename": "k8s-upgrade.memory.md",
+      "tokens": 322,
+      "sha256": "ca64919b542cb39ca80e3b634f5f19354977b637bba534d0ba19c83ade9f6235",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-month-end-close-memory",
+      "initiative_id": "month-end-close",
+      "type": "memory",
+      "filename": "month-end-close.memory.md",
+      "tokens": 128,
+      "sha256": "a95cc6052cae3835ae5093e414fcc45a59f8414c983bce3f4a9eb47c30ff29db",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-peak-season-campaign-memory",
+      "initiative_id": "peak-season-campaign",
+      "type": "memory",
+      "filename": "peak-season-campaign.memory.md",
+      "tokens": 128,
+      "sha256": "53d5b51d4a65a531a9c3edb66d713e2b5382c5952526b7049610bf601b9a7bb7",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-routing-latency-memory",
+      "initiative_id": "routing-latency",
+      "type": "memory",
+      "filename": "routing-latency.memory.md",
+      "tokens": 334,
+      "sha256": "f0bbbd909334ebd67c1e889b5bcb0c6e2b4a8c3da41143533ee3f21c19c703cd",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-shipment-exception-triage-memory",
+      "initiative_id": "shipment-exception-triage",
+      "type": "memory",
+      "filename": "shipment-exception-triage.memory.md",
+      "tokens": 109,
+      "sha256": "d2c35eeb7b0a478d4d4fe0776189a18a7113d1a39df384d30d43f8e21046b2eb",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-storage-cost-reduction-doc",
+      "initiative_id": "storage-cost-reduction",
+      "type": "initiative_doc",
+      "filename": "storage-cost-reduction.md",
+      "tokens": 4889,
+      "sha256": "0214f351be3b38e0bea5b93603802a494f8e3b887a4ad92434cbea4a1be6d470",
+      "matches_committed": true
+    },
+    {
+      "draft_id": "d-storage-cost-reduction-memory",
+      "initiative_id": "storage-cost-reduction",
+      "type": "memory",
+      "filename": "storage-cost-reduction.memory.md",
+      "tokens": 103,
+      "sha256": "bd0db8fcc887cb0a44168c64734ef3081a593689c378077af5c4b64c5e2236ae",
+      "matches_committed": true
+    },
+    {
+      "draft_id": "d-support-macro-refresh-memory",
+      "initiative_id": "support-macro-refresh",
+      "type": "memory",
+      "filename": "support-macro-refresh.memory.md",
+      "tokens": 153,
+      "sha256": "01cf5ef2e859809ea65543da0cf73e75862336ac05e4234286168601eae6769a",
+      "matches_committed": false
+    },
+    {
+      "draft_id": "d-vendor-contract-review-memory",
+      "initiative_id": "vendor-contract-review",
+      "type": "memory",
+      "filename": "vendor-contract-review.memory.md",
+      "tokens": 112,
+      "sha256": "a735d931be2f9cbe98c0b4111804f3a2a187c2e0fc3df6ab71113ebfabf8392e",
+      "matches_committed": false
+    }
+  ],
+  "policy_files": [],
+  "headline": [
+    "$580.92 [Measured] of Spend analysed",
+    "$95.89 [Measured] Measured Waste found ($0.16 [Measured] of it on the real layer)",
+    "Drafts cut tokens by 75.4% [Measured]",
+    "classifier 97.3% accurate on 4,000 Sessions",
+    "$41.32 [Estimated] Estimated Saving"
+  ],
+  "closing_numbers": {
+    "source": "store",
+    "spend_analysed": {
+      "usd": 580.923025,
+      "kind": "measured",
+      "note": null
+    },
+    "measured_waste": {
+      "usd": 95.892922,
+      "kind": "measured",
+      "note": null
+    },
+    "measured_waste_real_layer": {
+      "usd": 0.157847,
+      "kind": "measured",
+      "note": null
+    },
+    "estimated_saving": {
+      "usd": 41.32285,
+      "kind": "estimated",
+      "note": null
+    },
+    "draft_token_drop_pct": 75.4,
+    "classifier_accuracy": 0.9728,
+    "classifier_eval_sessions": 4000
+  },
+  "before_after": {
+    "initiative_id": "storage-cost-reduction",
+    "before": {
+      "session_count": 10,
+      "tasks_passed": 10,
+      "tasks_total": 10,
+      "success_rate": 1.0,
+      "total_tokens": 2496455,
+      "avg_tokens": 249645.5,
+      "spend": {
+        "usd": 0.807079,
+        "kind": "measured"
+      }
+    },
+    "after": {
+      "session_count": 10,
+      "tasks_passed": 10,
+      "tasks_total": 10,
+      "success_rate": 1.0,
+      "total_tokens": 614711,
+      "avg_tokens": 61471.1,
+      "spend": {
+        "usd": 0.238169,
+        "kind": "measured"
+      }
+    },
+    "token_drop_pct": 75.4,
+    "spend_drop": {
+      "usd": 0.568911,
+      "kind": "measured"
+    },
+    "success_held": true,
+    "per_task": {
+      "t01-telemetry-prod-plan": {
+        "after": {
+          "tokens": 60343,
+          "spend_usd": 0.023155500000000002,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 280262,
+          "spend_usd": 0.0909303,
+          "task_success": 1
+        }
+      },
+      "t02-telemetry-eu-plan": {
+        "after": {
+          "tokens": 78326,
+          "spend_usd": 0.0292929,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 333359,
+          "spend_usd": 0.1053987,
+          "task_success": 1
+        }
+      },
+      "t03-pod-images-plan": {
+        "after": {
+          "tokens": 44053,
+          "spend_usd": 0.0165801,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 199131,
+          "spend_usd": 0.06389729999999999,
+          "task_success": 1
+        }
+      },
+      "t04-app-logs-plan": {
+        "after": {
+          "tokens": 60059,
+          "spend_usd": 0.021940799999999996,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 381686,
+          "spend_usd": 0.11931719999999998,
+          "task_success": 1
+        }
+      },
+      "t05-ml-snapshots-plan": {
+        "after": {
+          "tokens": 51293,
+          "spend_usd": 0.023297099999999998,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 228780,
+          "spend_usd": 0.0764946,
+          "task_success": 1
+        }
+      },
+      "t06-support-attachments-plan": {
+        "after": {
+          "tokens": 45112,
+          "spend_usd": 0.0178257,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 249607,
+          "spend_usd": 0.0804207,
+          "task_success": 1
+        }
+      },
+      "t07-savings-ranking": {
+        "after": {
+          "tokens": 150753,
+          "spend_usd": 0.061130699999999996,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 111302,
+          "spend_usd": 0.0443553,
+          "task_success": 1
+        }
+      },
+      "t08-pod-images-apply": {
+        "after": {
+          "tokens": 51459,
+          "spend_usd": 0.0185463,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 282625,
+          "spend_usd": 0.08943779999999998,
+          "task_success": 1
+        }
+      },
+      "t09-ml-snapshots-apply": {
+        "after": {
+          "tokens": 57904,
+          "spend_usd": 0.0197355,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 352554,
+          "spend_usd": 0.11020859999999999,
+          "task_success": 1
+        }
+      },
+      "t10-exception-codes": {
+        "after": {
+          "tokens": 15409,
+          "spend_usd": 0.0066638999999999995,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 77149,
+          "spend_usd": 0.026618699999999995,
+          "task_success": 1
+        }
+      }
+    }
+  },
+  "eval": {
+    "eval_id": "eval-e322db1aeb3d",
+    "created_at": "2026-09-27T04:02:10.172835Z",
+    "label": "classify-v3 thinking=off full store",
+    "accuracy": 0.9728,
+    "n_sessions": 4000,
+    "accuracy_clear": 0.9982,
+    "n_clear": 3389,
+    "accuracy_ambiguous": 0.8314,
+    "n_ambiguous": 611,
+    "accuracy_population_weighted": 0.9727,
+    "mode": "score"
+  },
+  "price_multiplier": 1.0,
+  "waste_by_pattern": [
+    {
+      "dataset": "real",
+      "pattern": "redundant_read",
+      "kind": "measured",
+      "findings": 68,
+      "usd": 0.143176
+    },
+    {
+      "dataset": "real",
+      "pattern": "runaway_loop",
+      "kind": "measured",
+      "findings": 9,
+      "usd": 0.014671
+    },
+    {
+      "dataset": "synthetic",
+      "pattern": "cache_miss",
+      "kind": "measured",
+      "findings": 847,
+      "usd": 76.805555
+    },
+    {
+      "dataset": "synthetic",
+      "pattern": "model_overkill",
+      "kind": "estimated",
+      "findings": 677,
+      "usd": 41.32285
+    },
+    {
+      "dataset": "synthetic",
+      "pattern": "redundant_read",
+      "kind": "measured",
+      "findings": 835,
+      "usd": 7.152707
+    },
+    {
+      "dataset": "synthetic",
+      "pattern": "runaway_loop",
+      "kind": "measured",
+      "findings": 166,
+      "usd": 11.776814
+    }
+  ],
+  "sessions_by_dataset": {
+    "real": {
+      "sessions": 60,
+      "spend_usd": 1.975547
+    },
+    "synthetic": {
+      "sessions": 4000,
+      "spend_usd": 578.947478
+    }
+  }
+}

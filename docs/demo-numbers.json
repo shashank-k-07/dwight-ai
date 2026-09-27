@@ -1,0 +1,261 @@
+{
+  "generated_at": "2026-09-27T05:13:03Z",
+  "store": "/Users/shashank/Projects/dwight-ai/backend/var/demo.sqlite",
+  "snapshot_store_sha256": "5d07eff980ce09f5ef2eaaf46dfec53d81c13081e56e25592574c40d87d7dd91",
+  "headline": [
+    "$58,092 [Measured] of Spend analysed",
+    "$9,589 [Measured] Measured Waste found ($15.78 [Measured] of it on the real layer)",
+    "Drafts cut tokens by 75.4% [Measured]",
+    "classifier 97.3% accurate on 4,000 Sessions",
+    "$4,132 [Estimated] Estimated Saving"
+  ],
+  "closing_numbers": {
+    "source": "store",
+    "spend_analysed": {
+      "usd": 58092.302502,
+      "kind": "measured",
+      "note": null
+    },
+    "measured_waste": {
+      "usd": 9589.29218,
+      "kind": "measured",
+      "note": null
+    },
+    "measured_waste_real_layer": {
+      "usd": 15.78465,
+      "kind": "measured",
+      "note": null
+    },
+    "estimated_saving": {
+      "usd": 4132.284992,
+      "kind": "estimated",
+      "note": null
+    },
+    "draft_token_drop_pct": 75.4,
+    "classifier_accuracy": 0.9728,
+    "classifier_eval_sessions": 4000
+  },
+  "before_after": {
+    "initiative_id": "storage-cost-reduction",
+    "before": {
+      "session_count": 10,
+      "tasks_passed": 10,
+      "tasks_total": 10,
+      "success_rate": 1.0,
+      "total_tokens": 2496455,
+      "avg_tokens": 249645.5,
+      "spend": {
+        "usd": 80.70792,
+        "kind": "measured"
+      }
+    },
+    "after": {
+      "session_count": 10,
+      "tasks_passed": 10,
+      "tasks_total": 10,
+      "success_rate": 1.0,
+      "total_tokens": 614711,
+      "avg_tokens": 61471.1,
+      "spend": {
+        "usd": 23.81685,
+        "kind": "measured"
+      }
+    },
+    "token_drop_pct": 75.4,
+    "spend_drop": {
+      "usd": 56.89107,
+      "kind": "measured"
+    },
+    "success_held": true,
+    "per_task": {
+      "t01-telemetry-prod-plan": {
+        "after": {
+          "tokens": 60343,
+          "spend_usd": 2.3155500000000004,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 280262,
+          "spend_usd": 9.09303,
+          "task_success": 1
+        }
+      },
+      "t02-telemetry-eu-plan": {
+        "after": {
+          "tokens": 78326,
+          "spend_usd": 2.92929,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 333359,
+          "spend_usd": 10.53987,
+          "task_success": 1
+        }
+      },
+      "t03-pod-images-plan": {
+        "after": {
+          "tokens": 44053,
+          "spend_usd": 1.65801,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 199131,
+          "spend_usd": 6.389729999999999,
+          "task_success": 1
+        }
+      },
+      "t04-app-logs-plan": {
+        "after": {
+          "tokens": 60059,
+          "spend_usd": 2.1940799999999996,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 381686,
+          "spend_usd": 11.931719999999999,
+          "task_success": 1
+        }
+      },
+      "t05-ml-snapshots-plan": {
+        "after": {
+          "tokens": 51293,
+          "spend_usd": 2.32971,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 228780,
+          "spend_usd": 7.6494599999999995,
+          "task_success": 1
+        }
+      },
+      "t06-support-attachments-plan": {
+        "after": {
+          "tokens": 45112,
+          "spend_usd": 1.78257,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 249607,
+          "spend_usd": 8.042069999999999,
+          "task_success": 1
+        }
+      },
+      "t07-savings-ranking": {
+        "after": {
+          "tokens": 150753,
+          "spend_usd": 6.11307,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 111302,
+          "spend_usd": 4.43553,
+          "task_success": 1
+        }
+      },
+      "t08-pod-images-apply": {
+        "after": {
+          "tokens": 51459,
+          "spend_usd": 1.8546300000000002,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 282625,
+          "spend_usd": 8.943779999999999,
+          "task_success": 1
+        }
+      },
+      "t09-ml-snapshots-apply": {
+        "after": {
+          "tokens": 57904,
+          "spend_usd": 1.97355,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 352554,
+          "spend_usd": 11.020859999999999,
+          "task_success": 1
+        }
+      },
+      "t10-exception-codes": {
+        "after": {
+          "tokens": 15409,
+          "spend_usd": 0.6663899999999999,
+          "task_success": 1
+        },
+        "before": {
+          "tokens": 77149,
+          "spend_usd": 2.6618699999999995,
+          "task_success": 1
+        }
+      }
+    }
+  },
+  "eval": {
+    "eval_id": "eval-e322db1aeb3d",
+    "created_at": "2026-09-27T04:02:10.172835Z",
+    "label": "classify-v3 thinking=off full store",
+    "accuracy": 0.9728,
+    "n_sessions": 4000,
+    "accuracy_clear": 0.9982,
+    "n_clear": 3389,
+    "accuracy_ambiguous": 0.8314,
+    "n_ambiguous": 611,
+    "accuracy_population_weighted": 0.9727,
+    "mode": "score"
+  },
+  "price_multiplier": 100.0,
+  "waste_by_pattern": [
+    {
+      "dataset": "real",
+      "pattern": "redundant_read",
+      "kind": "measured",
+      "findings": 68,
+      "usd": 14.31756
+    },
+    {
+      "dataset": "real",
+      "pattern": "runaway_loop",
+      "kind": "measured",
+      "findings": 9,
+      "usd": 1.46709
+    },
+    {
+      "dataset": "synthetic",
+      "pattern": "cache_miss",
+      "kind": "measured",
+      "findings": 847,
+      "usd": 7680.5555
+    },
+    {
+      "dataset": "synthetic",
+      "pattern": "model_overkill",
+      "kind": "estimated",
+      "findings": 677,
+      "usd": 4132.284992
+    },
+    {
+      "dataset": "synthetic",
+      "pattern": "redundant_read",
+      "kind": "measured",
+      "findings": 835,
+      "usd": 715.270674
+    },
+    {
+      "dataset": "synthetic",
+      "pattern": "runaway_loop",
+      "kind": "measured",
+      "findings": 166,
+      "usd": 1177.681356
+    }
+  ],
+  "sessions_by_dataset": {
+    "real": {
+      "sessions": 60,
+      "spend_usd": 197.55468
+    },
+    "synthetic": {
+      "sessions": 4000,
+      "spend_usd": 57894.747822
+    }
+  }
+}
