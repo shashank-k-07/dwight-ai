@@ -73,6 +73,9 @@ class InitiativeRow(BaseModel):
     measured_waste: Money
     estimated_saving: Money
     top_waste_pattern: Optional[WastePattern] = None
+    # Added after the freeze (additive, optional): the Initiative's Spend split by Team,
+    # ranked by Spend. Feeds the Overview's Initiative x Team chart. Empty in old fixtures.
+    teams: list[TeamSpend] = Field(default_factory=list)
 
 
 class InitiativeList(Envelope):
@@ -86,6 +89,7 @@ class Initiative(Envelope):
     business_function: Optional[str] = None
     session_count: int
     spend: Money
+    teams: list[TeamSpend] = Field(default_factory=list)   # additive: Spend by Team, ranked by Spend
 
 
 # --- Initiative detail panels ------------------------------------------------------
@@ -279,3 +283,4 @@ class Health(BaseModel):
     db_path: str
     sessions: int
     endpoint_sources: dict[str, Source]
+    price_multiplier: float = 1.0    # DWIGHT_PRICE_MULTIPLIER: every served $ is x this (1 = list prices)

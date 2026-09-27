@@ -14,7 +14,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from dwight import config
 from dwight.api import routes as _routes_pkg
 from dwight.api.contract import Health
-from dwight.api.serving import ENDPOINTS, get_conn
+from dwight.api.serving import ENDPOINTS, get_conn, price_multiplier
 
 app = FastAPI(title="Dwight API", version="0.1.0",
               description="Contract: docs/api-contract.md and dwight/api/contract.py")
@@ -30,4 +30,5 @@ for _info in pkgutil.iter_modules(_routes_pkg.__path__):
 def health(conn=Depends(get_conn)):
     n = conn.execute("SELECT COUNT(*) FROM sessions").fetchone()[0]
     return Health(ok=True, db_path=str(config.DB_PATH), sessions=n,
-                  endpoint_sources={name: ep.source for name, ep in sorted(ENDPOINTS.items())})
+                  endpoint_sources={name: ep.source for name, ep in sorted(ENDPOINTS.items())},
+                  price_multiplier=price_multiplier())

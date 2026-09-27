@@ -7,6 +7,7 @@ The source of truth for the response shapes is `backend/dwight/api/contract.py` 
 - **Every dollar figure is a `Money` object**: `{"usd": 12.3, "kind": "measured" | "estimated", "note": null | "conservative upper bound"}`. No response has a bare `*_usd` number (`tests/test_contract.py` checks this). Spend is always `measured`.
 - **Every response has `source`**: `"store"` or `"fixture"`. The dashboard shows a red "fixture data" badge on any panel still reading fixture data. Ticket 15 is done when `/api/health` shows `store` for every endpoint. (Since ticket 15, every endpoint serves the store; the drafts endpoints fall back to fixtures only while the store has no Drafts at all, and `DWIGHT_FORCE_FIXTURES=1` still forces fixtures.)
 - List responses are wrapped: `{"source": ..., "items": [...]}`.
+- **Demo pricing.** `DWIGHT_PRICE_MULTIPLIER` (default `1`) multiplies every served dollar figure, in `serving.money()` (fixture bodies too). Percentages, tokens and counts are never scaled. `/api/health` reports it as `price_multiplier`, and the dashboard header shows a "Demo pricing ×N" badge whenever it isn't 1. `data/prices.yaml` and the store always hold real list prices.
 
 ## Endpoints
 
@@ -37,13 +38,22 @@ The source of truth for the response shapes is `backend/dwight/api/contract.py` 
 ## Shapes, briefly (see contract.py for every field)
 
 - `Overview`: `period{start,end}`, `session_count`, `spend`, `measured_waste`, `estimated_saving`, `spend_by_business_function[{business_function, spend, session_count, teams[{team, spend, session_count}]}]`
-- `InitiativeRow`: `initiative_id, name, business_function, session_count, spend, measured_waste, estimated_saving, top_waste_pattern`
+- `InitiativeRow`: `initiative_id, name, business_function, session_count, spend, measured_waste, estimated_saving, top_waste_pattern, teams[{team, spend, session_count}]`
+- `Initiative`: `initiative_id, name, description, business_function, session_count, spend, teams[{team, spend, session_count}]`
 - `WasteBreakdown`: `measured_total, estimated_total, patterns[{pattern, amount, finding_count, session_count}]`
 - `RecurringDiscoveryItem`: `recurring_discovery_id, form, resources[{resource_id, tokens}]` (common_path), `statement` (repeated_discovery), `tokens, session_count, session_share (0..1), cost, evidence[session_id]`. The wrapper also carries `initiative_session_count`, for the "32 of 40" copy.
 - `Recommendation`: `recommendation_id, target_type, target_id, practice{practice_id,title}, title, body (markdown), infra_refs[], saving, draft_id?, recurring_discovery_id?, measured_drop?{token_drop_pct, spend_drop, counts}, policy_prefill?{team, allowed_models}`
 - `Draft`: `draft_id, recommendation_id, initiative_id, type (initiative_doc|memory), title, filename, content (markdown), source_resource_ids[], tokens, source_tokens`
 - `BeforeAfter`: `has_runs, before/after{session_count, tasks_passed, tasks_total, success_rate, total_tokens, avg_tokens, spend}, token_drop_pct, spend_drop, success_held`
 - `SessionRow`: `session_id, member_id, team, business_function, agent, started_at, ended_at, summary, complexity, call_count, total_tokens, spend, waste_patterns[], experiment, task_success`
+- `Health`: `ok, db_path, sessions, endpoint_sources{name: source}, price_multiplier`
 - `ClosingNumbers`: `spend_analysed, measured_waste, measured_waste_real_layer, estimated_saving, draft_token_drop_pct, classifier_accuracy (0..1), classifier_eval_sessions`
 
 Waste Pattern values: `redundant_read | cache_miss | runaway_loop | model_overkill`. Display names are in `WASTE_PATTERN_LABEL` (contract.ts).
+
+## Changes after the freeze (additive only)
+
+| Change | Why | Where |
+|---|---|---|
+| `InitiativeRow.teams` and `Initiative.teams`: `[TeamSpend]`, the Initiative's Spend split by Team, ranked by Spend (default `[]`) | Overview's "Spend by Initiative, stacked by Team" chart and the Team highlight on Initiative detail | `routes/initiatives.py`, `tests/test_demo_pricing.py` |
+| `Health.price_multiplier` (default `1`) | The dashboard's "Demo pricing ×N" badge | `api/main.py`, `serving.py` |

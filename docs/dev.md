@@ -73,6 +73,8 @@ DWIGHT_API_URL=http://host:8000 npm run build && npm start
 
 In a git worktree whose `dashboard/node_modules` is a symlink to another checkout, `npm run build` (Turbopack) fails; use `./node_modules/.bin/next build --webpack` there. `npm run typecheck` is unaffected.
 
+**Demo pricing.** `DWIGHT_PRICE_MULTIPLIER=100` (default `1`) multiplies every dollar figure the API serves, in `serving.money()`, with no rebuild. The store and `data/prices.yaml` keep real list prices, percentages never change, and the header shows a "Demo pricing ×100" badge. Set the same value for the API and for `export-numbers`. `snapshot`/`reset-demo` always record and compare at list prices. So, for the demo: `DWIGHT_DB=var/demo.sqlite DWIGHT_OUT_DIR=$PWD/var/out-demo DWIGHT_PRICE_MULTIPLIER=100 .venv/bin/uvicorn dwight.api.main:app --port 8000`.
+
 The default store is `backend/var/dwight.sqlite`. **Set `DWIGHT_DB=/some/scratch.sqlite` while you develop**, so your experiments don't pollute the shared store. The same env var must be set for the API process if you want it to read your scratch store. `DWIGHT_FORCE_FIXTURES=1` makes every endpoint serve fixtures.
 
 ## Fixtures
@@ -122,9 +124,12 @@ Your panel file already exists in `dashboard/src/panels/<screen>/`. It fetches i
 |---|---|---|
 | Overview | `overview/SpendTotals.tsx` | 01 / 05 |
 | Overview | `overview/SpendByBusinessFunction.tsx` | 07 |
+| Overview | `overview/SpendByInitiative.tsx` (Initiative × Team; click drills down) | demo feedback |
+| Overview | `overview/SimulationImpact.tsx` (only while the "Implement" simulation is on) | demo feedback |
 | Overview | `overview/ClosingNumbers.tsx` | 17 |
 | Initiatives | `initiatives/InitiativesTable.tsx` | 06 |
 | Initiative detail | `initiative/InitiativeHeader.tsx`, `initiative/SessionsList.tsx` | 06 |
+| Initiative detail | `initiative/TeamFocus.tsx` (`?team=` highlight) | demo feedback |
 | Initiative detail | `initiative/WasteBreakdown.tsx`, `initiative/Recommendations.tsx` | 09 |
 | Initiative detail | `initiative/RecurringDiscoveryPanel.tsx` | 10 |
 | Initiative detail | `initiative/DraftViewer.tsx` | 12 |
@@ -139,6 +144,8 @@ import { Money, formatMoney } from "@/components/Money";
 <Money value={o.spend} size="lg" />   // big stat tile
 formatMoney(t.spend)                  // "$1,234 (Measured)" for chart tooltips
 ```
+
+The "Implement" simulation (`src/lib/simulation.ts`) is per viewer (localStorage) and writes nothing. It builds its projected figures in code from served Money, as `kind: "estimated"` with `note: "simulated"`, and never as Measured. The only Measured result it shows is the real before/after runs.
 
 `Money` takes the contract's `Money` object (`{usd, kind, note}`). `kind` is required by the type, so there is no way to render a figure without its label. The number formatter isn't exported. Never print `.usd` yourself, and label chart axes that show dollars (see `SpendByBusinessFunction.tsx`).
 

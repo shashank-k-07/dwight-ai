@@ -6,6 +6,7 @@ from pathlib import Path
 _tmp = Path(tempfile.mkdtemp(prefix="dwight-test-"))
 os.environ["DWIGHT_DB"] = str(_tmp / "test.sqlite")
 os.environ.setdefault("DWIGHT_FORCE_FIXTURES", "0")
+os.environ["DWIGHT_PRICE_MULTIPLIER"] = "1"  # list prices; tests that need x100 monkeypatch config
 
 import pytest  # noqa: E402
 

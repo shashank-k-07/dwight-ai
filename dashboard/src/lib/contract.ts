@@ -46,6 +46,8 @@ export interface InitiativeRow {
   measured_waste: Money;
   estimated_saving: Money;
   top_waste_pattern?: WastePattern | null;
+  /** Added after the freeze (additive): Spend by Team, ranked by Spend. May be absent in fixtures. */
+  teams?: TeamSpend[];
 }
 export interface InitiativeList extends Envelope { items: InitiativeRow[] }
 export interface Initiative extends Envelope {
@@ -55,6 +57,7 @@ export interface Initiative extends Envelope {
   business_function?: string | null;
   session_count: number;
   spend: Money;
+  teams?: TeamSpend[]; // additive: Spend by Team, ranked by Spend
 }
 
 // --- Initiative detail panels ------------------------------------------------------
@@ -185,6 +188,16 @@ export interface ClosingNumbers extends Envelope {
   draft_token_drop_pct?: number | null;
   classifier_accuracy?: number | null;
   classifier_eval_sessions?: number | null;
+}
+
+// --- Health ------------------------------------------------------------------------------
+export interface Health {
+  ok: boolean;
+  db_path: string;
+  sessions: number;
+  endpoint_sources: Record<string, Source>;
+  /** DWIGHT_PRICE_MULTIPLIER: every served $ is list price × this (1 = list prices). Additive. */
+  price_multiplier?: number;
 }
 
 // --- Display names (glossary terms, CONTEXT.md) ------------------------------------------

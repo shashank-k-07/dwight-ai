@@ -63,6 +63,12 @@ STORE_FIXTURES_DIR = FIXTURES_DIR / "store"
 # "1" forces every API endpoint to serve its fixture JSON (frontend dev).
 FORCE_FIXTURES = os.environ.get("DWIGHT_FORCE_FIXTURES", "0") == "1"
 
+# --- Demo pricing --------------------------------------------------------------
+# Every dollar figure the API serves is multiplied by this (serving.money()), so the
+# demo can show list prices x100 without touching data/prices.yaml or the store.
+# 1 = real list prices. Percentages (token drop, accuracy) are never scaled.
+PRICE_MULTIPLIER = float(os.environ.get("DWIGHT_PRICE_MULTIPLIER", "1") or 1)
+
 # --- Outputs -----------------------------------------------------------------
 OUT_DIR = _path("DWIGHT_OUT_DIR", REPO_ROOT / "out")
 POLICY_OUT_DIR = OUT_DIR / "policies"   # ticket 14: "Apply" writes here

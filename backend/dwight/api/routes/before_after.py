@@ -85,8 +85,9 @@ def compute(conn, initiative_id: str) -> dict:
     if b and a:
         if b["avg_tokens"] > 0:
             body["token_drop_pct"] = round((b["avg_tokens"] - a["avg_tokens"]) / b["avg_tokens"] * 100, 1)
-        b_per = b["spend"]["usd"] / b["session_count"]
-        a_per = a["spend"]["usd"] / a["session_count"]
+        # from the raw store dollars, not the served Money (which carries the demo multiplier)
+        b_per = sum(r["spend_usd"] for r in before) / len(before)
+        a_per = sum(r["spend_usd"] for r in after) / len(after)
         body["spend_drop"] = money((b_per - a_per) * a["session_count"], "measured")
         body["success_held"] = (b["tasks_total"] > 0 and a["tasks_total"] > 0
                                 and a["success_rate"] + _EPS >= b["success_rate"])

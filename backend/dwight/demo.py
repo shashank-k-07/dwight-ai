@@ -25,6 +25,10 @@ can keep running; reload the dashboard afterwards.
 
 Dollar figures are formatted the way dashboard/src/components/Money.tsx formats them, and
 percentages the way ClosingNumbers.tsx does, so the slides match the strip character for character.
+
+Demo pricing: export-numbers serves at DWIGHT_PRICE_MULTIPLIER (like the API, so set the same
+value for both) and says so in the file. snapshot and reset-demo record and compare the numbers
+at list prices (x1), so the committed manifest doesn't depend on the demo setting.
 """
 from __future__ import annotations
 
@@ -38,6 +42,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from dwight import config, db
+from dwight.api.serving import list_prices, price_multiplier, scale
 
 SNAPSHOTS_DIR = config.BACKEND_DIR / "var" / "snapshots"
 COMMITTED_MANIFEST = config.DATA_DIR / "demo-snapshot.json"
@@ -66,6 +71,11 @@ def usd(n: float) -> str:
 def money_text(m: dict) -> str:
     """'$0.16 [Measured]', the text <Money> renders (amount + its label chip)."""
     return f"{usd(m['usd'])} [{KIND_LABEL[m['kind']]}{', ' + m['note'] if m.get('note') else ''}]"
+
+
+def demo_pricing_label(mult: float) -> str:
+    """The header badge's text (Nav.tsx): 'Demo pricing ×100'."""
+    return f"Demo pricing \u00d7{mult:g}"
 
 
 def pct(x: float) -> str:
@@ -120,7 +130,7 @@ def numbers(conn) -> dict:
         tasks: dict = {}
         for r in before_after._experiment_sessions(conn, iid):   # the same Sessions the panel uses
             tasks.setdefault(r["experiment_task_id"] or r["session_id"], {})[r["experiment"]] = {
-                "tokens": r["tokens"], "spend_usd": r["spend_usd"], "task_success": r["task_success"]}
+                "tokens": r["tokens"], "spend_usd": scale(r["spend_usd"]), "task_success": r["task_success"]}
         out["before_after"] = {
             "initiative_id": iid,
             **{k: ba.get(k) for k in ("before", "after", "token_drop_pct", "spend_drop", "success_held")},
@@ -133,10 +143,11 @@ def numbers(conn) -> dict:
                        "accuracy": ev["accuracy"], "n_sessions": ev["n_sessions"],
                        **{k: details.get(k) for k in ("accuracy_clear", "n_clear", "accuracy_ambiguous",
                                                        "n_ambiguous", "accuracy_population_weighted", "mode")}}
-    out["waste_by_pattern"] = [dict(r) for r in conn.execute(
-        "SELECT s.dataset, w.pattern, w.kind, COUNT(*) findings, ROUND(SUM(w.usd), 6) usd "
+    out["price_multiplier"] = price_multiplier()
+    out["waste_by_pattern"] = [{**dict(r), "usd": round(scale(r["usd"]), 6)} for r in conn.execute(
+        "SELECT s.dataset, w.pattern, w.kind, COUNT(*) findings, SUM(w.usd) usd "
         "FROM waste_findings w JOIN sessions s USING (session_id) GROUP BY 1, 2, 3 ORDER BY 1, 2, 3")]
-    out["sessions_by_dataset"] = {r[0]: {"sessions": r[1], "spend_usd": round(r[2] or 0, 6)} for r in conn.execute(
+    out["sessions_by_dataset"] = {r[0]: {"sessions": r[1], "spend_usd": round(scale(r[2]), 6)} for r in conn.execute(
         "SELECT dataset, COUNT(*), SUM(spend_usd) FROM sessions GROUP BY dataset ORDER BY dataset")}
     return out
 
@@ -178,6 +189,20 @@ def snapshot(name: str = "demo", source: Path | None = None, manifest_out: Path 
     src_conn.close()
 
     conn = _connect_ro(tmp / "store.sqlite")
+    with list_prices():
+        manifest = _snapshot_manifest(name, source, tmp, conn)
+    conn.close()
+    (tmp / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+    shutil.rmtree(snap, ignore_errors=True)
+    tmp.rename(snap)
+    if manifest_out is True:
+        manifest_out = COMMITTED_MANIFEST
+    if manifest_out:
+        Path(manifest_out).write_text(json.dumps(manifest, indent=2) + "\n")
+    return manifest
+
+
+def _snapshot_manifest(name: str, source: Path, tmp: Path, conn) -> dict:
     drafts = []
     for r in conn.execute("SELECT draft_id, initiative_id, type, filename, content, tokens FROM drafts ORDER BY draft_id"):
         p = tmp / "drafts" / r["filename"]
@@ -206,14 +231,6 @@ def snapshot(name: str = "demo", source: Path | None = None, manifest_out: Path 
         "headline": headline(nums["closing_numbers"]),
         **nums,
     }
-    conn.close()
-    (tmp / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
-    shutil.rmtree(snap, ignore_errors=True)
-    tmp.rename(snap)
-    if manifest_out is True:
-        manifest_out = COMMITTED_MANIFEST
-    if manifest_out:
-        Path(manifest_out).write_text(json.dumps(manifest, indent=2) + "\n")
     return manifest
 
 
@@ -264,7 +281,8 @@ def reset(name: str = "demo", target: Path | None = None, check_committed: bool 
             shutil.copyfile(snap / "policies" / p["filename"], pol_dir / p["filename"])
 
     conn = db.connect(target)
-    now = numbers(conn)["closing_numbers"]
+    with list_prices():   # the manifest's numbers are at list prices
+        now = numbers(conn)["closing_numbers"]
     conn.close()
     if now != manifest["closing_numbers"]:
         warnings.append("closing numbers after reset differ from the manifest")
@@ -319,8 +337,18 @@ def export(conn, base: Path | None = None) -> tuple[Path, Path]:
          f"Generated by `python -m dwight.pipeline export-numbers` from the demo store "
          f"(snapshot sha256 `{(snap_sha or 'n/a')[:12]}`, see `data/demo-snapshot.json`). "
          "These are exactly the numbers the Overview's closing strip shows (`GET /api/closing-numbers`). "
-         "Do not edit by hand; regenerate.", "",
-         "## The closing line", ""]
+         "Do not edit by hand; regenerate.", ""]
+    mult = nums["price_multiplier"]
+    if mult != 1:
+        with list_prices():
+            at_list = headline(numbers(conn)["closing_numbers"])
+        L += [f"> **{demo_pricing_label(mult)}.** Every $ figure in this file is list price x {mult:g} "
+              f"(`DWIGHT_PRICE_MULTIPLIER={mult:g}`), exactly what the app shows with the same setting (its header "
+              f"shows a \"{demo_pricing_label(mult)}\" badge). Percentages (token drop, accuracy) are not scaled. "
+              "Real list prices are in `data/prices.yaml`; at list prices the closing line reads:", ">"]
+        L += [f"> - {h}" for h in at_list]
+        L += [""]
+    L += ["## The closing line", ""]
     L += [f"- {h}" for h in headline(body)]
     L += ["", "## Where each number comes from", "",
           "| Number | Value | Label | Source |", "|---|---|---|---|",

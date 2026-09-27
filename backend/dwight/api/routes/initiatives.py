@@ -1,7 +1,8 @@
 """Initiatives table, Initiative header and Sessions list. Owner: 06. Real from the store.
 
 Initiative rows (name, description, business_function, session_count, spend_usd)
-are written by the classify stage. Waste comes from waste_findings (ticket 05's
+are written by the classify stage. `teams` (added after the freeze, additive) splits an
+Initiative's Spend by Team, from the Sessions. Waste comes from waste_findings (ticket 05's
 detect stage, or the seeded fixture findings until it lands): measured findings
 sum to Measured Waste, estimated ones to Estimated Saving. Spend is Measured.
 """
@@ -34,8 +35,21 @@ def _waste_by_initiative(conn) -> dict[str, dict]:
     return out
 
 
+def _teams_by_initiative(conn, initiative_id: str | None = None) -> dict[str, list[dict]]:
+    """{initiative_id: [TeamSpend, ...]} ranked by Spend (Measured)."""
+    where, args = ("WHERE initiative_id = ?", (initiative_id,)) if initiative_id else (
+        "WHERE initiative_id IS NOT NULL", ())
+    out: dict[str, list[dict]] = {}
+    for iid, team, n, usd in conn.execute(
+            f"SELECT initiative_id, team, COUNT(*), SUM(spend_usd) FROM sessions {where} "
+            "GROUP BY initiative_id, team ORDER BY initiative_id, SUM(spend_usd) DESC, team", args):
+        out.setdefault(iid, []).append({"team": team, "spend": money(usd, "measured"), "session_count": n})
+    return out
+
+
 def _initiatives_from_store(conn) -> dict:
     waste = _waste_by_initiative(conn)
+    teams = _teams_by_initiative(conn)
     items = []
     for r in conn.execute("SELECT initiative_id, name, business_function, session_count, spend_usd "
                           "FROM initiatives WHERE session_count > 0 ORDER BY spend_usd DESC, initiative_id"):
@@ -46,6 +60,7 @@ def _initiatives_from_store(conn) -> dict:
             "measured_waste": money(w.get("measured", 0.0), "measured"),
             "estimated_saving": money(w.get("estimated", 0.0), "estimated"),
             "top_waste_pattern": w.get("top"),
+            "teams": teams.get(r["initiative_id"], []),
         })
     return {"items": items}
 
@@ -72,7 +87,8 @@ def _initiative_from_store(conn, initiative_id: str) -> dict:
     r = _initiative_row(conn, initiative_id)
     return {"initiative_id": r["initiative_id"], "name": r["name"], "description": r["description"],
             "business_function": r["business_function"], "session_count": r["session_count"],
-            "spend": money(r["spend_usd"], "measured")}
+            "spend": money(r["spend_usd"], "measured"),
+            "teams": _teams_by_initiative(conn, initiative_id).get(initiative_id, [])}
 
 
 def _sessions_from_store(conn, initiative_id: str) -> dict:

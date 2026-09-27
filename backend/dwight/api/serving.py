@@ -10,6 +10,11 @@ When your stage lands, write `def _from_store(conn, **params) -> dict` and pass
 real=_from_store. The dict must match the response model (minus `source`).
 DWIGHT_FORCE_FIXTURES=1 forces fixtures everywhere (frontend dev).
 
+Demo pricing: DWIGHT_PRICE_MULTIPLIER (config.PRICE_MULTIPLIER, default 1) scales every
+dollar figure as it enters a response, here in money() (and in fixture bodies), so no
+store rebuild is needed. Build every figure from raw store dollars with money(); never
+feed a served Money's usd back into money(), or it is scaled twice.
+
 Fixture files: fixtures/api/<name>.json holds the response body. For endpoints
 with an ID in the path, the file is {"_keyed_by": "<param>", "items": {<id>: body}};
 an unknown ID falls back to the first item (so any link renders something).
@@ -17,6 +22,7 @@ an unknown ID falls back to the first item (so any link renders something).
 from __future__ import annotations
 
 import json
+from contextlib import contextmanager
 from functools import lru_cache
 from typing import Any, Callable, Optional
 
@@ -58,7 +64,7 @@ class Endpoint:
 
     def serve(self, conn=None, key: Optional[str] = None, **params) -> BaseModel:
         if self.source == "fixture":
-            body = fixture(self.name, key)
+            body = _scale_fixture(fixture(self.name, key))
             body["source"] = "fixture"
         else:
             body = self.real(conn, **params)
@@ -75,9 +81,42 @@ def get_conn():
         conn.close()
 
 
+def price_multiplier() -> float:
+    """The demo pricing multiplier in force (1 = list prices)."""
+    return config.PRICE_MULTIPLIER
+
+
+def scale(usd: float | None) -> float:
+    """A raw store dollar amount at the pricing in force (for text that isn't a Money object)."""
+    return float(usd or 0.0) * config.PRICE_MULTIPLIER
+
+
+@contextmanager
+def list_prices():
+    """Serve at list prices (multiplier 1) inside the block: the demo snapshot's manifest is canonical."""
+    saved = config.PRICE_MULTIPLIER
+    config.PRICE_MULTIPLIER = 1.0
+    try:
+        yield
+    finally:
+        config.PRICE_MULTIPLIER = saved
+
+
+def _scale_fixture(obj):
+    """Apply the multiplier to every Money object in a fixture body (they bypass money())."""
+    if isinstance(obj, dict):
+        if "usd" in obj and "kind" in obj:
+            return {**obj, "usd": round(scale(obj["usd"]), 6)}
+        return {k: _scale_fixture(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_scale_fixture(v) for v in obj]
+    return obj
+
+
 def money(usd: float | None, kind: str, note: str | None = None) -> dict:
-    """Build a Money dict. The only way a dollar figure should enter a response."""
-    d = {"usd": round(float(usd or 0.0), 6), "kind": kind}
+    """Build a Money dict from a raw store dollar amount. The only way a dollar figure should
+    enter a response. Applies the demo pricing multiplier (DWIGHT_PRICE_MULTIPLIER)."""
+    d = {"usd": round(scale(usd), 6), "kind": kind}
     if note:
         d["note"] = note
     return d
