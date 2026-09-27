@@ -11,10 +11,6 @@ const pct = (x: number) => `${Math.round(x * 100)}%`;
 const success = (t: ExperimentTotals) =>
   t.tasks_total > 0 ? `${t.tasks_passed}/${t.tasks_total} passed (${pct(t.success_rate)})` : "not recorded";
 
-// Token counts and task success are Measured too, not only the dollars.
-function MeasuredTag() {
-  return <span className="money-kind money-kind-measured">Measured</span>;
-}
 
 function change(before: number, after: number): string {
   if (before <= 0) return "";
@@ -40,9 +36,6 @@ function Totals({ data }: { data: BA }) {
           <td>{b ? tokens(b.avg_tokens) : "–"}</td>
           <td>{a ? tokens(a.avg_tokens) : "–"}</td>
           <td>{b && a ? change(b.avg_tokens, a.avg_tokens) : ""}</td>
-        </tr>
-        <tr>
-          <td>Tokens (total)</td><td>{b ? tokens(b.total_tokens) : "–"}</td><td>{a ? tokens(a.total_tokens) : "–"}</td><td></td>
         </tr>
         <tr>
           <td>Spend</td>
@@ -72,8 +65,7 @@ function Verdict({ data }: { data: BA }) {
   const spend = data.spend_drop;
   return (
     <p>
-      <strong>{drop >= 0 ? `${drop.toFixed(0)}% fewer tokens per Session` : `${Math.abs(drop).toFixed(0)}% more tokens per Session`}</strong>{" "}
-      <MeasuredTag />
+      <strong>{drop >= 0 ? `${drop.toFixed(0)}% fewer tokens per Session` : `${Math.abs(drop).toFixed(0)}% more tokens per Session`}</strong>
       {spend && (
         <> · <Money value={{ ...spend, usd: Math.abs(spend.usd) }} /> {spend.usd >= 0 ? "less" : "more"} Spend</>
       )}
@@ -86,14 +78,12 @@ export default function BeforeAfter({ initiativeId }: { initiativeId: string }) 
   const { data, error, loading } = useApi<BA>(`/api/initiatives/${initiativeId}/before-after`);
   if (data && !data.has_runs) return null;
   return (
-    <Panel title="Before / after the Draft" source={data?.source} loading={loading} error={error}>
+    <Panel title="Before / after the Draft" id="before-after" source={data?.source} loading={loading} error={error}
+      info="Same tasks run without and then with the Draft loaded; only tasks run on both sides are compared. Token counts and task success are Measured.">
       {data && (
         <>
           <Verdict data={data} />
           <Totals data={data} />
-          <p className="small muted">
-            Same tasks run without and then with the Draft loaded; only tasks run on both sides are compared.
-          </p>
         </>
       )}
     </Panel>

@@ -178,7 +178,10 @@ def _tool_call_fields(tc: Any) -> tuple[str, str, str]:
     return tc_id, name, args or "{}"
 
 
-def run_session(spec: SessionSpec, *, client: Any = None, sleep: Callable[[float], None] = time.sleep) -> SessionResult:
+def run_session(spec: SessionSpec, *, client: Any = None, sleep: Callable[[float], None] = time.sleep,
+                on_call: Callable[[dict], None] | None = None) -> SessionResult:
+    """Run one Session. `on_call`, if given, is called after each Call (and its tools) with
+    {seq, input_tokens, output_tokens, total_tokens, tools}: live progress for dwight.live_run."""
     client = client or glm.client()
     model = spec.model or glm.model_for()
     ws = spec.make_workspace(spec.session_id)
@@ -263,6 +266,10 @@ def run_session(spec: SessionSpec, *, client: Any = None, sleep: Callable[[float
             assistant["tool_calls"] = [{"id": i, "type": "function", "function": {"name": n, "arguments": a}}
                                        for i, n, a in raw_calls]
         messages.append(assistant)
+
+        if on_call is not None:
+            on_call({"seq": seq, "input_tokens": inp, "output_tokens": out, "total_tokens": total_in + total_out,
+                     "tools": [name for _, name, _, _ in parsed]})
 
         if parsed:
             for tc_id, name, args, err in parsed:

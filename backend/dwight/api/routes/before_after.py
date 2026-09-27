@@ -68,7 +68,13 @@ def _totals(runs: list[dict]) -> dict:
 
 def compute(conn, initiative_id: str) -> dict:
     """The BeforeAfter body (minus `source`) for one Initiative, from the store."""
-    rows = _experiment_sessions(conn, initiative_id)
+    return compare(initiative_id, _experiment_sessions(conn, initiative_id))
+
+
+def compare(initiative_id: str, rows: list[dict]) -> dict:
+    """The BeforeAfter body for experiment Session rows (experiment, experiment_task_id,
+    task_success, spend_usd, tokens). compute() passes the store's; dwight.live_run passes
+    the recorded before runs plus a live after batch, so both use exactly these rules."""
     body: dict = {"initiative_id": initiative_id, "has_runs": bool(rows)}
     if not rows:
         return body

@@ -4,16 +4,18 @@
 // GET /api/initiatives/{id}/recommendations, /api/initiatives/{id}, /api/initiatives/{id}/before-after,
 // and with ?team=: /api/recommendations + /api/overview (the Team's own Recommendations and Spend).
 // "Implement" is a per-viewer simulation (lib/simulation.ts): nothing is written anywhere.
+// The first Draft Recommendation also carries the live agent run (LiveAgentRun.tsx): real, Measured.
 //   * A Draft Recommendation whose before/after runs held task success shows those real runs,
 //     labelled Measured (13/16), plus the simulated projection for the whole Initiative.
 //   * Every other one shows Spend before -> projected after, labelled Simulated · Estimated.
 //   * Policy Recommendations aren't simulated: "Apply as Policy" writes the real gateway config.
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
-import { Money } from "@/components/Money";
+import { Info, Money } from "@/components/Money";
 import { useApi } from "@/lib/api";
 import type { BeforeAfter, Initiative, Money as MoneyT, Overview, Recommendation, RecommendationList } from "@/lib/contract";
 import { isSimulatable, project, shareOf, useSimulation, type Projection } from "@/lib/simulation";
+import LiveAgentRun from "@/panels/initiative/LiveAgentRun";
 import { SavingSources } from "@/panels/overview/SimulationImpact";
 
 // Minimal markdown for Recommendation bodies: paragraphs, "- " lists, **bold**, `code`.
@@ -61,7 +63,6 @@ function policyHref(r: Recommendation): string | null {
 
 const tokens = (n: number) => Math.round(n).toLocaleString("en-US");
 const SimBadge = () => <span className="badge badge-sim">Simulated · Estimated</span>;
-const MeasuredTag = () => <span className="money-kind money-kind-measured">Measured</span>;
 
 /** The real before/after runs, when this Recommendation's Draft was what the after runs loaded. */
 const measuredProof = (r: Recommendation, ba: BeforeAfter | null) =>
@@ -96,18 +97,13 @@ function ImplementResult({ r, base, baseLabel, ba, onUndo }: {
     <div className="sim-result">
       {proof && proof.before && proof.after && (
         <div className="measured-result">
-          <p className="sim-result-head"><strong>What actually happened</strong> <MeasuredTag /> real before/after runs</p>
-          <p className="small">
-            The same {proof.after.tasks_total} tasks were run without, then with, this Initiative&apos;s Draft loaded (same model
-            and settings):
-          </p>
+          <p className="sim-result-head"><strong>What actually happened</strong> <span className="muted small">the same {proof.after.tasks_total} tasks, without then with the Draft</span></p>
           <div className="sim-flow sim-flow-sm">
             <div><div className="stat-label">Tokens / Session</div>{tokens(proof.before.avg_tokens)} → <strong>{tokens(proof.after.avg_tokens)}</strong></div>
-            <div><div className="stat-label">Token drop</div><strong>−{proof.token_drop_pct?.toFixed(1)}%</strong> <MeasuredTag /></div>
+            <div><div className="stat-label">Token drop</div><strong>−{proof.token_drop_pct?.toFixed(1)}%</strong></div>
             <div><div className="stat-label">Spend on those runs</div><Money value={proof.before.spend} size="sm" /> → <Money value={proof.after.spend} size="sm" /></div>
             <div><div className="stat-label">Tasks passed</div>{proof.before.tasks_passed}/{proof.before.tasks_total} → {proof.after.tasks_passed}/{proof.after.tasks_total}</div>
           </div>
-          <p className="small muted">The Initiative&apos;s Draft Recommendations share this result: the after runs loaded the Draft files together.</p>
         </div>
       )}
       <p className="sim-result-head">
@@ -116,24 +112,23 @@ function ImplementResult({ r, base, baseLabel, ba, onUndo }: {
       {p ? <ProjectionView p={p} baseLabel={baseLabel} /> : <p className="muted small">Loading…</p>}
       {p && <SavingSources p={p} />}
       <p className="small muted">
-        Simulation only: Dwight changed nothing. It&apos;s the Spend above minus this Recommendation&apos;s own{" "}
-        {r.saving.kind === "measured" ? "Measured Waste" : "Estimated Saving"}, for the same Sessions, in this browser.{" "}
-        <button type="button" className="linklike" onClick={onUndo}>Undo</button>
+        Simulation only, in this browser: Dwight changed nothing
+        <Info>{`The Spend above minus this Recommendation's own ${r.saving.kind === "measured" ? "Measured Waste" : "Estimated Saving"}, for the same Sessions.`}</Info>
+        {" "}· <button type="button" className="linklike" onClick={onUndo}>Undo</button>
       </p>
     </div>
   );
 }
 
-function RecommendationCard({ r, rank, initiativeId, base, baseLabel, ba, scope }: {
+function RecommendationCard({ r, rank, initiativeId, base, baseLabel, ba, scope, live }: {
   r: Recommendation; rank?: number; initiativeId: string; base: MoneyT | null; baseLabel: string;
-  ba: BeforeAfter | null; scope?: string;
+  ba: BeforeAfter | null; scope?: string; live?: boolean;
 }) {
   const sim = useSimulation();
   const [open, setOpen] = useState(false);
   const href = policyHref(r);
   const done = sim.isImplemented(r.recommendation_id);
   const long = r.body.trim().split(/\n\s*\n/).length > 1;
-  const drop = r.measured_drop;
   return (
     <article className={`rec-card${rank === 0 ? " rec-top" : ""}${done ? " rec-done" : ""}`}>
       <div className="rec-main">
@@ -154,18 +149,12 @@ function RecommendationCard({ r, rank, initiativeId, base, baseLabel, ba, scope 
           )}
         </div>
         {r.infra_refs.length > 0 && <p className="small">Infra Profile: {r.infra_refs.map((x) => <InfraRef key={x} refId={x} />)}</p>}
+        {live && <LiveAgentRun recommendationId={r.recommendation_id} />}
         {done && <ImplementResult r={r} base={base} baseLabel={baseLabel} ba={ba} onUndo={() => sim.undo(r.recommendation_id)} />}
       </div>
       <aside className="rec-side">
         <div className="stat-label">{r.saving.kind === "measured" ? "Measured Waste it removes" : "Estimated Saving"}</div>
         <Money value={r.saving} size="lg" />
-        {drop && (drop.counts ? (
-          <p className="small rec-drop">
-            Real before/after runs: <strong>−{drop.token_drop_pct.toFixed(1)}%</strong> tokens, <Money value={drop.spend_drop} size="sm" /> less Spend
-          </p>
-        ) : (
-          <p className="small muted">Before/after runs: task success dropped, so that result doesn&apos;t count.</p>
-        ))}
         <div className="rec-actions">
           {isSimulatable(r) && (done ? (
             <button type="button" className="button button-done" onClick={() => sim.undo(r.recommendation_id)} title="Undo this simulated implementation">
@@ -177,11 +166,11 @@ function RecommendationCard({ r, rank, initiativeId, base, baseLabel, ba, scope 
             </button>
           ))}
           {href && (
-            <Link className={`button ${isSimulatable(r) ? "button-quiet" : "button-cta"}`} href={href}>Apply as Policy</Link>
+            <Link className={`button ${isSimulatable(r) ? "button-quiet" : "button-cta"}`} href={href}
+              title="Writes the real gateway config on the Policy screen">Apply as Policy</Link>
           )}
           {r.draft_id && <a className="button button-quiet" href={`#draft-${r.draft_id}`}>View Draft</a>}
         </div>
-        {!isSimulatable(r) && <p className="small muted">Writes the real gateway config on the Policy screen.</p>}
       </aside>
     </article>
   );
@@ -207,12 +196,17 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
   const teamHere = initiative.data?.teams?.find((t) => t.team === team);
   const doneHere = items.filter((r) => sim.isImplemented(r.recommendation_id));
   const combined = spend && doneHere.length > 1 ? project(spend, doneHere) : null;
-  const biggest = items.reduce<Recommendation | null>((b, r) => (!b || r.saving.usd > b.saving.usd ? r : b), null);
+  const proof = items.map((r) => measuredProof(r, ba.data)).find(Boolean) ?? null;
+  // The live agent run sits on the first Draft Recommendation: the run loads all of the Initiative's Drafts.
+  const liveRec = items.find((r) => r.target_type === "initiative" && r.draft_id)?.recommendation_id;
 
   return (
     <section className="panel rec-panel" id="recommendations">
       <header className="panel-head">
-        <h2>Recommendations {items.length > 0 && <span className="muted">({items.length})</span>}</h2>
+        <h2>
+          Recommendations {items.length > 0 && <span className="muted">({items.length})</span>}
+          <Info>In Dwight&apos;s recommended order. Each applies a Practice from Dwight&apos;s Practice Library to this Initiative and the Infra Profile. Dollar figures come from the Waste findings in code, never from the model. Press Implement to simulate the result.</Info>
+        </h2>
         <div className="panel-actions">
           {data?.source === "fixture" && <span className="badge badge-fixture">fixture data</span>}
           {sim.count > 0 && <button type="button" className="button button-quiet" onClick={sim.reset}>Reset simulation</button>}
@@ -223,12 +217,13 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
           {items.length === 0 ? (
             <p className="muted">No Recommendations yet: this Initiative has no Waste or Recurring Discovery to fix.</p>
           ) : (
-            <p className="small muted rec-intro">
-              In Dwight&apos;s recommended order. Each applies a Practice from Dwight&apos;s Practice Library to this
-              Initiative and the Infra Profile; the dollar figure comes from the Waste findings in code, never from the
-              model.{biggest && <> The largest is worth <Money value={biggest.saving} size="sm" />.</>} Press{" "}
-              <strong>Implement</strong> to see what happens after.
-            </p>
+            proof && (
+              <p className="small rec-intro">
+                Proven on real runs: the Draft cut tokens per Session by <strong>−{proof.token_drop_pct?.toFixed(1)}%</strong>
+                {proof.spend_drop && <> (<Money value={proof.spend_drop} size="sm" /> less Spend)</>}, task success held.{" "}
+                <a href="#before-after">See before / after</a>
+              </p>
+            )
           )}
 
           {team && (
@@ -264,7 +259,7 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
 
           {items.map((r, i) => (
             <RecommendationCard key={r.recommendation_id} r={r} rank={i} initiativeId={initiativeId} base={spend}
-              baseLabel="Initiative Spend" ba={ba.data} />
+              baseLabel="Initiative Spend" ba={ba.data} live={r.recommendation_id === liveRec} />
           ))}
         </>
       )}

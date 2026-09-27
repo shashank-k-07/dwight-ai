@@ -284,3 +284,54 @@ class Health(BaseModel):
     sessions: int
     endpoint_sources: dict[str, Source]
     price_multiplier: float = 1.0    # DWIGHT_PRICE_MULTIPLIER: every served $ is x this (1 = list prices)
+
+
+# --- Live agent run (added after the freeze, additive; dwight/live_run.py) ----------
+class AppliedFile(BaseModel):
+    """A Draft file Dwight loaded into the Agent's starting context."""
+    draft_id: str
+    filename: str
+    type: Literal["initiative_doc", "memory"]
+    tokens: int
+
+
+class LiveTask(BaseModel):
+    task_id: str
+    session_id: str
+    status: Literal["queued", "running", "done", "failed"]
+    calls: int = 0
+    tokens: int = 0                          # input + output so far (final once done)
+    last_tools: list[str] = Field(default_factory=list)
+    task_success: Optional[bool] = None
+    spend: Optional[Money] = None            # measured, once done
+    before_tokens: Optional[int] = None      # this task's recorded before run
+    before_spend: Optional[Money] = None     # measured
+    before_success: Optional[bool] = None
+    error: Optional[str] = None
+    check_notes: list[str] = Field(default_factory=list)   # why the task's check passed or failed
+
+
+class LiveRun(Envelope):
+    run_id: str
+    recommendation_id: str
+    initiative_id: str
+    status: Literal["applying", "running", "done", "failed", "timed_out"]
+    model: str
+    started_at: str
+    finished_at: Optional[str] = None
+    elapsed_s: float
+    applied_files: list[AppliedFile]
+    tasks: list[LiveTask]
+    result: Optional[BeforeAfter] = None     # status=done: recorded before runs vs this batch (Measured)
+    message: Optional[str] = None
+
+
+class LiveRunStatus(Envelope):
+    enabled: bool                            # DWIGHT_LIVE_RUNS=1 and a model key configured
+    eligible: bool                           # this Recommendation can be run by the Agent
+    reason: Optional[str] = None             # why not (disabled or ineligible)
+    task_count: int = 0
+    model: Optional[str] = None              # the pinned model the before runs used
+    applied_drafts: list[AppliedFile] = Field(default_factory=list)
+    run: Optional[LiveRun] = None            # the latest run for this Recommendation (this API process)
+    recorded: Optional[BeforeAfter] = None   # the recorded after runs (the fallback)

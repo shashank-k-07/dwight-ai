@@ -69,6 +69,13 @@ FORCE_FIXTURES = os.environ.get("DWIGHT_FORCE_FIXTURES", "0") == "1"
 # 1 = real list prices. Percentages (token drop, accuracy) are never scaled.
 PRICE_MULTIPLIER = float(os.environ.get("DWIGHT_PRICE_MULTIPLIER", "1") or 1)
 
+# --- Live agent runs (dwight/live_run.py) -----------------------------------------
+# "1" lets the dashboard start a real harness run (real, paid model calls) that applies a
+# Draft Recommendation and re-runs its tasks. Off by default. Runs write only under LIVE_RUNS_DIR.
+LIVE_RUNS = os.environ.get("DWIGHT_LIVE_RUNS", "0") == "1"
+LIVE_RUNS_DIR = _path("DWIGHT_LIVE_RUNS_DIR", BACKEND_DIR / "var" / "live-runs")
+LIVE_RUN_TIMEOUT_S = float(os.environ.get("DWIGHT_LIVE_RUN_TIMEOUT_S", "360") or 360)
+
 # --- Outputs -----------------------------------------------------------------
 OUT_DIR = _path("DWIGHT_OUT_DIR", REPO_ROOT / "out")
 POLICY_OUT_DIR = OUT_DIR / "policies"   # ticket 14: "Apply" writes here
