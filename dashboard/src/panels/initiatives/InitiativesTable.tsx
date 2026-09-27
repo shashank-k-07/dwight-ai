@@ -4,6 +4,7 @@
 // Initiative is; the top fix is its largest Initiative Recommendation. Measured Waste and Estimated
 // Saving stay separate columns and are never added together (ADR 0006).
 import Link from "next/link";
+import { useState } from "react";
 import { Info, Money } from "@/components/Money";
 import { Panel } from "@/components/Panel";
 import { useApi } from "@/lib/api";
@@ -16,7 +17,12 @@ export default function InitiativesTable() {
   const c = useChartColors();
   const { data, error, loading } = useApi<InitiativeList>("/api/initiatives");
   const recs = useApi<RecommendationList>("/api/recommendations");
-  const items = [...(data?.items ?? [])].sort((a, b) => b.measured_waste.usd - a.measured_waste.usd);
+  const [bf, setBf] = useState<string | null>(null);
+  const all = data?.items ?? [];
+  const functions = [...new Set(all.map((r) => r.business_function ?? "Other"))];
+  const items = all
+    .filter((r) => !bf || (r.business_function ?? "Other") === bf)
+    .sort((a, b) => b.measured_waste.usd - a.measured_waste.usd);
   const sessions = items.reduce((n, r) => n + r.session_count, 0);
   const maxShare = Math.max(0.01, ...items.map(share));
 
@@ -29,12 +35,21 @@ export default function InitiativesTable() {
     });
 
   return (
-    <Panel title="Where to cut first" source={data?.source} loading={loading} error={error}
+    <Panel title={bf ? `Where to cut first · ${bf}` : "Where to cut first"} source={data?.source} loading={loading} error={error}
       info="Ranked by Measured Waste: the Spend that bought nothing. Waste share and Spend per Session show how token-inefficient each Initiative is. Top fix is its largest Recommendation.">
       {data && items.length === 0 ? (
         <p className="muted">No classified Sessions yet. Run the classify stage to attribute Spend to Initiatives.</p>
       ) : (
         <>
+          {functions.length > 1 && (
+            <div className="filter-chips" role="group" aria-label="Filter by Business Function">
+              {[null, ...functions].map((f) => (
+                <button key={f ?? "all"} type="button" aria-pressed={bf === f} className={`filter-chip${bf === f ? " on" : ""}`} onClick={() => setBf(f)}>
+                  {f && <span className="swatch" style={{ background: c.bf(f) }} />}{f ?? "All"}
+                </button>
+              ))}
+            </div>
+          )}
           <table className="table cut-table">
             <thead>
               <tr>
@@ -84,7 +99,7 @@ export default function InitiativesTable() {
           </table>
           {data && (
             <p className="muted small">
-              {items.length} Initiatives · {sessions.toLocaleString()} Sessions
+              {items.length} Initiatives · {sessions.toLocaleString()} Sessions{bf ? ` in ${bf}` : ""}
               <Info>Initiatives are inferred from each Session&apos;s content; raw prompts are discarded after classification.</Info>
             </p>
           )}

@@ -187,3 +187,21 @@ details > summary { cursor: pointer; color: var(--accent); margin: 4px 0; }
 .share-bar > span { display: block; height: 100%; border-radius: 3px; }
 .fix-cell a { display: flex; flex-direction: column; gap: 2px; max-width: 280px; }
 .fix-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bf-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 14px; }
+.bf-card { border: 1px solid var(--border); border-top: 4px solid; border-radius: 10px; padding: 12px 14px; background: var(--surface); display: flex; flex-direction: column; gap: 10px; }
+.bf-card h3 { margin: 0 0 8px; font-size: 14px; display: flex; align-items: center; }
+.bf-card-stats { display: flex; gap: 20px; align-items: flex-end; flex-wrap: wrap; }
+.bf-card-pct { font-size: 20px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.bf-card-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.bf-card-rows li { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 13px; }
+.bf-card-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bf-card-track { height: 10px; background: var(--grid); border-radius: 0 4px 4px 0; overflow: hidden; }
+.bf-card-track > span { display: block; height: 100%; border-radius: 0 4px 4px 0; }
+.bf-card-val { white-space: nowrap; text-align: right; min-width: 92px; }
+.bf-card-fix { margin-top: auto; display: flex; flex-direction: column; gap: 2px; padding: 8px 10px; border-radius: 8px; background: var(--bg); color: inherit; }
+.bf-card-fix:hover { text-decoration: none; background: var(--hover); }
+.bf-card-fix-title { color: var(--accent); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.filter-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+.filter-chip { font: inherit; font-size: 12px; display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; }
+.filter-chip:hover { background: var(--hover); }
+.filter-chip.on { background: var(--accent-tint); border-color: var(--accent); color: var(--accent); }

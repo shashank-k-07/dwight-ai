@@ -1,12 +1,12 @@
 // Initiatives screen. Composition only.
 import InitiativesTable from "@/panels/initiatives/InitiativesTable";
-import InitiativesTreemap from "@/panels/initiatives/InitiativesTreemap";
+import WasteByFunction from "@/panels/initiatives/WasteByFunction";
 
 export default function InitiativesPage() {
   return (
     <>
       <h1>Initiatives</h1>
-      <InitiativesTreemap />
+      <WasteByFunction />
       <InitiativesTable />
     </>
   );
