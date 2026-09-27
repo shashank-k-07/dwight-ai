@@ -26,7 +26,8 @@ export default function InitiativesTreemap() {
     const groups = new Map<string, Leaf[]>();
     items.forEach((r) => {
       const bf = r.business_function ?? "Other";
-      groups.set(bf, [...(groups.get(bf) ?? []), { name: r.name, value: r.spend.usd, row: r }]);
+      if (r.measured_waste.usd <= 0) return; // no Waste, nothing to cut: listed under the chart
+      groups.set(bf, [...(groups.get(bf) ?? []), { name: r.name, value: r.measured_waste.usd, row: r }]);
     });
     // Each Business Function keeps its hue; its Initiatives run light -> dark within that hue by
     // Measured Waste share (darker = more Waste), ranked within the Function so tiles separate.
@@ -43,8 +44,8 @@ export default function InitiativesTreemap() {
           const r = p.data.row;
           if (!r) return `<b>${p.name}</b>`;
           return `<b>${r.name}</b><br/>${r.business_function ?? ""} · ${r.session_count.toLocaleString()} Sessions`
-            + `<br/>Spend ${formatMoney(r.spend)}`
-            + `<br/>Measured Waste ${formatMoney(r.measured_waste)} (${pct(r.measured_waste.usd, r.spend.usd)}%)`
+            + `<br/>Measured Waste ${formatMoney(r.measured_waste)} (${pct(r.measured_waste.usd, r.spend.usd)}% of its Spend)`
+            + `<br/>Spend ${formatMoney(r.spend)} · ${r.session_count ? formatMoney({ ...r.spend, usd: r.spend.usd / r.session_count }) : "—"} per Session`
             + `<br/>Estimated Saving ${formatMoney(r.estimated_saving)}`;
         },
       },
@@ -60,7 +61,7 @@ export default function InitiativesTreemap() {
         label: {
           show: true, position: "insideTopLeft", overflow: "truncate", padding: [6, 8],
           formatter: (p: { data: Leaf }) => p.data.row
-            ? `{n|${p.data.name}}\n{v|${formatMoney(p.data.row.spend)}} {w|${pct(p.data.row.measured_waste.usd, p.data.row.spend.usd)}% waste}`
+            ? `{n|${p.data.name}}\n{v|${formatMoney(p.data.row.measured_waste)}} {w|${pct(p.data.row.measured_waste.usd, p.data.row.spend.usd)}% of Spend}`
             : p.data.name,
           rich: { n: { fontSize: 12, fontWeight: 600, lineHeight: 17 }, v: { fontSize: 12, lineHeight: 16 }, w: { fontSize: 11, lineHeight: 16, opacity: 0.8 } },
         },
@@ -84,9 +85,24 @@ export default function InitiativesTreemap() {
     };
   }, [items, c]);
 
+  const wasteful = [...items].filter((r) => r.measured_waste.usd > 0).sort((a, b) => b.measured_waste.usd - a.measured_waste.usd);
+  const totalWaste = wasteful.reduce((n, r) => n + r.measured_waste.usd, 0);
+  const top3 = wasteful.slice(0, 3);
+  const top3Waste = top3.reduce((n, r) => n + r.measured_waste.usd, 0);
+  const clean = items.filter((r) => r.measured_waste.usd <= 0);
+  const headline = wasteful.length > 3 && totalWaste > 0 ? (
+    <p className="cut-headline">
+      <strong>{Math.round((100 * top3Waste) / totalWaste)}%</strong> of Measured Waste is in 3 Initiatives:{" "}
+      {top3.map((r, i) => (
+        <span key={r.initiative_id}>{i > 0 && (i === top3.length - 1 ? " and " : ", ")}{r.name}</span>
+      ))}.
+    </p>
+  ) : null;
+
   return (
-    <Panel title="Where the Spend goes" source={data?.source} loading={loading} error={error}
-      info="Tile area = Spend, grouped by Business Function. Colour = Business Function; within it, a darker shade means a larger Measured Waste share (ranked within the Function). Hover for figures; click to open the Initiative.">
+    <Panel title="Where the Waste is" source={data?.source} loading={loading} error={error}
+      info="Tile area = Measured Waste: the Spend you can cut. Grouped by Business Function. Colour = Business Function; within it, a darker shade means a larger Measured Waste share (ranked within the Function). Hover for figures; click to open the Initiative.">
+      {headline}
       {items.length === 0 ? (
         <p className="muted">No classified Sessions yet.</p>
       ) : (
@@ -96,6 +112,7 @@ export default function InitiativesTreemap() {
             if (row) router.push(initiativeHref(row.initiative_id));
           }} />
       )}
+      {clean.length > 0 && <p className="small muted">No Measured Waste: {clean.map((r) => r.name).join(", ")}.</p>}
       {items.length > 1 && (
         <p className="small muted seq-legend">
           Measured Waste share, within each Business Function: lower
