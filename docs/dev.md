@@ -54,6 +54,16 @@ All backend commands run from `backend/`:
 .venv/bin/python -m dwight.pipeline reset                      # delete the store file
 ```
 
+Demo freeze (ticket 17; see `backend/dwight/demo.py`). Order on the final store: `rebuild` → `run eval_classifier score --label "..."` LAST (the strip shows the latest eval) → `snapshot` → `export-numbers`:
+
+```bash
+DWIGHT_DB=var/demo.sqlite .venv/bin/python -m dwight.pipeline snapshot         # -> var/snapshots/demo/ (gitignored) + data/demo-snapshot.json (commit it)
+DWIGHT_DB=var/demo.sqlite .venv/bin/python -m dwight.pipeline reset-demo       # restore store + Draft files, drop rehearsal Policy files; seconds, no model calls
+DWIGHT_DB=var/demo.sqlite .venv/bin/python -m dwight.pipeline export-numbers   # -> docs/demo-numbers.md + .json (what the strip shows, with caveats)
+```
+
+Set the same `DWIGHT_OUT_DIR` for these as for the API. The API can stay up during `reset-demo`; reload the dashboard.
+
 Dashboard, from `dashboard/`:
 
 ```bash

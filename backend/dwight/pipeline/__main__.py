@@ -3,6 +3,10 @@
    python -m dwight.pipeline run-all            # every IN_DEFAULT_RUN stage, in ORDER
    python -m dwight.pipeline reset              # delete the store file (DWIGHT_DB)
    python -m dwight.pipeline rebuild [--keep]   # ticket 15: the whole demo store in one command
+   python -m dwight.pipeline snapshot [--name demo] [--from store]   # ticket 17: freeze the store
+   python -m dwight.pipeline reset-demo [--name demo]                # restore it (no model calls)
+   python -m dwight.pipeline export-numbers     # docs/demo-numbers.{md,json} for the slides
+   (see dwight/demo.py for the order and what a snapshot holds)
 
 rebuild = reset the store (unless --keep), generate the synthetic OTLP if
 data/otlp/synthetic/ is empty (no model calls; the content library is committed),
@@ -116,6 +120,9 @@ def main(argv: list[str]) -> int:
         return 0
     if cmd == "rebuild":
         return rebuild(stages, keep="--keep" in rest)
+    if cmd in ("snapshot", "reset-demo", "export-numbers"):
+        from dwight import demo
+        return demo.main(cmd, rest)
     print(__doc__)
     return 2
 
