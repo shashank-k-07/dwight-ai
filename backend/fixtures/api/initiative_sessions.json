@@ -1,0 +1,257 @@
+{
+ "_keyed_by": "initiative_id",
+ "items": {
+  "storage-cost-reduction": {
+   "items": [
+    {
+     "session_id": "s-scr-000",
+     "member_id": "m-040",
+     "team": "Data Infrastructure",
+     "business_function": "Engineering",
+     "agent": "dwight-harness",
+     "started_at": "2026-09-01T10:00:00Z",
+     "ended_at": "2026-09-01T10:07:00Z",
+     "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+     "complexity": "med",
+     "call_count": 9,
+     "total_tokens": 58000,
+     "spend": {
+      "usd": 1.02,
+      "kind": "measured"
+     },
+     "waste_patterns": [
+      "redundant_read"
+     ],
+     "experiment": "before",
+     "task_success": true
+    },
+    {
+     "session_id": "s-scr-001",
+     "member_id": "m-041",
+     "team": "Data Infrastructure",
+     "business_function": "Engineering",
+     "agent": "dwight-harness",
+     "started_at": "2026-09-02T10:00:00Z",
+     "ended_at": "2026-09-02T10:07:00Z",
+     "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+     "complexity": "med",
+     "call_count": 10,
+     "total_tokens": 58700,
+     "spend": {
+      "usd": 1.05,
+      "kind": "measured"
+     },
+     "waste_patterns": [],
+     "experiment": "before",
+     "task_success": true
+    },
+    {
+     "session_id": "s-scr-002",
+     "member_id": "m-042",
+     "team": "Data Infrastructure",
+     "business_function": "Engineering",
+     "agent": "dwight-harness",
+     "started_at": "2026-09-03T10:00:00Z",
+     "ended_at": "2026-09-03T10:07:00Z",
+     "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+     "complexity": "med",
+     "call_count": 11,
+     "total_tokens": 59400,
+     "spend": {
+      "usd": 1.08,
+      "kind": "measured"
+     },
+     "waste_patterns": [],
+     "experiment": "before",
+     "task_success": true
+    },
+    {
+     "session_id": "s-scr-003",
+     "member_id": "m-043",
+     "team": "Data Infrastructure",
+     "business_function": "Engineering",
+     "agent": "dwight-harness",
+     "started_at": "2026-09-04T10:00:00Z",
+     "ended_at": "2026-09-04T10:07:00Z",
+     "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+     "complexity": "med",
+     "call_count": 12,
+     "total_tokens": 60100,
+     "spend": {
+      "usd": 1.11,
+      "kind": "measured"
+     },
+     "waste_patterns": [
+      "redundant_read"
+     ],
+     "experiment": "before",
+     "task_success": true
+    },
+    {
+     "session_id": "s-scr-004",
+     "member_id": "m-044",
+     "team": "Data Infrastructure",
+     "business_function": "Engineering",
+     "agent": "dwight-harness",
+     "started_at": "2026-09-05T10:00:00Z",
+     "ended_at": "2026-09-05T10:07:00Z",
+     "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+     "complexity": "med",
+     "call_count": 9,
+     "total_tokens": 60800,
+     "spend": {
+      "usd": 1.14,
+      "kind": "measured"
+     },
+     "waste_patterns": [],
+     "experiment": "before",
+     "task_success": false
+    },
+    {
+     "session_id": "s-scr-005",
+     "member_id": "m-045",
+     "team": "Data Infrastructure",
+     "business_function": "Engineering",
+     "agent": "dwight-harness",
+     "started_at": "2026-09-06T10:00:00Z",
+     "ended_at": "2026-09-06T10:07:00Z",
+     "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+     "complexity": "med",
+     "call_count": 10,
+     "total_tokens": 61500,
+     "spend": {
+      "usd": 1.17,
+      "kind": "measured"
+     },
+     "waste_patterns": [],
+     "experiment": "before",
+     "task_success": true
+    },
+    {
+     "session_id": "s-scr-006",
+     "member_id": "m-046",
+     "team": "Data Infrastructure",
+     "business_function": "Engineering",
+     "agent": "dwight-harness",
+     "started_at": "2026-09-07T10:00:00Z",
+     "ended_at": "2026-09-07T10:07:00Z",
+     "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+     "complexity": "med",
+     "call_count": 11,
+     "total_tokens": 62200,
+     "spend": {
+      "usd": 1.2,
+      "kind": "measured"
+     },
+     "waste_patterns": [
+      "redundant_read"
+     ],
+     "experiment": "before",
+     "task_success": true
+    },
+    {
+     "session_id": "s-scr-007",
+     "member_id": "m-047",
+     "team": "Data Infrastructure",
+     "business_function": "Engineering",
+     "agent": "dwight-harness",
+     "started_at": "2026-09-08T10:00:00Z",
+     "ended_at": "2026-09-08T10:07:00Z",
+     "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+     "complexity": "med",
+     "call_count": 12,
+     "total_tokens": 62900,
+     "spend": {
+      "usd": 1.23,
+      "kind": "measured"
+     },
+     "waste_patterns": [],
+     "experiment": "before",
+     "task_success": true
+    },
+    {
+     "session_id": "s-scr-008",
+     "member_id": "m-048",
+     "team": "Data Infrastructure",
+     "business_function": "Engineering",
+     "agent": "dwight-harness",
+     "started_at": "2026-09-09T10:00:00Z",
+     "ended_at": "2026-09-09T10:07:00Z",
+     "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+     "complexity": "med",
+     "call_count": 9,
+     "total_tokens": 63600,
+     "spend": {
+      "usd": 1.26,
+      "kind": "measured"
+     },
+     "waste_patterns": [],
+     "experiment": "before",
+     "task_success": true
+    },
+    {
+     "session_id": "s-scr-009",
+     "member_id": "m-049",
+     "team": "Data Infrastructure",
+     "business_function": "Engineering",
+     "agent": "dwight-harness",
+     "started_at": "2026-09-10T10:00:00Z",
+     "ended_at": "2026-09-10T10:07:00Z",
+     "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+     "complexity": "med",
+     "call_count": 10,
+     "total_tokens": 64300,
+     "spend": {
+      "usd": 1.29,
+      "kind": "measured"
+     },
+     "waste_patterns": [
+      "redundant_read"
+     ],
+     "experiment": "before",
+     "task_success": true
+    },
+    {
+     "session_id": "s-scr-010",
+     "member_id": "m-040",
+     "team": "Data Infrastructure",
+     "business_function": "Engineering",
+     "agent": "dwight-harness",
+     "started_at": "2026-09-11T10:00:00Z",
+     "ended_at": "2026-09-11T10:07:00Z",
+     "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+     "complexity": "med",
+     "call_count": 11,
+     "total_tokens": 65000,
+     "spend": {
+      "usd": 1.32,
+      "kind": "measured"
+     },
+     "waste_patterns": [],
+     "experiment": null,
+     "task_success": null
+    },
+    {
+     "session_id": "s-scr-011",
+     "member_id": "m-041",
+     "team": "Data Infrastructure",
+     "business_function": "Engineering",
+     "agent": "dwight-harness",
+     "started_at": "2026-09-12T10:00:00Z",
+     "ended_at": "2026-09-12T10:07:00Z",
+     "summary": "Prepared a Tidewater lifecycle rule for one bucket.",
+     "complexity": "med",
+     "call_count": 12,
+     "total_tokens": 65700,
+     "spend": {
+      "usd": 1.35,
+      "kind": "measured"
+     },
+     "waste_patterns": [],
+     "experiment": null,
+     "task_success": null
+    }
+   ]
+  }
+ }
+}

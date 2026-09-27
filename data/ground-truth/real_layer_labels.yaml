@@ -1,0 +1,862 @@
+# GROUND TRUTH for the real layer (ticket 03 harness runs). Which Session carries
+# which planted Waste Pattern. The detectors (05), classifier (06) and every
+# pipeline stage must NEVER read this file; only acceptance checks (15) and
+# evals may.
+#
+# planted_pattern: none | redundant_read | cache_miss | runaway_loop
+#   (no model_overkill: the real layer runs only light pool models)
+# observed: what the harness itself saw in the run (not detector output):
+#   duplicate_tool_results             tool results whose content hash appeared earlier in the Session
+#   max_identical_consecutive_tool_calls  longest run of consecutive Calls requesting the same
+#                                      single tool call with the same args and same result
+#   volatile_prefix                    the system prompt started with a per-Call timestamp
+#   cache_read_reported                the API reported cache-read tokens on any Call
+
+version: 1
+sessions:
+  real-001:
+    task_id: tomli-multiline-notes
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 4
+  real-002:
+    task_id: tomli-docstring-inline-table
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 3
+  real-003:
+    task_id: tomli-test-offset-datetime
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 4
+  real-004:
+    task_id: tomli-error-inventory
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 6
+  real-005:
+    task_id: tomli-datetime-regex
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 5
+  real-006:
+    task_id: tomli-parse-float-guard
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 10
+  real-007:
+    task_id: tomli-invalid-cases-count
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 3
+  real-008:
+    task_id: tomli-release-notes
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 15
+  real-009:
+    task_id: tomli-key-parsing
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 7
+  real-010:
+    task_id: tomli-test-unicode-escape
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 5
+  real-011:
+    task_id: tomli-multiline-notes
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 4
+  real-012:
+    task_id: tomli-docstring-inline-table
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 3
+  real-013:
+    task_id: tomli-test-offset-datetime
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 4
+  real-014:
+    task_id: tomli-error-inventory
+    variant: clean
+    planted_pattern: none
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 8
+  real-015:
+    task_id: tomli-multiline-notes
+    variant: redundant_read
+    planted_pattern: redundant_read
+    experiment: null
+    observed:
+      duplicate_tool_results: 7
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 8
+  real-016:
+    task_id: tomli-docstring-inline-table
+    variant: redundant_read
+    planted_pattern: redundant_read
+    experiment: null
+    observed:
+      duplicate_tool_results: 1
+      max_identical_consecutive_tool_calls: 2
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 6
+  real-017:
+    task_id: tomli-test-offset-datetime
+    variant: redundant_read
+    planted_pattern: redundant_read
+    experiment: null
+    observed:
+      duplicate_tool_results: 3
+      max_identical_consecutive_tool_calls: 3
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 8
+  real-018:
+    task_id: tomli-error-inventory
+    variant: redundant_read
+    planted_pattern: redundant_read
+    experiment: null
+    observed:
+      duplicate_tool_results: 3
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 11
+  real-019:
+    task_id: tomli-datetime-regex
+    variant: redundant_read
+    planted_pattern: redundant_read
+    experiment: null
+    observed:
+      duplicate_tool_results: 3
+      max_identical_consecutive_tool_calls: 2
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 7
+  real-020:
+    task_id: tomli-parse-float-guard
+    variant: redundant_read
+    planted_pattern: redundant_read
+    experiment: null
+    observed:
+      duplicate_tool_results: 6
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 12
+  real-021:
+    task_id: tomli-invalid-cases-count
+    variant: redundant_read
+    planted_pattern: redundant_read
+    experiment: null
+    observed:
+      duplicate_tool_results: 1
+      max_identical_consecutive_tool_calls: 2
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 6
+  real-022:
+    task_id: tomli-release-notes
+    variant: redundant_read
+    planted_pattern: redundant_read
+    experiment: null
+    observed:
+      duplicate_tool_results: 12
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 9
+  real-023:
+    task_id: tomli-key-parsing
+    variant: redundant_read
+    planted_pattern: redundant_read
+    experiment: null
+    observed:
+      duplicate_tool_results: 3
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 7
+  real-024:
+    task_id: tomli-docstring-inline-table
+    variant: cache_miss
+    planted_pattern: cache_miss
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: true
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 3
+  real-025:
+    task_id: tomli-test-offset-datetime
+    variant: cache_miss
+    planted_pattern: cache_miss
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: true
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 4
+  real-026:
+    task_id: tomli-error-inventory
+    variant: cache_miss
+    planted_pattern: cache_miss
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: true
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 11
+  real-027:
+    task_id: tomli-datetime-regex
+    variant: cache_miss
+    planted_pattern: cache_miss
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: true
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 5
+  real-028:
+    task_id: tomli-parse-float-guard
+    variant: cache_miss
+    planted_pattern: cache_miss
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: true
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 5
+  real-029:
+    task_id: tomli-invalid-cases-count
+    variant: cache_miss
+    planted_pattern: cache_miss
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: true
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 3
+  real-030:
+    task_id: tomli-release-notes
+    variant: cache_miss
+    planted_pattern: cache_miss
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: true
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 8
+  real-031:
+    task_id: tomli-key-parsing
+    variant: cache_miss
+    planted_pattern: cache_miss
+    experiment: null
+    observed:
+      duplicate_tool_results: 2
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: true
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 11
+  real-032:
+    task_id: tomli-test-unicode-escape
+    variant: cache_miss
+    planted_pattern: cache_miss
+    experiment: null
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: true
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 5
+  real-033:
+    task_id: tomli-ci-golden-files
+    variant: runaway_loop
+    planted_pattern: runaway_loop
+    experiment: null
+    observed:
+      duplicate_tool_results: 8
+      max_identical_consecutive_tool_calls: 4
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: max_calls
+    calls: 10
+  real-034:
+    task_id: tomli-ci-runner-lock
+    variant: runaway_loop
+    planted_pattern: runaway_loop
+    experiment: null
+    observed:
+      duplicate_tool_results: 13
+      max_identical_consecutive_tool_calls: 3
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: max_calls
+    calls: 10
+  real-035:
+    task_id: tomli-ci-scratch-disk
+    variant: runaway_loop
+    planted_pattern: runaway_loop
+    experiment: null
+    observed:
+      duplicate_tool_results: 4
+      max_identical_consecutive_tool_calls: 3
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: max_calls
+    calls: 10
+  real-036:
+    task_id: tomli-ci-golden-files
+    variant: runaway_loop
+    planted_pattern: runaway_loop
+    experiment: null
+    observed:
+      duplicate_tool_results: 3
+      max_identical_consecutive_tool_calls: 3
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: max_calls
+    calls: 10
+  real-037:
+    task_id: tomli-ci-runner-lock
+    variant: runaway_loop
+    planted_pattern: runaway_loop
+    experiment: null
+    observed:
+      duplicate_tool_results: 12
+      max_identical_consecutive_tool_calls: 4
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: max_calls
+    calls: 10
+  real-038:
+    task_id: tomli-ci-scratch-disk
+    variant: runaway_loop
+    planted_pattern: runaway_loop
+    experiment: null
+    observed:
+      duplicate_tool_results: 4
+      max_identical_consecutive_tool_calls: 3
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: max_calls
+    calls: 10
+  real-039:
+    task_id: tomli-ci-golden-files
+    variant: runaway_loop
+    planted_pattern: runaway_loop
+    experiment: null
+    observed:
+      duplicate_tool_results: 7
+      max_identical_consecutive_tool_calls: 3
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: max_calls
+    calls: 10
+  real-040:
+    task_id: tomli-ci-runner-lock
+    variant: runaway_loop
+    planted_pattern: runaway_loop
+    experiment: null
+    observed:
+      duplicate_tool_results: 6
+      max_identical_consecutive_tool_calls: 4
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: max_calls
+    calls: 10
+  real-scr-a-t01:
+    task_id: t01-telemetry-prod-plan
+    variant: clean
+    planted_pattern: none
+    experiment: after
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 8
+  real-scr-a-t02:
+    task_id: t02-telemetry-eu-plan
+    variant: clean
+    planted_pattern: none
+    experiment: after
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 10
+  real-scr-a-t03:
+    task_id: t03-pod-images-plan
+    variant: clean
+    planted_pattern: none
+    experiment: after
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 6
+  real-scr-a-t04:
+    task_id: t04-app-logs-plan
+    variant: clean
+    planted_pattern: none
+    experiment: after
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 8
+  real-scr-a-t05:
+    task_id: t05-ml-snapshots-plan
+    variant: clean
+    planted_pattern: none
+    experiment: after
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 6
+  real-scr-a-t06:
+    task_id: t06-support-attachments-plan
+    variant: clean
+    planted_pattern: none
+    experiment: after
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 6
+  real-scr-a-t07:
+    task_id: t07-savings-ranking
+    variant: clean
+    planted_pattern: none
+    experiment: after
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 6
+  real-scr-a-t08:
+    task_id: t08-pod-images-apply
+    variant: clean
+    planted_pattern: none
+    experiment: after
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 7
+  real-scr-a-t09:
+    task_id: t09-ml-snapshots-apply
+    variant: clean
+    planted_pattern: none
+    experiment: after
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 8
+  real-scr-a-t10:
+    task_id: t10-exception-codes
+    variant: clean
+    planted_pattern: none
+    experiment: after
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 2
+  real-scr-b-t01:
+    task_id: t01-telemetry-prod-plan
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 13
+  real-scr-b-t02:
+    task_id: t02-telemetry-eu-plan
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 15
+  real-scr-b-t03:
+    task_id: t03-pod-images-plan
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 10
+  real-scr-b-t04:
+    task_id: t04-app-logs-plan
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 1
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 17
+  real-scr-b-t05:
+    task_id: t05-ml-snapshots-plan
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 11
+  real-scr-b-t06:
+    task_id: t06-support-attachments-plan
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 12
+  real-scr-b-t07:
+    task_id: t07-savings-ranking
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 6
+  real-scr-b-t08:
+    task_id: t08-pod-images-apply
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 13
+  real-scr-b-t09:
+    task_id: t09-ml-snapshots-apply
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 16
+  real-scr-b-t10:
+    task_id: t10-exception-codes
+    variant: clean
+    planted_pattern: none
+    experiment: before
+    observed:
+      duplicate_tool_results: 0
+      max_identical_consecutive_tool_calls: 1
+      volatile_prefix: false
+      cache_read_reported: false
+    stop_reason: final_answer
+    calls: 5
+archived:
+  draft-v1-after:
+    note: 'Draft v1 after runs (ticket 16, first attempt): 8/10 passed, -28.3% tokens/Session, success_held false.
+      Superseded by the Draft v2 after runs under the same session ids. OTLP moved to data/archive/draft-v1-after-runs/
+      so no ingest path picks it up; kept here for the record.'
+    sessions:
+      real-scr-a-t01:
+        task_id: t01-telemetry-prod-plan
+        variant: clean
+        planted_pattern: none
+        experiment: after
+        observed:
+          duplicate_tool_results: 0
+          max_identical_consecutive_tool_calls: 1
+          volatile_prefix: false
+          cache_read_reported: false
+        stop_reason: final_answer
+        calls: 8
+      real-scr-a-t02:
+        task_id: t02-telemetry-eu-plan
+        variant: clean
+        planted_pattern: none
+        experiment: after
+        observed:
+          duplicate_tool_results: 0
+          max_identical_consecutive_tool_calls: 1
+          volatile_prefix: false
+          cache_read_reported: false
+        stop_reason: final_answer
+        calls: 9
+      real-scr-a-t03:
+        task_id: t03-pod-images-plan
+        variant: clean
+        planted_pattern: none
+        experiment: after
+        observed:
+          duplicate_tool_results: 0
+          max_identical_consecutive_tool_calls: 1
+          volatile_prefix: false
+          cache_read_reported: false
+        stop_reason: final_answer
+        calls: 8
+      real-scr-a-t04:
+        task_id: t04-app-logs-plan
+        variant: clean
+        planted_pattern: none
+        experiment: after
+        observed:
+          duplicate_tool_results: 0
+          max_identical_consecutive_tool_calls: 1
+          volatile_prefix: false
+          cache_read_reported: false
+        stop_reason: final_answer
+        calls: 9
+      real-scr-a-t05:
+        task_id: t05-ml-snapshots-plan
+        variant: clean
+        planted_pattern: none
+        experiment: after
+        observed:
+          duplicate_tool_results: 0
+          max_identical_consecutive_tool_calls: 1
+          volatile_prefix: false
+          cache_read_reported: false
+        stop_reason: final_answer
+        calls: 8
+      real-scr-a-t06:
+        task_id: t06-support-attachments-plan
+        variant: clean
+        planted_pattern: none
+        experiment: after
+        observed:
+          duplicate_tool_results: 2
+          max_identical_consecutive_tool_calls: 1
+          volatile_prefix: false
+          cache_read_reported: false
+        stop_reason: final_answer
+        calls: 9
+      real-scr-a-t07:
+        task_id: t07-savings-ranking
+        variant: clean
+        planted_pattern: none
+        experiment: after
+        observed:
+          duplicate_tool_results: 1
+          max_identical_consecutive_tool_calls: 1
+          volatile_prefix: false
+          cache_read_reported: false
+        stop_reason: final_answer
+        calls: 7
+      real-scr-a-t08:
+        task_id: t08-pod-images-apply
+        variant: clean
+        planted_pattern: none
+        experiment: after
+        observed:
+          duplicate_tool_results: 0
+          max_identical_consecutive_tool_calls: 1
+          volatile_prefix: false
+          cache_read_reported: false
+        stop_reason: final_answer
+        calls: 8
+      real-scr-a-t09:
+        task_id: t09-ml-snapshots-apply
+        variant: clean
+        planted_pattern: none
+        experiment: after
+        observed:
+          duplicate_tool_results: 0
+          max_identical_consecutive_tool_calls: 1
+          volatile_prefix: false
+          cache_read_reported: false
+        stop_reason: final_answer
+        calls: 8
+      real-scr-a-t10:
+        task_id: t10-exception-codes
+        variant: clean
+        planted_pattern: none
+        experiment: after
+        observed:
+          duplicate_tool_results: 0
+          max_identical_consecutive_tool_calls: 1
+          volatile_prefix: false
+          cache_read_reported: false
+        stop_reason: final_answer
+        calls: 5

@@ -1,0 +1,153 @@
+# Infra Profile: Kestrel Logistics
+#
+# What Dwight knows about the Customer's AI setup (CONTEXT.md "Infra Profile").
+# `source: declared` = typed in by an Admin; `source: inferred` = Dwight saw it in Sessions.
+# Recommendations cite items here by `ref` (stable ids, used as infra_refs[]).
+#
+# `capabilities` is the flat list the Practice Library matches against
+# (see the rule at the top of practices.yaml). Keep it consistent with the
+# detail sections below: every capability names the section that backs it.
+
+version: 3
+customer: Kestrel Logistics
+declared_by: Nadia Farouk (VP Platform Engineering)
+updated_at: 2026-09-20
+
+capabilities:
+  - gateway.litellm                 # gateway.type
+  - gateway.team_model_allowlists   # gateway.features
+  - gateway.budgets                 # gateway.features
+  - gateway.request_tagging         # gateway.features
+  - models.multiple_tiers           # models.tiers has >1 tier
+  - prompt_caching                  # prompt_caching.enabled
+  - mcp.docs_server                 # mcp_servers: perch-docs-mcp
+  - mcp.code_search                 # mcp_servers: repo-search-mcp
+  - docs.wiki_write_api             # docs_sources: perch (write_api)
+  - agent_config.central            # agents.config_repo
+  - agent_memory_files              # agents.memory
+  - repo.context_files              # repositories[].context_file
+  # Deliberately NOT present (so some Practices are filtered out):
+  #   gateway.semantic_cache  (LiteLLM cache is off at Kestrel)
+  #   mcp.vector_search       (no embedding index over Perch yet)
+
+models:
+  source: declared
+  provider: Z.ai (GLM), called only through the gateway
+  default_tier: flagship            # every agent defaults to the flagship alias today
+  tiers:
+    - ref: tier:flagship
+      tier: flagship
+      model: glm-5.1
+      gateway_alias: kestrel-flagship
+      intended_for: hard multi-file changes, architecture work, incident analysis
+    - ref: tier:standard
+      tier: standard
+      model: glm-4.7
+      gateway_alias: kestrel-standard
+      intended_for: everyday coding, runbook execution, doc Q&A
+    - ref: tier:economy
+      tier: economy
+      model: glm-4.5-air
+      gateway_alias: kestrel-economy
+      intended_for: trivial edits, formatting, summaries, classification
+  # Model names match data/prices.yaml.
+
+gateway:
+  source: declared
+  ref: gateway:kestrel-llm-gateway
+  type: litellm
+  name: kestrel-llm-gateway
+  url: https://llm-gw.kestrel.internal
+  version: LiteLLM proxy 1.7x
+  config_repo: kestrel/llm-gateway-config
+  team_config_path: litellm/teams/          # Policy export (ticket 14) writes here
+  features:
+    team_model_allowlists: true            # LiteLLM team `models:` lists
+    budgets: true                          # per-key / per-team max_budget, budget_duration
+    request_tagging: true                  # metadata tags forwarded to OTel
+    semantic_cache: false
+  otel_export: OTLP to Dwight collector (otel-collector.kestrel.internal:4318)
+
+prompt_caching:
+  source: inferred                          # cache_read_tokens > 0 seen on glm-5.1 and glm-4.7
+  ref: caching:glm-context-cache
+  enabled: true
+  mechanism: GLM automatic prefix (context) caching, passed through by LiteLLM
+  notes: >-
+    Cache hits need a byte-identical prompt prefix. kestrel-devagent puts a
+    timestamp and the git status in its system prompt header, which busts the
+    prefix on most turns.
+
+agents:
+  source: inferred
+  config_repo: kestrel/agent-config         # central: system prompts, step limits, tool lists
+  memory:
+    supported: true
+    ref: memory:kestrel-agent-memory
+    repo: kestrel/agent-memory
+    layout: memory/<initiative-id>.md, loaded at session start by kestrel-devagent and ops-copilot
+  list:
+    - ref: agent:kestrel-devagent
+      name: kestrel-devagent
+      kind: coding agent (internal harness on GLM)
+      used_by: Engineering
+      step_limit: none                      # no step budget configured today
+    - ref: agent:ops-copilot
+      name: ops-copilot
+      kind: tool-using ops/runbook agent
+      used_by: Operations, Engineering on-call
+      step_limit: 60
+    - ref: agent:desk-agent
+      name: desk-agent
+      kind: document / spreadsheet agent
+      used_by: Finance, Marketing, Customer Experience
+      step_limit: 40
+
+docs_sources:
+  - ref: docs:perch
+    name: Perch
+    kind: internal wiki (Confluence-style)
+    url: https://perch.kestrel.internal
+    write_api: true
+    spaces: [ENG, STOR, OPS, FIN, CX, MKT]
+  - ref: docs:company-docs
+    name: company-docs
+    kind: exported Perch STOR space, mirrored into agent workspaces
+    path: company-docs/
+
+mcp_servers:
+  - ref: mcp:perch-docs-mcp
+    name: perch-docs-mcp
+    url: https://mcp.kestrel.internal/perch
+    tools: [perch.search, perch.get_page, perch.create_page, perch.update_page]
+    capability: mcp.docs_server
+  - ref: mcp:repo-search-mcp
+    name: repo-search-mcp
+    url: https://mcp.kestrel.internal/code
+    backend: Sourcegraph over GitHub Enterprise (github.kestrel.internal)
+    tools: [code.search, code.read_file, code.list_dir]
+    capability: mcp.code_search
+  - ref: mcp:pager-mcp
+    name: pager-mcp
+    url: https://mcp.kestrel.internal/pager
+    backend: PagerDuty
+    tools: [incidents.list, incidents.get, oncall.who]
+  - ref: mcp:finops-mcp
+    name: finops-mcp
+    url: https://mcp.kestrel.internal/finops
+    backend: Looker (storage cost dashboard, CUR)
+    tools: [finops.query_cost, finops.bucket_inventory]
+
+repositories:
+  # context_file: a per-repo file agents load at start (AGENTS.md); `present` says whether it exists yet.
+  - {ref: "repo:kestrel/platform-infra",     name: kestrel/platform-infra,     owner_team: platform,     lang: Terraform, context_file: {path: AGENTS.md, present: true}}
+  - {ref: "repo:kestrel/blobctl",            name: kestrel/blobctl,            owner_team: data-infra,   lang: Go,        context_file: {path: AGENTS.md, present: false}}
+  - {ref: "repo:kestrel/telematics-ingest",  name: kestrel/telematics-ingest,  owner_team: data-infra,   lang: Go,        context_file: {path: AGENTS.md, present: false}}
+  - {ref: "repo:kestrel/routing-engine",     name: kestrel/routing-engine,     owner_team: routing,      lang: Rust,      context_file: {path: AGENTS.md, present: true}}
+  - {ref: "repo:kestrel/billing-core",       name: kestrel/billing-core,       owner_team: billing-eng,  lang: Python,    context_file: {path: AGENTS.md, present: false}}
+  - {ref: "repo:kestrel/pod-service",        name: kestrel/pod-service,        owner_team: mobile,       lang: Kotlin,    context_file: {path: AGENTS.md, present: false}}
+  - {ref: "repo:kestrel/driver-app",         name: kestrel/driver-app,         owner_team: mobile,       lang: Kotlin/Swift, context_file: {path: AGENTS.md, present: false}}
+  - {ref: "repo:kestrel/eta-forecasting",    name: kestrel/eta-forecasting,    owner_team: forecasting,  lang: Python,    context_file: {path: AGENTS.md, present: true}}
+  - {ref: "repo:kestrel/carrier-connect",    name: kestrel/carrier-connect,    owner_team: integrations, lang: TypeScript, context_file: {path: AGENTS.md, present: false}}
+  - {ref: "repo:kestrel/identity",           name: kestrel/identity,           owner_team: platform,     lang: Go,        context_file: {path: AGENTS.md, present: false}}
+  - {ref: "repo:kestrel/llm-gateway-config", name: kestrel/llm-gateway-config, owner_team: platform,     lang: YAML,      context_file: {path: AGENTS.md, present: false}}

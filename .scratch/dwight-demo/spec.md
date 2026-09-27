@@ -2,6 +2,10 @@
 
 The spec is [docs/build-spec.md](../../docs/build-spec.md). Vocabulary is [CONTEXT.md](../../CONTEXT.md); decisions are in [docs/adr/](../../docs/adr/).
 
+## End product
+
+A website: the Next.js dashboard, run locally for the live demo. Hosting is decided later, so keep it deployable: the API base URL comes from an env var, and no paths are specific to one machine.
+
 ## Running these tickets in parallel
 
 Every ticket after 01 builds against the fixture data and API contract that 01 freezes. So most tickets need only 01 (and 02 for company content), and many agents can run at once. Checking against real data happens in ticket 15.

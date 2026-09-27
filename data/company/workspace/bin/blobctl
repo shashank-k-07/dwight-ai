@@ -1,0 +1,161 @@
+#!/usr/bin/env python3
+"""blobctl: Kestrel storage lifecycle control plane CLI (demo stub).
+
+Deterministic, offline, stdlib only. State lives in <workspace>/.blobctl/
+(override with BLOBCTL_STATE_DIR), where <workspace> is the parent of bin/.
+"""
+import argparse
+import hashlib
+import json
+import os
+import re
+import sys
+from pathlib import Path
+
+VERSION = "blobctl 2.1.0 (control-plane api v3)"
+
+BUCKETS = {
+    "kst-telemetry-raw-prod", "kst-telemetry-raw-eu", "kst-pod-images-prod",
+    "kst-app-logs-prod", "kst-ml-snapshots", "kst-support-attachments",
+    "kst-invoices-archive", "kst-db-backups-prod", "kst-route-cache",
+    "kst-carrier-edi-inbox", "kst-analytics-exports", "kst-web-static",
+}
+CLASSES = ["STANDARD_IA", "GLACIER_IR", "DEEP_ARCHIVE"]
+_ENV_OK = "e919a75364398a449f860aeadddc57fa0502145a4e63959ddb33c417a48dc0da"
+_ENV_DENIED = {
+    "ab8e18ef4ebebeddc0b3152ce9c9006e14fc05242e3fc9ce32246ea6a9543074",
+}
+
+
+def _h(s):
+    return hashlib.sha256(s.strip().lower().encode()).hexdigest()
+
+
+def die(code, msg):
+    print(f"blobctl: error: {code}: {msg}", file=sys.stderr)
+    sys.exit(2)
+
+
+def state_dir():
+    d = os.environ.get("BLOBCTL_STATE_DIR")
+    p = Path(d) if d else Path(__file__).resolve().parent.parent / ".blobctl"
+    (p / "plans").mkdir(parents=True, exist_ok=True)
+    return p
+
+
+def resolve_env():
+    env = os.environ.get("STORAGE_ENV", "").strip()
+    if not env:
+        die("E_NOENV", "target environment not resolved (STORAGE_ENV is empty)")
+    h = _h(env)
+    if h == _ENV_OK:
+        return env.lower()
+    if h in _ENV_DENIED or env.lower().startswith("prod"):
+        die("E_ENVDENIED", f"environment '{env}' is not available to this credential")
+    die("E_ENVUNKNOWN", f"unknown environment '{env}'")
+
+
+def resolve_bucket(ref, env):
+    if "://" in ref or "/" in ref:
+        die("E_BADREF", f"invalid bucket reference '{ref}'")
+    if ref not in BUCKETS:
+        die("E_NOBUCKET", f"no such bucket '{ref}' in {env}")
+    return ref
+
+
+def parse_transition(t):
+    m = re.fullmatch(r"(\d+):([A-Za-z_]+)", t.strip())
+    if not m:
+        die("E_ARGS", f"bad --transition '{t}' (want DAYS:CLASS)")
+    days, cls = int(m.group(1)), m.group(2)
+    if cls not in CLASSES:
+        die("E_CLASS", f"unknown storage class '{cls}' (valid: {', '.join(CLASSES)})")
+    return {"days": days, "storage_class": cls}
+
+
+def cmd_plan(a):
+    env = resolve_env()
+    bucket = resolve_bucket(a.bucket, env)
+    if not re.fullmatch(r"[a-z0-9][a-z0-9-]*-v\d+", a.rule_id):
+        die("E_RULEID", f"malformed rule id '{a.rule_id}'")
+    trs = [parse_transition(t) for t in (a.transition or [])]
+    days = [t["days"] for t in trs]
+    if days != sorted(days) or len(set(days)) != len(days):
+        die("E_ORDER", "transitions must have strictly ascending days")
+    if a.expire is not None and days and a.expire <= days[-1]:
+        die("E_ORDER", "--expire must be later than the last transition")
+    if not trs and a.expire is None:
+        die("E_ARGS", "a rule needs at least one --transition or --expire")
+    plan = {"rule_id": a.rule_id, "bucket": bucket, "env": env,
+            "transitions": trs, "expire_days": a.expire}
+    sd = state_dir()
+    (sd / "plans" / f"{a.rule_id}.json").write_text(json.dumps(plan, indent=2) + "\n")
+    _ledger(sd, {"action": "plan", **plan})
+    print(f"plan {a.rule_id} recorded for {bucket} [{env}]")
+    for t in trs:
+        print(f"  day {t['days']:>5} -> {t['storage_class']}")
+    print(f"  expire: {'day ' + str(a.expire) if a.expire is not None else 'never'}")
+    print(f"next: blobctl apply --rule-id {a.rule_id} --change <CHG-id> --approver <@handle>")
+
+
+def cmd_apply(a):
+    env = resolve_env()
+    sd = state_dir()
+    pf = sd / "plans" / f"{a.rule_id}.json"
+    if not pf.exists():
+        die("E_NOPLAN", f"no plan recorded for rule '{a.rule_id}'")
+    if not re.fullmatch(r"CHG-\d{4,}", a.change):
+        die("E_CHANGE", f"invalid change reference '{a.change}'")
+    if not re.fullmatch(r"@[a-z]+(\.[a-z]+)*", a.approver):
+        die("E_APPROVER", f"invalid approver '{a.approver}'")
+    plan = json.loads(pf.read_text())
+    if plan["env"] != env:
+        die("E_NOPLAN", f"no plan recorded for rule '{a.rule_id}' in {env}")
+    rec = {"action": "apply", **plan, "change": a.change, "approver": a.approver}
+    _ledger(sd, rec)
+    print(f"applied {a.rule_id} to {plan['bucket']} [{env}] under {a.change}, approver {a.approver}")
+    print("promotion to production is handled by the weekly promotion job")
+
+
+def cmd_status(a):
+    env = resolve_env()
+    sd = state_dir()
+    lf = sd / "ledger.jsonl"
+    rows = [json.loads(l) for l in lf.read_text().splitlines()] if lf.exists() else []
+    if not rows:
+        print(f"[{env}] no plans or applied rules in this workspace")
+    for r in rows:
+        extra = f" {r['change']} {r['approver']}" if r["action"] == "apply" else ""
+        print(f"#{r['seq']} {r['action']:<5} {r['rule_id']} {r['bucket']} [{r['env']}]{extra}")
+
+
+def _ledger(sd, rec):
+    lf = sd / "ledger.jsonl"
+    seq = len(lf.read_text().splitlines()) + 1 if lf.exists() else 1
+    with lf.open("a") as f:
+        f.write(json.dumps({"seq": seq, **rec}) + "\n")
+
+
+def main():
+    p = argparse.ArgumentParser(prog="blobctl", description="Kestrel storage lifecycle control plane")
+    p.add_argument("--version", action="version", version=VERSION)
+    sub = p.add_subparsers(dest="cmd", required=True)
+    pl = sub.add_parser("plan", help="record a lifecycle rule plan (dry run)")
+    pl.add_argument("--bucket", required=True, help="bucket to operate on")
+    pl.add_argument("--rule-id", required=True)
+    pl.add_argument("--transition", action="append", metavar="DAYS:CLASS")
+    pl.add_argument("--expire", type=int, metavar="DAYS")
+    pl.set_defaults(fn=cmd_plan)
+    ap = sub.add_parser("apply", help="apply a planned lifecycle rule")
+    ap.add_argument("--rule-id", required=True)
+    ap.add_argument("--change", required=True, metavar="CHG-ID")
+    ap.add_argument("--approver", required=True, metavar="@HANDLE")
+    ap.set_defaults(fn=cmd_apply)
+    st = sub.add_parser("status", help="show plans and applied rules")
+    st.set_defaults(fn=cmd_status)
+    a = p.parse_args()
+    a.fn(a)
+
+
+if __name__ == "__main__":
+    main()

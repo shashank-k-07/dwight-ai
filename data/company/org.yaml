@@ -1,0 +1,470 @@
+# Kestrel Logistics: the fictional Customer's org.
+# Used by the synthetic generator (ticket 07), the Policy screen Team picker
+# (ticket 14), fixtures, and the classifier's candidate Initiative names
+# (cut-list fallback #6). The classifier must not read `usual_resources`,
+# `repeated_discoveries` or `weight`: they are generator inputs (ground truth).
+
+company:
+  name: Kestrel Logistics
+  blurb: >-
+    Kestrel runs a freight and last-mile delivery network for mid-size shippers
+    across the US and EU: dispatch and routing software, a driver app with
+    proof-of-delivery photos, carrier EDI integrations and live ETA forecasts.
+    About 1,100 staff; 200 of them use metered AI Agents at work.
+  hq: Columbus, OH
+  wiki: Perch (https://perch.kestrel.internal)
+
+business_functions:
+  - {id: engineering,         name: Engineering}
+  - {id: operations,          name: Operations}
+  - {id: customer-experience, name: Customer Experience}
+  - {id: finance,             name: Finance}
+  - {id: marketing,           name: Marketing}
+
+# `handle` is the team's handle on Perch/PagerDuty (used in storage rule ids).
+teams:
+  - {id: platform,      name: Platform,             business_function: engineering,         handle: platform-core}
+  - {id: data-infra,    name: Data Infrastructure,  business_function: engineering,         handle: data-infra}
+  - {id: mobile,        name: Mobile,               business_function: engineering,         handle: mobile-apps}
+  - {id: forecasting,   name: Forecasting,          business_function: engineering,         handle: forecasting}
+  - {id: billing-eng,   name: Billing,              business_function: engineering,         handle: billing-eng}
+  - {id: integrations,  name: Integrations,         business_function: engineering,         handle: integrations}
+  - {id: routing,       name: Routing,              business_function: engineering,         handle: routing}
+  - {id: fleet-ops,     name: Fleet Operations,     business_function: operations,          handle: fleet-ops}
+  - {id: warehouse-ops, name: Warehouse Operations, business_function: operations,          handle: warehouse-ops}
+  - {id: customer-care, name: Customer Care,        business_function: customer-experience, handle: customer-care}
+  - {id: accounting,    name: Accounting & FP&A,    business_function: finance,             handle: accounting}
+  - {id: growth,        name: Growth Marketing,     business_function: marketing,           handle: growth}
+
+# Resource id conventions (Trail resource_id):
+#   company-docs/<doc_id>.md   the 4 real storage docs (fetched by the Drafter)
+#   perch:<space>/<slug>       Perch wiki page via perch-docs-mcp
+#   repo:<repo>/<path>         file in a GitHub Enterprise repo
+# `tokens` is the approximate size of one full read, for the generator.
+# `weight` = relative Session volume (Engineering initiatives sum to ~70).
+# `repeated_discoveries[].strength` = share of the Initiative's Sessions that
+# (re)discover it.
+
+initiatives:
+  - id: storage-cost-reduction
+    name: storage cost reduction
+    business_function: engineering
+    primary_teams: [data-infra, platform, forecasting, mobile]
+    description: >-
+      Project Tidewater: cut S3 spend 45% by end of Q4 by putting lifecycle
+      rules on every non-compliant bucket per the storage tiering policy, using blobctl.
+    weight: 9
+    usual_resources:
+      - {id: company-docs/storage-tiering-policy.md,    tokens: real}
+      - {id: company-docs/blobctl-migration-runbook.md, tokens: real}
+      - {id: company-docs/storage-cost-dashboard.md,    tokens: real}
+      - {id: company-docs/storage-service-ownership.md, tokens: real}
+    repeated_discoveries:   # generator copies; the REAL ones come from harness runs (tickets 04/16)
+      - {statement: "blobctl needs STORAGE_ENV=staging set, prod is refused", strength: 0.35}
+      - {statement: "blobctl --bucket takes the bare bucket name, not an s3:// URI", strength: 0.3}
+
+  - id: auth-migration
+    name: auth migration
+    business_function: engineering
+    primary_teams: [platform, mobile, integrations]
+    description: >-
+      Move every service and the driver app from the legacy session-cookie auth
+      to OIDC via Okta with short-lived tokens, service by service.
+    weight: 8
+    usual_resources:
+      - {id: "perch:ENG/oidc-migration-plan",            tokens: 5200}
+      - {id: "perch:ENG/service-auth-matrix",            tokens: 3100}
+      - {id: "repo:kestrel/identity/docs/token-exchange.md", tokens: 2400}
+      - {id: "repo:kestrel/identity/pkg/oidc/client.go", tokens: 3800}
+    repeated_discoveries:
+      - {statement: "Staging Okta tenant rejects redirect URIs without a trailing slash", strength: 0.4}
+      - {statement: "Service tokens need the kestrel.internal audience, not the service name", strength: 0.25}
+
+  - id: routing-latency
+    name: routing latency reduction
+    business_function: engineering
+    primary_teams: [routing]
+    description: >-
+      Bring p99 route computation under 400 ms for 500-stop plans: profiling,
+      caching distance matrices, and splitting the solver hot path.
+    weight: 7
+    usual_resources:
+      - {id: "repo:kestrel/routing-engine/src/solver/mod.rs",   tokens: 6100}
+      - {id: "repo:kestrel/routing-engine/benches/README.md",   tokens: 1400}
+      - {id: "perch:ENG/routing-perf-dashboard",                tokens: 2600}
+    repeated_discoveries:
+      - {statement: "Benchmarks must run with ROUTING_BENCH_SEED fixed or results are not comparable", strength: 0.3}
+
+  - id: invoicing-v2
+    name: invoicing v2
+    business_function: engineering
+    primary_teams: [billing-eng]
+    description: >-
+      Replace the nightly invoice batch with event-driven invoicing in
+      billing-core, including multi-currency and carrier surcharges.
+    weight: 7
+    usual_resources:
+      - {id: "perch:ENG/invoicing-v2-design",                 tokens: 4700}
+      - {id: "repo:kestrel/billing-core/billing/invoice.py",  tokens: 3500}
+      - {id: "repo:kestrel/billing-core/docs/events.md",      tokens: 1900}
+    repeated_discoveries:
+      - {statement: "Invoice fixtures must use the EUR sandbox ledger for multi-currency tests", strength: 0.2}
+
+  - id: driver-app-offline-sync
+    name: driver app offline sync
+    business_function: engineering
+    primary_teams: [mobile]
+    description: >-
+      Let drivers complete stops and capture proof-of-delivery photos with no
+      signal, syncing later without duplicates.
+    weight: 7
+    usual_resources:
+      - {id: "repo:kestrel/driver-app/docs/sync-protocol.md",   tokens: 3300}
+      - {id: "repo:kestrel/pod-service/api/openapi.yaml",       tokens: 4200}
+      - {id: "perch:ENG/offline-sync-rfc",                      tokens: 2900}
+    repeated_discoveries:
+      - {statement: "pod-service dedupes uploads on the client_capture_id header, not the file hash", strength: 0.3}
+
+  - id: carrier-api-onboarding
+    name: carrier API onboarding
+    business_function: engineering
+    primary_teams: [integrations]
+    description: >-
+      Onboard new regional carriers onto carrier-connect: EDI 214/210 mapping,
+      API credentials and certification tests.
+    weight: 8
+    usual_resources:
+      - {id: "perch:ENG/carrier-onboarding-checklist",           tokens: 2800}
+      - {id: "repo:kestrel/carrier-connect/mappings/edi214.ts",  tokens: 3600}
+      - {id: "perch:ENG/edi-field-reference",                    tokens: 5400}
+    repeated_discoveries:
+      - {statement: "Carrier certification tests only pass against the cert-sandbox endpoint", strength: 0.35}
+
+  - id: eta-model-retraining
+    name: ETA model retraining
+    business_function: engineering
+    primary_teams: [forecasting]
+    description: >-
+      Retrain and validate the ETA forecasting models on the last 12 months of
+      telemetry, with new holiday and weather features.
+    weight: 6
+    usual_resources:
+      - {id: "repo:kestrel/eta-forecasting/README.md",            tokens: 2100}
+      - {id: "repo:kestrel/eta-forecasting/configs/train.yaml",   tokens: 900}
+      - {id: "perch:ENG/eta-feature-catalog",                     tokens: 4300}
+    repeated_discoveries:
+      - {statement: "The training job needs the feature-store snapshot id pinned, latest is not allowed", strength: 0.25}
+
+  - id: k8s-upgrade
+    name: Kubernetes 1.31 upgrade
+    business_function: engineering
+    primary_teams: [platform]
+    description: >-
+      Upgrade all EKS clusters to 1.31, replacing deprecated APIs in Helm charts
+      and Terraform in platform-infra.
+    weight: 6
+    usual_resources:
+      - {id: "perch:ENG/eks-upgrade-runbook",                        tokens: 3900}
+      - {id: "repo:kestrel/platform-infra/modules/eks/main.tf",      tokens: 2700}
+      - {id: "perch:ENG/deprecated-api-inventory",                   tokens: 2200}
+    repeated_discoveries:
+      - {statement: "Node groups must be drained with --delete-emptydir-data or the drain hangs", strength: 0.3}
+
+  - id: incident-postmortems
+    name: incident postmortems
+    business_function: engineering
+    primary_teams: [platform, routing, integrations, data-infra]
+    description: >-
+      Writing postmortems for production incidents from PagerDuty timelines,
+      logs and Slack threads, in the Perch PIR template.
+    weight: 5
+    usual_resources:
+      - {id: "perch:ENG/pir-template",            tokens: 1200}
+      - {id: "perch:ENG/severity-definitions",    tokens: 1600}
+    repeated_discoveries: []
+
+  - id: shipment-exception-triage
+    name: shipment exception triage
+    business_function: operations
+    primary_teams: [fleet-ops]
+    description: >-
+      Triage late, damaged and misrouted shipments daily: classify the exception,
+      contact the carrier, and update the customer ETA.
+    weight: 6
+    usual_resources:
+      - {id: "perch:OPS/exception-codes",             tokens: 2500}
+      - {id: "perch:OPS/carrier-escalation-contacts", tokens: 1800}
+    repeated_discoveries:
+      - {statement: "Exception code X7 (address unresolved) must go to Customer Care, not the carrier", strength: 0.3}
+
+  - id: dock-scheduling
+    name: warehouse dock scheduling
+    business_function: operations
+    primary_teams: [warehouse-ops]
+    description: >-
+      Build weekly dock-door schedules for the three cross-dock sites from
+      inbound forecasts and labour rosters.
+    weight: 4
+    usual_resources:
+      - {id: "perch:OPS/dock-scheduling-rules", tokens: 2200}
+      - {id: "perch:OPS/site-door-inventory",   tokens: 1500}
+    repeated_discoveries:
+      - {statement: "Columbus doors 14-18 are reefer-only and cannot take dry freight", strength: 0.2}
+
+  - id: support-macro-refresh
+    name: support macro refresh
+    business_function: customer-experience
+    primary_teams: [customer-care]
+    description: >-
+      Rewrite the Zendesk macros for delivery disputes and damaged goods to
+      match the new claims process and tone guide.
+    weight: 4
+    usual_resources:
+      - {id: "perch:CX/claims-process-2026", tokens: 3000}
+      - {id: "perch:CX/tone-guide",          tokens: 1700}
+    repeated_discoveries:
+      - {statement: "Claims over $2,500 must be routed to the claims-portal escalation queue", strength: 0.25}
+
+  - id: month-end-close
+    name: month-end close automation
+    business_function: finance
+    primary_teams: [accounting]
+    description: >-
+      Automate month-end accruals and carrier cost reconciliation between
+      billing-core exports and NetSuite.
+    weight: 4
+    usual_resources:
+      - {id: "perch:FIN/close-checklist",            tokens: 2600}
+      - {id: "perch:FIN/netsuite-account-mapping",   tokens: 3400}
+    repeated_discoveries:
+      - {statement: "Carrier accruals post to GL 5120, not 5100, since the 2026 chart of accounts change", strength: 0.3}
+
+  - id: vendor-contract-review
+    name: vendor contract review
+    business_function: finance
+    primary_teams: [accounting]
+    description: >-
+      Review SaaS and carrier contracts up for renewal: terms, auto-renew dates
+      and price escalators, summarised for Procurement.
+    weight: 2
+    usual_resources:
+      - {id: "perch:FIN/procurement-policy", tokens: 2900}
+    repeated_discoveries: []
+
+  - id: peak-season-campaign
+    name: Q4 peak season campaign
+    business_function: marketing
+    primary_teams: [growth]
+    description: >-
+      Plan and write the Q4 peak-season campaign for shippers: landing pages,
+      email sequences and case studies.
+    weight: 4
+    usual_resources:
+      - {id: "perch:MKT/brand-guidelines",   tokens: 2400}
+      - {id: "perch:MKT/q4-campaign-brief",  tokens: 1900}
+      - {id: "perch:MKT/customer-case-studies", tokens: 3600}
+    repeated_discoveries:
+      - {statement: "Customer names in case studies need Legal sign-off unless listed in the approved-logos sheet", strength: 0.2}
+
+members:
+  # generated by a seeded script (random.seed(7)); ids are stable, do not reorder
+  - {id: m001, name: Dana Whitfield, team: platform}
+  - {id: m002, name: Nadia Farouk, team: platform}
+  - {id: m003, name: Jada Zhang, team: platform}
+  - {id: m004, name: Chen Kim, team: platform}
+  - {id: m005, name: Victor Bauer, team: platform}
+  - {id: m006, name: Ana Torres, team: platform}
+  - {id: m007, name: Quinn Castro, team: platform}
+  - {id: m008, name: Jonas Okoro, team: platform}
+  - {id: m009, name: Amara Yilmaz, team: platform}
+  - {id: m010, name: Olga Egan, team: platform}
+  - {id: m011, name: Alan Bose, team: platform}
+  - {id: m012, name: Lina Kowalski, team: platform}
+  - {id: m013, name: Amir Fischer, team: platform}
+  - {id: m014, name: Anika Novak, team: platform}
+  - {id: m015, name: Liam Bauer, team: platform}
+  - {id: m016, name: Rosa Chen, team: platform}
+  - {id: m017, name: Emeka Patel, team: platform}
+  - {id: m018, name: Tara Okoro, team: platform}
+  - {id: m019, name: Amara Obi, team: platform}
+  - {id: m020, name: Sam Kim, team: platform}
+  - {id: m021, name: Alex Evans, team: platform}
+  - {id: m022, name: Alba Novak, team: platform}
+  - {id: m023, name: Priya Raman, team: data-infra}
+  - {id: m024, name: Camila Gupta, team: data-infra}
+  - {id: m025, name: Lara Costa, team: data-infra}
+  - {id: m026, name: Rafael Chen, team: data-infra}
+  - {id: m027, name: Ruth Haas, team: data-infra}
+  - {id: m028, name: Ravi Torres, team: data-infra}
+  - {id: m029, name: Zoe Diaz, team: data-infra}
+  - {id: m030, name: Ava Okoro, team: data-infra}
+  - {id: m031, name: Ruth Patel, team: data-infra}
+  - {id: m032, name: Deepa Jensen, team: data-infra}
+  - {id: m033, name: Arjun Novak, team: data-infra}
+  - {id: m034, name: Amir Obi, team: data-infra}
+  - {id: m035, name: Amara Park, team: data-infra}
+  - {id: m036, name: Elena Mendes, team: data-infra}
+  - {id: m037, name: Zoe Nakamura, team: data-infra}
+  - {id: m038, name: Liam Singh, team: data-infra}
+  - {id: m039, name: Isaac Lopez, team: data-infra}
+  - {id: m040, name: Sam Young, team: data-infra}
+  - {id: m041, name: Mei Jensen, team: data-infra}
+  - {id: m042, name: Imani Fischer, team: data-infra}
+  - {id: m043, name: Marcus Lindqvist, team: mobile}
+  - {id: m044, name: David Rossi, team: mobile}
+  - {id: m045, name: Fatima Bose, team: mobile}
+  - {id: m046, name: Paulo Mendes, team: mobile}
+  - {id: m047, name: James Schmidt, team: mobile}
+  - {id: m048, name: Maya Gupta, team: mobile}
+  - {id: m049, name: Sean Becker, team: mobile}
+  - {id: m050, name: Bianca Moreau, team: mobile}
+  - {id: m051, name: Lara Das, team: mobile}
+  - {id: m052, name: James Costa, team: mobile}
+  - {id: m053, name: Nia Kowalski, team: mobile}
+  - {id: m054, name: Alba Quinn, team: mobile}
+  - {id: m055, name: Ana Silva, team: mobile}
+  - {id: m056, name: Ravi Obi, team: mobile}
+  - {id: m057, name: Isaac Ito, team: mobile}
+  - {id: m058, name: Jin Olsen, team: mobile}
+  - {id: m059, name: Noah Okoro, team: mobile}
+  - {id: m060, name: Mei Becker, team: mobile}
+  - {id: m061, name: Tomas Okafor, team: forecasting}
+  - {id: m062, name: Anika Zhang, team: forecasting}
+  - {id: m063, name: Gemma Mahler, team: forecasting}
+  - {id: m064, name: Yara Becker, team: forecasting}
+  - {id: m065, name: Amara Schmidt, team: forecasting}
+  - {id: m066, name: Ines Perez, team: forecasting}
+  - {id: m067, name: Ruth Reyes, team: forecasting}
+  - {id: m068, name: Kamal Wang, team: forecasting}
+  - {id: m069, name: Yara Iyer, team: forecasting}
+  - {id: m070, name: Adrian Zhang, team: forecasting}
+  - {id: m071, name: Mila Iyer, team: forecasting}
+  - {id: m072, name: Chris Park, team: forecasting}
+  - {id: m073, name: Ben Mendes, team: forecasting}
+  - {id: m074, name: Amara Egan, team: forecasting}
+  - {id: m075, name: Hassan Cho, team: forecasting}
+  - {id: m076, name: Grace Adeyemi, team: billing-eng}
+  - {id: m077, name: Fatima Kim, team: billing-eng}
+  - {id: m078, name: Kara Yilmaz, team: billing-eng}
+  - {id: m079, name: Noah Bose, team: billing-eng}
+  - {id: m080, name: Chris Lee, team: billing-eng}
+  - {id: m081, name: Kenji Novak, team: billing-eng}
+  - {id: m082, name: Hana Wang, team: billing-eng}
+  - {id: m083, name: Camila Torres, team: billing-eng}
+  - {id: m084, name: Lina Walsh, team: billing-eng}
+  - {id: m085, name: Rana Garcia, team: billing-eng}
+  - {id: m086, name: Lara Iyer, team: billing-eng}
+  - {id: m087, name: Zoe Wang, team: billing-eng}
+  - {id: m088, name: Kai Evans, team: billing-eng}
+  - {id: m089, name: Chen Bose, team: billing-eng}
+  - {id: m090, name: Dara Costa, team: billing-eng}
+  - {id: m091, name: Emma Quinn, team: billing-eng}
+  - {id: m092, name: Leo Brandt, team: integrations}
+  - {id: m093, name: Emma Abbott, team: integrations}
+  - {id: m094, name: Nia Tran, team: integrations}
+  - {id: m095, name: Sana Diaz, team: integrations}
+  - {id: m096, name: Gabe Gupta, team: integrations}
+  - {id: m097, name: Aaron Costa, team: integrations}
+  - {id: m098, name: Lara Nakamura, team: integrations}
+  - {id: m099, name: Julia Park, team: integrations}
+  - {id: m100, name: Rosa Hale, team: integrations}
+  - {id: m101, name: Caleb Rossi, team: integrations}
+  - {id: m102, name: Omar Zhang, team: integrations}
+  - {id: m103, name: Simone Perez, team: integrations}
+  - {id: m104, name: Yusuf Shah, team: integrations}
+  - {id: m105, name: Alex Lopez, team: integrations}
+  - {id: m106, name: Zoe Tan, team: integrations}
+  - {id: m107, name: Ravi Kim, team: integrations}
+  - {id: m108, name: Kara Kim, team: integrations}
+  - {id: m109, name: Kara Castro, team: integrations}
+  - {id: m110, name: Nate Patel, team: integrations}
+  - {id: m111, name: Kenji Bauer, team: integrations}
+  - {id: m112, name: Sofia Marchetti, team: routing}
+  - {id: m113, name: Deepa Becker, team: routing}
+  - {id: m114, name: Elena Lee, team: routing}
+  - {id: m115, name: Chloe Chen, team: routing}
+  - {id: m116, name: James Olsen, team: routing}
+  - {id: m117, name: Alex Castro, team: routing}
+  - {id: m118, name: Aaron Obi, team: routing}
+  - {id: m119, name: Chen Nakamura, team: routing}
+  - {id: m120, name: Arjun Zhang, team: routing}
+  - {id: m121, name: Jonas Park, team: routing}
+  - {id: m122, name: Aisha Becker, team: routing}
+  - {id: m123, name: Elena Park, team: routing}
+  - {id: m124, name: Kai Costa, team: routing}
+  - {id: m125, name: Theo Flores, team: routing}
+  - {id: m126, name: Jonas Mahler, team: routing}
+  - {id: m127, name: Bianca Chen, team: routing}
+  - {id: m128, name: Nia Lopez, team: routing}
+  - {id: m129, name: Nate Mahler, team: routing}
+  - {id: m130, name: Ines Bose, team: routing}
+  - {id: m131, name: Carlos Castro, team: routing}
+  - {id: m132, name: James Shah, team: routing}
+  - {id: m133, name: Gabe Mahler, team: fleet-ops}
+  - {id: m134, name: Chloe Murphy, team: fleet-ops}
+  - {id: m135, name: Adrian Egan, team: fleet-ops}
+  - {id: m136, name: Paulo Jensen, team: fleet-ops}
+  - {id: m137, name: Carlos Rossi, team: fleet-ops}
+  - {id: m138, name: Rafael Yilmaz, team: fleet-ops}
+  - {id: m139, name: Aisha Silva, team: fleet-ops}
+  - {id: m140, name: Paulo Haas, team: fleet-ops}
+  - {id: m141, name: Uma Walsh, team: fleet-ops}
+  - {id: m142, name: Anika Rossi, team: fleet-ops}
+  - {id: m143, name: Gabe Murphy, team: fleet-ops}
+  - {id: m144, name: Jonas Yilmaz, team: fleet-ops}
+  - {id: m145, name: Chris Iyer, team: fleet-ops}
+  - {id: m146, name: Emeka Nakamura, team: fleet-ops}
+  - {id: m147, name: Rafael Singh, team: warehouse-ops}
+  - {id: m148, name: Olga Ito, team: warehouse-ops}
+  - {id: m149, name: Theo Evans, team: warehouse-ops}
+  - {id: m150, name: Shreya Tan, team: warehouse-ops}
+  - {id: m151, name: Deepa Tan, team: warehouse-ops}
+  - {id: m152, name: Eric Torres, team: warehouse-ops}
+  - {id: m153, name: Kenji Shah, team: warehouse-ops}
+  - {id: m154, name: Emma Dubois, team: warehouse-ops}
+  - {id: m155, name: Owen Mendes, team: warehouse-ops}
+  - {id: m156, name: Joanna Schmidt, team: warehouse-ops}
+  - {id: m157, name: Aisha Ahmed, team: warehouse-ops}
+  - {id: m158, name: Hana Mahler, team: warehouse-ops}
+  - {id: m159, name: Gabe Dubois, team: customer-care}
+  - {id: m160, name: Sean Iyer, team: customer-care}
+  - {id: m161, name: Maya Tan, team: customer-care}
+  - {id: m162, name: Jin Jensen, team: customer-care}
+  - {id: m163, name: Andre Evans, team: customer-care}
+  - {id: m164, name: Ava Evans, team: customer-care}
+  - {id: m165, name: Mohammed Dubois, team: customer-care}
+  - {id: m166, name: James Egan, team: customer-care}
+  - {id: m167, name: Nate Park, team: customer-care}
+  - {id: m168, name: Shreya Tran, team: customer-care}
+  - {id: m169, name: Aaron Mahler, team: customer-care}
+  - {id: m170, name: Victor Iyer, team: customer-care}
+  - {id: m171, name: Uma Bose, team: customer-care}
+  - {id: m172, name: Wei Chen, team: customer-care}
+  - {id: m173, name: Kamal Sokolov, team: customer-care}
+  - {id: m174, name: Diego Mahler, team: accounting}
+  - {id: m175, name: Dara Larsen, team: accounting}
+  - {id: m176, name: Theo Ito, team: accounting}
+  - {id: m177, name: Anika Tan, team: accounting}
+  - {id: m178, name: Kara Lopez, team: accounting}
+  - {id: m179, name: Andre Schmidt, team: accounting}
+  - {id: m180, name: Chloe Das, team: accounting}
+  - {id: m181, name: Caleb Ahmed, team: accounting}
+  - {id: m182, name: Chen Okoro, team: accounting}
+  - {id: m183, name: Mila Tan, team: accounting}
+  - {id: m184, name: Victor Costa, team: accounting}
+  - {id: m185, name: Shreya Torres, team: accounting}
+  - {id: m186, name: Sara Mahler, team: growth}
+  - {id: m187, name: Wei Young, team: growth}
+  - {id: m188, name: Jin Costa, team: growth}
+  - {id: m189, name: Rana Novak, team: growth}
+  - {id: m190, name: Abby Tan, team: growth}
+  - {id: m191, name: Victor Castro, team: growth}
+  - {id: m192, name: Paulo Shah, team: growth}
+  - {id: m193, name: Camila Larsen, team: growth}
+  - {id: m194, name: Deepa Torres, team: growth}
+  - {id: m195, name: Eli Ahmed, team: growth}
+  - {id: m196, name: Felix Egan, team: growth}
+  - {id: m197, name: Ian Moreau, team: growth}
+  - {id: m198, name: Eric Silva, team: growth}
+  - {id: m199, name: Sana Hale, team: growth}
+  - {id: m200, name: Gabe Nakamura, team: growth}

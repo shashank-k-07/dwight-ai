@@ -1,0 +1,296 @@
+{
+ "resourceSpans": [
+  {
+   "resource": {
+    "attributes": [
+     {
+      "key": "service.name",
+      "value": {
+       "stringValue": "kestrel-devagent"
+      }
+     },
+     {
+      "key": "dwight.member.id",
+      "value": {
+       "stringValue": "m003"
+      }
+     },
+     {
+      "key": "dwight.team",
+      "value": {
+       "stringValue": "Platform"
+      }
+     },
+     {
+      "key": "dwight.business_function",
+      "value": {
+       "stringValue": "Engineering"
+      }
+     },
+     {
+      "key": "dwight.dataset",
+      "value": {
+       "stringValue": "real"
+      }
+     }
+    ]
+   },
+   "scopeSpans": [
+    {
+     "scope": {
+      "name": "dwight.builder"
+     },
+     "spans": [
+      {
+       "traceId": "e633881c6cb268b4d0a454b10e8c3270",
+       "spanId": "601daa798ca7001a",
+       "name": "invoke_agent",
+       "kind": 1,
+       "startTimeUnixNano": "1790462747881854000",
+       "endTimeUnixNano": "1790462759211401000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "invoke_agent"
+         }
+        },
+        {
+         "key": "gen_ai.agent.name",
+         "value": {
+          "stringValue": "kestrel-devagent"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-scr-a-t10"
+         }
+        },
+        {
+         "key": "dwight.experiment",
+         "value": {
+          "stringValue": "after"
+         }
+        },
+        {
+         "key": "dwight.experiment.task_id",
+         "value": {
+          "stringValue": "t10-exception-codes"
+         }
+        },
+        {
+         "key": "dwight.experiment.task_success",
+         "value": {
+          "boolValue": true
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "e633881c6cb268b4d0a454b10e8c3270",
+       "spanId": "4d1218bbd55e942f",
+       "parentSpanId": "601daa798ca7001a",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790462747881854000",
+       "endTimeUnixNano": "1790462755165587000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-scr-a-t10"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "0"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "6390"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "1500"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "58bb69fb9a177615"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "3311"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"You are kestrel-devagent, Kestrel Logistics' internal coding agent. The workspace root is your\\ncurrent directory; command-line tools are in bin/. Kestrel's internal storage documents are\\navailable through list_docs and read_doc. Use run_command to run tools, and write any files\\nthe task asks for (paths are relative to the workspace root).\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\n# Context files\\nThe following files were loaded into your context at session start.\\n\\n## storage-cost-reduction.md\\n\\n# Storage cost reduction: initiative doc\\n\\nWritten by Dwight for Agents working on Storage cost reduction. 10 of 11 Sessions read the same 4 docs to get started (about 23,892 tokens each time). **This doc replaces those 4 source docs for Storage cost reduction work.** It keeps every rule, table and value those Sessions needed, copied exactly from the sources. Work from this doc; open a source doc only if a value you need is missing here.\\n\\nSources (for provenance): [Runbook: Lifecycle Migrations with blobctl](company-docs/blobctl-migration-runbook.md), [Storage Cost Dashboard & Bucket Inventory](company-docs/storage-cost-dashboard.md), [Storage Architecture & Service Ownership](company-docs/storage-service-ownership.md), [Storage Tiering & Retention Policy](company-docs/storage-tiering-policy.md)\\n\\n## Runbook: Lifecycle Migrations with blobctl\\n\\nSource: [company-docs/blobctl-migration-runbook.md](company-docs/blobctl-migration-runbook.md)\\n\\n### Scope: which buckets are in play (\\u00a73)\\n- In scope: dashboard **\\\"Policy compliant\\\" = \\\"No\\\"**. \\\"Yes\\\" = leave alone. \\\"Exempt\\\" = never touched, even if expensive.\\n\\n### Pre-flight checklist (\\u00a74)\\n- Bucket in scope; data class + current lifecycle rule from the cost dashboard; owning team, its handle and storage approver; which services read the bucket and their service tiers; average object size.\\n- Target schedule from the Storage Tiering & Retention Policy, after applying every override.\\n- Change ticket `CHG-` in the `STORCHG` queue with bucket, target schedule, planned exception code.\\n- Current date not inside a change freeze (\\u00a78).\\n\\n### blobctl and change flow (\\u00a72)\\n- blobctl 1.9, repo `kestrel/blobctl`, installed at `bin/blobctl`. Owner: Data Infrastructure / Storage on-call (`data-infra-primary`).\\n- All changes land in the **staging control plane first**; nothing writes directly to production. Approved staging rules are promoted by the weekly promotion job (Wednesdays 14:00 ET, run by Storage on-call).\\n- Flow: plan \\u2192 apply \\u2192 status \\u2192 promotion \\u2192 verification.\\n\\n### Transition and expiry syntax (\\u00a75.1)\\n- `--transition <days>:<STORAGE_CLASS>` \\u2014 days since object creation; ascending order; S3 storage class name (e.g. `STANDARD_IA`), not Kestrel tier name (`Warm`, `Cold` rejected); objects start in `STANDARD`, so never transition to `STANDARD`; omit tiers an override removes.\\n- `--expire <days>` \\u2014 days since creation; omit only if the data class has no expiry.\\n\\n### Rule id convention (\\u00a75.2)\\n- `<owning-team-handle>-<bucket name without the \\\"kst-\\\" prefix>-v<N>`\\n- Handle = owning team's handle, not the writer/reader team's.\\n- `N` = version in the bucket's current lifecycle rule + 1, or 1 if none. An expiry-only rule counts as a current rule.\\n- New rule replaces the old one; do not delete the old rule separately.\\n\\n### Exception codes (\\u00a75.3)\\n| Code | Meaning |\\n|---|---|\\n| `NONE` | Tiered all the way to Frozen |\\n| `STATUTORY_RETENTION` | Statutory retention prevents Frozen |\\n| `TIER1_READER` | Tier-1 service reads bucket; Frozen not permitted |\\n| `DATA_CLASS_CAP` | Data class schedule caps below Frozen |\\n| `SMALL_OBJECTS` | Average object size too small for archive tiers |\\n\\nIf more than one applies, record the first in this precedence order (one code only, never a comma-separated list):\\n1. `STATUTORY_RETENTION` 2. `TIER1_READER` 3. `DATA_CLASS_CAP` 4. `SMALL_OBJECTS`\\n\\n### Running the migration (\\u00a76)\\nPlan (dry run; validates the rule, prints the resulting schedule, records a plan against the rule id):\\n```\\nblobctl plan --bucket s3://kst-telemetry-raw-eu --rule-id data-infra-telemetry-raw-eu-v1 --transition 30:STANDARD_IA --transition 90:GLACIER_IR --transition 365:DEEP_ARCHIVE --expire 1095\\n```\\nNote: Sessions found blobctl requires the bare bucket name (`kst-telemetry-raw-eu`), not the `s3://` URI form, which is rejected with `E_BADREF` (1.9 and 2.x).\\n\\nThe plan output echoes the bucket, rule id, each transition and the expiry; if any differs from the change ticket, fix and re-plan. Re-planning the same rule id overwrites the earlier plan.\\n\\nApply (requires a recorded plan for the same rule id):\\n```\\nblobctl apply --rule-id <rule-id> --change <CHG-number> --approver <@handle of owning team's storage approver>\\n```\\n- `--approver` = owning team's storage approver, not your manager, the Tidewater lead, or the ticket reviewer.\\n\\nStatus: `blobctl status` lists recorded plans and applied rules (columns: RULE ID, BUCKET, STATE, CHANGE, APPROVER). `planned` = plan recorded, not applied; `applied` = staged, awaiting the Wednesday promotion job. Then update the change ticket with the final rule id, the exception code, a paste of the relevant `blobctl status` lines, and the expected promotion Wednesday.\\n\\n### Change windows and freeze calendar (\\u00a78)\\n- Promotion job: Wednesdays 14:00 ET. Applied and approved by Wed 12:00 ET is normally picked up that week.\\n| Freeze | When | Scope |\\n|---|---|---|\\n| Month-end close | Last 3 business days of month through 2nd business day of next | Buckets owned by or read by Billing (staging applies too) |\\n| Peak season | Monday before US Thanksgiving through Jan 5 | All production storage changes except break-glass |\\n| Company holidays | Kestrel observed holidays | No promotion job; next Wednesday picks up |\\n\\nDo not plan Billing work in the last week of the month.\\n\\n### Verification (\\u00a710)\\n- Day 1: `blobctl status` shows promoted; S3 console Management tab lists exactly one rule with the new rule id; CloudWatch `NumberOfObjects` and `BucketSizeBytes` (StorageType `StandardStorage`) flat.\\n- Day 3-5: `BucketSizeBytes` for target storage types (e.g. `StandardIAStorage`, `GlacierInstantRetrievalStorage`) growing, `StandardStorage` falling; watch owning team's dashboards for `403`/`InvalidObjectState` spikes.\\n- Day 14: S3 Storage Lens dashboard `kestrel-org-default` matches the plan; close the ticket.\\n\\n### Known issues (\\u00a714)\\n- Re-planning a rule id overwrites the earlier plan without warning.\\n- `blobctl status` paging can swallow the last line; pipe through `cat` or run non-interactively.\\n\\n## Storage Cost Dashboard & Bucket Inventory\\n\\nSource: [company-docs/storage-cost-dashboard.md](company-docs/storage-cost-dashboard.md)\\n\\n### Price sheet (\\u00a75)\\nUSD per GB-month. **1 TB = 1,000 GB.** eu-central-1 is normalised to us-east-1 list prices, so EU buckets use the same numbers as US buckets.\\n\\n| Storage class | USD per GB-month |\\n|---|---|\\n| STANDARD | 0.023 |\\n| STANDARD_IA | 0.0125 |\\n| GLACIER_IR | 0.004 |\\n| DEEP_ARCHIVE | 0.00099 |\\n\\nStorage only. Request, transition and retrieval fees are excluded (measured at under 2% of S3 cost).\\n\\n### Steady-state savings method (\\u00a76)\\n1. For each age band (0-30d, 30-90d, 90-365d, >365d): band size in TB \\u00d7 1000 \\u00d7 price of the storage class the policy puts that band in.\\n2. Bands older than the expiry age are deleted, so they cost 0.\\n3. Sum the bands = **monthly cost after**.\\n4. Ignore request, transition and retrieval fees.\\n5. **Saving = current monthly cost \\u2212 cost after.**\\n6. Round to cents. Keep full precision through the calculation; round only the final figures.\\n\\n\\\"Steady state\\\" = the saving once the rule has run long enough that every object sits in its target class, not the first month after a change.\\n\\n### Bucket inventory \\u2014 non-compliant buckets (\\u00a77)\\nAugust 2026 snapshot, taken 2026-09-01. Age bands in TB. Monthly cost is list-price-equivalent at the price sheet above.\\n\\n| Bucket | Writer service | Data class | Avg object | 0-30d | 30-90d | 90-365d | >365d | Lifecycle rule | Policy compliant | Monthly cost USD |\\n|---|---|---|---|---|---|---|---|---|---|---|\\n| s3://kst-telemetry-raw-prod | telematics-ingest | telemetry-raw | 2.4 MB | 60 | 110 | 380 | 270 | none | No | 18,860.00 |\\n| s3://kst-telemetry-raw-eu | telematics-ingest | telemetry-raw | 2.4 MB | 15 | 30 | 95 | 70 | none | No | 4,830.00 |\\n| s3://kst-pod-images-prod | pod-service | pod-images | 1.1 MB | 25 | 40 | 175 | 300 | mobile-apps-pod-images-prod-v1 (expiry only) | No | 12,420.00 |\\n| s3://kst-app-logs-prod | log-shipper | app-logs | 38 KB | 95 | 170 | 45 | 0 | none | No | 7,130.00 |\\n| s3://kst-ml-snapshots | feature-store | ml-training-snapshots | 480 MB | 20 | 35 | 105 | 100 | none | No | 5,980.00 |\\n| s3://kst-support-attachments | helpdesk-bridge | support-attachments | 850 KB | 4 | 6 | 12 | 14 | none | No | 828.00 |\\n\\n**Total S3: 55,351.50 / month** (August 2026 snapshot, taken 2026-09-01).\\n\\nNotes:\\n- **s3://kst-pod-images-prod** has rule `mobile-apps-pod-images-prod-v1`, but it is **expiry-only**: it deletes objects at the end of their retention and has no storage class transitions. Every object is still in STANDARD, so the bucket is non-compliant despite having a rule.\\n- **Policy compliant**: `Yes` = the lifecycle rule matches the Tiering & Retention Policy for its data class; `No` = no rule, or the rule does not match; `Exempt` = the data class is exempt from lifecycle policy.\\n- The EU bucket is priced at us-east-1 list, as for every other bucket.\\n\\n### Project Tidewater (\\u00a710)\\n**Goal:** reduce S3 spend by **45% by the end of Q4** (FY26), measured as steady-state monthly S3 cost at the price sheet, against the August 2026 snapshot baseline.\\n\\n**Scope:** lifecycle remediation \\u2014 bringing every non-compliant bucket in line with the Tiering & Retention Policy. Exempt buckets are out of scope.\\n\\n**WS1 \\u2014 Lifecycle remediation of non-compliant buckets:** buckets marked `No` in \\u00a77. Status: In progress. Changes go through the migration runbook. Savings measured with the \\u00a76 method once rules are applied.\\n\\n**Non-compliance summary (\\u00a713):** six buckets are non-compliant and they are most of the S3 spend; five have no lifecycle rule, one (proof-of-delivery images, s3://kst-pod-images-prod) has an expiry-only rule. WS1 works through all six this quarter.\\n\\n## Storage Architecture & Service Ownership\\n\\nSource: [company-docs/storage-service-ownership.md](company-docs/storage-service-ownership.md)\\n\\n### Service tiers (\\u00a73)\\n\\n| Service tier | Definition |\\n|---|---|\\n| Tier-1 | Customer-facing / synchronous path. A customer, driver or carrier is waiting on the response in real time. |\\n| Tier-2 | Internal production. Business-critical, but no external party is blocked synchronously; backlogs can be caught up. |\\n| Tier-3 | Batch / offline. Scheduled or ad-hoc jobs; a missed run is re-run. |\\n\\nA bucket read by several services effectively inherits the strictest tier among its readers.\\n\\n### Teams and storage approvers (\\u00a74)\\n\\n| Team | Handle | Storage approver | On-call rotation |\\n|---|---|---|---|\\n| Platform | platform-core | @dana.whitfield | platform-core-primary |\\n| Data Infrastructure | data-infra | @priya.raman | data-infra-primary |\\n| Mobile | mobile-apps | @marcus.lindqvist | mobile-apps-primary |\\n| Forecasting | forecasting | @tomas.okafor | forecasting-primary |\\n| Billing | billing-eng | @grace.adeyemi | billing-eng-primary |\\n| Integrations | integrations | @leo.brandt | integrations-primary |\\n| Routing | routing | @sofia.marchetti | routing-primary |\\n\\n### Services, tiers and bucket readers (\\u00a75)\\n\\n| Service | Owning team | Tier | Writes | Reads |\\n|---|---|---|---|---|\\n| telematics-ingest | Data Infrastructure | Tier-2 | kst-telemetry-raw-prod, kst-telemetry-raw-eu | - |\\n| replay-api | Data Infrastructure | Tier-1 | - | kst-telemetry-raw-prod (trip replay for customer disputes; synchronous) |\\n| eta-trainer | Forecasting | Tier-3 | - | kst-telemetry-raw-prod, kst-telemetry-raw-eu, kst-ml-snapshots |\\n| feature-store | Forecasting | Tier-2 | kst-ml-snapshots | kst-ml-snapshots |\\n| pod-service | Mobile | Tier-1 | kst-pod-images-prod | kst-pod-images-prod |\\n| claims-portal | Integrations | Tier-1 | - | kst-pod-images-prod |\\n| log-shipper | Platform | Tier-2 | kst-app-logs-prod | - |\\n| logsearch | Platform | Tier-2 | - | kst-app-logs-prod |\\n| billing-core | Billing | Tier-1 | kst-invoices-archive | kst-invoices-archive |\\n| pgbackup | Platform | Tier-2 | kst-db-backups-prod | kst-db-backups-prod |\\n| routing-engine | Routing | Tier-1 | kst-route-cache | kst-route-cache |\\n| edi-gateway | Integrations | Tier-1 | kst-carrier-edi-inbox | kst-carrier-edi-inbox |\\n| helpdesk-bridge | Integrations | Tier-2 | kst-support-attachments | kst-support-attachments |\\n| analytics-exporter | Data Infrastructure | Tier-3 | kst-analytics-exports | - |\\n| web-frontend | Platform | Tier-1 | - | kst-web-static (via CDN) |\\n\\nNote: the EU telemetry bucket kst-telemetry-raw-eu is NOT read by replay-api (EU replay was decommissioned in 2025); only eta-trainer reads it.\\n\\n### Bucket owners (\\u00a76)\\n\\n| Bucket | Owning team |\\n|---|---|\\n| kst-telemetry-raw-prod | Data Infrastructure |\\n| kst-telemetry-raw-eu | Data Infrastructure |\\n| kst-pod-images-prod | Mobile |\\n| kst-app-logs-prod | Platform |\\n| kst-ml-snapshots | Forecasting |\\n| kst-support-attachments | Integrations |\\n| kst-invoices-archive | Billing |\\n| kst-db-backups-prod | Platform |\\n| kst-route-cache | Routing |\\n| kst-carrier-edi-inbox | Integrations |\\n| kst-analytics-exports | Data Infrastructure |\\n| kst-web-static | Platform |\\n\\nThe owning team's storage approver approves lifecycle changes. Where a bucket's owning team differs from the team that owns a reading service, the reading team must be consulted on any change that could affect read latency or availability; consultation is not approval.\\n\\n### Tagging standard (\\u00a710)\\n\\n| Tag key | Example value | Meaning |\\n|---|---|---|\\n| `kestrel:team` | `mobile-apps` | Owning team handle from section 4 |\\n| `kestrel:service` | `pod-service` | Primary writing service from section 5 |\\n| `kestrel:data-class` | `pod-images` | Data class as defined in the Storage Tiering Policy |\\n| `kestrel:env` | `prod` | One of `prod`, `staging`, `sandbox` |\\n| `kestrel:cost-center` | `CC-4120` | Finance cost center of the owning team |\\n| `kestrel:pii` | `true` | Whether the bucket may contain personal data |\\n| `kestrel:residency` | `us` | `us` or `eu`; must match the bucket's region |\\n\\n### Access, deletion and residency constraints (\\u00a78.2, \\u00a78.3)\\n\\n- Deletion of a bucket, or of more than 1% of a bucket's objects outside a lifecycle rule, requires the owning team's storage approver *and* a Data Infrastructure approver.\\n- Bucket policies grant access to roles, never to users. Write access only to the writing service in \\u00a75; read access only to the listed readers.\\n- EU data stays in eu-central-1. The EU bucket policy denies access from outside eu-central-1 except for the `telematics-ingest` and `eta-trainer` roles.\\n\\n### S3 protection state (\\u00a79)\\n\\n- All production buckets have versioning enabled and rely on S3's regional durability.\\n- Object Lock (governance mode) is enabled on `kst-invoices-archive` and `kst-db-backups-prod`.\\n- Cross-region replication is not configured for any production bucket today.\\n\\n### Escalation for lifecycle work (\\u00a713)\\n\\n| Situation | First page | Escalate to | Then |\\n|---|---|---|---|\\n| Lifecycle rule behaving unexpectedly | data-infra-primary | Owning team's storage approver | Head of Infrastructure |\\n\\n## Storage Tiering & Retention Policy\\n\\nSource: [company-docs/storage-tiering-policy.md](company-docs/storage-tiering-policy.md)\\n\\n### Scope & definitions (\\u00a71, \\u00a73)\\n\\n- In scope: every S3 bucket in every Kestrel-owned AWS account, in both `us-east-1` (primary) and `eu-central-1` (EU), including buckets created by vendors on our behalf.\\n- Age = days since object creation (the S3 object creation date), not days since last access or last modification.\\n- Policy compliant = a bucket whose lifecycle rule matches this policy, including overrides.\\n- Tier-1 service = customer-facing or revenue-critical, with a synchronous read path and a paging on-call.\\n\\n### Storage tiers (\\u00a74)\\n\\n| Kestrel tier | Storage class | Retrieval | Min storage duration | Min billable object size |\\n|---|---|---|---|---|\\n| Hot | STANDARD | ms | none | none |\\n| Warm | STANDARD_IA | ms | 30 days | 128 KB |\\n| Cold | GLACIER_IR | ms | 90 days | 128 KB |\\n| Frozen | DEEP_ARCHIVE | 12-48 h | 180 days | 40 KB overhead |\\n\\n- Do not use any other S3 storage class (e.g. `ONEZONE_IA`, `INTELLIGENT_TIERING`, `GLACIER` Flexible Retrieval) without an approved exception.\\n- Frozen does not serve reads; an object must be restored first (12-48 h).\\n- An object deleted or transitioned out before the minimum storage duration is billed as if it had stayed the full duration.\\n- Warm/Cold bill objects smaller than 128 KB as 128 KB; Frozen adds ~40 KB per-object overhead.\\n\\n### Data class schedule (\\u00a75)\\n\\nAges are days since object creation. A range such as `30-90` means the object is in that tier from day 30 until day 90; `>365` means from day 365 onwards. `-` = tier skipped. `all` = stays in that tier for its entire life. Expire = age at which the object is deleted.\\n\\n| Data class | Hot | Warm | Cold | Frozen | Expire |\\n|---|---|---|---|---|---|\\n| telemetry-raw | 0-30 | 30-90 | 90-365 | >365 | 1095 |\\n| pod-images (proof-of-delivery photos) | 0-90 | 90-365 | >365 | not permitted | 2555 |\\n| app-logs | 0-30 | 30-90 | - | - | 90 |\\n| ml-training-snapshots | 0-30 | - | 30-365 | >365 | 730 |\\n| support-attachments | 0-30 | 30-365 | >365 | not permitted | 1825 |\\n| invoices | 0-90 | - | >90 | not permitted (7-year statutory retention) | none (manual, Legal) |\\n| db-backups | 0-3 | 3-35 | - | - | 35 |\\n| edi-documents | all | - | - | - | 365 |\\n| ephemeral-cache | all | - | - | - | 7 |\\n| scratch | all | - | - | - | 30 |\\n| static-assets | exempt from lifecycle policy | | | | |\\n\\n- The schedule is the default for the data class; overrides only remove tiers, never add.\\n- \\\"not permitted\\\" in the Frozen column is a hard cap for that data class.\\n- `static-assets` is exempt: do not add lifecycle rules to exempt buckets.\\n- Invoices have no automatic expiry; deletion after the 7-year statutory retention period is manual and Legal-owned.\\n\\n### Overrides (\\u00a76)\\n\\nApply every override that matches. When overrides and the schedule disagree, the more restrictive result wins (fewer tiers, shallower deepest tier). Overrides only ever remove transitions; they never change the Expire value. Overrides are evaluated per bucket, not per data class.\\n\\n#### Small objects (<128 KB) (\\u00a76.1)\\nIf a bucket's average object size is below 128 KB, it gets no Warm, Cold or Frozen transitions; objects stay Hot until they expire. Expiry still applies as per the schedule. (Average object size per bucket is published on Storage Cost Dashboard & Bucket Inventory.)\\n\\n#### Tier-1 readers \\u2014 no Frozen (\\u00a76.2)\\nIf any Tier-1 service reads a bucket, Frozen is not permitted for that bucket; the deepest tier is Cold. Applies even if the Tier-1 service reads the bucket rarely, and even if it is not the bucket's writer or owner.\\n\\n#### Statutory retention (invoices) (\\u00a76.3)\\nInvoices must never go to Frozen within the 7-year retention period; they must remain retrievable in milliseconds for audit and tax enquiries.\\n\\n#### Data-class caps (\\u00a76.4)\\nWhere the schedule says \\\"not permitted\\\" for Frozen, that is a cap: the data class's deepest tier is the last tier before Frozen in its row, regardless of bucket-level considerations. Caps can only be lifted by a schedule change, not by an exception.\\n\\n### Exceptions (\\u00a712)\\n\\n- Time-boxed: maximum 12 months, renewable once.\\n- An exception cannot: lift a data-class cap; allow Frozen for a bucket read by a Tier-1 service; shorten statutory retention; override a legal hold.\\n- A bucket not tiered all the way to Frozen because of an override does not need an exception.\\n\\n### Encryption (\\u00a78)\\n\\n- Tiering does not change encryption; objects keep their encryption when they transition between storage classes. Do not re-encrypt objects as part of a lifecycle change.\\n\\n## storage-cost-reduction.memory.md\\n\\n# Storage cost reduction: memory file\\n\\nLoad this into the Agent's context for Storage cost reduction work. Each line is something earlier Sessions each had to find out by trial and error.\\n\\n- Pass the bucket to blobctl as a bare name (e.g. kst-pod-images-prod), not an s3:// URI, or it fails with E_BADREF.\\n- Set STORAGE_ENV=staging before running blobctl; unset fails with E_NOENV and prod/production are denied.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"user\", \"parts\": [{\"type\": \"text\", \"content\": \"For the Tidewater change records, Legal and FinOps need to know, for each of these buckets,\\nthe deepest storage class the tiering policy permits for objects older than 365 days, and\\nthe exception code to record (as defined in the blobctl runbook; use NONE if the bucket can\\ngo all the way to the deepest tier):\\ns3://kst-invoices-archive, s3://kst-telemetry-raw-prod, s3://kst-telemetry-raw-eu,\\ns3://kst-pod-images-prod, s3://kst-support-attachments, s3://kst-ml-snapshots.\\nWrite out/t10.json as a JSON array of objects with keys\\n{\\\"bucket\\\", \\\"deepest_storage_class\\\", \\\"exception_code\\\"}, using S3 storage class names.\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me analyze each bucket.\\n\\nFor each bucket, determine the deepest storage class permitted for objects older than 365 days, and the exception code.\\n\\nLet me work through the policy.\\n\\nData class schedules:\\n- telemetry-raw: Hot 0-30, Warm 30-90, Cold 90-365, Frozen >365, Expire 1095\\n- pod-images: Hot 0-90, Warm 90-365, Cold >365, Frozen not permitted, Expire 2555\\n- app-logs: Hot 0-30, Warm 30-90, Expire 90\\n- ml-training-snapshots: Hot 0-30, Cold 30-365, Frozen >365, Expire 730\\n- support-attachments: Hot 0-30, Warm 30-365, Cold >365, Frozen not permitted, Expire 1825\\n- invoices: Hot 0-90, Cold >90, Frozen not permitted (7-year statutory retention), Expire none\\n\\nOverrides:\\n- Small objects <128KB: no Warm/Cold/Frozen transitions; stay Hot until expire.\\n- Tier-1 readers: no Frozen, deepest Cold.\\n- Statutory retention (invoices): never Frozen.\\n- Data-class caps: where schedule says \\\"not permitted\\\" for Frozen, deepest tier is last tier before Frozen.\\n\\nNow buckets:\\n\\n1. s3://kst-invoices-archive \\u2014 data class invoices. Owning team Billing. Readers: billing-core (Tier-1). Schedule: Hot 0-90, Cold >90, Frozen not permitted. So deepest for >365d = GLACIER_IR (Cold). Exception code: precedence order: STATUTORY_RETENTION, TIER1_READER, DATA_CLASS_CAP, SMALL_OBJECTS. Invoices: statutory retention prevents Frozen \\u2192 STATUTORY_RETENTION. Also Tier-1 reader (billing-core) and data-class cap. First in precedence = STATUTORY_RETENTION.\\n\\n2. s3://kst-telemetry-raw-prod \\u2014 telemetry-raw. Readers: replay-api (Tier-1), eta-trainer (Tier-3). Tier-1 reader \\u2192 no Frozen, deepest Cold = GLACIER_IR. Exception code: TIER1_READER (no statutory, no data-class cap since telemetry-raw allows Frozen). So TIER1_READER.\\n\\n3. s3://kst-telemetry-raw-eu \\u2014 telemetry-raw. Readers: eta-trainer only (Tier-3). No Tier-1 reader. So schedule applies: Frozen >365 = DEEP_ARCHIVE. Exception code: NONE.\\n\\n4. s3://kst-pod-images-prod \\u2014 pod-images. Readers: pod-service (Tier-1), claims-portal (Tier-1). Schedule: Cold >365, Frozen not permitted. Deepest = GLACIER_IR. Exception code: precedence: STATUTORY_RETENTION no; TIER1_READER yes (Tier-1 readers). So TIER1_READER. Hmm, but also DATA_CLASS_CAP. Precedence: TIER1_READER before DATA_CLASS_CAP. So TIER1_READER.\\n\\nWait, but need to think: the exception code is about why the bucket doesn't go all the way to Frozen. For pod-images, both Tier-1 reader and data-class cap apply. Precedence says TIER1_READER first. So TIER1_READER.\\n\\n5. s3://kst-support-attachments \\u2014 support-attachments. Readers: helpdesk-bridge (Tier-2). No Tier-1. Schedule: Cold >365, Frozen not permitted. Deepest = GLACIER_IR. Exception code: DATA_CLASS_CAP (no Tier-1, no statutory). So DATA_CLASS_CAP.\\n\\n6. s3://kst-ml-snapshots \\u2014 ml-training-snapshots. Readers: eta-trainer (Tier-3), feature-store (Tier-2). No Tier-1. Schedule: Frozen >365 = DEEP_ARCHIVE. Exception code: NONE.\\n\\nWait, check small objects override: ml-snapshots avg 480 MB, fine. support-attachments avg 850 KB, fine. pod-images 1.1 MB fine. invoices? not in dashboard. telemetry 2.4 MB.\\n\\nSo answers:\\n- kst-invoices-archive: GLACIER_IR, STATUTORY_RETENTION\\n- kst-telemetry-raw-prod: GLACIER_IR, TIER1_READER\\n- kst-telemetry-raw-eu: DEEP_ARCHIVE, NONE\\n- kst-pod-images-prod: GLACIER_IR, TIER1_READER\\n- kst-support-attachments: GLACIER_IR, DATA_CLASS_CAP\\n- kst-ml-snapshots: DEEP_ARCHIVE, NONE\\n\\nLet me double check invoices: data class invoices schedule Hot 0-90, Warm -, Cold >90, Frozen not permitted. So >365 = Cold = GLACIER_IR. Yes.\\n\\nNow write the file. Bucket names \\u2014 should I use s3:// form or bare? The task lists them with s3://. I'll use the s3:// form as given.\\n\\nLet me write out/t10.json.\"}, {\"type\": \"tool_call\", \"id\": \"call_cf574ed39fc7448e90756f97\", \"name\": \"write_file\", \"arguments\": {\"path\": \"out/t10.json\", \"content\": \"[\\n  {\\n    \\\"bucket\\\": \\\"s3://kst-invoices-archive\\\",\\n    \\\"deepest_storage_class\\\": \\\"GLACIER_IR\\\",\\n    \\\"exception_code\\\": \\\"STATUTORY_RETENTION\\\"\\n  },\\n  {\\n    \\\"bucket\\\": \\\"s3://kst-telemetry-raw-prod\\\",\\n    \\\"deepest_storage_class\\\": \\\"GLACIER_IR\\\",\\n    \\\"exception_code\\\": \\\"TIER1_READER\\\"\\n  },\\n  {\\n    \\\"bucket\\\": \\\"s3://kst-telemetry-raw-eu\\\",\\n    \\\"deepest_storage_class\\\": \\\"DEEP_ARCHIVE\\\",\\n    \\\"exception_code\\\": \\\"NONE\\\"\\n  },\\n  {\\n    \\\"bucket\\\": \\\"s3://kst-pod-images-prod\\\",\\n    \\\"deepest_storage_class\\\": \\\"GLACIER_IR\\\",\\n    \\\"exception_code\\\": \\\"TIER1_READER\\\"\\n  },\\n  {\\n    \\\"bucket\\\": \\\"s3://kst-support-attachments\\\",\\n    \\\"deepest_storage_class\\\": \\\"GLACIER_IR\\\",\\n    \\\"exception_code\\\": \\\"DATA_CLASS_CAP\\\"\\n  },\\n  {\\n    \\\"bucket\\\": \\\"s3://kst-ml-snapshots\\\",\\n    \\\"deepest_storage_class\\\": \\\"DEEP_ARCHIVE\\\",\\n    \\\"exception_code\\\": \\\"NONE\\\"\\n  }\\n]\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "e633881c6cb268b4d0a454b10e8c3270",
+       "spanId": "c45cd906d70b1fb5",
+       "parentSpanId": "4d1218bbd55e942f",
+       "name": "execute_tool write_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790462755166094000",
+       "endTimeUnixNano": "1790462755167603000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-scr-a-t10"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "write_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-1"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"content\": \"[\\n  {\\n    \\\"bucket\\\": \\\"s3://kst-invoices-archive\\\",\\n    \\\"deepest_storage_class\\\": \\\"GLACIER_IR\\\",\\n    \\\"exception_code\\\": \\\"STATUTORY_RETENTION\\\"\\n  },\\n  {\\n    \\\"bucket\\\": \\\"s3://kst-telemetry-raw-prod\\\",\\n    \\\"deepest_storage_class\\\": \\\"GLACIER_IR\\\",\\n    \\\"exception_code\\\": \\\"TIER1_READER\\\"\\n  },\\n  {\\n    \\\"bucket\\\": \\\"s3://kst-telemetry-raw-eu\\\",\\n    \\\"deepest_storage_class\\\": \\\"DEEP_ARCHIVE\\\",\\n    \\\"exception_code\\\": \\\"NONE\\\"\\n  },\\n  {\\n    \\\"bucket\\\": \\\"s3://kst-pod-images-prod\\\",\\n    \\\"deepest_storage_class\\\": \\\"GLACIER_IR\\\",\\n    \\\"exception_code\\\": \\\"TIER1_READER\\\"\\n  },\\n  {\\n    \\\"bucket\\\": \\\"s3://kst-support-attachments\\\",\\n    \\\"deepest_storage_class\\\": \\\"GLACIER_IR\\\",\\n    \\\"exception_code\\\": \\\"DATA_CLASS_CAP\\\"\\n  },\\n  {\\n    \\\"bucket\\\": \\\"s3://kst-ml-snapshots\\\",\\n    \\\"deepest_storage_class\\\": \\\"DEEP_ARCHIVE\\\",\\n    \\\"exception_code\\\": \\\"NONE\\\"\\n  }\\n]\", \"path\": \"out/t10.json\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "Wrote 791 bytes to out/t10.json"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "5"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "e633881c6cb268b4d0a454b10e8c3270",
+       "spanId": "ddf09ed055dda0a7",
+       "parentSpanId": "601daa798ca7001a",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790462755167747000",
+       "endTimeUnixNano": "1790462759211401000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-scr-a-t10"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "1"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "6751"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "768"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "58bb69fb9a177615"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "3311"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_cf574ed39fc7448e90756f97\", \"response\": \"Wrote 791 bytes to out/t10.json\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me double-check each.\\n\\n1. kst-invoices-archive: data class invoices. Schedule: Hot 0-90, Cold >90, Frozen not permitted (7-year statutory retention), expire none. Deepest = GLACIER_IR (Cold). Exception: statutory retention prevents Frozen \\u2192 STATUTORY_RETENTION. \\u2713\\n\\n2. kst-telemetry-raw-prod: telemetry-raw, schedule Frozen >365 \\u2192 DEEP_ARCHIVE. But read by replay-api (Tier-1). Tier-1 reader override \\u2192 no Frozen, deepest Cold = GLACIER_IR. Exception TIER1_READER. \\u2713\\n\\n3. kst-telemetry-raw-eu: telemetry-raw, readers: eta-trainer (Tier-3). Not read by replay-api. So Frozen permitted \\u2192 DEEP_ARCHIVE. Exception NONE. \\u2713\\n\\n4. kst-pod-images-prod: pod-images, schedule Frozen not permitted \\u2192 deepest Cold = GLACIER_IR. Also read by pod-service (Tier-1) and claims-portal (Tier-1). Precedence: STATUTORY_RETENTION no; TIER1_READER yes \\u2192 TIER1_READER. \\u2713 (data-class cap also applies but TIER1_READER has higher precedence)\\n\\n5. kst-support-attachments: support-attachments, schedule Frozen not permitted \\u2192 deepest Cold = GLACIER_IR. Readers: helpdesk-bridge Tier-2. No Tier-1. So DATA_CLASS_CAP. \\u2713\\n\\n6. kst-ml-snapshots: ml-training-snapshots, schedule Frozen >365 \\u2192 DEEP_ARCHIVE. Readers: eta-trainer Tier-3, feature-store Tier-2. No Tier-1. Exception NONE. \\u2713\\n\\nAll good.\"}, {\"type\": \"text\", \"content\": \"Wrote `out/t10.json`. Reasoning per bucket (deepest tier for objects >365 days, and the single exception code by runbook precedence):\\n\\n| Bucket | Data class | Deepest permitted | Exception code | Why |\\n|---|---|---|---|---|\\n| kst-invoices-archive | invoices | GLACIER_IR | STATUTORY_RETENTION | Schedule caps at Cold; 7-yr statutory retention bars Frozen |\\n| kst-telemetry-raw-prod | telemetry-raw | GLACIER_IR | TIER1_READER | Schedule would allow Frozen, but replay-api (Tier-1) reads it \\u2192 no Frozen |\\n| kst-telemetry-raw-eu | telemetry-raw | DEEP_ARCHIVE | NONE | Only eta-trainer (Tier-3) reads it; EU replay decommissioned \\u2192 full tiering |\\n| kst-pod-images-prod | pod-images | GLACIER_IR | TIER1_READER | Frozen not permitted for the class; also read by Tier-1 pod-service/claims-portal (TIER1_READER outranks DATA_CLASS_CAP) |\\n| kst-support-attachments | support-attachments | GLACIER_IR | DATA_CLASS_CAP | Frozen not permitted for the class; readers are Tier-2 only |\\n| kst-ml-snapshots | ml-training-snapshots | DEEP_ARCHIVE | NONE | Schedule allows Frozen; readers eta-trainer (Tier-3) and feature-store (Tier-2), no Tier-1 |\\n\\nNote: `s3://kst-invoices-archive` is not one of the six non-compliant WS1 buckets, but it was requested, so it's included.\"}], \"finish_reason\": \"stop\"}]"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

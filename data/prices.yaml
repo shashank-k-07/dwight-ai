@@ -1,0 +1,72 @@
+# Dwight price table: USD per 1M tokens, per model.
+#
+# Source: Z.ai public list prices, https://docs.z.ai/guides/overview/pricing
+# (checked 2026-09-26). Z.ai lists "Cached Input Storage: Limited-time Free",
+# so cache_write is priced at 0.00 here. If Z.ai starts charging for cache
+# storage, update cache_write and re-run ingest (spend is recomputed on ingest).
+#
+# Rule (build-spec §3, ADR 0006): Spend is always tokens x price, computed in
+# code from this table. The LLM never produces dollar figures.
+#
+# Token accounting (OTel GenAI semconv): gen_ai.usage.input_tokens INCLUDES
+# cache-read and cache-write tokens. So a Call's Spend is
+#   (input - cache_read - cache_write) * input
+#   + cache_read * cache_read + cache_write * cache_write
+#   + output * output
+# See backend/dwight/pricing.py.
+#
+# `tier` is a pricing-side hint (flagship > standard > light). The Customer's
+# own tier names live in the Infra Profile (data/company/infra_profile.yaml).
+# Model names are lower-case, as sent in gen_ai.request.model; aliases map
+# other spellings onto them. A provider path such as Sciforium's
+# "/deployments/<id>/deepseek-ai/DeepSeek-V4.1-Flash" resolves to its last
+# segment (pricing.normalise_model).
+#
+# Real layer (ticket 03) runs on the two Sciforium pool models below, priced at
+# their providers' own list prices. Both are tier `light`, so cheaper_model()
+# is None and Model Overkill never fires on real Sessions: that pattern lives in
+# the synthetic layer only (the fictional company's glm-5.1/4.7/4.5-air tiers).
+#   deepseek-v4.1-flash: DeepSeek list price, https://api-docs.deepseek.com/quick_start/pricing
+#     (checked 2026-09-26). Peak rates used; off-peak (outside 01-04 & 06-10 UTC
+#     Mon-Fri) is half. DeepSeek has no cache-write charge.
+#   glm-5.3-flash: Z.ai list price, https://docs.z.ai/guides/overview/pricing
+#     (checked 2026-09-26); cached input storage "limited-time free".
+
+currency: USD
+unit: per_1m_tokens
+source: https://docs.z.ai/guides/overview/pricing
+checked_on: 2026-09-26
+
+tier_order: [light, standard, flagship]   # cheapest first
+# For Model Overkill: which model a flagship Session is re-priced at.
+cheaper_tier_model:
+  flagship: glm-4.5-air
+  standard: glm-4.5-air
+
+models:
+  glm-5.1:        {tier: flagship, input: 1.40, cache_read: 0.26, cache_write: 0.00, output: 4.40}
+  glm-5:          {tier: flagship, input: 1.00, cache_read: 0.20, cache_write: 0.00, output: 3.20}
+  glm-4.5-x:      {tier: flagship, input: 2.20, cache_read: 0.45, cache_write: 0.00, output: 8.90}
+  glm-4.7:        {tier: standard, input: 0.60, cache_read: 0.11, cache_write: 0.00, output: 2.20}
+  glm-4.6:        {tier: standard, input: 0.60, cache_read: 0.11, cache_write: 0.00, output: 2.20}
+  glm-4.5:        {tier: standard, input: 0.60, cache_read: 0.11, cache_write: 0.00, output: 2.20}
+  glm-4.5-airx:   {tier: light,    input: 1.10, cache_read: 0.22, cache_write: 0.00, output: 4.50}
+  glm-4.5-air:    {tier: light,    input: 0.20, cache_read: 0.03, cache_write: 0.00, output: 1.10}
+  glm-4.7-flashx: {tier: light,    input: 0.07, cache_read: 0.01, cache_write: 0.00, output: 0.40}
+  # Free tiers: listed so ingest doesn't fail on them; their Spend is $0.
+  glm-4.7-flash:  {tier: light,    input: 0.00, cache_read: 0.00, cache_write: 0.00, output: 0.00}
+  glm-4.5-flash:  {tier: light,    input: 0.00, cache_read: 0.00, cache_write: 0.00, output: 0.00}
+  # Real-layer pool models (Sciforium). See the header note.
+  # reports_cache_usage: false = Sciforium returns no cached-token fields (ticket 03), so
+  # cache_read_tokens is always 0 and Cache Miss is not observable (detect skips it).
+  deepseek-v4.1-flash: {tier: light, input: 0.30, cache_read: 0.006, cache_write: 0.00, output: 1.20, reports_cache_usage: false}
+  glm-5.3-flash:       {tier: light, input: 0.15, cache_read: 0.03,  cache_write: 0.00, output: 0.50, reports_cache_usage: false}
+
+aliases:
+  zai/glm-5.1: glm-5.1
+  zai/glm-5: glm-5
+  zai/glm-4.7: glm-4.7
+  zai/glm-4.6: glm-4.6
+  zai/glm-4.5-air: glm-4.5-air
+  deepseek-flash: deepseek-v4.1-flash
+  zai/glm-5.3-flash: glm-5.3-flash

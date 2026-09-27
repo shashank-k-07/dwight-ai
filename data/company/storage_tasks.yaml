@@ -1,0 +1,300 @@
+# Storage cost reduction tasks (Initiative: storage-cost-reduction)
+#
+# Run by the GLM harness (ticket 03/04 "before", ticket 16 "after"). Each task
+# starts in a FRESH copy of data/company/workspace/ (the workspace root is the
+# cwd for run tools). The Agent gets `prompt` only. It reads the 4 company-docs
+# through the harness's doc tools; `needs_docs` is for us, not the Agent.
+# Never show the Agent this file, data/ground-truth/, or `reference`.
+#
+# Planted trial-and-error facts (see data/ground-truth/planted_facts.yaml) are
+# enforced by bin/blobctl. Every task with `uses_blobctl: true` hits them.
+#
+# ---- Check semantics (all checks in a task must pass) ----
+# Paths are relative to the workspace root.
+#
+# type: json_fields    -- `path` must parse as a JSON object; each entry of
+#                         `fields` is a top-level key -> matcher.
+# type: json_records   -- `path` must parse as a JSON array of objects. For each
+#                         entry in `records`, find the object whose `key` field
+#                         matches (bucket-normalised) and apply its matchers.
+# type: blobctl_plan   -- .blobctl/plans/<rule_id>.json must exist and match:
+#                         bucket (bucket-normalised), transitions as
+#                         [[days, STORAGE_CLASS], ...] in order (exact),
+#                         expire_days (exact; null = no expiry).
+# type: blobctl_apply  -- .blobctl/ledger.jsonl must contain an "action":"apply"
+#                         line with this rule_id, change and approver (exact).
+#
+# Matchers:
+#   {equals: X}             exact equality (strings compared after strip())
+#   {bucket: NAME}          string equal to NAME after removing a leading
+#                           "s3://" and any trailing "/"  (both forms accepted)
+#   {bucket_list: [..]}     JSON list, same length and order, each bucket-normalised
+#   {approx: N, abs_tol: T} number (or numeric string) within T of N
+#
+# Wrong-but-plausible answers the checks reject (designed in on purpose):
+#   t01/t07: ignoring the Tier-1 reader override (replay-api) gives saving
+#            14317.70 instead of 13505.00 and a 365:DEEP_ARCHIVE transition.
+#   t04:     ignoring the small-object override adds a 30:STANDARD_IA transition.
+#   t03/t08: rule version must be v2 (dashboard shows an existing v1 rule).
+#   t10:     pod-images needs the precedence order (TIER1_READER, not DATA_CLASS_CAP).
+
+version: 1
+initiative_id: storage-cost-reduction
+workspace: data/company/workspace        # copied fresh per task
+docs:                                    # resource_ids as they should appear in Trails
+  - company-docs/storage-tiering-policy.md
+  - company-docs/blobctl-migration-runbook.md
+  - company-docs/storage-cost-dashboard.md
+  - company-docs/storage-service-ownership.md
+
+tasks:
+  - id: t01-telemetry-prod-plan
+    uses_blobctl: true
+    needs_docs: &all4 [storage-tiering-policy, blobctl-migration-runbook, storage-cost-dashboard, storage-service-ownership]
+    prompt: |
+      Project Tidewater: prepare the lifecycle rule for the bucket s3://kst-telemetry-raw-prod.
+      Using the company storage docs (tiering policy, cost dashboard, service ownership page and
+      the blobctl runbook), work out the lifecycle rule the policy allows for this bucket and
+      record it as a blobctl plan (dry run only, do not apply). blobctl is at bin/blobctl in your
+      workspace. Then write out/t01.json with exactly these keys:
+      {"bucket": ..., "rule_id": ..., "monthly_cost_before_usd": ..., "monthly_cost_after_usd": ...,
+      "monthly_saving_usd": ...}. Use the dashboard's steady-state savings method; numbers in USD
+      rounded to cents.
+    check:
+      - type: blobctl_plan
+        rule_id: data-infra-telemetry-raw-prod-v1
+        bucket: kst-telemetry-raw-prod
+        transitions: [[30, STANDARD_IA], [90, GLACIER_IR]]
+        expire_days: 1095
+      - type: json_fields
+        path: out/t01.json
+        fields:
+          bucket: {bucket: kst-telemetry-raw-prod}
+          rule_id: {equals: data-infra-telemetry-raw-prod-v1}
+          monthly_cost_before_usd: {approx: 18860.00, abs_tol: 1.0}
+          monthly_cost_after_usd: {approx: 5355.00, abs_tol: 1.0}
+          monthly_saving_usd: {approx: 13505.00, abs_tol: 1.0}
+    reference: >-
+      bin/blobctl plan --bucket kst-telemetry-raw-prod --rule-id data-infra-telemetry-raw-prod-v1
+      --transition 30:STANDARD_IA --transition 90:GLACIER_IR --expire 1095
+
+  - id: t02-telemetry-eu-plan
+    uses_blobctl: true
+    needs_docs: *all4
+    prompt: |
+      Project Tidewater: prepare the lifecycle rule for the EU telemetry bucket
+      s3://kst-telemetry-raw-eu. Follow the storage tiering policy and the blobctl runbook, and
+      check the cost dashboard and the service ownership page for anything that changes what is
+      allowed. Record the rule as a blobctl plan (dry run only; blobctl is at bin/blobctl). Then
+      write out/t02.json with keys {"bucket", "rule_id", "monthly_cost_before_usd",
+      "monthly_cost_after_usd", "monthly_saving_usd"} using the dashboard's steady-state method,
+      USD rounded to cents.
+    check:
+      - type: blobctl_plan
+        rule_id: data-infra-telemetry-raw-eu-v1
+        bucket: kst-telemetry-raw-eu
+        transitions: [[30, STANDARD_IA], [90, GLACIER_IR], [365, DEEP_ARCHIVE]]
+        expire_days: 1095
+      - type: json_fields
+        path: out/t02.json
+        fields:
+          bucket: {bucket: kst-telemetry-raw-eu}
+          rule_id: {equals: data-infra-telemetry-raw-eu-v1}
+          monthly_cost_before_usd: {approx: 4830.00, abs_tol: 1.0}
+          monthly_cost_after_usd: {approx: 1169.30, abs_tol: 1.0}
+          monthly_saving_usd: {approx: 3660.70, abs_tol: 1.0}
+    reference: >-
+      bin/blobctl plan --bucket kst-telemetry-raw-eu --rule-id data-infra-telemetry-raw-eu-v1
+      --transition 30:STANDARD_IA --transition 90:GLACIER_IR --transition 365:DEEP_ARCHIVE --expire 1095
+
+  - id: t03-pod-images-plan
+    uses_blobctl: true
+    needs_docs: *all4
+    prompt: |
+      The Mobile team wants the proof-of-delivery photo bucket s3://kst-pod-images-prod brought
+      into line with the storage tiering policy. Work out the compliant lifecycle rule from the
+      company storage docs and record it with blobctl plan (dry run; bin/blobctl). Write
+      out/t03.json with keys {"bucket", "rule_id", "monthly_cost_before_usd",
+      "monthly_cost_after_usd", "monthly_saving_usd"} (dashboard steady-state method, USD to cents).
+    check:
+      - type: blobctl_plan
+        rule_id: mobile-apps-pod-images-prod-v2
+        bucket: kst-pod-images-prod
+        transitions: [[90, STANDARD_IA], [365, GLACIER_IR]]
+        expire_days: 2555
+      - type: json_fields
+        path: out/t03.json
+        fields:
+          bucket: {bucket: kst-pod-images-prod}
+          rule_id: {equals: mobile-apps-pod-images-prod-v2}
+          monthly_cost_before_usd: {approx: 12420.00, abs_tol: 1.0}
+          monthly_cost_after_usd: {approx: 4882.50, abs_tol: 1.0}
+          monthly_saving_usd: {approx: 7537.50, abs_tol: 1.0}
+    reference: >-
+      bin/blobctl plan --bucket kst-pod-images-prod --rule-id mobile-apps-pod-images-prod-v2
+      --transition 90:STANDARD_IA --transition 365:GLACIER_IR --expire 2555
+
+  - id: t04-app-logs-plan
+    uses_blobctl: true
+    needs_docs: *all4
+    prompt: |
+      Platform has asked for a lifecycle rule on the application log bucket s3://kst-app-logs-prod
+      as part of Project Tidewater. Using the company storage docs, determine the rule the policy
+      requires for this bucket and record it with blobctl plan (dry run; bin/blobctl). Write
+      out/t04.json with keys {"bucket", "rule_id", "monthly_cost_before_usd",
+      "monthly_cost_after_usd", "monthly_saving_usd"} (dashboard steady-state method, USD to cents).
+    check:
+      - type: blobctl_plan
+        rule_id: platform-core-app-logs-prod-v1
+        bucket: kst-app-logs-prod
+        transitions: []
+        expire_days: 90
+      - type: json_fields
+        path: out/t04.json
+        fields:
+          bucket: {bucket: kst-app-logs-prod}
+          rule_id: {equals: platform-core-app-logs-prod-v1}
+          monthly_cost_before_usd: {approx: 7130.00, abs_tol: 1.0}
+          monthly_cost_after_usd: {approx: 6095.00, abs_tol: 1.0}
+          monthly_saving_usd: {approx: 1035.00, abs_tol: 1.0}
+    reference: >-
+      bin/blobctl plan --bucket kst-app-logs-prod --rule-id platform-core-app-logs-prod-v1 --expire 90
+
+  - id: t05-ml-snapshots-plan
+    uses_blobctl: true
+    needs_docs: *all4
+    prompt: |
+      Forecasting's training snapshot bucket s3://kst-ml-snapshots has no lifecycle rule. Using the
+      company storage docs, work out the compliant rule and record it with blobctl plan (dry run;
+      bin/blobctl). Write out/t05.json with keys {"bucket", "rule_id", "monthly_cost_before_usd",
+      "monthly_cost_after_usd", "monthly_saving_usd"} (dashboard steady-state method, USD to cents).
+    check:
+      - type: blobctl_plan
+        rule_id: forecasting-ml-snapshots-v1
+        bucket: kst-ml-snapshots
+        transitions: [[30, GLACIER_IR], [365, DEEP_ARCHIVE]]
+        expire_days: 730
+      - type: json_fields
+        path: out/t05.json
+        fields:
+          bucket: {bucket: kst-ml-snapshots}
+          rule_id: {equals: forecasting-ml-snapshots-v1}
+          monthly_cost_before_usd: {approx: 5980.00, abs_tol: 1.0}
+          monthly_cost_after_usd: {approx: 1119.00, abs_tol: 1.0}
+          monthly_saving_usd: {approx: 4861.00, abs_tol: 1.0}
+    reference: >-
+      bin/blobctl plan --bucket kst-ml-snapshots --rule-id forecasting-ml-snapshots-v1
+      --transition 30:GLACIER_IR --transition 365:DEEP_ARCHIVE --expire 730
+
+  - id: t06-support-attachments-plan
+    uses_blobctl: true
+    needs_docs: *all4
+    prompt: |
+      Prepare the Project Tidewater lifecycle rule for s3://kst-support-attachments. Use the company
+      storage docs to determine what the policy allows, then record it with blobctl plan (dry run;
+      bin/blobctl). Write out/t06.json with keys {"bucket", "rule_id", "monthly_cost_before_usd",
+      "monthly_cost_after_usd", "monthly_saving_usd"} (dashboard steady-state method, USD to cents).
+    check:
+      - type: blobctl_plan
+        rule_id: integrations-support-attachments-v1
+        bucket: kst-support-attachments
+        transitions: [[30, STANDARD_IA], [365, GLACIER_IR]]
+        expire_days: 1825
+      - type: json_fields
+        path: out/t06.json
+        fields:
+          bucket: {bucket: kst-support-attachments}
+          rule_id: {equals: integrations-support-attachments-v1}
+          monthly_cost_before_usd: {approx: 828.00, abs_tol: 1.0}
+          monthly_cost_after_usd: {approx: 373.00, abs_tol: 1.0}
+          monthly_saving_usd: {approx: 455.00, abs_tol: 1.0}
+    reference: >-
+      bin/blobctl plan --bucket kst-support-attachments --rule-id integrations-support-attachments-v1
+      --transition 30:STANDARD_IA --transition 365:GLACIER_IR --expire 1825
+
+  - id: t07-savings-ranking
+    uses_blobctl: false
+    needs_docs: *all4
+    prompt: |
+      FinOps wants the Project Tidewater savings ranking. Using the company storage docs, find every
+      bucket that is in scope for Tidewater (per the blobctl runbook), work out the steady-state
+      monthly saving of bringing each one into line with the tiering policy (including all policy
+      overrides), and write out/t07.json with keys:
+      {"candidates": [bucket names, highest saving first], "total_monthly_saving_usd": ...}.
+      Write bucket names as they appear on the cost dashboard. USD rounded to cents.
+    check:
+      - type: json_fields
+        path: out/t07.json
+        fields:
+          candidates:
+            bucket_list: [kst-telemetry-raw-prod, kst-pod-images-prod, kst-ml-snapshots,
+                          kst-telemetry-raw-eu, kst-app-logs-prod, kst-support-attachments]
+          total_monthly_saving_usd: {approx: 31054.20, abs_tol: 2.0}
+
+  - id: t08-pod-images-apply
+    uses_blobctl: true
+    needs_docs: *all4
+    prompt: |
+      Change CHG-4471 has been approved for bringing s3://kst-pod-images-prod into line with the
+      storage tiering policy. Following the blobctl runbook end to end, plan and then apply the
+      compliant lifecycle rule for this bucket with bin/blobctl, naming the correct approver.
+      Finish by confirming with blobctl status.
+    check:
+      - type: blobctl_plan
+        rule_id: mobile-apps-pod-images-prod-v2
+        bucket: kst-pod-images-prod
+        transitions: [[90, STANDARD_IA], [365, GLACIER_IR]]
+        expire_days: 2555
+      - type: blobctl_apply
+        rule_id: mobile-apps-pod-images-prod-v2
+        change: CHG-4471
+        approver: "@marcus.lindqvist"
+    reference: >-
+      (t03 reference plan) then
+      bin/blobctl apply --rule-id mobile-apps-pod-images-prod-v2 --change CHG-4471 --approver @marcus.lindqvist
+
+  - id: t09-ml-snapshots-apply
+    uses_blobctl: true
+    needs_docs: *all4
+    prompt: |
+      CHG-4502 is approved for the Forecasting training snapshot bucket s3://kst-ml-snapshots.
+      Following the blobctl runbook, plan and apply the lifecycle rule the storage tiering policy
+      allows for this bucket using bin/blobctl, with the correct approver, and confirm with
+      blobctl status.
+    check:
+      - type: blobctl_plan
+        rule_id: forecasting-ml-snapshots-v1
+        bucket: kst-ml-snapshots
+        transitions: [[30, GLACIER_IR], [365, DEEP_ARCHIVE]]
+        expire_days: 730
+      - type: blobctl_apply
+        rule_id: forecasting-ml-snapshots-v1
+        change: CHG-4502
+        approver: "@tomas.okafor"
+    reference: >-
+      (t05 reference plan) then
+      bin/blobctl apply --rule-id forecasting-ml-snapshots-v1 --change CHG-4502 --approver @tomas.okafor
+
+  - id: t10-exception-codes
+    uses_blobctl: false
+    needs_docs: *all4
+    prompt: |
+      For the Tidewater change records, Legal and FinOps need to know, for each of these buckets,
+      the deepest storage class the tiering policy permits for objects older than 365 days, and
+      the exception code to record (as defined in the blobctl runbook; use NONE if the bucket can
+      go all the way to the deepest tier):
+      s3://kst-invoices-archive, s3://kst-telemetry-raw-prod, s3://kst-telemetry-raw-eu,
+      s3://kst-pod-images-prod, s3://kst-support-attachments, s3://kst-ml-snapshots.
+      Write out/t10.json as a JSON array of objects with keys
+      {"bucket", "deepest_storage_class", "exception_code"}, using S3 storage class names.
+    check:
+      - type: json_records
+        path: out/t10.json
+        key: bucket
+        records:
+          kst-invoices-archive:     {deepest_storage_class: {equals: GLACIER_IR},   exception_code: {equals: STATUTORY_RETENTION}}
+          kst-telemetry-raw-prod:   {deepest_storage_class: {equals: GLACIER_IR},   exception_code: {equals: TIER1_READER}}
+          kst-telemetry-raw-eu:     {deepest_storage_class: {equals: DEEP_ARCHIVE}, exception_code: {equals: NONE}}
+          kst-pod-images-prod:      {deepest_storage_class: {equals: GLACIER_IR},   exception_code: {equals: TIER1_READER}}
+          kst-support-attachments:  {deepest_storage_class: {equals: GLACIER_IR},   exception_code: {equals: DATA_CLASS_CAP}}
+          kst-ml-snapshots:         {deepest_storage_class: {equals: DEEP_ARCHIVE}, exception_code: {equals: NONE}}

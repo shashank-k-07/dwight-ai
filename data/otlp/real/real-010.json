@@ -1,0 +1,709 @@
+{
+ "resourceSpans": [
+  {
+   "resource": {
+    "attributes": [
+     {
+      "key": "service.name",
+      "value": {
+       "stringValue": "kestrel-devagent"
+      }
+     },
+     {
+      "key": "dwight.member.id",
+      "value": {
+       "stringValue": "m093"
+      }
+     },
+     {
+      "key": "dwight.team",
+      "value": {
+       "stringValue": "Integrations"
+      }
+     },
+     {
+      "key": "dwight.business_function",
+      "value": {
+       "stringValue": "Engineering"
+      }
+     },
+     {
+      "key": "dwight.dataset",
+      "value": {
+       "stringValue": "real"
+      }
+     }
+    ]
+   },
+   "scopeSpans": [
+    {
+     "scope": {
+      "name": "dwight.builder"
+     },
+     "spans": [
+      {
+       "traceId": "f93a526f44b9078bd080c5776aaf1a0d",
+       "spanId": "524b4eee119d8e8a",
+       "name": "invoke_agent",
+       "kind": 1,
+       "startTimeUnixNano": "1790458053514631000",
+       "endTimeUnixNano": "1790458066743059000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "invoke_agent"
+         }
+        },
+        {
+         "key": "gen_ai.agent.name",
+         "value": {
+          "stringValue": "kestrel-devagent"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-010"
+         }
+        },
+        {
+         "key": "dwight.experiment.task_success",
+         "value": {
+          "boolValue": true
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "f93a526f44b9078bd080c5776aaf1a0d",
+       "spanId": "898faf87a146a2f8",
+       "parentSpanId": "524b4eee119d8e8a",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458053514631000",
+       "endTimeUnixNano": "1790458055450718000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-010"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "0"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "928"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "106"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "699"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"You are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"user\", \"parts\": [{\"type\": \"text\", \"content\": \"Add a unit test to tests/test_misc.py checking that an invalid unicode escape (e.g. `a = \\\"\\\\uD800\\\"`) raises tomli.TOMLDecodeError. Run the test suite.\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me look at the test file and understand the structure.\"}, {\"type\": \"tool_call\", \"id\": \"call_b808df5a29f04e7a84d9f45b\", \"name\": \"read_file\", \"arguments\": {\"path\": \"tests/test_misc.py\"}}, {\"type\": \"tool_call\", \"id\": \"call_581b012db33c490bb1779b82\", \"name\": \"search\", \"arguments\": {\"pattern\": \"TOMLDecodeError\", \"path\": \"tests/test_misc.py\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "f93a526f44b9078bd080c5776aaf1a0d",
+       "spanId": "ffa258218f701815",
+       "parentSpanId": "898faf87a146a2f8",
+       "name": "execute_tool read_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458055450822000",
+       "endTimeUnixNano": "1790458055454591000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-010"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "read_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-1"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests/test_misc.py\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "# SPDX-License-Identifier: MIT\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\n# Licensed to PSF under a Contributor Agreement.\n\nimport copy\nimport datetime\nfrom decimal import Decimal as D\nimport importlib\nfrom pathlib import Path\nimport sys\nimport tempfile\nimport unittest\n\nfrom . import tomllib\n\n\nclass TestMiscellaneous(unittest.TestCase):\n    def test_load(self):\n        content = \"one=1 \\n two='two' \\n arr=[]\"\n        expected = {\"one\": 1, \"two\": \"two\", \"arr\": []}\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\n            file_path = Path(tmp_dir_path) / \"test.toml\"\n            file_path.write_text(content)\n\n            with open(file_path, \"rb\") as bin_f:\n                actual = tomllib.load(bin_f)\n        self.assertEqual(actual, expected)\n\n    def test_incorrect_load(self):\n        content = \"one=1\"\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\n            file_path = Path(tmp_dir_path) / \"test.toml\"\n            file_path.write_text(content)\n\n            with open(file_path, \"r\") as txt_f:\n                with self.assertRaises(TypeError) as exc_info:\n                    tomllib.load(txt_f)  # type: ignore[arg-type]\n            # Mypyc extension leads to different message than pure Python\n            self.assertIn(\n                str(exc_info.exception),\n                (\n                    \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\",  # noqa: E501\n                    \"bytes object expected; got str\",\n                ),\n            )\n\n    def test_parse_float(self):\n        doc = \"\"\"\n              val=0.1\n              biggest1=inf\n              biggest2=+inf\n              smallest=-inf\n              notnum1=nan\n              notnum2=-nan\n              notnum3=+nan\n              \"\"\"\n        obj = tomllib.loads(doc, parse_float=D)\n        expected = {\n            \"val\": D(\"0.1\"),\n            \"biggest1\": D(\"inf\"),\n            \"biggest2\": D(\"inf\"),\n            \"smallest\": D(\"-inf\"),\n            \"notnum1\": D(\"nan\"),\n            \"notnum2\": D(\"-nan\"),\n            \"notnum3\": D(\"nan\"),\n        }\n        for k, expected_val in expected.items():\n            actual_val = obj[k]\n            self.assertIsInstance(actual_val, D)\n            if actual_val.is_nan():\n                self.assertTrue(expected_val.is_nan())\n            else:\n                self.assertEqual(actual_val, expected_val)\n\n    def test_deepcopy(self):\n        doc = \"\"\"\n              [bliibaa.diibaa]\n              offsettime=[1979-05-27T00:32:00.999999-07:00]\n              \"\"\"\n        obj = tomllib.loads(doc)\n        obj_copy = copy.deepcopy(obj)\n        self.assertEqual(obj_copy, obj)\n        expected_obj = {\n            \"bliibaa\": {\n                \"diibaa\": {\n                    \"offsettime\": [\n                        datetime.datetime(\n                            1979,\n                            5,\n                            27,\n                            0,\n                            32,\n                            0,\n                            999999,\n                            tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\n                        )\n                    ]\n                }\n            }\n        }\n        self.assertEqual(obj_copy, expected_obj)\n\n    def test_inline_array_recursion_limit(self):\n        nest_count = 470\n        recursive_array_toml = \"arr = \" + nest_count * \"[\" + nest_count * \"]\"\n        tomllib.loads(recursive_array_toml)\n\n        nest_count = sys.getrecursionlimit() + 2\n        recursive_array_toml = \"arr = \" + nest_count * \"[\" + nest_count * \"]\"\n        with self.assertRaisesRegex(\n            RecursionError,\n            r\"maximum recursion depth exceeded\"\n            r\"|\"\n            r\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\",\n        ):\n            tomllib.loads(recursive_array_toml)\n\n    def test_inline_table_recursion_limit(self):\n        nest_count = 310\n        recursive_table_toml = nest_count * \"key = {\" + nest_count * \"}\"\n        tomllib.loads(recursive_table_toml)\n\n        nest_count = sys.getrecursionlimit() + 2\n        recursive_table_toml = nest_count * \"key = {\" + nest_count * \"}\"\n        with self.assertRaisesRegex(\n            RecursionError,\n            r\"maximum recursion depth exceeded\"\n            r\"|\"\n            r\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\",\n        ):\n            tomllib.loads(recursive_table_toml)\n\n    def test_key_recursion_limit(self):\n        nest_count = 310\n        nested_key_toml = \"a.\" * nest_count + \"a = 1\"\n        tomllib.loads(nested_key_toml)\n\n        nest_count = sys.getrecursionlimit() - 2\n        nested_key_toml = \"a.\" * nest_count + \"a = 1\"\n        tomllib.loads(nested_key_toml)\n\n        nest_count = sys.getrecursionlimit() + 2\n        nested_key_toml = \"a.\" * nest_count + \"a = 1\"\n        with self.assertRaisesRegex(\n            RecursionError,\n            r\"TOML key has more than the allowed [0-9]+ parts\",\n        ):\n            tomllib.loads(nested_key_toml)\n\n    def test_types_import(self):\n        \"\"\"Test that `_types` module runs.\n\n        The module is for type annotations only, so it is otherwise\n        never imported by tests.\n        \"\"\"\n        importlib.import_module(f\"{tomllib.__name__}._types\")\n"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "1306"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "f93a526f44b9078bd080c5776aaf1a0d",
+       "spanId": "e91a5c3f18d3231a",
+       "parentSpanId": "898faf87a146a2f8",
+       "name": "execute_tool search",
+       "kind": 1,
+       "startTimeUnixNano": "1790458055454844000",
+       "endTimeUnixNano": "1790458055455616000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-010"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "search"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-2"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests/test_misc.py\", \"pattern\": \"TOMLDecodeError\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "(no matches)"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "3"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "f93a526f44b9078bd080c5776aaf1a0d",
+       "spanId": "14c0da441cfadaf7",
+       "parentSpanId": "524b4eee119d8e8a",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458055455653000",
+       "endTimeUnixNano": "1790458056095715000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-010"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "1"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "2322"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "87"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "699"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_b808df5a29f04e7a84d9f45b\", \"response\": \"# SPDX-License-Identifier: MIT\\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\\n# Licensed to PSF under a Contributor Agreement.\\n\\nimport copy\\nimport datetime\\nfrom decimal import Decimal as D\\nimport importlib\\nfrom pathlib import Path\\nimport sys\\nimport tempfile\\nimport unittest\\n\\nfrom . import tomllib\\n\\n\\nclass TestMiscellaneous(unittest.TestCase):\\n    def test_load(self):\\n        content = \\\"one=1 \\\\n two='two' \\\\n arr=[]\\\"\\n        expected = {\\\"one\\\": 1, \\\"two\\\": \\\"two\\\", \\\"arr\\\": []}\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"rb\\\") as bin_f:\\n                actual = tomllib.load(bin_f)\\n        self.assertEqual(actual, expected)\\n\\n    def test_incorrect_load(self):\\n        content = \\\"one=1\\\"\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"r\\\") as txt_f:\\n                with self.assertRaises(TypeError) as exc_info:\\n                    tomllib.load(txt_f)  # type: ignore[arg-type]\\n            # Mypyc extension leads to different message than pure Python\\n            self.assertIn(\\n                str(exc_info.exception),\\n                (\\n                    \\\"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\\\",  # noqa: E501\\n                    \\\"bytes object expected; got str\\\",\\n                ),\\n            )\\n\\n    def test_parse_float(self):\\n        doc = \\\"\\\"\\\"\\n              val=0.1\\n              biggest1=inf\\n              biggest2=+inf\\n              smallest=-inf\\n              notnum1=nan\\n              notnum2=-nan\\n              notnum3=+nan\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc, parse_float=D)\\n        expected = {\\n            \\\"val\\\": D(\\\"0.1\\\"),\\n            \\\"biggest1\\\": D(\\\"inf\\\"),\\n            \\\"biggest2\\\": D(\\\"inf\\\"),\\n            \\\"smallest\\\": D(\\\"-inf\\\"),\\n            \\\"notnum1\\\": D(\\\"nan\\\"),\\n            \\\"notnum2\\\": D(\\\"-nan\\\"),\\n            \\\"notnum3\\\": D(\\\"nan\\\"),\\n        }\\n        for k, expected_val in expected.items():\\n            actual_val = obj[k]\\n            self.assertIsInstance(actual_val, D)\\n            if actual_val.is_nan():\\n                self.assertTrue(expected_val.is_nan())\\n            else:\\n                self.assertEqual(actual_val, expected_val)\\n\\n    def test_deepcopy(self):\\n        doc = \\\"\\\"\\\"\\n              [bliibaa.diibaa]\\n              offsettime=[1979-05-27T00:32:00.999999-07:00]\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc)\\n        obj_copy = copy.deepcopy(obj)\\n        self.assertEqual(obj_copy, obj)\\n        expected_obj = {\\n            \\\"bliibaa\\\": {\\n                \\\"diibaa\\\": {\\n                    \\\"offsettime\\\": [\\n                        datetime.datetime(\\n                            1979,\\n                            5,\\n                            27,\\n                            0,\\n                            32,\\n                            0,\\n                            999999,\\n                            tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\\n                        )\\n                    ]\\n                }\\n            }\\n        }\\n        self.assertEqual(obj_copy, expected_obj)\\n\\n    def test_inline_array_recursion_limit(self):\\n        nest_count = 470\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        tomllib.loads(recursive_array_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_array_toml)\\n\\n    def test_inline_table_recursion_limit(self):\\n        nest_count = 310\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        tomllib.loads(recursive_table_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_table_toml)\\n\\n    def test_key_recursion_limit(self):\\n        nest_count = 310\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() - 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"TOML key has more than the allowed [0-9]+ parts\\\",\\n        ):\\n            tomllib.loads(nested_key_toml)\\n\\n    def test_types_import(self):\\n        \\\"\\\"\\\"Test that `_types` module runs.\\n\\n        The module is for type annotations only, so it is otherwise\\n        never imported by tests.\\n        \\\"\\\"\\\"\\n        importlib.import_module(f\\\"{tomllib.__name__}._types\\\")\\n\"}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_581b012db33c490bb1779b82\", \"response\": \"(no matches)\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"The tests import `tomllib` from `.` \\u2014 likely a shim. Let me check tests/__init__.py. The task says raises tomli.TOMLDecodeError. Let me check.\"}, {\"type\": \"tool_call\", \"id\": \"call_6f439731149448d4992a4511\", \"name\": \"read_file\", \"arguments\": {\"path\": \"tests/__init__.py\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "f93a526f44b9078bd080c5776aaf1a0d",
+       "spanId": "ce3bc769fcd026c4",
+       "parentSpanId": "14c0da441cfadaf7",
+       "name": "execute_tool read_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458056095886000",
+       "endTimeUnixNano": "1790458056096335000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-010"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "read_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-4"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests/__init__.py\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "# SPDX-License-Identifier: MIT\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\n# Licensed to PSF under a Contributor Agreement.\n\n__all__ = (\"tomllib\",)\n\n# By changing this one line, we can run the tests against\n# a different module name.\nimport tomli as tomllib\n"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "64"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "f93a526f44b9078bd080c5776aaf1a0d",
+       "spanId": "e6f0ef2cd4c65b3c",
+       "parentSpanId": "524b4eee119d8e8a",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458056096388000",
+       "endTimeUnixNano": "1790458063931911000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-010"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "2"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "2452"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "1454"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "699"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_6f439731149448d4992a4511\", \"response\": \"# SPDX-License-Identifier: MIT\\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\\n# Licensed to PSF under a Contributor Agreement.\\n\\n__all__ = (\\\"tomllib\\\",)\\n\\n# By changing this one line, we can run the tests against\\n# a different module name.\\nimport tomli as tomllib\\n\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Add test. Note the string `a = \\\"\\\\uD800\\\"` in Python source would be an actual surrogate escape... Actually in Python source, \\\"\\\\uD800\\\" is a lone surrogate character. We want the TOML text to contain the literal backslash-u-D800 escape. So use raw string or double backslash.\\n\\nLet me add a test method.\"}, {\"type\": \"tool_call\", \"id\": \"call_95cae760d4634fae86d4aa00\", \"name\": \"write_file\", \"arguments\": {\"path\": \"tests/test_misc.py\", \"content\": \"# SPDX-License-Identifier: MIT\\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\\n# Licensed to PSF under a Contributor Agreement.\\n\\nimport copy\\nimport datetime\\nfrom decimal import Decimal as D\\nimport importlib\\nfrom pathlib import Path\\nimport sys\\nimport tempfile\\nimport unittest\\n\\nfrom . import tomllib\\n\\n\\nclass TestMiscellaneous(unittest.TestCase):\\n    def test_load(self):\\n        content = \\\"one=1 \\\\n two='two' \\\\n arr=[]\\\"\\n        expected = {\\\"one\\\": 1, \\\"two\\\": \\\"two\\\", \\\"arr\\\": []}\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"rb\\\") as bin_f:\\n                actual = tomllib.load(bin_f)\\n        self.assertEqual(actual, expected)\\n\\n    def test_incorrect_load(self):\\n        content = \\\"one=1\\\"\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"r\\\") as txt_f:\\n                with self.assertRaises(TypeError) as exc_info:\\n                    tomllib.load(txt_f)  # type: ignore[arg-type]\\n            # Mypyc extension leads to different message than pure Python\\n            self.assertIn(\\n                str(exc_info.exception),\\n                (\\n                    \\\"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\\\",  # noqa: E501\\n                    \\\"bytes object expected; got str\\\",\\n                ),\\n            )\\n\\n    def test_parse_float(self):\\n        doc = \\\"\\\"\\\"\\n              val=0.1\\n              biggest1=inf\\n              biggest2=+inf\\n              smallest=-inf\\n              notnum1=nan\\n              notnum2=-nan\\n              notnum3=+nan\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc, parse_float=D)\\n        expected = {\\n            \\\"val\\\": D(\\\"0.1\\\"),\\n            \\\"biggest1\\\": D(\\\"inf\\\"),\\n            \\\"biggest2\\\": D(\\\"inf\\\"),\\n            \\\"smallest\\\": D(\\\"-inf\\\"),\\n            \\\"notnum1\\\": D(\\\"nan\\\"),\\n            \\\"notnum2\\\": D(\\\"-nan\\\"),\\n            \\\"notnum3\\\": D(\\\"nan\\\"),\\n        }\\n        for k, expected_val in expected.items():\\n            actual_val = obj[k]\\n            self.assertIsInstance(actual_val, D)\\n            if actual_val.is_nan():\\n                self.assertTrue(expected_val.is_nan())\\n            else:\\n                self.assertEqual(actual_val, expected_val)\\n\\n    def test_deepcopy(self):\\n        doc = \\\"\\\"\\\"\\n              [bliibaa.diibaa]\\n              offsettime=[1979-05-27T00:32:00.999999-07:00]\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc)\\n        obj_copy = copy.deepcopy(obj)\\n        self.assertEqual(obj_copy, obj)\\n        expected_obj = {\\n            \\\"bliibaa\\\": {\\n                \\\"diibaa\\\": {\\n                    \\\"offsettime\\\": [\\n                        datetime.datetime(\\n                            1979,\\n                            5,\\n                            27,\\n                            0,\\n                            32,\\n                            0,\\n                            999999,\\n                            tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\\n                        )\\n                    ]\\n                }\\n            }\\n        }\\n        self.assertEqual(obj_copy, expected_obj)\\n\\n    def test_invalid_unicode_escape(self):\\n        with self.assertRaises(tomllib.TOMLDecodeError):\\n            tomllib.loads('a = \\\"\\\\\\\\uD800\\\"')\\n\\n    def test_inline_array_recursion_limit(self):\\n        nest_count = 470\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        tomllib.loads(recursive_array_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_array_toml)\\n\\n    def test_inline_table_recursion_limit(self):\\n        nest_count = 310\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        tomllib.loads(recursive_table_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_table_toml)\\n\\n    def test_key_recursion_limit(self):\\n        nest_count = 310\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() - 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"TOML key has more than the allowed [0-9]+ parts\\\",\\n        ):\\n            tomllib.loads(nested_key_toml)\\n\\n    def test_types_import(self):\\n        \\\"\\\"\\\"Test that `_types` module runs.\\n\\n        The module is for type annotations only, so it is otherwise\\n        never imported by tests.\\n        \\\"\\\"\\\"\\n        importlib.import_module(f\\\"{tomllib.__name__}._types\\\")\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "f93a526f44b9078bd080c5776aaf1a0d",
+       "spanId": "c561dd07ae20d872",
+       "parentSpanId": "e6f0ef2cd4c65b3c",
+       "name": "execute_tool write_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458063932017000",
+       "endTimeUnixNano": "1790458063932504000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-010"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "write_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-6"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"content\": \"# SPDX-License-Identifier: MIT\\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\\n# Licensed to PSF under a Contributor Agreement.\\n\\nimport copy\\nimport datetime\\nfrom decimal import Decimal as D\\nimport importlib\\nfrom pathlib import Path\\nimport sys\\nimport tempfile\\nimport unittest\\n\\nfrom . import tomllib\\n\\n\\nclass TestMiscellaneous(unittest.TestCase):\\n    def test_load(self):\\n        content = \\\"one=1 \\\\n two='two' \\\\n arr=[]\\\"\\n        expected = {\\\"one\\\": 1, \\\"two\\\": \\\"two\\\", \\\"arr\\\": []}\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"rb\\\") as bin_f:\\n                actual = tomllib.load(bin_f)\\n        self.assertEqual(actual, expected)\\n\\n    def test_incorrect_load(self):\\n        content = \\\"one=1\\\"\\n        with tempfile.TemporaryDirectory() as tmp_dir_path:\\n            file_path = Path(tmp_dir_path) / \\\"test.toml\\\"\\n            file_path.write_text(content)\\n\\n            with open(file_path, \\\"r\\\") as txt_f:\\n                with self.assertRaises(TypeError) as exc_info:\\n                    tomllib.load(txt_f)  # type: ignore[arg-type]\\n            # Mypyc extension leads to different message than pure Python\\n            self.assertIn(\\n                str(exc_info.exception),\\n                (\\n                    \\\"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\\\",  # noqa: E501\\n                    \\\"bytes object expected; got str\\\",\\n                ),\\n            )\\n\\n    def test_parse_float(self):\\n        doc = \\\"\\\"\\\"\\n              val=0.1\\n              biggest1=inf\\n              biggest2=+inf\\n              smallest=-inf\\n              notnum1=nan\\n              notnum2=-nan\\n              notnum3=+nan\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc, parse_float=D)\\n        expected = {\\n            \\\"val\\\": D(\\\"0.1\\\"),\\n            \\\"biggest1\\\": D(\\\"inf\\\"),\\n            \\\"biggest2\\\": D(\\\"inf\\\"),\\n            \\\"smallest\\\": D(\\\"-inf\\\"),\\n            \\\"notnum1\\\": D(\\\"nan\\\"),\\n            \\\"notnum2\\\": D(\\\"-nan\\\"),\\n            \\\"notnum3\\\": D(\\\"nan\\\"),\\n        }\\n        for k, expected_val in expected.items():\\n            actual_val = obj[k]\\n            self.assertIsInstance(actual_val, D)\\n            if actual_val.is_nan():\\n                self.assertTrue(expected_val.is_nan())\\n            else:\\n                self.assertEqual(actual_val, expected_val)\\n\\n    def test_deepcopy(self):\\n        doc = \\\"\\\"\\\"\\n              [bliibaa.diibaa]\\n              offsettime=[1979-05-27T00:32:00.999999-07:00]\\n              \\\"\\\"\\\"\\n        obj = tomllib.loads(doc)\\n        obj_copy = copy.deepcopy(obj)\\n        self.assertEqual(obj_copy, obj)\\n        expected_obj = {\\n            \\\"bliibaa\\\": {\\n                \\\"diibaa\\\": {\\n                    \\\"offsettime\\\": [\\n                        datetime.datetime(\\n                            1979,\\n                            5,\\n                            27,\\n                            0,\\n                            32,\\n                            0,\\n                            999999,\\n                            tzinfo=datetime.timezone(datetime.timedelta(hours=-7)),\\n                        )\\n                    ]\\n                }\\n            }\\n        }\\n        self.assertEqual(obj_copy, expected_obj)\\n\\n    def test_invalid_unicode_escape(self):\\n        with self.assertRaises(tomllib.TOMLDecodeError):\\n            tomllib.loads('a = \\\"\\\\\\\\uD800\\\"')\\n\\n    def test_inline_array_recursion_limit(self):\\n        nest_count = 470\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        tomllib.loads(recursive_array_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_array_toml = \\\"arr = \\\" + nest_count * \\\"[\\\" + nest_count * \\\"]\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_array_toml)\\n\\n    def test_inline_table_recursion_limit(self):\\n        nest_count = 310\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        tomllib.loads(recursive_table_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        recursive_table_toml = nest_count * \\\"key = {\\\" + nest_count * \\\"}\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"maximum recursion depth exceeded\\\"\\n            r\\\"|\\\"\\n            r\\\"TOML inline arrays/tables are nested more than the allowed [0-9]+ levels\\\",\\n        ):\\n            tomllib.loads(recursive_table_toml)\\n\\n    def test_key_recursion_limit(self):\\n        nest_count = 310\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() - 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        tomllib.loads(nested_key_toml)\\n\\n        nest_count = sys.getrecursionlimit() + 2\\n        nested_key_toml = \\\"a.\\\" * nest_count + \\\"a = 1\\\"\\n        with self.assertRaisesRegex(\\n            RecursionError,\\n            r\\\"TOML key has more than the allowed [0-9]+ parts\\\",\\n        ):\\n            tomllib.loads(nested_key_toml)\\n\\n    def test_types_import(self):\\n        \\\"\\\"\\\"Test that `_types` module runs.\\n\\n        The module is for type annotations only, so it is otherwise\\n        never imported by tests.\\n        \\\"\\\"\\\"\\n        importlib.import_module(f\\\"{tomllib.__name__}._types\\\")\", \"path\": \"tests/test_misc.py\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "Wrote 5441 bytes to tests/test_misc.py"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "9"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "f93a526f44b9078bd080c5776aaf1a0d",
+       "spanId": "8b188370b2af330c",
+       "parentSpanId": "524b4eee119d8e8a",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458063932554000",
+       "endTimeUnixNano": "1790458065488850000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-010"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "3"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "3854"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "44"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "699"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_95cae760d4634fae86d4aa00\", \"response\": \"Wrote 5441 bytes to tests/test_misc.py\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"tool_call\", \"id\": \"call_a7bcb31955954306bd8afb6b\", \"name\": \"run_tests\", \"arguments\": {\"path\": \"tests/test_misc.py\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "f93a526f44b9078bd080c5776aaf1a0d",
+       "spanId": "d9b6c0995aa3afeb",
+       "parentSpanId": "8b188370b2af330c",
+       "name": "execute_tool run_tests",
+       "kind": 1,
+       "startTimeUnixNano": "1790458065489054000",
+       "endTimeUnixNano": "1790458065680601000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-010"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_tests"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-8"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests/test_misc.py\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\n.........                                                                [100%]\n9 passed in <duration>"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "28"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "f93a526f44b9078bd080c5776aaf1a0d",
+       "spanId": "9c9e7c48a7e5ac7c",
+       "parentSpanId": "524b4eee119d8e8a",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458065680645000",
+       "endTimeUnixNano": "1790458066743059000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-010"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "4"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "3926"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "59"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "699"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_a7bcb31955954306bd8afb6b\", \"response\": \"exit code: 0\\n.........                                                                [100%]\\n9 passed in <duration>\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"text\", \"content\": \"Added `test_invalid_unicode_escape` to `tests/test_misc.py`, which asserts that `tomllib.loads('a = \\\"\\\\\\\\uD800\\\"')` raises `tomllib.TOMLDecodeError`. Ran the test file: 9 passed.\"}], \"finish_reason\": \"stop\"}]"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

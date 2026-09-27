@@ -1,0 +1,1725 @@
+{
+ "resourceSpans": [
+  {
+   "resource": {
+    "attributes": [
+     {
+      "key": "service.name",
+      "value": {
+       "stringValue": "kestrel-devagent"
+      }
+     },
+     {
+      "key": "dwight.member.id",
+      "value": {
+       "stringValue": "m096"
+      }
+     },
+     {
+      "key": "dwight.team",
+      "value": {
+       "stringValue": "Integrations"
+      }
+     },
+     {
+      "key": "dwight.business_function",
+      "value": {
+       "stringValue": "Engineering"
+      }
+     },
+     {
+      "key": "dwight.dataset",
+      "value": {
+       "stringValue": "real"
+      }
+     }
+    ]
+   },
+   "scopeSpans": [
+    {
+     "scope": {
+      "name": "dwight.builder"
+     },
+     "spans": [
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "0cefd6e790dbfa0f",
+       "name": "invoke_agent",
+       "kind": 1,
+       "startTimeUnixNano": "1790458145400189000",
+       "endTimeUnixNano": "1790458188814425000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "invoke_agent"
+         }
+        },
+        {
+         "key": "gen_ai.agent.name",
+         "value": {
+          "stringValue": "kestrel-devagent"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "dwight.experiment.task_success",
+         "value": {
+          "boolValue": false
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "a310a98b61dacfe9",
+       "parentSpanId": "0cefd6e790dbfa0f",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458145400189000",
+       "endTimeUnixNano": "1790458145804047000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "0"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "964"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "51"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "702"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:05.400154+00:00 request 16cf1a476066\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"user\", \"parts\": [{\"type\": \"text\", \"content\": \"Document how tomli parses dotted keys and detects redefinition of tables and keys (the flags/namespace bookkeeping in src/tomli/_parser.py). Write the note to out/dotted-keys.md.\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me inspect the parser.\"}, {\"type\": \"tool_call\", \"id\": \"call_03f79963651a4021a0c19ef6\", \"name\": \"read_file\", \"arguments\": {\"path\": \"src/tomli/_parser.py\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "16f67e74fbc96ebd",
+       "parentSpanId": "a310a98b61dacfe9",
+       "name": "execute_tool read_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458145804121000",
+       "endTimeUnixNano": "1790458145804409000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "read_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-1"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"src/tomli/_parser.py\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "# SPDX-License-Identifier: MIT\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\n# Licensed to PSF under a Contributor Agreement.\n\nfrom __future__ import annotations\n\nimport sys\nfrom types import MappingProxyType\n\nfrom ._re import (\n    RE_DATETIME,\n    RE_LOCALTIME,\n    RE_NUMBER,\n    match_to_datetime,\n    match_to_localtime,\n    match_to_number,\n)\n\nTYPE_CHECKING = False\nif TYPE_CHECKING:\n    from collections.abc import Iterable\n    from typing import IO, Any, Final\n\n    from ._types import Key, ParseFloat, Pos\n\n# Inline tables/arrays are implemented using recursion. Pathologically\n# nested documents cause pure Python to raise RecursionError (which is OK),\n# but mypyc binary wheels will crash unrecoverably (not OK). According to\n# mypyc docs this will be fixed in the future:\n# https://mypyc.readthedocs.io/en/latest/differences_from_python.html#stack-overflows\n# Before mypyc's fix is in, recursion needs to be limited by this library.\n# Choosing `sys.getrecursionlimit()` as maximum inline table/array nesting\n# level, as it allows more nesting than pure Python, but still seems a far\n# lower number than where mypyc binaries crash.\nMAX_INLINE_NESTING: Final = sys.getrecursionlimit()\n\n# Pathologically excessive number of parts in a key runs into quadratic\n# behavior (e.g. in Flags.is_).\n# Even if keys aren't currently parsed using recursion, they name a\n# recursive structure, so it makes sense to limit it using getrecursionlimit()\n# and RecursionError.\nMAX_KEY_PARTS: Final = sys.getrecursionlimit()\n\nASCII_CTRL: Final = frozenset(chr(i) for i in range(32)) | frozenset(chr(127))\n\n# Neither of these sets include quotation mark or backslash. They are\n# currently handled as separate cases in the parser functions.\nILLEGAL_BASIC_STR_CHARS: Final = ASCII_CTRL - frozenset(\"\\t\")\nILLEGAL_MULTILINE_BASIC_STR_CHARS: Final = ASCII_CTRL - frozenset(\"\\t\\n\")\n\nILLEGAL_LITERAL_STR_CHARS: Final = ILLEGAL_BASIC_STR_CHARS\nILLEGAL_MULTILINE_LITERAL_STR_CHARS: Final = ILLEGAL_MULTILINE_BASIC_STR_CHARS\n\nILLEGAL_COMMENT_CHARS: Final = ILLEGAL_BASIC_STR_CHARS\n\nTOML_WS: Final = frozenset(\" \\t\")\nTOML_WS_AND_NEWLINE: Final = TOML_WS | frozenset(\"\\n\")\nBARE_KEY_CHARS: Final = frozenset(\n    \"abcdefghijklmnopqrstuvwxyz\" \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\" \"0123456789\" \"-_\"\n)\nKEY_INITIAL_CHARS: Final = BARE_KEY_CHARS | frozenset(\"\\\"'\")\nHEXDIGIT_CHARS: Final = frozenset(\"abcdef\" \"ABCDEF\" \"0123456789\")\n\nBASIC_STR_ESCAPE_REPLACEMENTS: Final = MappingProxyType(\n    {\n        \"\\\\b\": \"\\u0008\",  # backspace\n        \"\\\\t\": \"\\u0009\",  # tab\n        \"\\\\n\": \"\\u000a\",  # linefeed\n        \"\\\\f\": \"\\u000c\",  # form feed\n        \"\\\\r\": \"\\u000d\",  # carriage return\n        \"\\\\e\": \"\\u001b\",  # escape\n        '\\\\\"': \"\\u0022\",  # quote\n        \"\\\\\\\\\": \"\\u005c\",  # backslash\n    }\n)\n\n\nclass DEPRECATED_DEFAULT:\n    \"\"\"Sentinel to be used as default arg during deprecation\n    period of TOMLDecodeError's free-form arguments.\"\"\"\n\n\nclass TOMLDecodeError(ValueError):\n    \"\"\"An error raised if a document is not valid TOML.\n\n    Adds the following attributes to ValueError:\n    msg: The unformatted error message\n    doc: The TOML document being parsed\n    pos: The index of doc where parsing failed\n    lineno: The line corresponding to pos\n    colno: The column corresponding to pos\n    \"\"\"\n\n    def __init__(\n        self,\n        msg: str | type[DEPRECATED_DEFAULT] = DEPRECATED_DEFAULT,\n        doc: str | type[DEPRECATED_DEFAULT] = DEPRECATED_DEFAULT,\n        pos: Pos | type[DEPRECATED_DEFAULT] = DEPRECATED_DEFAULT,\n        *args: Any,\n    ):\n        if (\n            args\n            or not isinstance(msg, str)\n            or not isinstance(doc, str)\n            or not isinstance(pos, int)\n        ):\n            import warnings\n\n            warnings.warn(\n                \"Free-form arguments for TOMLDecodeError are deprecated. \"\n                \"Please set 'msg' (str), 'doc' (str) and 'pos' (int) arguments only.\",\n                DeprecationWarning,\n                stacklevel=2,\n            )\n            if pos is not DEPRECATED_DEFAULT:\n                args = pos, *args\n            if doc is not DEPRECATED_DEFAULT:\n                args = doc, *args\n            if msg is not DEPRECATED_DEFAULT:\n                args = msg, *args\n            ValueError.__init__(self, *args)\n            return\n\n        lineno = doc.count(\"\\n\", 0, pos) + 1\n        if lineno == 1:\n            colno = pos + 1\n        else:\n            colno = pos - doc.rindex(\"\\n\", 0, pos)\n\n        if pos >= len(doc):\n            coord_repr = \"end of document\"\n        else:\n            coord_repr = f\"line {lineno}, column {colno}\"\n        errmsg = f\"{msg} (at {coord_repr})\"\n        ValueError.__init__(self, errmsg)\n\n        self.msg = msg\n        self.doc = doc\n        self.pos = pos\n        self.lineno = lineno\n        self.colno = colno\n\n\ndef load(__fp: IO[bytes], *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a binary file object.\"\"\"\n    b = __fp.read()\n    try:\n        s = b.decode()\n    except AttributeError:\n        raise TypeError(\n            \"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\"\n        ) from None\n    return loads(s, parse_float=parse_float)\n\n\ndef loads(__s: str, *, parse_float: ParseFloat = float) -> dict[str, Any]:\n    \"\"\"Parse TOML from a string.\"\"\"\n\n    # The spec allows converting \"\\r\\n\" to \"\\n\", even in string\n    # literals. Let's do so to simplify parsing.\n    try:\n        src = __s.replace(\"\\r\\n\", \"\\n\")\n    except (AttributeError, TypeError):\n        raise TypeError(\n            f\"Expected str object, not '{type(__s).__qualname__}'\"\n        ) from None\n    pos = 0\n    out = Output()\n    header: Key = ()\n    parse_float = make_safe_parse_float(parse_float)\n\n    # Parse one statement at a time\n    # (typically means one line in TOML source)\n    while True:\n        # 1. Skip line leading whitespace\n        pos = skip_chars(src, pos, TOML_WS)\n\n        # 2. Parse rules. Expect one of the following:\n        #    - end of file\n        #    - end of line\n        #    - comment\n        #    - key/value pair\n        #    - append dict to list (and move to its namespace)\n        #    - create dict (and move to its namespace)\n        # Skip trailing whitespace when applicable.\n        try:\n            char = src[pos]\n        except IndexError:\n            break\n        if char == \"\\n\":\n            pos += 1\n            continue\n        if char in KEY_INITIAL_CHARS:\n            pos = key_value_rule(src, pos, out, header, parse_float)\n            pos = skip_chars(src, pos, TOML_WS)\n        elif char == \"[\":\n            try:\n                second_char: str | None = src[pos + 1]\n            except IndexError:\n                second_char = None\n            out.flags.finalize_pending()\n            if second_char == \"[\":\n                pos, header = create_list_rule(src, pos, out)\n            else:\n                pos, header = create_dict_rule(src, pos, out)\n            pos = skip_chars(src, pos, TOML_WS)\n        elif char != \"#\":\n            raise TOMLDecodeError(\"Invalid statement\", src, pos)\n\n        # 3. Skip comment\n        pos = skip_comment(src, pos)\n\n        # 4. Expect end of line or end of file\n        try:\n            char = src[pos]\n        except IndexError:\n            break\n        if char != \"\\n\":\n            raise TOMLDecodeError(\n                \"Expected newline or end of document after a statement\", src, pos\n            )\n        pos += 1\n\n    return out.data.dict\n\n\nclass Flags:\n    \"\"\"Flags that map to parsed keys/namespaces.\"\"\"\n\n    # Marks an immutable namespace (inline array or inline table).\n    FROZEN: Final = 0\n    # Marks a nest that has been explicitly created and can no longer\n    # be opened using the \"[table]\" syntax.\n    EXPLICIT_NEST: Final = 1\n\n    def __init__(self) -> None:\n        self._flags: dict[str, dict[Any, Any]] = {}\n        self._pending_flags: set[tuple[Key, int]] = set()\n\n    def add_pending(self, key: Key, flag: int) -> None:\n        self._pending_flags.add((key, flag))\n\n    def finalize_pending(self) -> None:\n        for key, flag in self._pending_flags:\n            self.set(key, flag, recursive=False)\n        self._pending_flags.clear()\n\n    def unset_all(self, key: Key) -> None:\n        cont = self._flags\n        for k in key[:-1]:\n            if k not in cont:\n                return\n            cont = cont[k][\"nested\"]\n        cont.pop(key[-1], None)\n\n    def set(self, key: Key, flag: int, *, recursive: bool) -> None:  # noqa: A003\n        cont = self._flags\n        key_parent, key_stem = key[:-1], key[-1]\n        for k in key_parent:\n            if k not in cont:\n                cont[k] = {\"flags\": set(), \"recursive_flags\": set(), \"nested\": {}}\n            cont = cont[k][\"nested\"]\n        if key_stem not in cont:\n            cont[key_stem] = {\"flags\": set(), \"recursive_flags\": set(), \"nested\": {}}\n        cont[key_stem][\"recursive_flags\" if recursive else \"flags\"].add(flag)\n\n    def is_(self, key: Key, flag: int) -> bool:\n        if not key:\n            return False  # document root has no flags\n        cont = self._flags\n        for k in key[:-1]:\n            if k not in cont:\n                return False\n            inner_cont = cont[k]\n            if flag in inner_cont[\"recursive_flags\"]:\n                return True\n            cont = inner_cont[\"nested\"]\n        key_stem = key[-1]\n        if key_stem in cont:\n            inner_cont = cont[key_stem]\n            return flag in inner_cont[\"flags\"] or flag in inner_cont[\"recursive_flags\"]\n        return False\n\n\nclass NestedDict:\n    def __init__(self) -> None:\n        # The parsed content of the TOML document\n        self.dict: dict[str, Any] = {}\n\n    def get_or_create_nest(\n        self,\n        key: Key,\n        *,\n        access_lists: bool = True,\n    ) -> dict[str, Any]:\n        cont: Any = self.dict\n        for k in key:\n            if k not in cont:\n                cont[k] = {}\n            cont = cont[k]\n            if access_lists and isinstance(cont, list):\n                cont = cont[-1]\n            if not isinstance(cont, dict):\n                raise KeyError(\"There is no nest behind this key\")\n        return cont  # type: ignore[no-any-return]\n\n    def append_nest_to_list(self, key: Key) -> None:\n        cont = self.get_or_create_nest(key[:-1])\n        last_key = key[-1]\n        if last_key in cont:\n            list_ = cont[last_key]\n            if not isinstance(list_, list):\n                raise KeyError(\"An object other than list found behind this key\")\n            list_.append({})\n        else:\n            cont[last_key] = [{}]\n\n\nclass Output:\n    def __init__(self) -> None:\n        self.data = NestedDict()\n        self.flags = Flags()\n\n\ndef skip_chars(src: str, pos: Pos, chars: Iterable[str]) -> Pos:\n    try:\n        while src[pos] in chars:\n            pos += 1\n    except IndexError:\n        pass\n    return pos\n\n\ndef skip_until(\n    src: str,\n    pos: Pos,\n    expect: str,\n    *,\n    error_on: frozenset[str],\n    error_on_eof: bool,\n) -> Pos:\n    try:\n        new_pos = src.index(expect, pos)\n    except ValueError:\n        new_pos = len(src)\n        if error_on_eof:\n            raise TOMLDecodeError(f\"Expected {expect!r}\", src, new_pos) from None\n\n    if not error_on.isdisjoint(src[pos:new_pos]):\n        while src[pos] not in error_on:\n            pos += 1\n        raise TOMLDecodeError(f\"Found invalid character {src[pos]!r}\", src, pos)\n    return new_pos\n\n\ndef skip_comment(src: str, pos: Pos) -> Pos:\n    try:\n        char: str | None = src[pos]\n    except IndexError:\n        char = None\n    if char == \"#\":\n        return skip_until(\n            src, pos + 1, \"\\n\", error_on=ILLEGAL_COMMENT_CHARS, error_on_eof=False\n        )\n    return pos\n\n\ndef skip_comments_and_array_ws(src: str, pos: Pos) -> Pos:\n    while True:\n        pos_before_skip = pos\n        pos = skip_chars(src, pos, TOML_WS_AND_NEWLINE)\n        pos = skip_comment(src, pos)\n        if pos == pos_before_skip:\n            return pos\n\n\ndef create_dict_rule(src: str, pos: Pos, out: Output) -> tuple[Pos, Key]:\n    pos += 1  # Skip \"[\"\n    pos = skip_chars(src, pos, TOML_WS)\n    pos, key = parse_key(src, pos)\n\n    if out.flags.is_(key, Flags.EXPLICIT_NEST) or out.flags.is_(key, Flags.FROZEN):\n        raise TOMLDecodeError(f\"Cannot declare {key} twice\", src, pos)\n    out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)\n    try:\n        out.data.get_or_create_nest(key)\n    except KeyError:\n        raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None\n\n    if not src.startswith(\"]\", pos):\n        raise TOMLDecodeError(\n            \"Expected ']' at the end of a table declaration\", src, pos\n        )\n    return pos + 1, key\n\n\ndef create_list_rule(src: str, pos: Pos, out: Output) -> tuple[Pos, Key]:\n    pos += 2  # Skip \"[[\"\n    pos = skip_chars(src, pos, TOML_WS)\n    pos, key = parse_key(src, pos)\n\n    if out.flags.is_(key, Flags.FROZEN):\n        raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)\n    # Free the namespace now that it points to another empty list item...\n    out.flags.unset_all(key)\n    # ...but this key precisely is still prohibited from table declaration\n    out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)\n    try:\n        out.data.append_nest_to_list(key)\n    except KeyError:\n        raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None\n\n    if not src.startswith(\"]]\", pos):\n        raise TOMLDecodeError(\n            \"Expected ']]' at the end of an array declaration\", src, pos\n        )\n    return pos + 2, key\n\n\ndef key_value_rule(\n    src: str, pos: Pos, out: Output, header: Key, parse_float: ParseFloat\n) -> Pos:\n    pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl=0)\n    key_parent, key_stem = key[:-1], key[-1]\n    abs_key_parent = header + key_parent\n\n    relative_path_cont_keys = (header + key[:i] for i in range(1, len(key)))\n    for cont_key in relative_path_cont_keys:\n        # Check that dotted key syntax does not redefine an existing table\n        if out.flags.is_(cont_key, Flags.EXPLICIT_NEST):\n            raise TOMLDecodeError(f\"Cannot redefine namespace {cont_key}\", src, pos)\n        # Containers in the relative path can't be opened with the table syntax or\n        # dotted key/value syntax in following table sections.\n        out.flags.add_pending(cont_key, Flags.EXPLICIT_NEST)\n\n    if out.flags.is_(abs_key_parent, Flags.FROZEN):\n        raise TOMLDecodeError(\n            f\"Cannot mutate immutable namespace {abs_key_parent}\", src, pos\n        )\n\n    try:\n        nest = out.data.get_or_create_nest(abs_key_parent)\n    except KeyError:\n        raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None\n    if key_stem in nest:\n        raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos)\n    # Mark inline table and array namespaces recursively immutable\n    if isinstance(value, (dict, list)):\n        out.flags.set(header + key, Flags.FROZEN, recursive=True)\n    nest[key_stem] = value\n    return pos\n\n\ndef parse_key_value_pair(\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\n) -> tuple[Pos, Key, Any]:\n    pos, key = parse_key(src, pos)\n    try:\n        char: str | None = src[pos]\n    except IndexError:\n        char = None\n    if char != \"=\":\n        raise TOMLDecodeError(\"Expected '=' after a key in a key/value pair\", src, pos)\n    pos += 1\n    pos = skip_chars(src, pos, TOML_WS)\n    pos, value = parse_value(src, pos, parse_float, nest_lvl)\n    return pos, key, value\n\n\ndef parse_key(src: str, pos: Pos) -> tuple[Pos, Key]:\n    pos, key_part = parse_key_part(src, pos)\n    key: Key = (key_part,)\n    pos = skip_chars(src, pos, TOML_WS)\n    while True:\n        try:\n            char: str | None = src[pos]\n        except IndexError:\n            char = None\n        if char != \".\":\n            return pos, key\n        pos += 1\n        pos = skip_chars(src, pos, TOML_WS)\n        pos, key_part = parse_key_part(src, pos)\n        key += (key_part,)\n        if len(key) > MAX_KEY_PARTS:\n            raise RecursionError(\n                f\"TOML key has more than the allowed {MAX_KEY_PARTS} parts\"\n            )\n        pos = skip_chars(src, pos, TOML_WS)\n\n\ndef parse_key_part(src: str, pos: Pos) -> tuple[Pos, str]:\n    try:\n        char: str | None = src[pos]\n    except IndexError:\n        char = None\n    if char in BARE_KEY_CHARS:\n        start_pos = pos\n        pos = skip_chars(src, pos, BARE_KEY_CHARS)\n        return pos, src[start_pos:pos]\n    if char == \"'\":\n        return parse_literal_str(src, pos)\n    if char == '\"':\n        return parse_one_line_basic_str(src, pos)\n    raise TOMLDecodeError(\"Invalid initial character for a key part\", src, pos)\n\n\ndef parse_one_line_basic_str(src: str, pos: Pos) -> tuple[Pos, str]:\n    pos += 1\n    return parse_basic_str(src, pos, multiline=False)\n\n\ndef parse_array(\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\n) -> tuple[Pos, list[Any]]:\n    pos += 1\n    array: list[Any] = []\n\n    pos = skip_comments_and_array_ws(src, pos)\n    if src.startswith(\"]\", pos):\n        return pos + 1, array\n    while True:\n        pos, val = parse_value(src, pos, parse_float, nest_lvl)\n        array.append(val)\n        pos = skip_comments_and_array_ws(src, pos)\n\n        c = src[pos : pos + 1]\n        if c == \"]\":\n            return pos + 1, array\n        if c != \",\":\n            raise TOMLDecodeError(\"Unclosed array\", src, pos)\n        pos += 1\n\n        pos = skip_comments_and_array_ws(src, pos)\n        if src.startswith(\"]\", pos):\n            return pos + 1, array\n\n\ndef parse_inline_table(\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\n) -> tuple[Pos, dict[str, Any]]:\n    pos += 1\n    nested_dict = NestedDict()\n    flags = Flags()\n\n    pos = skip_comments_and_array_ws(src, pos)\n    if src.startswith(\"}\", pos):\n        return pos + 1, nested_dict.dict\n    while True:\n        pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl)\n        key_parent, key_stem = key[:-1], key[-1]\n        if flags.is_(key, Flags.FROZEN):\n            raise TOMLDecodeError(f\"Cannot mutate immutable namespace {key}\", src, pos)\n        try:\n            nest = nested_dict.get_or_create_nest(key_parent, access_lists=False)\n        except KeyError:\n            raise TOMLDecodeError(\"Cannot overwrite a value\", src, pos) from None\n        if key_stem in nest:\n            raise TOMLDecodeError(f\"Duplicate inline table key {key_stem!r}\", src, pos)\n        nest[key_stem] = value\n        pos = skip_comments_and_array_ws(src, pos)\n        c = src[pos : pos + 1]\n        if c == \"}\":\n            return pos + 1, nested_dict.dict\n        if c != \",\":\n            raise TOMLDecodeError(\"Unclosed inline table\", src, pos)\n        pos += 1\n        pos = skip_comments_and_array_ws(src, pos)\n        if src.startswith(\"}\", pos):\n            return pos + 1, nested_dict.dict\n        if isinstance(value, (dict, list)):\n            flags.set(key, Flags.FROZEN, recursive=True)\n\n\ndef parse_basic_str_escape(\n    src: str, pos: Pos, *, multiline: bool = False\n) -> tuple[Pos, str]:\n    escape_id = src[pos : pos + 2]\n    pos += 2\n    if multiline and escape_id in {\"\\\\ \", \"\\\\\\t\", \"\\\\\\n\"}:\n        # Skip whitespace until next non-whitespace character or end of\n        # the doc. Error if non-whitespace is found before newline.\n        if escape_id != \"\\\\\\n\":\n            pos = skip_chars(src, pos, TOML_WS)\n            try:\n                char = src[pos]\n            except IndexError:\n                return pos, \"\"\n            if char != \"\\n\":\n                raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos)\n            pos += 1\n        pos = skip_chars(src, pos, TOML_WS_AND_NEWLINE)\n        return pos, \"\"\n    if escape_id == \"\\\\x\":\n        return parse_hex_char(src, pos, 2)\n    if escape_id == \"\\\\u\":\n        return parse_hex_char(src, pos, 4)\n    if escape_id == \"\\\\U\":\n        return parse_hex_char(src, pos, 8)\n    try:\n        return pos, BASIC_STR_ESCAPE_REPLACEMENTS[escape_id]\n    except KeyError:\n        raise TOMLDecodeError(\"Unescaped '\\\\' in a string\", src, pos) from None\n\n\ndef parse_basic_str_escape_multiline(src: str, pos: Pos) -> tuple[Pos, str]:\n    return parse_basic_str_escape(src, pos, multiline=True)\n\n\ndef parse_hex_char(src: str, pos: Pos, hex_len: int) -> tuple[Pos, str]:\n    hex_str = src[pos : pos + hex_len]\n    if len(hex_str) != hex_len or not HEXDIGIT_CHARS.issuperset(hex_str):\n        raise TOMLDecodeError(\"Invalid hex value\", src, pos)\n    pos += hex_len\n    hex_int = int(hex_str, 16)\n    if not is_unicode_scalar_value(hex_int):\n        raise TOMLDecodeError(\n            \"Escaped character is not a Unicode scalar value\", src, pos\n        )\n    return pos, chr(hex_int)\n\n\ndef parse_literal_str(src: str, pos: Pos) -> tuple[Pos, str]:\n    pos += 1  # Skip starting apostrophe\n    start_pos = pos\n    pos = skip_until(\n        src, pos, \"'\", error_on=ILLEGAL_LITERAL_STR_CHARS, error_on_eof=True\n    )\n    return pos + 1, src[start_pos:pos]  # Skip ending apostrophe\n\n\ndef parse_multiline_str(src: str, pos: Pos, *, literal: bool) -> tuple[Pos, str]:\n    pos += 3\n    if src.startswith(\"\\n\", pos):\n        pos += 1\n\n    if literal:\n        delim = \"'\"\n        end_pos = skip_until(\n            src,\n            pos,\n            \"'''\",\n            error_on=ILLEGAL_MULTILINE_LITERAL_STR_CHARS,\n            error_on_eof=True,\n        )\n        result = src[pos:end_pos]\n        pos = end_pos + 3\n    else:\n        delim = '\"'\n        pos, result = parse_basic_str(src, pos, multiline=True)\n\n    # Add at maximum two extra apostrophes/quotes if the end sequence\n    # is 4 or 5 chars long instead of just 3.\n    if not src.startswith(delim, pos):\n        return pos, result\n    pos += 1\n    if not src.startswith(delim, pos):\n        return pos, result + delim\n    pos += 1\n    return pos, result + (delim * 2)\n\n\ndef parse_basic_str(src: str, pos: Pos, *, multiline: bool) -> tuple[Pos, str]:\n    if multiline:\n        error_on = ILLEGAL_MULTILINE_BASIC_STR_CHARS\n        parse_escapes = parse_basic_str_escape_multiline\n    else:\n        error_on = ILLEGAL_BASIC_STR_CHARS\n        parse_escapes = parse_basic_str_escape\n    result = \"\"\n    start_pos = pos\n    while True:\n        try:\n            char = src[pos]\n        except IndexError:\n            raise TOMLDecodeError(\"Unterminated string\", src, pos) from None\n        if char == '\"':\n            if not multiline:\n                return pos + 1, result + src[start_pos:pos]\n            if src.startswith('\"\"\"', pos):\n                return pos + 3, result + src[start_pos:pos]\n            pos += 1\n            continue\n        if char == \"\\\\\":\n            result += src[start_pos:pos]\n            pos, parsed_escape = parse_escapes(src, pos)\n            result += parsed_escape\n            start_pos = pos\n            continue\n        if char in error_on:\n            raise TOMLDecodeError(f\"Illegal character {char!r}\", src, pos)\n        pos += 1\n\n\ndef parse_value(\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\n) -> tuple[Pos, Any]:\n    if nest_lvl > MAX_INLINE_NESTING:\n        # Pure Python should have raised RecursionError already.\n        # This ensures mypyc binaries eventually do the same.\n        raise RecursionError(  # pragma: no cover\n            \"TOML inline arrays/tables are nested more than the allowed\"\n            f\" {MAX_INLINE_NESTING} levels\"\n        )\n\n    try:\n        char: str | None = src[pos]\n    except IndexError:\n        char = None\n\n    # IMPORTANT: order conditions based on speed of checking and likelihood\n\n    # Basic strings\n    if char == '\"':\n        if src.startswith('\"\"\"', pos):\n            return parse_multiline_str(src, pos, literal=False)\n        return parse_one_line_basic_str(src, pos)\n\n    # Literal strings\n    if char == \"'\":\n        if src.startswith(\"'''\", pos):\n            return parse_multiline_str(src, pos, literal=True)\n        return parse_literal_str(src, pos)\n\n    # Booleans\n    if char == \"t\":\n        if src.startswith(\"true\", pos):\n            return pos + 4, True\n    if char == \"f\":\n        if src.startswith(\"false\", pos):\n            return pos + 5, False\n\n    # Arrays\n    if char == \"[\":\n        return parse_array(src, pos, parse_float, nest_lvl + 1)\n\n    # Inline tables\n    if char == \"{\":\n        return parse_inline_table(src, pos, parse_float, nest_lvl + 1)\n\n    # Dates and times\n    datetime_match = RE_DATETIME.match(src, pos)\n    if datetime_match:\n        try:\n            datetime_obj = match_to_datetime(datetime_match)\n        except ValueError as e:\n            raise TOMLDecodeError(\"Invalid date or datetime\", src, pos) from e\n        return datetime_match.end(), datetime_obj\n    localtime_match = RE_LOCALTIME.match(src, pos)\n    if localtime_match:\n        return localtime_match.end(), match_to_localtime(localtime_match)\n\n    # Integers and \"normal\" floats.\n    # The regex will greedily match any type starting with a decimal\n    # char, so needs to be located after handling of dates and times.\n    number_match = RE_NUMBER.match(src, pos)\n    if number_match:\n        return number_match.end(), match_to_number(number_match, parse_float)\n\n    # Special floats\n    first_three = src[pos : pos + 3]\n    if first_three in {\"inf\", \"nan\"}:\n        return pos + 3, parse_float(first_three)\n    first_four = src[pos : pos + 4]\n    if first_four in {\"-inf\", \"+inf\", \"-nan\", \"+nan\"}:\n        return pos + 4, parse_float(first_four)\n\n    raise TOMLDecodeError(\"Invalid value\", src, pos)\n\n\ndef is_unicode_scalar_value(codepoint: int) -> bool:\n    return (0 <= codepoint <= 55295) or (57344 <= codepoint <= 1114111)\n\n\ndef make_safe_parse_float(parse_float: ParseFloat) -> ParseFloat:\n    \"\"\"A decorator to make `parse_float` safe.\n\n    `parse_float` must not return dicts or lists, because these types\n    would be mixed with parsed TOML tables and arrays, thus confusing\n    the parser. The returned decorated callable raises `ValueError`\n    instead of returning illegal types.\n    \"\"\"\n    # The default `float` callable never returns illegal types. Optimize it.\n    if parse_float is float:\n        return float\n\n    def safe_parse_float(float_str: str) -> Any:\n        float_value = parse_float(float_str)\n        if isinstance(float_value, (dict, list)):\n            raise ValueError(\"parse_float must not return dicts or lists\")\n        return float_value\n\n    return safe_parse_float\n"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "6547"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "c1ff9c582e88b58f",
+       "parentSpanId": "0cefd6e790dbfa0f",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458145804482000",
+       "endTimeUnixNano": "1790458147273983000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "1"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "8319"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "123"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "702"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:05.804454+00:00 request d0ce9ac2254c\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_03f79963651a4021a0c19ef6\", \"response\": \"# SPDX-License-Identifier: MIT\\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\\n# Licensed to PSF under a Contributor Agreement.\\n\\nfrom __future__ import annotations\\n\\nimport sys\\nfrom types import MappingProxyType\\n\\nfrom ._re import (\\n    RE_DATETIME,\\n    RE_LOCALTIME,\\n    RE_NUMBER,\\n    match_to_datetime,\\n    match_to_localtime,\\n    match_to_number,\\n)\\n\\nTYPE_CHECKING = False\\nif TYPE_CHECKING:\\n    from collections.abc import Iterable\\n    from typing import IO, Any, Final\\n\\n    from ._types import Key, ParseFloat, Pos\\n\\n# Inline tables/arrays are implemented using recursion. Pathologically\\n# nested documents cause pure Python to raise RecursionError (which is OK),\\n# but mypyc binary wheels will crash unrecoverably (not OK). According to\\n# mypyc docs this will be fixed in the future:\\n# https://mypyc.readthedocs.io/en/latest/differences_from_python.html#stack-overflows\\n# Before mypyc's fix is in, recursion needs to be limited by this library.\\n# Choosing `sys.getrecursionlimit()` as maximum inline table/array nesting\\n# level, as it allows more nesting than pure Python, but still seems a far\\n# lower number than where mypyc binaries crash.\\nMAX_INLINE_NESTING: Final = sys.getrecursionlimit()\\n\\n# Pathologically excessive number of parts in a key runs into quadratic\\n# behavior (e.g. in Flags.is_).\\n# Even if keys aren't currently parsed using recursion, they name a\\n# recursive structure, so it makes sense to limit it using getrecursionlimit()\\n# and RecursionError.\\nMAX_KEY_PARTS: Final = sys.getrecursionlimit()\\n\\nASCII_CTRL: Final = frozenset(chr(i) for i in range(32)) | frozenset(chr(127))\\n\\n# Neither of these sets include quotation mark or backslash. They are\\n# currently handled as separate cases in the parser functions.\\nILLEGAL_BASIC_STR_CHARS: Final = ASCII_CTRL - frozenset(\\\"\\\\t\\\")\\nILLEGAL_MULTILINE_BASIC_STR_CHARS: Final = ASCII_CTRL - frozenset(\\\"\\\\t\\\\n\\\")\\n\\nILLEGAL_LITERAL_STR_CHARS: Final = ILLEGAL_BASIC_STR_CHARS\\nILLEGAL_MULTILINE_LITERAL_STR_CHARS: Final = ILLEGAL_MULTILINE_BASIC_STR_CHARS\\n\\nILLEGAL_COMMENT_CHARS: Final = ILLEGAL_BASIC_STR_CHARS\\n\\nTOML_WS: Final = frozenset(\\\" \\\\t\\\")\\nTOML_WS_AND_NEWLINE: Final = TOML_WS | frozenset(\\\"\\\\n\\\")\\nBARE_KEY_CHARS: Final = frozenset(\\n    \\\"abcdefghijklmnopqrstuvwxyz\\\" \\\"ABCDEFGHIJKLMNOPQRSTUVWXYZ\\\" \\\"0123456789\\\" \\\"-_\\\"\\n)\\nKEY_INITIAL_CHARS: Final = BARE_KEY_CHARS | frozenset(\\\"\\\\\\\"'\\\")\\nHEXDIGIT_CHARS: Final = frozenset(\\\"abcdef\\\" \\\"ABCDEF\\\" \\\"0123456789\\\")\\n\\nBASIC_STR_ESCAPE_REPLACEMENTS: Final = MappingProxyType(\\n    {\\n        \\\"\\\\\\\\b\\\": \\\"\\\\u0008\\\",  # backspace\\n        \\\"\\\\\\\\t\\\": \\\"\\\\u0009\\\",  # tab\\n        \\\"\\\\\\\\n\\\": \\\"\\\\u000a\\\",  # linefeed\\n        \\\"\\\\\\\\f\\\": \\\"\\\\u000c\\\",  # form feed\\n        \\\"\\\\\\\\r\\\": \\\"\\\\u000d\\\",  # carriage return\\n        \\\"\\\\\\\\e\\\": \\\"\\\\u001b\\\",  # escape\\n        '\\\\\\\\\\\"': \\\"\\\\u0022\\\",  # quote\\n        \\\"\\\\\\\\\\\\\\\\\\\": \\\"\\\\u005c\\\",  # backslash\\n    }\\n)\\n\\n\\nclass DEPRECATED_DEFAULT:\\n    \\\"\\\"\\\"Sentinel to be used as default arg during deprecation\\n    period of TOMLDecodeError's free-form arguments.\\\"\\\"\\\"\\n\\n\\nclass TOMLDecodeError(ValueError):\\n    \\\"\\\"\\\"An error raised if a document is not valid TOML.\\n\\n    Adds the following attributes to ValueError:\\n    msg: The unformatted error message\\n    doc: The TOML document being parsed\\n    pos: The index of doc where parsing failed\\n    lineno: The line corresponding to pos\\n    colno: The column corresponding to pos\\n    \\\"\\\"\\\"\\n\\n    def __init__(\\n        self,\\n        msg: str | type[DEPRECATED_DEFAULT] = DEPRECATED_DEFAULT,\\n        doc: str | type[DEPRECATED_DEFAULT] = DEPRECATED_DEFAULT,\\n        pos: Pos | type[DEPRECATED_DEFAULT] = DEPRECATED_DEFAULT,\\n        *args: Any,\\n    ):\\n        if (\\n            args\\n            or not isinstance(msg, str)\\n            or not isinstance(doc, str)\\n            or not isinstance(pos, int)\\n        ):\\n            import warnings\\n\\n            warnings.warn(\\n                \\\"Free-form arguments for TOMLDecodeError are deprecated. \\\"\\n                \\\"Please set 'msg' (str), 'doc' (str) and 'pos' (int) arguments only.\\\",\\n                DeprecationWarning,\\n                stacklevel=2,\\n            )\\n            if pos is not DEPRECATED_DEFAULT:\\n                args = pos, *args\\n            if doc is not DEPRECATED_DEFAULT:\\n                args = doc, *args\\n            if msg is not DEPRECATED_DEFAULT:\\n                args = msg, *args\\n            ValueError.__init__(self, *args)\\n            return\\n\\n        lineno = doc.count(\\\"\\\\n\\\", 0, pos) + 1\\n        if lineno == 1:\\n            colno = pos + 1\\n        else:\\n            colno = pos - doc.rindex(\\\"\\\\n\\\", 0, pos)\\n\\n        if pos >= len(doc):\\n            coord_repr = \\\"end of document\\\"\\n        else:\\n            coord_repr = f\\\"line {lineno}, column {colno}\\\"\\n        errmsg = f\\\"{msg} (at {coord_repr})\\\"\\n        ValueError.__init__(self, errmsg)\\n\\n        self.msg = msg\\n        self.doc = doc\\n        self.pos = pos\\n        self.lineno = lineno\\n        self.colno = colno\\n\\n\\ndef load(__fp: IO[bytes], *, parse_float: ParseFloat = float) -> dict[str, Any]:\\n    \\\"\\\"\\\"Parse TOML from a binary file object.\\\"\\\"\\\"\\n    b = __fp.read()\\n    try:\\n        s = b.decode()\\n    except AttributeError:\\n        raise TypeError(\\n            \\\"File must be opened in binary mode, e.g. use `open('foo.toml', 'rb')`\\\"\\n        ) from None\\n    return loads(s, parse_float=parse_float)\\n\\n\\ndef loads(__s: str, *, parse_float: ParseFloat = float) -> dict[str, Any]:\\n    \\\"\\\"\\\"Parse TOML from a string.\\\"\\\"\\\"\\n\\n    # The spec allows converting \\\"\\\\r\\\\n\\\" to \\\"\\\\n\\\", even in string\\n    # literals. Let's do so to simplify parsing.\\n    try:\\n        src = __s.replace(\\\"\\\\r\\\\n\\\", \\\"\\\\n\\\")\\n    except (AttributeError, TypeError):\\n        raise TypeError(\\n            f\\\"Expected str object, not '{type(__s).__qualname__}'\\\"\\n        ) from None\\n    pos = 0\\n    out = Output()\\n    header: Key = ()\\n    parse_float = make_safe_parse_float(parse_float)\\n\\n    # Parse one statement at a time\\n    # (typically means one line in TOML source)\\n    while True:\\n        # 1. Skip line leading whitespace\\n        pos = skip_chars(src, pos, TOML_WS)\\n\\n        # 2. Parse rules. Expect one of the following:\\n        #    - end of file\\n        #    - end of line\\n        #    - comment\\n        #    - key/value pair\\n        #    - append dict to list (and move to its namespace)\\n        #    - create dict (and move to its namespace)\\n        # Skip trailing whitespace when applicable.\\n        try:\\n            char = src[pos]\\n        except IndexError:\\n            break\\n        if char == \\\"\\\\n\\\":\\n            pos += 1\\n            continue\\n        if char in KEY_INITIAL_CHARS:\\n            pos = key_value_rule(src, pos, out, header, parse_float)\\n            pos = skip_chars(src, pos, TOML_WS)\\n        elif char == \\\"[\\\":\\n            try:\\n                second_char: str | None = src[pos + 1]\\n            except IndexError:\\n                second_char = None\\n            out.flags.finalize_pending()\\n            if second_char == \\\"[\\\":\\n                pos, header = create_list_rule(src, pos, out)\\n            else:\\n                pos, header = create_dict_rule(src, pos, out)\\n            pos = skip_chars(src, pos, TOML_WS)\\n        elif char != \\\"#\\\":\\n            raise TOMLDecodeError(\\\"Invalid statement\\\", src, pos)\\n\\n        # 3. Skip comment\\n        pos = skip_comment(src, pos)\\n\\n        # 4. Expect end of line or end of file\\n        try:\\n            char = src[pos]\\n        except IndexError:\\n            break\\n        if char != \\\"\\\\n\\\":\\n            raise TOMLDecodeError(\\n                \\\"Expected newline or end of document after a statement\\\", src, pos\\n            )\\n        pos += 1\\n\\n    return out.data.dict\\n\\n\\nclass Flags:\\n    \\\"\\\"\\\"Flags that map to parsed keys/namespaces.\\\"\\\"\\\"\\n\\n    # Marks an immutable namespace (inline array or inline table).\\n    FROZEN: Final = 0\\n    # Marks a nest that has been explicitly created and can no longer\\n    # be opened using the \\\"[table]\\\" syntax.\\n    EXPLICIT_NEST: Final = 1\\n\\n    def __init__(self) -> None:\\n        self._flags: dict[str, dict[Any, Any]] = {}\\n        self._pending_flags: set[tuple[Key, int]] = set()\\n\\n    def add_pending(self, key: Key, flag: int) -> None:\\n        self._pending_flags.add((key, flag))\\n\\n    def finalize_pending(self) -> None:\\n        for key, flag in self._pending_flags:\\n            self.set(key, flag, recursive=False)\\n        self._pending_flags.clear()\\n\\n    def unset_all(self, key: Key) -> None:\\n        cont = self._flags\\n        for k in key[:-1]:\\n            if k not in cont:\\n                return\\n            cont = cont[k][\\\"nested\\\"]\\n        cont.pop(key[-1], None)\\n\\n    def set(self, key: Key, flag: int, *, recursive: bool) -> None:  # noqa: A003\\n        cont = self._flags\\n        key_parent, key_stem = key[:-1], key[-1]\\n        for k in key_parent:\\n            if k not in cont:\\n                cont[k] = {\\\"flags\\\": set(), \\\"recursive_flags\\\": set(), \\\"nested\\\": {}}\\n            cont = cont[k][\\\"nested\\\"]\\n        if key_stem not in cont:\\n            cont[key_stem] = {\\\"flags\\\": set(), \\\"recursive_flags\\\": set(), \\\"nested\\\": {}}\\n        cont[key_stem][\\\"recursive_flags\\\" if recursive else \\\"flags\\\"].add(flag)\\n\\n    def is_(self, key: Key, flag: int) -> bool:\\n        if not key:\\n            return False  # document root has no flags\\n        cont = self._flags\\n        for k in key[:-1]:\\n            if k not in cont:\\n                return False\\n            inner_cont = cont[k]\\n            if flag in inner_cont[\\\"recursive_flags\\\"]:\\n                return True\\n            cont = inner_cont[\\\"nested\\\"]\\n        key_stem = key[-1]\\n        if key_stem in cont:\\n            inner_cont = cont[key_stem]\\n            return flag in inner_cont[\\\"flags\\\"] or flag in inner_cont[\\\"recursive_flags\\\"]\\n        return False\\n\\n\\nclass NestedDict:\\n    def __init__(self) -> None:\\n        # The parsed content of the TOML document\\n        self.dict: dict[str, Any] = {}\\n\\n    def get_or_create_nest(\\n        self,\\n        key: Key,\\n        *,\\n        access_lists: bool = True,\\n    ) -> dict[str, Any]:\\n        cont: Any = self.dict\\n        for k in key:\\n            if k not in cont:\\n                cont[k] = {}\\n            cont = cont[k]\\n            if access_lists and isinstance(cont, list):\\n                cont = cont[-1]\\n            if not isinstance(cont, dict):\\n                raise KeyError(\\\"There is no nest behind this key\\\")\\n        return cont  # type: ignore[no-any-return]\\n\\n    def append_nest_to_list(self, key: Key) -> None:\\n        cont = self.get_or_create_nest(key[:-1])\\n        last_key = key[-1]\\n        if last_key in cont:\\n            list_ = cont[last_key]\\n            if not isinstance(list_, list):\\n                raise KeyError(\\\"An object other than list found behind this key\\\")\\n            list_.append({})\\n        else:\\n            cont[last_key] = [{}]\\n\\n\\nclass Output:\\n    def __init__(self) -> None:\\n        self.data = NestedDict()\\n        self.flags = Flags()\\n\\n\\ndef skip_chars(src: str, pos: Pos, chars: Iterable[str]) -> Pos:\\n    try:\\n        while src[pos] in chars:\\n            pos += 1\\n    except IndexError:\\n        pass\\n    return pos\\n\\n\\ndef skip_until(\\n    src: str,\\n    pos: Pos,\\n    expect: str,\\n    *,\\n    error_on: frozenset[str],\\n    error_on_eof: bool,\\n) -> Pos:\\n    try:\\n        new_pos = src.index(expect, pos)\\n    except ValueError:\\n        new_pos = len(src)\\n        if error_on_eof:\\n            raise TOMLDecodeError(f\\\"Expected {expect!r}\\\", src, new_pos) from None\\n\\n    if not error_on.isdisjoint(src[pos:new_pos]):\\n        while src[pos] not in error_on:\\n            pos += 1\\n        raise TOMLDecodeError(f\\\"Found invalid character {src[pos]!r}\\\", src, pos)\\n    return new_pos\\n\\n\\ndef skip_comment(src: str, pos: Pos) -> Pos:\\n    try:\\n        char: str | None = src[pos]\\n    except IndexError:\\n        char = None\\n    if char == \\\"#\\\":\\n        return skip_until(\\n            src, pos + 1, \\\"\\\\n\\\", error_on=ILLEGAL_COMMENT_CHARS, error_on_eof=False\\n        )\\n    return pos\\n\\n\\ndef skip_comments_and_array_ws(src: str, pos: Pos) -> Pos:\\n    while True:\\n        pos_before_skip = pos\\n        pos = skip_chars(src, pos, TOML_WS_AND_NEWLINE)\\n        pos = skip_comment(src, pos)\\n        if pos == pos_before_skip:\\n            return pos\\n\\n\\ndef create_dict_rule(src: str, pos: Pos, out: Output) -> tuple[Pos, Key]:\\n    pos += 1  # Skip \\\"[\\\"\\n    pos = skip_chars(src, pos, TOML_WS)\\n    pos, key = parse_key(src, pos)\\n\\n    if out.flags.is_(key, Flags.EXPLICIT_NEST) or out.flags.is_(key, Flags.FROZEN):\\n        raise TOMLDecodeError(f\\\"Cannot declare {key} twice\\\", src, pos)\\n    out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)\\n    try:\\n        out.data.get_or_create_nest(key)\\n    except KeyError:\\n        raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos) from None\\n\\n    if not src.startswith(\\\"]\\\", pos):\\n        raise TOMLDecodeError(\\n            \\\"Expected ']' at the end of a table declaration\\\", src, pos\\n        )\\n    return pos + 1, key\\n\\n\\ndef create_list_rule(src: str, pos: Pos, out: Output) -> tuple[Pos, Key]:\\n    pos += 2  # Skip \\\"[[\\\"\\n    pos = skip_chars(src, pos, TOML_WS)\\n    pos, key = parse_key(src, pos)\\n\\n    if out.flags.is_(key, Flags.FROZEN):\\n        raise TOMLDecodeError(f\\\"Cannot mutate immutable namespace {key}\\\", src, pos)\\n    # Free the namespace now that it points to another empty list item...\\n    out.flags.unset_all(key)\\n    # ...but this key precisely is still prohibited from table declaration\\n    out.flags.set(key, Flags.EXPLICIT_NEST, recursive=False)\\n    try:\\n        out.data.append_nest_to_list(key)\\n    except KeyError:\\n        raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos) from None\\n\\n    if not src.startswith(\\\"]]\\\", pos):\\n        raise TOMLDecodeError(\\n            \\\"Expected ']]' at the end of an array declaration\\\", src, pos\\n        )\\n    return pos + 2, key\\n\\n\\ndef key_value_rule(\\n    src: str, pos: Pos, out: Output, header: Key, parse_float: ParseFloat\\n) -> Pos:\\n    pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl=0)\\n    key_parent, key_stem = key[:-1], key[-1]\\n    abs_key_parent = header + key_parent\\n\\n    relative_path_cont_keys = (header + key[:i] for i in range(1, len(key)))\\n    for cont_key in relative_path_cont_keys:\\n        # Check that dotted key syntax does not redefine an existing table\\n        if out.flags.is_(cont_key, Flags.EXPLICIT_NEST):\\n            raise TOMLDecodeError(f\\\"Cannot redefine namespace {cont_key}\\\", src, pos)\\n        # Containers in the relative path can't be opened with the table syntax or\\n        # dotted key/value syntax in following table sections.\\n        out.flags.add_pending(cont_key, Flags.EXPLICIT_NEST)\\n\\n    if out.flags.is_(abs_key_parent, Flags.FROZEN):\\n        raise TOMLDecodeError(\\n            f\\\"Cannot mutate immutable namespace {abs_key_parent}\\\", src, pos\\n        )\\n\\n    try:\\n        nest = out.data.get_or_create_nest(abs_key_parent)\\n    except KeyError:\\n        raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos) from None\\n    if key_stem in nest:\\n        raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos)\\n    # Mark inline table and array namespaces recursively immutable\\n    if isinstance(value, (dict, list)):\\n        out.flags.set(header + key, Flags.FROZEN, recursive=True)\\n    nest[key_stem] = value\\n    return pos\\n\\n\\ndef parse_key_value_pair(\\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\\n) -> tuple[Pos, Key, Any]:\\n    pos, key = parse_key(src, pos)\\n    try:\\n        char: str | None = src[pos]\\n    except IndexError:\\n        char = None\\n    if char != \\\"=\\\":\\n        raise TOMLDecodeError(\\\"Expected '=' after a key in a key/value pair\\\", src, pos)\\n    pos += 1\\n    pos = skip_chars(src, pos, TOML_WS)\\n    pos, value = parse_value(src, pos, parse_float, nest_lvl)\\n    return pos, key, value\\n\\n\\ndef parse_key(src: str, pos: Pos) -> tuple[Pos, Key]:\\n    pos, key_part = parse_key_part(src, pos)\\n    key: Key = (key_part,)\\n    pos = skip_chars(src, pos, TOML_WS)\\n    while True:\\n        try:\\n            char: str | None = src[pos]\\n        except IndexError:\\n            char = None\\n        if char != \\\".\\\":\\n            return pos, key\\n        pos += 1\\n        pos = skip_chars(src, pos, TOML_WS)\\n        pos, key_part = parse_key_part(src, pos)\\n        key += (key_part,)\\n        if len(key) > MAX_KEY_PARTS:\\n            raise RecursionError(\\n                f\\\"TOML key has more than the allowed {MAX_KEY_PARTS} parts\\\"\\n            )\\n        pos = skip_chars(src, pos, TOML_WS)\\n\\n\\ndef parse_key_part(src: str, pos: Pos) -> tuple[Pos, str]:\\n    try:\\n        char: str | None = src[pos]\\n    except IndexError:\\n        char = None\\n    if char in BARE_KEY_CHARS:\\n        start_pos = pos\\n        pos = skip_chars(src, pos, BARE_KEY_CHARS)\\n        return pos, src[start_pos:pos]\\n    if char == \\\"'\\\":\\n        return parse_literal_str(src, pos)\\n    if char == '\\\"':\\n        return parse_one_line_basic_str(src, pos)\\n    raise TOMLDecodeError(\\\"Invalid initial character for a key part\\\", src, pos)\\n\\n\\ndef parse_one_line_basic_str(src: str, pos: Pos) -> tuple[Pos, str]:\\n    pos += 1\\n    return parse_basic_str(src, pos, multiline=False)\\n\\n\\ndef parse_array(\\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\\n) -> tuple[Pos, list[Any]]:\\n    pos += 1\\n    array: list[Any] = []\\n\\n    pos = skip_comments_and_array_ws(src, pos)\\n    if src.startswith(\\\"]\\\", pos):\\n        return pos + 1, array\\n    while True:\\n        pos, val = parse_value(src, pos, parse_float, nest_lvl)\\n        array.append(val)\\n        pos = skip_comments_and_array_ws(src, pos)\\n\\n        c = src[pos : pos + 1]\\n        if c == \\\"]\\\":\\n            return pos + 1, array\\n        if c != \\\",\\\":\\n            raise TOMLDecodeError(\\\"Unclosed array\\\", src, pos)\\n        pos += 1\\n\\n        pos = skip_comments_and_array_ws(src, pos)\\n        if src.startswith(\\\"]\\\", pos):\\n            return pos + 1, array\\n\\n\\ndef parse_inline_table(\\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\\n) -> tuple[Pos, dict[str, Any]]:\\n    pos += 1\\n    nested_dict = NestedDict()\\n    flags = Flags()\\n\\n    pos = skip_comments_and_array_ws(src, pos)\\n    if src.startswith(\\\"}\\\", pos):\\n        return pos + 1, nested_dict.dict\\n    while True:\\n        pos, key, value = parse_key_value_pair(src, pos, parse_float, nest_lvl)\\n        key_parent, key_stem = key[:-1], key[-1]\\n        if flags.is_(key, Flags.FROZEN):\\n            raise TOMLDecodeError(f\\\"Cannot mutate immutable namespace {key}\\\", src, pos)\\n        try:\\n            nest = nested_dict.get_or_create_nest(key_parent, access_lists=False)\\n        except KeyError:\\n            raise TOMLDecodeError(\\\"Cannot overwrite a value\\\", src, pos) from None\\n        if key_stem in nest:\\n            raise TOMLDecodeError(f\\\"Duplicate inline table key {key_stem!r}\\\", src, pos)\\n        nest[key_stem] = value\\n        pos = skip_comments_and_array_ws(src, pos)\\n        c = src[pos : pos + 1]\\n        if c == \\\"}\\\":\\n            return pos + 1, nested_dict.dict\\n        if c != \\\",\\\":\\n            raise TOMLDecodeError(\\\"Unclosed inline table\\\", src, pos)\\n        pos += 1\\n        pos = skip_comments_and_array_ws(src, pos)\\n        if src.startswith(\\\"}\\\", pos):\\n            return pos + 1, nested_dict.dict\\n        if isinstance(value, (dict, list)):\\n            flags.set(key, Flags.FROZEN, recursive=True)\\n\\n\\ndef parse_basic_str_escape(\\n    src: str, pos: Pos, *, multiline: bool = False\\n) -> tuple[Pos, str]:\\n    escape_id = src[pos : pos + 2]\\n    pos += 2\\n    if multiline and escape_id in {\\\"\\\\\\\\ \\\", \\\"\\\\\\\\\\\\t\\\", \\\"\\\\\\\\\\\\n\\\"}:\\n        # Skip whitespace until next non-whitespace character or end of\\n        # the doc. Error if non-whitespace is found before newline.\\n        if escape_id != \\\"\\\\\\\\\\\\n\\\":\\n            pos = skip_chars(src, pos, TOML_WS)\\n            try:\\n                char = src[pos]\\n            except IndexError:\\n                return pos, \\\"\\\"\\n            if char != \\\"\\\\n\\\":\\n                raise TOMLDecodeError(\\\"Unescaped '\\\\\\\\' in a string\\\", src, pos)\\n            pos += 1\\n        pos = skip_chars(src, pos, TOML_WS_AND_NEWLINE)\\n        return pos, \\\"\\\"\\n    if escape_id == \\\"\\\\\\\\x\\\":\\n        return parse_hex_char(src, pos, 2)\\n    if escape_id == \\\"\\\\\\\\u\\\":\\n        return parse_hex_char(src, pos, 4)\\n    if escape_id == \\\"\\\\\\\\U\\\":\\n        return parse_hex_char(src, pos, 8)\\n    try:\\n        return pos, BASIC_STR_ESCAPE_REPLACEMENTS[escape_id]\\n    except KeyError:\\n        raise TOMLDecodeError(\\\"Unescaped '\\\\\\\\' in a string\\\", src, pos) from None\\n\\n\\ndef parse_basic_str_escape_multiline(src: str, pos: Pos) -> tuple[Pos, str]:\\n    return parse_basic_str_escape(src, pos, multiline=True)\\n\\n\\ndef parse_hex_char(src: str, pos: Pos, hex_len: int) -> tuple[Pos, str]:\\n    hex_str = src[pos : pos + hex_len]\\n    if len(hex_str) != hex_len or not HEXDIGIT_CHARS.issuperset(hex_str):\\n        raise TOMLDecodeError(\\\"Invalid hex value\\\", src, pos)\\n    pos += hex_len\\n    hex_int = int(hex_str, 16)\\n    if not is_unicode_scalar_value(hex_int):\\n        raise TOMLDecodeError(\\n            \\\"Escaped character is not a Unicode scalar value\\\", src, pos\\n        )\\n    return pos, chr(hex_int)\\n\\n\\ndef parse_literal_str(src: str, pos: Pos) -> tuple[Pos, str]:\\n    pos += 1  # Skip starting apostrophe\\n    start_pos = pos\\n    pos = skip_until(\\n        src, pos, \\\"'\\\", error_on=ILLEGAL_LITERAL_STR_CHARS, error_on_eof=True\\n    )\\n    return pos + 1, src[start_pos:pos]  # Skip ending apostrophe\\n\\n\\ndef parse_multiline_str(src: str, pos: Pos, *, literal: bool) -> tuple[Pos, str]:\\n    pos += 3\\n    if src.startswith(\\\"\\\\n\\\", pos):\\n        pos += 1\\n\\n    if literal:\\n        delim = \\\"'\\\"\\n        end_pos = skip_until(\\n            src,\\n            pos,\\n            \\\"'''\\\",\\n            error_on=ILLEGAL_MULTILINE_LITERAL_STR_CHARS,\\n            error_on_eof=True,\\n        )\\n        result = src[pos:end_pos]\\n        pos = end_pos + 3\\n    else:\\n        delim = '\\\"'\\n        pos, result = parse_basic_str(src, pos, multiline=True)\\n\\n    # Add at maximum two extra apostrophes/quotes if the end sequence\\n    # is 4 or 5 chars long instead of just 3.\\n    if not src.startswith(delim, pos):\\n        return pos, result\\n    pos += 1\\n    if not src.startswith(delim, pos):\\n        return pos, result + delim\\n    pos += 1\\n    return pos, result + (delim * 2)\\n\\n\\ndef parse_basic_str(src: str, pos: Pos, *, multiline: bool) -> tuple[Pos, str]:\\n    if multiline:\\n        error_on = ILLEGAL_MULTILINE_BASIC_STR_CHARS\\n        parse_escapes = parse_basic_str_escape_multiline\\n    else:\\n        error_on = ILLEGAL_BASIC_STR_CHARS\\n        parse_escapes = parse_basic_str_escape\\n    result = \\\"\\\"\\n    start_pos = pos\\n    while True:\\n        try:\\n            char = src[pos]\\n        except IndexError:\\n            raise TOMLDecodeError(\\\"Unterminated string\\\", src, pos) from None\\n        if char == '\\\"':\\n            if not multiline:\\n                return pos + 1, result + src[start_pos:pos]\\n            if src.startswith('\\\"\\\"\\\"', pos):\\n                return pos + 3, result + src[start_pos:pos]\\n            pos += 1\\n            continue\\n        if char == \\\"\\\\\\\\\\\":\\n            result += src[start_pos:pos]\\n            pos, parsed_escape = parse_escapes(src, pos)\\n            result += parsed_escape\\n            start_pos = pos\\n            continue\\n        if char in error_on:\\n            raise TOMLDecodeError(f\\\"Illegal character {char!r}\\\", src, pos)\\n        pos += 1\\n\\n\\ndef parse_value(\\n    src: str, pos: Pos, parse_float: ParseFloat, nest_lvl: int\\n) -> tuple[Pos, Any]:\\n    if nest_lvl > MAX_INLINE_NESTING:\\n        # Pure Python should have raised RecursionError already.\\n        # This ensures mypyc binaries eventually do the same.\\n        raise RecursionError(  # pragma: no cover\\n            \\\"TOML inline arrays/tables are nested more than the allowed\\\"\\n            f\\\" {MAX_INLINE_NESTING} levels\\\"\\n        )\\n\\n    try:\\n        char: str | None = src[pos]\\n    except IndexError:\\n        char = None\\n\\n    # IMPORTANT: order conditions based on speed of checking and likelihood\\n\\n    # Basic strings\\n    if char == '\\\"':\\n        if src.startswith('\\\"\\\"\\\"', pos):\\n            return parse_multiline_str(src, pos, literal=False)\\n        return parse_one_line_basic_str(src, pos)\\n\\n    # Literal strings\\n    if char == \\\"'\\\":\\n        if src.startswith(\\\"'''\\\", pos):\\n            return parse_multiline_str(src, pos, literal=True)\\n        return parse_literal_str(src, pos)\\n\\n    # Booleans\\n    if char == \\\"t\\\":\\n        if src.startswith(\\\"true\\\", pos):\\n            return pos + 4, True\\n    if char == \\\"f\\\":\\n        if src.startswith(\\\"false\\\", pos):\\n            return pos + 5, False\\n\\n    # Arrays\\n    if char == \\\"[\\\":\\n        return parse_array(src, pos, parse_float, nest_lvl + 1)\\n\\n    # Inline tables\\n    if char == \\\"{\\\":\\n        return parse_inline_table(src, pos, parse_float, nest_lvl + 1)\\n\\n    # Dates and times\\n    datetime_match = RE_DATETIME.match(src, pos)\\n    if datetime_match:\\n        try:\\n            datetime_obj = match_to_datetime(datetime_match)\\n        except ValueError as e:\\n            raise TOMLDecodeError(\\\"Invalid date or datetime\\\", src, pos) from e\\n        return datetime_match.end(), datetime_obj\\n    localtime_match = RE_LOCALTIME.match(src, pos)\\n    if localtime_match:\\n        return localtime_match.end(), match_to_localtime(localtime_match)\\n\\n    # Integers and \\\"normal\\\" floats.\\n    # The regex will greedily match any type starting with a decimal\\n    # char, so needs to be located after handling of dates and times.\\n    number_match = RE_NUMBER.match(src, pos)\\n    if number_match:\\n        return number_match.end(), match_to_number(number_match, parse_float)\\n\\n    # Special floats\\n    first_three = src[pos : pos + 3]\\n    if first_three in {\\\"inf\\\", \\\"nan\\\"}:\\n        return pos + 3, parse_float(first_three)\\n    first_four = src[pos : pos + 4]\\n    if first_four in {\\\"-inf\\\", \\\"+inf\\\", \\\"-nan\\\", \\\"+nan\\\"}:\\n        return pos + 4, parse_float(first_four)\\n\\n    raise TOMLDecodeError(\\\"Invalid value\\\", src, pos)\\n\\n\\ndef is_unicode_scalar_value(codepoint: int) -> bool:\\n    return (0 <= codepoint <= 55295) or (57344 <= codepoint <= 1114111)\\n\\n\\ndef make_safe_parse_float(parse_float: ParseFloat) -> ParseFloat:\\n    \\\"\\\"\\\"A decorator to make `parse_float` safe.\\n\\n    `parse_float` must not return dicts or lists, because these types\\n    would be mixed with parsed TOML tables and arrays, thus confusing\\n    the parser. The returned decorated callable raises `ValueError`\\n    instead of returning illegal types.\\n    \\\"\\\"\\\"\\n    # The default `float` callable never returns illegal types. Optimize it.\\n    if parse_float is float:\\n        return float\\n\\n    def safe_parse_float(float_str: str) -> Any:\\n        float_value = parse_float(float_str)\\n        if isinstance(float_value, (dict, list)):\\n            raise ValueError(\\\"parse_float must not return dicts or lists\\\")\\n        return float_value\\n\\n    return safe_parse_float\\n\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me look at the tests for dotted keys and redefinition to make the note accurate. Let me search tests.\"}, {\"type\": \"tool_call\", \"id\": \"call_5753ee5f124a417288a578ad\", \"name\": \"list_files\", \"arguments\": {\"path\": \"tests\"}}, {\"type\": \"tool_call\", \"id\": \"call_d70655bec3da4f60bfe8bd1c\", \"name\": \"search\", \"arguments\": {\"pattern\": \"dotted|redefin|Cannot declare|Cannot redefine|Cannot overwrite|Cannot mutate\", \"path\": \"tests\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "f85eca0056494273",
+       "parentSpanId": "c1ff9c582e88b58f",
+       "name": "execute_tool list_files",
+       "kind": 1,
+       "startTimeUnixNano": "1790458147274095000",
+       "endTimeUnixNano": "1790458147274263000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "list_files"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-3"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "__init__.py\nburntsushi.py\ndata/\ntest_data.py\ntest_error.py\ntest_misc.py"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "18"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "13c1ce2ddf86bc12",
+       "parentSpanId": "c1ff9c582e88b58f",
+       "name": "execute_tool search",
+       "kind": 1,
+       "startTimeUnixNano": "1790458147274280000",
+       "endTimeUnixNano": "1790458147331706000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "search"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-4"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests\", \"pattern\": \"dotted|redefin|Cannot declare|Cannot redefine|Cannot overwrite|Cannot mutate\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "tests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-01.toml:17: b.c.t = \"Using dotted keys to add to [a.b.c] after explicitly defining it above is not allowed\"\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-02.toml:8: b.c.d.k.t = \"Using dotted keys to add to [a.b.c.d] after explicitly defining it above is not allowed\""
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "93"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "174df746cf8a05ff",
+       "parentSpanId": "0cefd6e790dbfa0f",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458147331775000",
+       "endTimeUnixNano": "1790458148355330000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "2"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "8573"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "142"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "702"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:07.331748+00:00 request 72b949ad375f\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_5753ee5f124a417288a578ad\", \"response\": \"__init__.py\\nburntsushi.py\\ndata/\\ntest_data.py\\ntest_error.py\\ntest_misc.py\"}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_d70655bec3da4f60bfe8bd1c\", \"response\": \"tests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-01.toml:17: b.c.t = \\\"Using dotted keys to add to [a.b.c] after explicitly defining it above is not allowed\\\"\\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-02.toml:8: b.c.d.k.t = \\\"Using dotted keys to add to [a.b.c.d] after explicitly defining it above is not allowed\\\"\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me look at the test data for dotted keys and redefinition to ground the note. Let me search more broadly.\"}, {\"type\": \"tool_call\", \"id\": \"call_8b446d631b7b4b26a18e855d\", \"name\": \"run_command\", \"arguments\": {\"cmd\": \"ls tests/data/invalid/table/ tests/data/invalid/key/ 2>/dev/null | head -80; echo ---; ls tests/data/valid/ | head\"}}, {\"type\": \"tool_call\", \"id\": \"call_39583243ab384c34902fc2d4\", \"name\": \"search\", \"arguments\": {\"path\": \"tests/data\", \"pattern\": \"dotted\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "e84c72ae63aa0c01",
+       "parentSpanId": "174df746cf8a05ff",
+       "name": "execute_tool run_command",
+       "kind": 1,
+       "startTimeUnixNano": "1790458148355507000",
+       "endTimeUnixNano": "1790458148384391000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_command"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-6"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"cmd\": \"ls tests/data/invalid/table/ tests/data/invalid/key/ 2>/dev/null | head -80; echo ---; ls tests/data/valid/ | head\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\ntests/data/invalid/table/:\neof-after-opening.toml\nredefine-1.toml\nredefine-2.toml\n---\n_external\napostrophes-in-literal-string.json\napostrophes-in-literal-string.toml\narray\nboolean.json\nboolean.toml\ndates-and-times\nfive-quotes.json\nfive-quotes.toml\nhex-char.json"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "68"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "15e23d9445c290ca",
+       "parentSpanId": "174df746cf8a05ff",
+       "name": "execute_tool search",
+       "kind": 1,
+       "startTimeUnixNano": "1790458148384486000",
+       "endTimeUnixNano": "1790458148448307000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "search"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-7"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests/data\", \"pattern\": \"dotted\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "tests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-01.toml:17: b.c.t = \"Using dotted keys to add to [a.b.c] after explicitly defining it above is not allowed\"\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-02.toml:8: b.c.d.k.t = \"Using dotted keys to add to [a.b.c.d] after explicitly defining it above is not allowed\""
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "93"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "9e66f9f1205a1054",
+       "parentSpanId": "0cefd6e790dbfa0f",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458148448446000",
+       "endTimeUnixNano": "1790458149897922000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "3"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "8914"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "266"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "702"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:08.448374+00:00 request 69885d19bd4b\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_8b446d631b7b4b26a18e855d\", \"response\": \"exit code: 0\\ntests/data/invalid/table/:\\neof-after-opening.toml\\nredefine-1.toml\\nredefine-2.toml\\n---\\n_external\\napostrophes-in-literal-string.json\\napostrophes-in-literal-string.toml\\narray\\nboolean.json\\nboolean.toml\\ndates-and-times\\nfive-quotes.json\\nfive-quotes.toml\\nhex-char.json\"}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_39583243ab384c34902fc2d4\", \"response\": \"tests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-01.toml:17: b.c.t = \\\"Using dotted keys to add to [a.b.c] after explicitly defining it above is not allowed\\\"\\ntests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-02.toml:8: b.c.d.k.t = \\\"Using dotted keys to add to [a.b.c.d] after explicitly defining it above is not allowed\\\"\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me look at the invalid table tests and the external dotted key tests to understand behaviors. Let me also check git history maybe. But I have enough understanding. Let me look at a few test files for concrete examples.\"}, {\"type\": \"tool_call\", \"id\": \"call_160614faf4c24edab228cc2d\", \"name\": \"run_command\", \"arguments\": {\"cmd\": \"for f in tests/data/invalid/table/redefine-1.toml tests/data/invalid/table/redefine-2.toml tests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-01.toml tests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-02.toml; do echo \\\"=== $f\\\"; cat \\\"$f\\\"; done\"}}, {\"type\": \"tool_call\", \"id\": \"call_ae0e99597a1b41389352dd51\", \"name\": \"run_command\", \"arguments\": {\"cmd\": \"ls tests/data/invalid/_external/toml-test/invalid/ | head -40; echo ---; ls tests/data/invalid/_external/toml-test/invalid/key 2>/dev/null; ls tests/data/invalid/_external/toml-test/invalid/inline-table 2>/dev/null\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "1c70dc6fb6b573f9",
+       "parentSpanId": "9e66f9f1205a1054",
+       "name": "execute_tool run_command",
+       "kind": 1,
+       "startTimeUnixNano": "1790458149898263000",
+       "endTimeUnixNano": "1790458149925982000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_command"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-9"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"cmd\": \"for f in tests/data/invalid/table/redefine-1.toml tests/data/invalid/table/redefine-2.toml tests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-01.toml tests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-02.toml; do echo \\\"=== $f\\\"; cat \\\"$f\\\"; done\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\n=== tests/data/invalid/table/redefine-1.toml\n[t1]\nt2.t3.v = 0\n[t1.t2]\n=== tests/data/invalid/table/redefine-2.toml\n[t1]\nt2.t3.v = 0\n[t1.t2.t3]\n=== tests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-01.toml\n# First a.b.c defines a table: a.b.c = {z=9}\n#\n# Then we define a.b.c.t = \"str\" to add a str to the above table, making it:\n#\n#   a.b.c = {z=9, t=\"...\"}\n#\n# While this makes sense, logically, it was decided this is not valid TOML as\n# it's too confusing/convoluted.\n# \n# See: https://github.com/toml-lang/toml/issues/846\n#      https://github.com/toml-lang/toml/pull/859\n\n[a.b.c]\n  z = 9\n\n[a]\n  b.c.t = \"Using dotted keys to add to [a.b.c] after explicitly defining it above is not allowed\"\n=== tests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-02.toml\n# This is the same issue as in injection-1.toml, except that nests one level\n# deeper. See that file for a more complete description.\n\n[a.b.c.d]\n  z = 9\n\n[a]\n  b.c.d.k.t = \"Using dotted keys to add to [a.b.c.d] after explicitly defining it above is not allowed\""
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "269"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "4068f8049e43eae7",
+       "parentSpanId": "9e66f9f1205a1054",
+       "name": "execute_tool run_command",
+       "kind": 1,
+       "startTimeUnixNano": "1790458149926075000",
+       "endTimeUnixNano": "1790458149947152000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_command"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-10"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"cmd\": \"ls tests/data/invalid/_external/toml-test/invalid/ | head -40; echo ---; ls tests/data/invalid/_external/toml-test/invalid/key 2>/dev/null; ls tests/data/invalid/_external/toml-test/invalid/inline-table 2>/dev/null\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\narray\nbool\ncontrol\ndatetime\nencoding\nfloat\ninline-table\ninteger\nkey\nlocal-date\nlocal-datetime\nlocal-time\nspec-1.1.0\nstring\ntable\n---\nafter-array.toml\nafter-table.toml\nafter-value.toml\nbare-invalid-character-01.toml\nbare-invalid-character-02.toml\ndot.toml\ndotdot.toml\ndotted-redefine-table-01.toml\ndotted-redefine-table-02.toml\nduplicate-keys-01.toml\nduplicate-keys-02.toml\nduplicate-keys-03.toml\nduplicate-keys-04.toml\nduplicate-keys-05.toml\nduplicate-keys-06.toml\nduplicate-keys-07.toml\nduplicate-keys-08.toml\nduplicate-keys-09.toml\nempty.toml\nend-in-escape.toml\nescape.toml\nhash.toml\nmultiline-key-01.toml\nmultiline-key-02.toml\nmultiline-key-03.toml\nmultiline-key-04.toml\nnewline-01.toml\nnewline-02.toml\nnewline-03.toml\nnewline-04.toml\nnewline-05.toml\nnewline-06.toml\nno-eol-01.toml\nno-eol-02.toml\nno-eol-03.toml\nno-eol-04.toml\nno-eol-05.toml\nno-eol-06.toml\nno-eol-07.toml\nonly-float.toml\nonly-int.toml\nonly-str.toml\nopen-bracket.toml\npartial-quoted.toml\nquoted-unclosed-01.toml\nquoted-unclosed-02.toml\nsingle-open-bracket.toml\nspace.toml\nspecial-character.toml\nstart-bracket.toml\nstart-dot.toml\ntwo-equals-01.toml\ntwo-equals-02.toml\ntwo-equals-03.toml\nwithout-value-01.toml\nwithout-value-02.toml\nwithout-value-03.toml\nwithout-value-04.toml\nwithout-value-05.toml\nwithout-value-06.toml\nwithout-value-07.toml\nbad-key-syntax.toml\ndouble-comma.toml\nduplicate-key-01.toml\nduplicate-key-02.toml\nduplicate-key-03.toml\nduplicate-key-04.toml\nempty-01.toml\nempty-02.toml\nempty-03.toml\nno-close-01.toml\nno-close-02.toml\nno-comma-01.toml\nno-comma-02.toml\noverwrite-01.toml\noverwrite-02.toml\noverwrite-03.toml\noverwrite-04.toml\noverwrite-05.toml\noverwrite-06.toml\noverwrite-07.toml\noverwrite-08.toml\noverwrite-09.toml\noverwrite-10.toml"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "430"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "df846fab7073cafc",
+       "parentSpanId": "0cefd6e790dbfa0f",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458149947389000",
+       "endTimeUnixNano": "1790458151339518000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "4"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "10262"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "261"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "702"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:09.947299+00:00 request 7305ce514a1e\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_160614faf4c24edab228cc2d\", \"response\": \"exit code: 0\\n=== tests/data/invalid/table/redefine-1.toml\\n[t1]\\nt2.t3.v = 0\\n[t1.t2]\\n=== tests/data/invalid/table/redefine-2.toml\\n[t1]\\nt2.t3.v = 0\\n[t1.t2.t3]\\n=== tests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-01.toml\\n# First a.b.c defines a table: a.b.c = {z=9}\\n#\\n# Then we define a.b.c.t = \\\"str\\\" to add a str to the above table, making it:\\n#\\n#   a.b.c = {z=9, t=\\\"...\\\"}\\n#\\n# While this makes sense, logically, it was decided this is not valid TOML as\\n# it's too confusing/convoluted.\\n# \\n# See: https://github.com/toml-lang/toml/issues/846\\n#      https://github.com/toml-lang/toml/pull/859\\n\\n[a.b.c]\\n  z = 9\\n\\n[a]\\n  b.c.t = \\\"Using dotted keys to add to [a.b.c] after explicitly defining it above is not allowed\\\"\\n=== tests/data/invalid/_external/toml-test/invalid/table/append-with-dotted-keys-02.toml\\n# This is the same issue as in injection-1.toml, except that nests one level\\n# deeper. See that file for a more complete description.\\n\\n[a.b.c.d]\\n  z = 9\\n\\n[a]\\n  b.c.d.k.t = \\\"Using dotted keys to add to [a.b.c.d] after explicitly defining it above is not allowed\\\"\"}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_ae0e99597a1b41389352dd51\", \"response\": \"exit code: 0\\narray\\nbool\\ncontrol\\ndatetime\\nencoding\\nfloat\\ninline-table\\ninteger\\nkey\\nlocal-date\\nlocal-datetime\\nlocal-time\\nspec-1.1.0\\nstring\\ntable\\n---\\nafter-array.toml\\nafter-table.toml\\nafter-value.toml\\nbare-invalid-character-01.toml\\nbare-invalid-character-02.toml\\ndot.toml\\ndotdot.toml\\ndotted-redefine-table-01.toml\\ndotted-redefine-table-02.toml\\nduplicate-keys-01.toml\\nduplicate-keys-02.toml\\nduplicate-keys-03.toml\\nduplicate-keys-04.toml\\nduplicate-keys-05.toml\\nduplicate-keys-06.toml\\nduplicate-keys-07.toml\\nduplicate-keys-08.toml\\nduplicate-keys-09.toml\\nempty.toml\\nend-in-escape.toml\\nescape.toml\\nhash.toml\\nmultiline-key-01.toml\\nmultiline-key-02.toml\\nmultiline-key-03.toml\\nmultiline-key-04.toml\\nnewline-01.toml\\nnewline-02.toml\\nnewline-03.toml\\nnewline-04.toml\\nnewline-05.toml\\nnewline-06.toml\\nno-eol-01.toml\\nno-eol-02.toml\\nno-eol-03.toml\\nno-eol-04.toml\\nno-eol-05.toml\\nno-eol-06.toml\\nno-eol-07.toml\\nonly-float.toml\\nonly-int.toml\\nonly-str.toml\\nopen-bracket.toml\\npartial-quoted.toml\\nquoted-unclosed-01.toml\\nquoted-unclosed-02.toml\\nsingle-open-bracket.toml\\nspace.toml\\nspecial-character.toml\\nstart-bracket.toml\\nstart-dot.toml\\ntwo-equals-01.toml\\ntwo-equals-02.toml\\ntwo-equals-03.toml\\nwithout-value-01.toml\\nwithout-value-02.toml\\nwithout-value-03.toml\\nwithout-value-04.toml\\nwithout-value-05.toml\\nwithout-value-06.toml\\nwithout-value-07.toml\\nbad-key-syntax.toml\\ndouble-comma.toml\\nduplicate-key-01.toml\\nduplicate-key-02.toml\\nduplicate-key-03.toml\\nduplicate-key-04.toml\\nempty-01.toml\\nempty-02.toml\\nempty-03.toml\\nno-close-01.toml\\nno-close-02.toml\\nno-comma-01.toml\\nno-comma-02.toml\\noverwrite-01.toml\\noverwrite-02.toml\\noverwrite-03.toml\\noverwrite-04.toml\\noverwrite-05.toml\\noverwrite-06.toml\\noverwrite-07.toml\\noverwrite-08.toml\\noverwrite-09.toml\\noverwrite-10.toml\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me look at a few more relevant test cases to ground the doc, particularly dotted-redefine-table and inline table overwrite. Also check test_error.py for specific messages.\"}, {\"type\": \"tool_call\", \"id\": \"call_10b48fb6ef8d4d0ab90dabfc\", \"name\": \"run_command\", \"arguments\": {\"cmd\": \"for f in tests/data/invalid/_external/toml-test/invalid/key/dotted-redefine-table-01.toml tests/data/invalid/_external/toml-test/invalid/key/dotted-redefine-table-02.toml tests/data/invalid/_external/toml-test/invalid/inline-table/overwrite-01.toml tests/data/invalid/_external/toml-test/invalid/inline-table/overwrite-02.toml tests/data/invalid/_external/toml-test/invalid/inline-table/overwrite-03.toml; do echo \\\"=== $f\\\"; cat \\\"$f\\\"; done\"}}, {\"type\": \"tool_call\", \"id\": \"call_cfc4cd2d753847ed8582bdc3\", \"name\": \"search\", \"arguments\": {\"path\": \"tests/test_error.py\", \"pattern\": \"Cannot|redefine|overwrite|mutate|declare\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "52e957f52af97e4b",
+       "parentSpanId": "df846fab7073cafc",
+       "name": "execute_tool run_command",
+       "kind": 1,
+       "startTimeUnixNano": "1790458151339807000",
+       "endTimeUnixNano": "1790458151376382000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_command"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-12"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"cmd\": \"for f in tests/data/invalid/_external/toml-test/invalid/key/dotted-redefine-table-01.toml tests/data/invalid/_external/toml-test/invalid/key/dotted-redefine-table-02.toml tests/data/invalid/_external/toml-test/invalid/inline-table/overwrite-01.toml tests/data/invalid/_external/toml-test/invalid/inline-table/overwrite-02.toml tests/data/invalid/_external/toml-test/invalid/inline-table/overwrite-03.toml; do echo \\\"=== $f\\\"; cat \\\"$f\\\"; done\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\n=== tests/data/invalid/_external/toml-test/invalid/key/dotted-redefine-table-01.toml\na = false\na.b = true\n=== tests/data/invalid/_external/toml-test/invalid/key/dotted-redefine-table-02.toml\n# Defined a.b as int\na.b = 1\n# Tries to access it as table: error\na.b.c = 2\n=== tests/data/invalid/_external/toml-test/invalid/inline-table/overwrite-01.toml\na.b=0\n# Since table \"a\" is already defined, it can't be replaced by an inline table.\na={}\n=== tests/data/invalid/_external/toml-test/invalid/inline-table/overwrite-02.toml\na={}\n# Inline tables are immutable and can't be extended\n[a.b]\n=== tests/data/invalid/_external/toml-test/invalid/inline-table/overwrite-03.toml\na = { b = 1 }\na.b = 2"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "173"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "7023174bdb28e8f3",
+       "parentSpanId": "df846fab7073cafc",
+       "name": "execute_tool search",
+       "kind": 1,
+       "startTimeUnixNano": "1790458151376508000",
+       "endTimeUnixNano": "1790458151377019000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "search"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-13"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests/test_error.py\", \"pattern\": \"Cannot|redefine|overwrite|mutate|declare\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "(no matches)"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "3"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "bf621b905e0834dd",
+       "parentSpanId": "0cefd6e790dbfa0f",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458151377102000",
+       "endTimeUnixNano": "1790458152352932000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "5"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "10739"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "95"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "702"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:11.377048+00:00 request 2abbb412e4fb\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_10b48fb6ef8d4d0ab90dabfc\", \"response\": \"exit code: 0\\n=== tests/data/invalid/_external/toml-test/invalid/key/dotted-redefine-table-01.toml\\na = false\\na.b = true\\n=== tests/data/invalid/_external/toml-test/invalid/key/dotted-redefine-table-02.toml\\n# Defined a.b as int\\na.b = 1\\n# Tries to access it as table: error\\na.b.c = 2\\n=== tests/data/invalid/_external/toml-test/invalid/inline-table/overwrite-01.toml\\na.b=0\\n# Since table \\\"a\\\" is already defined, it can't be replaced by an inline table.\\na={}\\n=== tests/data/invalid/_external/toml-test/invalid/inline-table/overwrite-02.toml\\na={}\\n# Inline tables are immutable and can't be extended\\n[a.b]\\n=== tests/data/invalid/_external/toml-test/invalid/inline-table/overwrite-03.toml\\na = { b = 1 }\\na.b = 2\"}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_cfc4cd2d753847ed8582bdc3\", \"response\": \"(no matches)\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me look at test_error.py to understand expected messages, and check git history maybe. Let me also check the README or docs for existing descriptions. But the task is to write a note. Let me gather enough understanding.\\n\\nLet me check test_error.py.\"}, {\"type\": \"tool_call\", \"id\": \"call_98ab948accb84a3286a8e89d\", \"name\": \"read_file\", \"arguments\": {\"path\": \"tests/test_error.py\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "e5d07dc90724912d",
+       "parentSpanId": "bf621b905e0834dd",
+       "name": "execute_tool read_file",
+       "kind": 1,
+       "startTimeUnixNano": "1790458152353179000",
+       "endTimeUnixNano": "1790458152353935000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "read_file"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-15"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests/test_error.py\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "# SPDX-License-Identifier: MIT\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\n# Licensed to PSF under a Contributor Agreement.\n\nfrom __future__ import annotations\n\nfrom typing import Any\nimport unittest\n\nfrom . import tomllib\n\n\nclass TestError(unittest.TestCase):\n    def test_line_and_col(self):\n        with self.assertRaises(tomllib.TOMLDecodeError) as exc_info:\n            tomllib.loads(\"val=.\")\n        self.assertEqual(str(exc_info.exception), \"Invalid value (at line 1, column 5)\")\n\n        with self.assertRaises(tomllib.TOMLDecodeError) as exc_info:\n            tomllib.loads(\".\")\n        self.assertEqual(\n            str(exc_info.exception), \"Invalid statement (at line 1, column 1)\"\n        )\n\n        with self.assertRaises(tomllib.TOMLDecodeError) as exc_info:\n            tomllib.loads(\"\\n\\nval=.\")\n        self.assertEqual(str(exc_info.exception), \"Invalid value (at line 3, column 5)\")\n\n        with self.assertRaises(tomllib.TOMLDecodeError) as exc_info:\n            tomllib.loads(\"\\n\\n.\")\n        self.assertEqual(\n            str(exc_info.exception), \"Invalid statement (at line 3, column 1)\"\n        )\n\n    def test_missing_value(self):\n        with self.assertRaises(tomllib.TOMLDecodeError) as exc_info:\n            tomllib.loads(\"\\n\\nfwfw=\")\n        self.assertEqual(str(exc_info.exception), \"Invalid value (at end of document)\")\n\n    def test_invalid_char_quotes(self):\n        with self.assertRaises(tomllib.TOMLDecodeError) as exc_info:\n            tomllib.loads(\"v = '\\n'\")\n        self.assertTrue(\" '\\\\n' \" in str(exc_info.exception))\n\n    def test_type_error(self):\n        with self.assertRaises(TypeError) as exc_info:\n            tomllib.loads(b\"v = 1\")  # type: ignore[arg-type]\n        # Mypyc extension leads to different message than pure Python\n        self.assertIn(\n            str(exc_info.exception),\n            (\"Expected str object, not 'bytes'\", \"str object expected; got bytes\"),\n        )\n\n        with self.assertRaises(TypeError) as exc_info:\n            tomllib.loads(False)  # type: ignore[arg-type]\n        # Mypyc extension leads to different message than pure Python\n        self.assertIn(\n            str(exc_info.exception),\n            (\"Expected str object, not 'bool'\", \"str object expected; got bool\"),\n        )\n\n    def test_invalid_parse_float(self):\n        def dict_returner(s: str) -> dict[Any, Any]:\n            return {}\n\n        def list_returner(s: str) -> list[Any]:\n            return []\n\n        for invalid_parse_float in (dict_returner, list_returner):\n            with self.assertRaises(ValueError) as exc_info:\n                tomllib.loads(\"f=0.1\", parse_float=invalid_parse_float)\n            self.assertEqual(\n                str(exc_info.exception), \"parse_float must not return dicts or lists\"\n            )\n\n    def test_deprecated_tomldecodeerror(self):\n        for args in [\n            (),\n            (\"err msg\",),\n            (None,),\n            (None, \"doc\"),\n            (\"err msg\", None),\n            (None, \"doc\", None),\n            (\"err msg\", \"doc\", None),\n            (\"one\", \"two\", \"three\", \"four\"),\n            (\"one\", \"two\", 3, \"four\", \"five\"),\n        ]:\n            with self.assertWarns(DeprecationWarning):\n                e = tomllib.TOMLDecodeError(*args)  # type: ignore[arg-type]\n            self.assertEqual(e.args, args)\n\n    def test_tomldecodeerror(self):\n        msg = \"error parsing\"\n        doc = \"v=1\\n[table]\\nv='val'\"\n        pos = 13\n        formatted_msg = \"error parsing (at line 3, column 2)\"\n        e = tomllib.TOMLDecodeError(msg, doc, pos)\n        self.assertEqual(e.args, (formatted_msg,))\n        self.assertEqual(str(e), formatted_msg)\n        self.assertEqual(e.msg, msg)\n        self.assertEqual(e.doc, doc)\n        self.assertEqual(e.pos, pos)\n        self.assertEqual(e.lineno, 3)\n        self.assertEqual(e.colno, 2)\n"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "954"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "72135a5bc1477eb2",
+       "parentSpanId": "0cefd6e790dbfa0f",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458152354119000",
+       "endTimeUnixNano": "1790458153573310000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "6"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "11769"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "196"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "702"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:12.353998+00:00 request 270b49973354\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_98ab948accb84a3286a8e89d\", \"response\": \"# SPDX-License-Identifier: MIT\\n# SPDX-FileCopyrightText: 2021 Taneli Hukkinen\\n# Licensed to PSF under a Contributor Agreement.\\n\\nfrom __future__ import annotations\\n\\nfrom typing import Any\\nimport unittest\\n\\nfrom . import tomllib\\n\\n\\nclass TestError(unittest.TestCase):\\n    def test_line_and_col(self):\\n        with self.assertRaises(tomllib.TOMLDecodeError) as exc_info:\\n            tomllib.loads(\\\"val=.\\\")\\n        self.assertEqual(str(exc_info.exception), \\\"Invalid value (at line 1, column 5)\\\")\\n\\n        with self.assertRaises(tomllib.TOMLDecodeError) as exc_info:\\n            tomllib.loads(\\\".\\\")\\n        self.assertEqual(\\n            str(exc_info.exception), \\\"Invalid statement (at line 1, column 1)\\\"\\n        )\\n\\n        with self.assertRaises(tomllib.TOMLDecodeError) as exc_info:\\n            tomllib.loads(\\\"\\\\n\\\\nval=.\\\")\\n        self.assertEqual(str(exc_info.exception), \\\"Invalid value (at line 3, column 5)\\\")\\n\\n        with self.assertRaises(tomllib.TOMLDecodeError) as exc_info:\\n            tomllib.loads(\\\"\\\\n\\\\n.\\\")\\n        self.assertEqual(\\n            str(exc_info.exception), \\\"Invalid statement (at line 3, column 1)\\\"\\n        )\\n\\n    def test_missing_value(self):\\n        with self.assertRaises(tomllib.TOMLDecodeError) as exc_info:\\n            tomllib.loads(\\\"\\\\n\\\\nfwfw=\\\")\\n        self.assertEqual(str(exc_info.exception), \\\"Invalid value (at end of document)\\\")\\n\\n    def test_invalid_char_quotes(self):\\n        with self.assertRaises(tomllib.TOMLDecodeError) as exc_info:\\n            tomllib.loads(\\\"v = '\\\\n'\\\")\\n        self.assertTrue(\\\" '\\\\\\\\n' \\\" in str(exc_info.exception))\\n\\n    def test_type_error(self):\\n        with self.assertRaises(TypeError) as exc_info:\\n            tomllib.loads(b\\\"v = 1\\\")  # type: ignore[arg-type]\\n        # Mypyc extension leads to different message than pure Python\\n        self.assertIn(\\n            str(exc_info.exception),\\n            (\\\"Expected str object, not 'bytes'\\\", \\\"str object expected; got bytes\\\"),\\n        )\\n\\n        with self.assertRaises(TypeError) as exc_info:\\n            tomllib.loads(False)  # type: ignore[arg-type]\\n        # Mypyc extension leads to different message than pure Python\\n        self.assertIn(\\n            str(exc_info.exception),\\n            (\\\"Expected str object, not 'bool'\\\", \\\"str object expected; got bool\\\"),\\n        )\\n\\n    def test_invalid_parse_float(self):\\n        def dict_returner(s: str) -> dict[Any, Any]:\\n            return {}\\n\\n        def list_returner(s: str) -> list[Any]:\\n            return []\\n\\n        for invalid_parse_float in (dict_returner, list_returner):\\n            with self.assertRaises(ValueError) as exc_info:\\n                tomllib.loads(\\\"f=0.1\\\", parse_float=invalid_parse_float)\\n            self.assertEqual(\\n                str(exc_info.exception), \\\"parse_float must not return dicts or lists\\\"\\n            )\\n\\n    def test_deprecated_tomldecodeerror(self):\\n        for args in [\\n            (),\\n            (\\\"err msg\\\",),\\n            (None,),\\n            (None, \\\"doc\\\"),\\n            (\\\"err msg\\\", None),\\n            (None, \\\"doc\\\", None),\\n            (\\\"err msg\\\", \\\"doc\\\", None),\\n            (\\\"one\\\", \\\"two\\\", \\\"three\\\", \\\"four\\\"),\\n            (\\\"one\\\", \\\"two\\\", 3, \\\"four\\\", \\\"five\\\"),\\n        ]:\\n            with self.assertWarns(DeprecationWarning):\\n                e = tomllib.TOMLDecodeError(*args)  # type: ignore[arg-type]\\n            self.assertEqual(e.args, args)\\n\\n    def test_tomldecodeerror(self):\\n        msg = \\\"error parsing\\\"\\n        doc = \\\"v=1\\\\n[table]\\\\nv='val'\\\"\\n        pos = 13\\n        formatted_msg = \\\"error parsing (at line 3, column 2)\\\"\\n        e = tomllib.TOMLDecodeError(msg, doc, pos)\\n        self.assertEqual(e.args, (formatted_msg,))\\n        self.assertEqual(str(e), formatted_msg)\\n        self.assertEqual(e.msg, msg)\\n        self.assertEqual(e.doc, doc)\\n        self.assertEqual(e.pos, pos)\\n        self.assertEqual(e.lineno, 3)\\n        self.assertEqual(e.colno, 2)\\n\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Let me look at valid dotted key tests and the toml-test valid cases to understand behavior. Also check git history maybe. Let me look at valid key tests.\"}, {\"type\": \"tool_call\", \"id\": \"call_7be2cf70ed414e8d88e8487e\", \"name\": \"run_command\", \"arguments\": {\"cmd\": \"ls tests/data/valid/key 2>/dev/null; echo ---; ls tests/data/valid/table 2>/dev/null; echo ---; ls tests/data/valid/_external/toml-test/valid/key 2>/dev/null | head; echo ---; ls tests/data/valid/_external/toml-test/valid/table 2>/dev/null | head\"}}, {\"type\": \"tool_call\", \"id\": \"call_f06bd978a62c4db4b29ed95f\", \"name\": \"search\", \"arguments\": {\"path\": \"tests/data/valid\", \"pattern\": \"dotted\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "7dc0ccdbc2cad32a",
+       "parentSpanId": "72135a5bc1477eb2",
+       "name": "execute_tool run_command",
+       "kind": 1,
+       "startTimeUnixNano": "1790458153573645000",
+       "endTimeUnixNano": "1790458153611106000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_command"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-17"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"cmd\": \"ls tests/data/valid/key 2>/dev/null; echo ---; ls tests/data/valid/table 2>/dev/null; echo ---; ls tests/data/valid/_external/toml-test/valid/key 2>/dev/null | head; echo ---; ls tests/data/valid/_external/toml-test/valid/table 2>/dev/null | head\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\n---\n---\nalphanum.json\nalphanum.toml\ncase-sensitive.json\ncase-sensitive.toml\ndotted-01.json\ndotted-01.toml\ndotted-02.json\ndotted-02.toml\ndotted-03.json\ndotted-03.toml\n---\narray-empty-name.json\narray-empty-name.toml\narray-empty.json\narray-empty.toml\narray-implicit-and-explicit-after.json\narray-implicit-and-explicit-after.toml\narray-implicit.json\narray-implicit.toml\narray-many.json\narray-many.toml"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "102"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "bb85d1011e435e37",
+       "parentSpanId": "72135a5bc1477eb2",
+       "name": "execute_tool search",
+       "kind": 1,
+       "startTimeUnixNano": "1790458153611237000",
+       "endTimeUnixNano": "1790458153647127000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "search"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-18"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"path\": \"tests/data/valid\", \"pattern\": \"dotted\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "(no matches)"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "3"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "769bfbfd1b9b46cd",
+       "parentSpanId": "0cefd6e790dbfa0f",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458153647301000",
+       "endTimeUnixNano": "1790458154683506000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "7"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "12091"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "147"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "702"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:13.647246+00:00 request d591cf762da3\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_7be2cf70ed414e8d88e8487e\", \"response\": \"exit code: 0\\n---\\n---\\nalphanum.json\\nalphanum.toml\\ncase-sensitive.json\\ncase-sensitive.toml\\ndotted-01.json\\ndotted-01.toml\\ndotted-02.json\\ndotted-02.toml\\ndotted-03.json\\ndotted-03.toml\\n---\\narray-empty-name.json\\narray-empty-name.toml\\narray-empty.json\\narray-empty.toml\\narray-implicit-and-explicit-after.json\\narray-implicit-and-explicit-after.toml\\narray-implicit.json\\narray-implicit.toml\\narray-many.json\\narray-many.toml\"}]}, {\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_f06bd978a62c4db4b29ed95f\", \"response\": \"(no matches)\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"tool_call\", \"id\": \"call_c0928e8988dd49a8826523e8\", \"name\": \"run_command\", \"arguments\": {\"cmd\": \"for f in tests/data/valid/_external/toml-test/valid/key/dotted-01.toml tests/data/valid/_external/toml-test/valid/key/dotted-02.toml tests/data/valid/_external/toml-test/valid/key/dotted-03.toml; do echo \\\"=== $f\\\"; cat \\\"$f\\\"; done; echo; ls tests/data/valid/_external/toml-test/valid/table | grep -i -E 'implicit|dotted|array'\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "9e66a7bdc1016033",
+       "parentSpanId": "769bfbfd1b9b46cd",
+       "name": "execute_tool run_command",
+       "kind": 1,
+       "startTimeUnixNano": "1790458154683563000",
+       "endTimeUnixNano": "1790458154701250000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_command"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-20"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"cmd\": \"for f in tests/data/valid/_external/toml-test/valid/key/dotted-01.toml tests/data/valid/_external/toml-test/valid/key/dotted-02.toml tests/data/valid/_external/toml-test/valid/key/dotted-03.toml; do echo \\\"=== $f\\\"; cat \\\"$f\\\"; done; echo; ls tests/data/valid/_external/toml-test/valid/table | grep -i -E 'implicit|dotted|array'\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\n=== tests/data/valid/_external/toml-test/valid/key/dotted-01.toml\nname.first = \"Arthur\"\n\"name\".'last' = \"Dent\"\n\nmany.dots.dot.dot.dot = 42\n=== tests/data/valid/_external/toml-test/valid/key/dotted-02.toml\n# Note: this file contains literal tab characters.\n\n# Space are ignored, and key parts can be quoted.\ncount.a       = 1\ncount . b     = 2\n\"count\".\"c\"   = 3\n\"count\" . \"d\" = 4\n'count'.'e'   = 5\n'count' . 'f' = 6\n\"count\".'g'   = 7\n\"count\" . 'h' = 8\ncount.'i'     = 9\ncount \t.\t 'j'\t   = 10\n\"count\".k     = 11\n\"count\" . l   = 12\n=== tests/data/valid/_external/toml-test/valid/key/dotted-03.toml\ntop.key = 1\n\n[tbl]\na.b.c = 42.666\n\n[a.few.dots]\npolka.dot = \"again?\"\npolka.dance-with = \"Dot\"\n\n\narray-empty-name.json\narray-empty-name.toml\narray-empty.json\narray-empty.toml\narray-implicit-and-explicit-after.json\narray-implicit-and-explicit-after.toml\narray-implicit.json\narray-implicit.toml\narray-many.json\narray-many.toml\narray-nest.json\narray-nest.toml\narray-one.json\narray-one.toml\narray-table-array.json\narray-table-array.toml\narray-within-dotted.json\narray-within-dotted.toml"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "270"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "f0b9c075bdf6e354",
+       "parentSpanId": "0cefd6e790dbfa0f",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458154701407000",
+       "endTimeUnixNano": "1790458162248721000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "8"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "12650"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "1747"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "702"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:14.701351+00:00 request d51b518c7fb1\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_c0928e8988dd49a8826523e8\", \"response\": \"exit code: 0\\n=== tests/data/valid/_external/toml-test/valid/key/dotted-01.toml\\nname.first = \\\"Arthur\\\"\\n\\\"name\\\".'last' = \\\"Dent\\\"\\n\\nmany.dots.dot.dot.dot = 42\\n=== tests/data/valid/_external/toml-test/valid/key/dotted-02.toml\\n# Note: this file contains literal tab characters.\\n\\n# Space are ignored, and key parts can be quoted.\\ncount.a       = 1\\ncount . b     = 2\\n\\\"count\\\".\\\"c\\\"   = 3\\n\\\"count\\\" . \\\"d\\\" = 4\\n'count'.'e'   = 5\\n'count' . 'f' = 6\\n\\\"count\\\".'g'   = 7\\n\\\"count\\\" . 'h' = 8\\ncount.'i'     = 9\\ncount \\t.\\t 'j'\\t   = 10\\n\\\"count\\\".k     = 11\\n\\\"count\\\" . l   = 12\\n=== tests/data/valid/_external/toml-test/valid/key/dotted-03.toml\\ntop.key = 1\\n\\n[tbl]\\na.b.c = 42.666\\n\\n[a.few.dots]\\npolka.dot = \\\"again?\\\"\\npolka.dance-with = \\\"Dot\\\"\\n\\n\\narray-empty-name.json\\narray-empty-name.toml\\narray-empty.json\\narray-empty.toml\\narray-implicit-and-explicit-after.json\\narray-implicit-and-explicit-after.toml\\narray-implicit.json\\narray-implicit.toml\\narray-many.json\\narray-many.toml\\narray-nest.json\\narray-nest.toml\\narray-one.json\\narray-one.toml\\narray-table-array.json\\narray-table-array.toml\\narray-within-dotted.json\\narray-within-dotted.toml\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"I have enough understanding. Let me write the documentation note. Let me carefully analyze the code.\\n\\nKey concepts:\\n\\n1. `Flags` class: bookkeeping of parsed keys/namespaces. Two flags:\\n   - FROZEN (0): immutable namespace (inline array or inline table)\\n   - EXPLICIT_NEST (1): a nest explicitly created, can no longer be opened with `[table]` syntax.\\n\\n2. `_flags` is a nested dict mirroring the key structure. Each node: `{\\\"flags\\\": set(), \\\"recursive_flags\\\": set(), \\\"nested\\\": {}}`.\\n   - `flags` = flags set on exactly this key.\\n   - `recursive_flags` = flags that apply to this key and all descendants.\\n   - `nested` = children.\\n\\n3. `_pending_flags`: set of (key, flag) to be applied at the end of the current statement/table header. `finalize_pending()` is called when a `[` header is encountered (in loads, before create_list_rule/create_dict_rule). This is the mechanism for dotted keys: containers created by dotted keys in a key/value pair are marked EXPLICIT_NEST only after the statement completes, so that within the same statement they don't conflict.\\n\\nWait, actually finalize_pending is called when a new table header starts. Let me re-read.\\n\\nIn `loads`, when char == \\\"[\\\", `out.flags.finalize_pending()` is called before create_list_rule/create_dict_rule. So pending flags from dotted keys accumulate across key/value statements and are only finalized when the next table header appears. Hmm, why? Because dotted keys within the same table section can share prefixes: e.g.\\n```\\na.b = 1\\na.c = 2\\n```\\nHere `a` is added pending EXPLICIT_NEST after first line. If finalized immediately, the second line's check `out.flags.is_(cont_key, EXPLICIT_NEST)` for cont_key `a` would raise \\\"Cannot redefine namespace\\\". So pending flags are deferred until the table section ends (next header), allowing multiple dotted keys to share implicit parents within the same section. But once a new `[table]` header starts, those implicit dotted-key-created tables become explicit and can't be reopened.\\n\\nActually wait, let me check: `key_value_rule` checks `out.flags.is_(cont_key, EXPLICIT_NEST)` for each prefix. Since pending flags aren't yet set, repeated dotted keys in same section work. But `[t1]` then `t2.t3.v = 0` then `[t1.t2]` \\u2014 the pending flag for `t1.t2` gets finalized when `[t1.t2]` header is seen, so create_dict_rule sees EXPLICIT_NEST and errors \\\"Cannot declare twice\\\". That's redefine-1.\\n\\nAlso `[t1.t2.t3]` \\u2014 pending for t1.t2 and t1.t2.t3? Let's see: key = (t2,t3,v), header=(t1,). key_parent=(t2,t3), abs_key_parent=(t1,t2,t3). relative_path_cont_keys = header + key[:i] for i in 1..len(key)-1 = (t1,t2), (t1,t2,t3). So both marked pending EXPLICIT_NEST. Then `[t1.t2.t3]` finalizes and create_dict_rule sees EXPLICIT_NEST -> error. redefine-2.\\n\\n4. `set(key, flag, recursive)`: walks/creates nested nodes; adds flag to `recursive_flags` if recursive else `flags`.\\n\\n5. `is_(key, flag)`: walks key[:-1]; at each intermediate node, if flag in recursive_flags -> True (inherited). At final stem, checks flags or recursive_flags. Empty key -> False (root has no flags).\\n\\n6. `unset_all(key)`: removes the node for key entirely (used by create_list_rule to \\\"free the namespace\\\" when a new array element is appended).\\n\\nNow the rules:\\n\\n**create_dict_rule** (`[table]`):\\n- error if EXPLICIT_NEST or FROZEN already set on key -> \\\"Cannot declare {key} twice\\\"\\n- set EXPLICIT_NEST non-recursive\\n- get_or_create_nest; KeyError -> \\\"Cannot overwrite a value\\\"\\n\\n**create_list_rule** (`[[array]]`):\\n- error if FROZEN -> \\\"Cannot mutate immutable namespace\\\"\\n- unset_all(key) frees namespace\\n- set EXPLICIT_NEST non-recursive (this key still can't be declared as table)\\n- append_nest_to_list; KeyError -> \\\"Cannot overwrite a value\\\"\\n\\n**key_value_rule** (dotted keys):\\n- parse key/value\\n- key_parent, key_stem; abs_key_parent = header + key_parent\\n- for each prefix cont_key in relative path (header + key[:i], i from 1 to len(key)-1):\\n  - if EXPLICIT_NEST already set -> \\\"Cannot redefine namespace {cont_key}\\\" (dotted key tries to extend an explicitly declared table)\\n  - add_pending(cont_key, EXPLICIT_NEST)\\n- if abs_key_parent FROZEN -> \\\"Cannot mutate immutable namespace\\\"\\n- get_or_create_nest(abs_key_parent); KeyError -> \\\"Cannot overwrite a value\\\"\\n- if key_stem already in nest -> \\\"Cannot overwrite a value\\\"\\n- if value is dict/list -> set FROZEN recursive on header+key\\n- assign\\n\\n**parse_inline_table**: uses its own local NestedDict and Flags. Checks FROZEN on full key; get_or_create_nest with access_lists=False; duplicate stem -> \\\"Duplicate inline table key\\\"; after comma, if previous value was dict/list, set FROZEN recursive on key. Note the ordering quirk: the FROZEN set happens after the comma check, so it applies to the just-parsed value before the next iteration.\\n\\nLet me also note the `header` variable: current table context. Dotted keys are relative to header.\\n\\nAlso note `finalize_pending` is called only at `[` headers, not at EOF. At EOF pending flags don't matter.\\n\\nLet me also mention the interaction: `out.flags.finalize_pending()` before create_list_rule/create_dict_rule.\\n\\nAlso note `Flags.is_` for empty key returns False.\\n\\nLet me write the note with examples. I'll include a table of flags and error messages, and walk through examples.\\n\\nLet me verify some behaviors with quick tests to be accurate. Actually I should be economical but accuracy matters. Let me run a few quick python snippets.\"}, {\"type\": \"tool_call\", \"id\": \"call_7bbafdc3936c4121b093d1a1\", \"name\": \"run_command\", \"arguments\": {\"cmd\": \"cd . && python - <<'EOF'\\nimport tomllib\\ncases = {\\n \\\"dup dotted same section\\\": \\\"a.b=1\\\\na.c=2\\\\n\\\",\\n \\\"dotted then table\\\": \\\"[t1]\\\\nt2.t3.v=0\\\\n[t1.t2]\\\\n\\\",\\n \\\"dotted then deeper table\\\": \\\"[t1]\\\\nt2.t3.v=0\\\\n[t1.t2.t3]\\\\n\\\",\\n \\\"table then dotted extend\\\": \\\"[a.b.c]\\\\nz=9\\\\n[a]\\\\nb.c.t='x'\\\\n\\\",\\n \\\"inline frozen\\\": \\\"a={b=1}\\\\na.b=2\\\\n\\\",\\n \\\"inline table header\\\": \\\"a={}\\\\n[a.b]\\\\n\\\",\\n \\\"array of tables\\\": \\\"[[a]]\\\\nx=1\\\\n[[a]]\\\\nx=2\\\\n\\\",\\n \\\"dotted redefine value\\\": \\\"a=false\\\\na.b=true\\\\n\\\",\\n \\\"dotted through value\\\": \\\"a.b=1\\\\na.b.c=2\\\\n\\\",\\n \\\"dotted then array table\\\": \\\"a.b=1\\\\n[[a.b]]\\\\n\\\",\\n}\\nfor name, doc in cases.items():\\n    try:\\n        print(f\\\"OK   {name}: {tomllib.loads(doc)}\\\")\\n    except Exception as e:\\n        print(f\\\"ERR  {name}: {e}\\\")\\nEOF\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "327aec03c9b8fee3",
+       "parentSpanId": "f0b9c075bdf6e354",
+       "name": "execute_tool run_command",
+       "kind": 1,
+       "startTimeUnixNano": "1790458162248947000",
+       "endTimeUnixNano": "1790458162296597000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_command"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-22"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"cmd\": \"cd . && python - <<'EOF'\\nimport tomllib\\ncases = {\\n \\\"dup dotted same section\\\": \\\"a.b=1\\\\na.c=2\\\\n\\\",\\n \\\"dotted then table\\\": \\\"[t1]\\\\nt2.t3.v=0\\\\n[t1.t2]\\\\n\\\",\\n \\\"dotted then deeper table\\\": \\\"[t1]\\\\nt2.t3.v=0\\\\n[t1.t2.t3]\\\\n\\\",\\n \\\"table then dotted extend\\\": \\\"[a.b.c]\\\\nz=9\\\\n[a]\\\\nb.c.t='x'\\\\n\\\",\\n \\\"inline frozen\\\": \\\"a={b=1}\\\\na.b=2\\\\n\\\",\\n \\\"inline table header\\\": \\\"a={}\\\\n[a.b]\\\\n\\\",\\n \\\"array of tables\\\": \\\"[[a]]\\\\nx=1\\\\n[[a]]\\\\nx=2\\\\n\\\",\\n \\\"dotted redefine value\\\": \\\"a=false\\\\na.b=true\\\\n\\\",\\n \\\"dotted through value\\\": \\\"a.b=1\\\\na.b.c=2\\\\n\\\",\\n \\\"dotted then array table\\\": \\\"a.b=1\\\\n[[a.b]]\\\\n\\\",\\n}\\nfor name, doc in cases.items():\\n    try:\\n        print(f\\\"OK   {name}: {tomllib.loads(doc)}\\\")\\n    except Exception as e:\\n        print(f\\\"ERR  {name}: {e}\\\")\\nEOF\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\nOK   dup dotted same section: {'a': {'b': 1, 'c': 2}}\nERR  dotted then table: Cannot declare ('t1', 't2') twice (at line 3, column 7)\nERR  dotted then deeper table: Cannot declare ('t1', 't2', 't3') twice (at line 3, column 10)\nERR  table then dotted extend: Cannot redefine namespace ('a', 'b', 'c') (at line 4, column 10)\nERR  inline frozen: Cannot mutate immutable namespace ('a',) (at line 2, column 6)\nERR  inline table header: Cannot declare ('a', 'b') twice (at line 2, column 5)\nOK   array of tables: {'a': [{'x': 1}, {'x': 2}]}\nERR  dotted redefine value: Cannot overwrite a value (at line 2, column 9)\nERR  dotted through value: Cannot overwrite a value (at line 2, column 8)\nERR  dotted then array table: Cannot overwrite a value (at line 2, column 6)"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "192"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "34d1631cb07f9989",
+       "parentSpanId": "0cefd6e790dbfa0f",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458162296790000",
+       "endTimeUnixNano": "1790458171463748000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "9"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "13221"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "2096"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "702"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:22.296714+00:00 request 14e274b2dd0d\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_7bbafdc3936c4121b093d1a1\", \"response\": \"exit code: 0\\nOK   dup dotted same section: {'a': {'b': 1, 'c': 2}}\\nERR  dotted then table: Cannot declare ('t1', 't2') twice (at line 3, column 7)\\nERR  dotted then deeper table: Cannot declare ('t1', 't2', 't3') twice (at line 3, column 10)\\nERR  table then dotted extend: Cannot redefine namespace ('a', 'b', 'c') (at line 4, column 10)\\nERR  inline frozen: Cannot mutate immutable namespace ('a',) (at line 2, column 6)\\nERR  inline table header: Cannot declare ('a', 'b') twice (at line 2, column 5)\\nOK   array of tables: {'a': [{'x': 1}, {'x': 2}]}\\nERR  dotted redefine value: Cannot overwrite a value (at line 2, column 9)\\nERR  dotted through value: Cannot overwrite a value (at line 2, column 8)\\nERR  dotted then array table: Cannot overwrite a value (at line 2, column 6)\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Interesting: \\\"inline table header\\\" gives \\\"Cannot declare ('a','b') twice\\\" because FROZEN recursive flag on 'a' is detected by is_ for key ('a','b')? Let's check: is_(('a','b'), EXPLICIT_NEST) \\u2014 traverses 'a', checks recursive_flags for EXPLICIT_NEST (no), then key_stem 'b' not in cont -> False. Then is_(('a','b'), FROZEN): traverses 'a', FROZEN in recursive_flags -> True. So error \\\"Cannot declare ... twice\\\". Good.\\n\\nNow let me understand the pending flags mechanism deeply. In key_value_rule, for dotted keys, each intermediate container key (header + key[:i]) gets add_pending EXPLICIT_NEST. Pending flags are finalized only when a new table header is encountered (out.flags.finalize_pending() called in loads before create_list_rule/create_dict_rule). Why pending? Because within the same table section, dotted keys can share intermediate containers: e.g. `a.b=1` then `a.c=2` \\u2014 both use container ('a',). If we set EXPLICIT_NEST immediately, the second would fail. So pending defers marking until the section ends. But the check `is_(cont_key, EXPLICIT_NEST)` happens immediately, so a dotted key cannot extend a container that was explicitly declared as a table (or previously finalized from an earlier section).\\n\\nWait, but within same section, `a.b=1` then `a.c=2`: first adds pending ('a',). Second checks is_(('a',), EXPLICIT_NEST) \\u2014 pending not yet set, so False. Good. Then adds pending again (set dedups). At next header, finalize sets ('a',) EXPLICIT_NEST non-recursive.\\n\\nAlso note: pending flags are only finalized when a header line is encountered. At EOF they're never finalized, but that's fine since parsing ends.\\n\\nNow the FROZEN flag: set recursively when a value is dict or list (inline table/array). This makes the whole namespace immutable. Also in parse_inline_table, a local Flags instance is used, and FROZEN is set on keys whose value is dict/list \\u2014 but note the ordering bug-ish: it's set after checking `}`/`,`; actually it's set at the end of loop iteration only if not returning. Let me re-read.\\n\\nIn parse_inline_table:\\n```\\nwhile True:\\n    parse key/value\\n    if flags.is_(key, FROZEN): error\\n    nest = get_or_create_nest(key_parent, access_lists=False)\\n    if key_stem in nest: duplicate error\\n    nest[key_stem] = value\\n    skip ws\\n    c = ...\\n    if c == \\\"}\\\": return\\n    if c != \\\",\\\": error\\n    pos += 1\\n    skip\\n    if startswith(\\\"}\\\"): return\\n    if isinstance(value, (dict, list)): flags.set(key, FROZEN, recursive=True)\\n```\\nSo FROZEN is set for the previous key only when there's another key following. That's fine because if it returns, no further mutation. But note it's set after the comma check, so for `a={b=1}, c=2`? Actually inline table `{a={b=1}, c=2}` \\u2014 after parsing a, c==',' so pos advances, then if not '}', set FROZEN on ('a',). Then next iteration c=2. Good. If `{a={b=1}}` returns before setting, fine.\\n\\nAlso note the inline table's own flags are separate from the outer Flags; the outer parser marks the whole inline table value FROZEN recursively via key_value_rule.\\n\\nNow NestedDict.get_or_create_nest: walks key, creating dicts; if access_lists and cont is list, descends into last element. Raises KeyError if a non-dict is behind a key. append_nest_to_list appends {} to list or creates [{}].\\n\\ncreate_dict_rule: checks EXPLICIT_NEST or FROZEN -> \\\"Cannot declare twice\\\". Sets EXPLICIT_NEST non-recursive. get_or_create_nest -> KeyError -> \\\"Cannot overwrite a value\\\".\\n\\ncreate_list_rule: checks FROZEN -> \\\"Cannot mutate immutable namespace\\\". unset_all(key) frees namespace flags (so the new list element can be defined), then sets EXPLICIT_NEST non-recursive on the key itself (prohibits `[a]` table declaration after `[[a]]`). append_nest_to_list.\\n\\nNote: create_list_rule does NOT check EXPLICIT_NEST, so `[[a]]` after `[a]`? Let's test. Actually `[a]` sets EXPLICIT_NEST on ('a',). Then `[[a]]` \\u2014 is_ FROZEN false; unset_all removes flags for ('a',); append to list. But data['a'] is a dict, not list -> append_nest_to_list raises KeyError \\\"An object other than list found behind this key\\\" -> \\\"Cannot overwrite a value\\\". Good.\\n\\nAlso `[[a]]` then `[a]`: create_dict_rule checks EXPLICIT_NEST on ('a',) which was set by create_list_rule -> \\\"Cannot declare twice\\\". Good.\\n\\nNow the header variable: after a table header, subsequent key/value pairs are relative to header. abs_key_parent = header + key_parent. The relative_path_cont_keys uses header + key[:i] for i in 1..len(key)-1, i.e. all prefixes including the full key? range(1, len(key)) gives i=1..len(key)-1, so key[:i] excludes the full key (stem). So intermediate containers only. Good.\\n\\nNote the check for FROZEN uses abs_key_parent (header + key_parent), not the full key. And the frozen set uses header+key.\\n\\nAlso note: for a simple key (no dots), key_parent=(), relative_path_cont_keys empty, abs_key_parent=header. FROZEN check on header. Then get_or_create_nest(header). If key_stem in nest -> overwrite error.\\n\\nLet me also check the `is_` semantics: recursive_flags on an ancestor cause True for descendants. So FROZEN recursive on ('a',) makes is_(('a','b'), FROZEN) True. EXPLICIT_NEST is always set non-recursive, so it only applies to exact key.\\n\\nNow let me look at test_data.py to see how invalid tests are run, and maybe there's a specific test for dotted keys. Not strictly needed.\\n\\nLet me also check git log / version for context. Not needed.\\n\\nI should write out/dotted-keys.md. Let me make it thorough but focused: describe data structures, flags, pending mechanism, each rule, and worked examples with actual error messages. Let me verify a few more examples to be accurate, e.g. dotted key in same section sharing container, and pending finalization across sections.\\n\\nLet me test:\\n- `a.b=1` then `[a]` -> should error \\\"Cannot declare ('a',) twice\\\" because pending finalized at header.\\n- `a.b=1` then `[a.c]` -> pending ('a',) finalized, then create_dict_rule key ('a','c'): is_ EXPLICIT_NEST? traverses 'a', recursive_flags no; key_stem 'c' not in cont -> False. FROZEN no. So allowed! Then get_or_create_nest(('a','c')) creates. So `[a.c]` after `a.b=1` is allowed. Let's verify.\\n- `a.b=1` then `[a.b]` -> create_dict_rule key ('a','b'): is_ EXPLICIT_NEST traverses 'a' (recursive no), key_stem 'b' in cont? 'b' was never flagged (only 'a' pending). So False. Allowed? But data a.b is int 1, get_or_create_nest(('a','b')) -> cont['b']=1 not dict -> KeyError -> \\\"Cannot overwrite a value\\\". Good.\\n\\nLet me run these.\"}, {\"type\": \"tool_call\", \"id\": \"call_e4b45d03af38442aa98053f7\", \"name\": \"run_command\", \"arguments\": {\"cmd\": \"python - <<'EOF'\\nimport tomllib\\ncases = {\\n \\\"dotted then [a]\\\": \\\"a.b=1\\\\n[a]\\\\n\\\",\\n \\\"dotted then [a.c]\\\": \\\"a.b=1\\\\n[a.c]\\\\n\\\",\\n \\\"dotted then [a.b]\\\": \\\"a.b=1\\\\n[a.b]\\\\n\\\",\\n \\\"dotted share container\\\": \\\"a.b=1\\\\na.c=2\\\\n\\\",\\n \\\"dotted then new section dotted same\\\": \\\"a.b=1\\\\n[x]\\\\ny=1\\\\n\\\",\\n \\\"dotted then section then dotted a\\\": \\\"a.b=1\\\\n[x]\\\\ny=1\\\\n[a.c]\\\\nz=1\\\\n\\\",\\n \\\"array table then dotted\\\": \\\"[[a]]\\\\nb.c=1\\\\n\\\",\\n \\\"dotted then array table same\\\": \\\"a.b.c=1\\\\n[[a.b]]\\\\n\\\",\\n \\\"explicit then dotted deeper\\\": \\\"[a.b]\\\\nc=1\\\\n[a]\\\\nb.d=2\\\\n\\\",\\n \\\"explicit then dotted same\\\": \\\"[a.b]\\\\nc=1\\\\n[a]\\\\nb.c=2\\\\n\\\",\\n}\\nfor name, doc in cases.items():\\n    try:\\n        print(f\\\"OK   {name}: {tomllib.loads(doc)}\\\")\\n    except Exception as e:\\n        print(f\\\"ERR  {name}: {e}\\\")\\nEOF\"}}], \"finish_reason\": \"tool_calls\"}]"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "a0d1227769542b58",
+       "parentSpanId": "34d1631cb07f9989",
+       "name": "execute_tool run_command",
+       "kind": 1,
+       "startTimeUnixNano": "1790458171463869000",
+       "endTimeUnixNano": "1790458171498972000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "execute_tool"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.tool.name",
+         "value": {
+          "stringValue": "run_command"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.id",
+         "value": {
+          "stringValue": "tc-24"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.arguments",
+         "value": {
+          "stringValue": "{\"cmd\": \"python - <<'EOF'\\nimport tomllib\\ncases = {\\n \\\"dotted then [a]\\\": \\\"a.b=1\\\\n[a]\\\\n\\\",\\n \\\"dotted then [a.c]\\\": \\\"a.b=1\\\\n[a.c]\\\\n\\\",\\n \\\"dotted then [a.b]\\\": \\\"a.b=1\\\\n[a.b]\\\\n\\\",\\n \\\"dotted share container\\\": \\\"a.b=1\\\\na.c=2\\\\n\\\",\\n \\\"dotted then new section dotted same\\\": \\\"a.b=1\\\\n[x]\\\\ny=1\\\\n\\\",\\n \\\"dotted then section then dotted a\\\": \\\"a.b=1\\\\n[x]\\\\ny=1\\\\n[a.c]\\\\nz=1\\\\n\\\",\\n \\\"array table then dotted\\\": \\\"[[a]]\\\\nb.c=1\\\\n\\\",\\n \\\"dotted then array table same\\\": \\\"a.b.c=1\\\\n[[a.b]]\\\\n\\\",\\n \\\"explicit then dotted deeper\\\": \\\"[a.b]\\\\nc=1\\\\n[a]\\\\nb.d=2\\\\n\\\",\\n \\\"explicit then dotted same\\\": \\\"[a.b]\\\\nc=1\\\\n[a]\\\\nb.c=2\\\\n\\\",\\n}\\nfor name, doc in cases.items():\\n    try:\\n        print(f\\\"OK   {name}: {tomllib.loads(doc)}\\\")\\n    except Exception as e:\\n        print(f\\\"ERR  {name}: {e}\\\")\\nEOF\"}"
+         }
+        },
+        {
+         "key": "gen_ai.tool.call.result",
+         "value": {
+          "stringValue": "exit code: 0\nERR  dotted then [a]: Cannot declare ('a',) twice (at line 2, column 3)\nOK   dotted then [a.c]: {'a': {'b': 1, 'c': {}}}\nERR  dotted then [a.b]: Cannot overwrite a value (at line 2, column 5)\nOK   dotted share container: {'a': {'b': 1, 'c': 2}}\nOK   dotted then new section dotted same: {'a': {'b': 1}, 'x': {'y': 1}}\nOK   dotted then section then dotted a: {'a': {'b': 1, 'c': {'z': 1}}, 'x': {'y': 1}}\nOK   array table then dotted: {'a': [{'b': {'c': 1}}]}\nERR  dotted then array table same: Cannot overwrite a value (at line 2, column 6)\nERR  explicit then dotted deeper: Cannot redefine namespace ('a', 'b') (at line 4, column 6)\nERR  explicit then dotted same: Cannot redefine namespace ('a', 'b') (at line 4, column 6)"
+         }
+        },
+        {
+         "key": "dwight.tool.result_tokens",
+         "value": {
+          "intValue": "182"
+         }
+        }
+       ]
+      },
+      {
+       "traceId": "076135ac9ee0f7fd3575a1ad97c7c2bd",
+       "spanId": "f58b5b1e75246fb0",
+       "parentSpanId": "0cefd6e790dbfa0f",
+       "name": "chat /deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+       "kind": 3,
+       "startTimeUnixNano": "1790458171499185000",
+       "endTimeUnixNano": "1790458188814425000",
+       "attributes": [
+        {
+         "key": "gen_ai.operation.name",
+         "value": {
+          "stringValue": "chat"
+         }
+        },
+        {
+         "key": "gen_ai.conversation.id",
+         "value": {
+          "stringValue": "real-031"
+         }
+        },
+        {
+         "key": "gen_ai.request.model",
+         "value": {
+          "stringValue": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash"
+         }
+        },
+        {
+         "key": "dwight.call.seq",
+         "value": {
+          "intValue": "10"
+         }
+        },
+        {
+         "key": "gen_ai.usage.input_tokens",
+         "value": {
+          "intValue": "13801"
+         }
+        },
+        {
+         "key": "gen_ai.usage.output_tokens",
+         "value": {
+          "intValue": "4096"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_hash",
+         "value": {
+          "stringValue": "421f2d6b3efd8cfd"
+         }
+        },
+        {
+         "key": "dwight.prompt.prefix_tokens",
+         "value": {
+          "intValue": "702"
+         }
+        },
+        {
+         "key": "gen_ai.system_instructions",
+         "value": {
+          "stringValue": "[{\"type\": \"text\", \"content\": \"[kestrel-devagent session header] generated 2026-09-26T21:29:31.499096+00:00 request 2fd8e6d6e247\\n\\nYou are kestrel-devagent, Kestrel Logistics' internal coding agent. You are working in a\\ncheckout of `tomli`, the open-source TOML parser that Kestrel vendors in its config tooling\\n(package code in src/tomli/, tests in tests/). The workspace root is your current directory.\\n\\nUse the tools to inspect files, edit files and run shell commands. Python and pytest are\\ninstalled and PYTHONPATH already points at src/; run_tests runs the test suite (or one file).\\nWrite any report files the task asks for under out/.\\n\\nWhen the task is done, reply with a short summary of what you did, and stop calling tools.\\n\\nWork economically. File contents you have read stay in your context, so do not read the same\\nfile twice unless you changed it. Run the tests at most once, after your last edit.\"}]"
+         }
+        },
+        {
+         "key": "gen_ai.input.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"tool\", \"parts\": [{\"type\": \"tool_call_response\", \"id\": \"call_e4b45d03af38442aa98053f7\", \"response\": \"exit code: 0\\nERR  dotted then [a]: Cannot declare ('a',) twice (at line 2, column 3)\\nOK   dotted then [a.c]: {'a': {'b': 1, 'c': {}}}\\nERR  dotted then [a.b]: Cannot overwrite a value (at line 2, column 5)\\nOK   dotted share container: {'a': {'b': 1, 'c': 2}}\\nOK   dotted then new section dotted same: {'a': {'b': 1}, 'x': {'y': 1}}\\nOK   dotted then section then dotted a: {'a': {'b': 1, 'c': {'z': 1}}, 'x': {'y': 1}}\\nOK   array table then dotted: {'a': [{'b': {'c': 1}}]}\\nERR  dotted then array table same: Cannot overwrite a value (at line 2, column 6)\\nERR  explicit then dotted deeper: Cannot redefine namespace ('a', 'b') (at line 4, column 6)\\nERR  explicit then dotted same: Cannot redefine namespace ('a', 'b') (at line 4, column 6)\"}]}]"
+         }
+        },
+        {
+         "key": "gen_ai.output.messages",
+         "value": {
+          "stringValue": "[{\"role\": \"assistant\", \"parts\": [{\"type\": \"reasoning\", \"content\": \"Interesting: \\\"dotted then [a.c]\\\" is OK. Because pending EXPLICIT_NEST for ('a',) is finalized at header, then create_dict_rule for ('a','c') checks EXPLICIT_NEST on ('a','c') \\u2014 not set \\u2014 and FROZEN not set. So allowed. Good.\\n\\nNow I have enough understanding. Let me write the doc. I should be accurate about the flags bookkeeping.\\n\\nLet me carefully re-derive the semantics.\\n\\nFlags structure: `_flags` is a nested dict tree mirroring key paths. Each node: {\\\"flags\\\": set(), \\\"recursive_flags\\\": set(), \\\"nested\\\": {}}. `set(key, flag, recursive)` walks/creates nodes for key[:-1], then adds flag to the leaf's \\\"flags\\\" or \\\"recursive_flags\\\". `is_(key, flag)` walks key[:-1]; at each intermediate node, if flag in recursive_flags \\u2192 True (inherited); at leaf checks both flags and recursive_flags. Empty key \\u2192 False.\\n\\nTwo flags:\\n- FROZEN (0): immutable namespace (inline array/table). Set recursively on the value's key when value is dict/list in key_value_rule. Also in parse_inline_table for nested values (though that's a separate local Flags).\\n- EXPLICIT_NEST (1): a nest explicitly created, cannot be reopened with [table] syntax.\\n\\nPending flags: `add_pending` / `finalize_pending`. Used in key_value_rule for dotted-key intermediate containers. Why pending? Because within a single key/value line, the intermediate containers are created by dotted syntax; they should be marked EXPLICIT_NEST so later `[a.b]` can't reopen them, but the marking must not take effect until the statement is complete \\u2014 otherwise... Actually let's think. The pending flags are finalized at the start of a `[` header rule (out.flags.finalize_pending() in loads). Why deferred? Consider `a.b.c = 1` then `[a.b.d]`? Hmm. Actually the reason: within the same key/value pair, the loop checks `is_(cont_key, EXPLICIT_NEST)` before adding pending. If it set immediately, then... the check is on cont_key which is a prefix; setting EXPLICIT_NEST on prefix wouldn't affect the check of the same prefix? Actually it would: for key a.b.c, cont_keys are ('a',) and ('a','b'). It checks is_(('a',), EXPLICIT_NEST) then add_pending(('a',)). If set immediately, then next iteration checks is_(('a','b'), EXPLICIT_NEST) \\u2014 ('a','b') not set, fine. So immediate wouldn't break this loop. But consider `a.b.c = 1` and then later in same... no.\\n\\nHmm, why pending? Let me think about `[a]` then `b.c = 1` then `[a.b]`. The header key is ('a','b'). At header, finalize_pending sets EXPLICIT_NEST on ('a','b') (from header+key[:i] = ('a','b') for i=2). Then create_dict_rule checks is_(('a','b'), EXPLICIT_NEST) \\u2192 True \\u2192 error. Good.\\n\\nIf it were set immediately, same result. So why pending? Maybe because of the ordering with the FROZEN check and get_or_create_nest? Or because the dotted key's own leaf shouldn't be marked? Actually pending is only for intermediate parts (key[:i] for i in 1..len(key)-1), not the full key. Hmm.\\n\\nLet me look at git history / comments. The comment says \\\"Containers in the relative path can't be opened with the table syntax or dotted key/value syntax in following table sections.\\\" \\\"following table sections\\\" \\u2014 so deferred until next section? Actually finalize_pending is called when a `[` header is encountered. So pending flags only become active at the next table header. That means within the same table section, dotted keys can share containers (a.b=1, a.c=2 works). If set immediately, a.b=1 would set EXPLICIT_NEST on ('a',), then a.c=2's cont_key ('a',) check would fail \\u2192 error. That's the reason! Within the same section, dotted keys may extend the same implicit table. So pending defers marking until the section ends (next header), at which point the implicit tables created by dotted keys become closed.\\n\\nWait but the check `is_(cont_key, EXPLICIT_NEST)` happens before add_pending. If set immediately, second dotted key in same section would see EXPLICIT_NEST on ('a',) and error. So pending is essential to allow `a.b=1\\\\na.c=2`.\\n\\nBut note: pending is finalized at the next `[` header, not at end of section generally. Also at end of document pending never finalized \\u2014 fine.\\n\\nAlso note: `create_list_rule` calls `unset_all(key)` to free namespace for new array element, then sets EXPLICIT_NEST on the key itself.\\n\\nLet me also note the FROZEN recursive semantics: inline table `a = {b=1}` sets FROZEN recursive on ('a',). Then `a.b=2`: abs_key_parent = ('a',), is_ FROZEN \\u2192 error. `[a.b]`: create_dict_rule key ('a','b'), is_ FROZEN on ('a','b') \\u2192 walks ('a',) intermediate, recursive_flags contains FROZEN \\u2192 True \\u2192 \\\"Cannot declare twice\\\". Good.\\n\\nAlso `a = {}` then `[a.b]` gives \\\"Cannot declare ('a','b') twice\\\" because FROZEN check in create_dict_rule raises same message. Interesting.\\n\\nNow the key_value_rule details:\\n- parse key/value pair \\u2192 key tuple.\\n- key_parent = key[:-1], key_stem = key[-1].\\n- abs_key_parent = header + key_parent (header is current table context).\\n- relative_path_cont_keys = header + key[:i] for i in 1..len(key)-1. These are the intermediate containers in the absolute path, including header prefix. For each: if EXPLICIT_NEST already \\u2192 \\\"Cannot redefine namespace\\\". Else add_pending EXPLICIT_NEST.\\n- Then if abs_key_parent FROZEN \\u2192 \\\"Cannot mutate immutable namespace\\\".\\n- get_or_create_nest(abs_key_parent) \\u2192 KeyError \\u2192 \\\"Cannot overwrite a value\\\" (e.g., a.b=1 then a.b.c=2, since a.b is int).\\n- if key_stem in nest \\u2192 \\\"Cannot overwrite a value\\\" (duplicate key).\\n- if value is dict/list \\u2192 set FROZEN recursive on header+key.\\n- nest[key_stem] = value.\\n\\nNote the check for EXPLICIT_NEST on cont_key includes the header itself? relative_path_cont_keys starts at i=1, so key[:1] = first part of the relative key. header + key[:1]. If key has only one part, range(1,1) empty \\u2192 no checks. So a simple `x=1` doesn't mark anything.\\n\\nWait, but for `[a]` then `b.c=1`: header=('a',), key=('b','c'). cont_keys = ('a','b') for i=1. So marks ('a','b') pending EXPLICIT_NEST. Then `[a.b]` later \\u2192 error. Good.\\n\\nFor `a.b.c=1` at root: header=(), cont_keys = ('a',), ('a','b'). Both pending.\\n\\nNow create_dict_rule:\\n- parse key.\\n- if is_(key, EXPLICIT_NEST) or is_(key, FROZEN) \\u2192 \\\"Cannot declare {key} twice\\\".\\n- set EXPLICIT_NEST non-recursive on key.\\n- get_or_create_nest(key) \\u2192 KeyError \\u2192 \\\"Cannot overwrite a value\\\".\\n- expect ']'.\\n\\ncreate_list_rule:\\n- if is_(key, FROZEN) \\u2192 \\\"Cannot mutate immutable namespace\\\".\\n- unset_all(key) \\u2014 clears flags subtree at key (frees namespace for new list element).\\n- set EXPLICIT_NEST non-recursive on key.\\n- append_nest_to_list(key) \\u2192 KeyError \\u2192 \\\"Cannot overwrite a value\\\".\\n- expect ']]'.\\n\\nNote unset_all walks key[:-1] and pops key[-1] from _flags. It doesn't touch pending flags. Hmm, pending flags for the array key? Possibly stale but finalize later sets them. Actually unset_all removes the node so pending set later re-adds.\\n\\nAlso note in loads: `out.flags.finalize_pending()` is called before create_list_rule/create_dict_rule. So pending flags from dotted keys in the previous section are applied before checking the new header.\\n\\nparse_inline_table uses its own local NestedDict and Flags. It checks flags.is_(key, FROZEN) for the full key (not parent) \\u2014 hmm, it checks `flags.is_(key, Flags.FROZEN)` where key is full dotted key. Then get_or_create_nest(key_parent, access_lists=False). Duplicate key_stem \\u2192 \\\"Duplicate inline table key\\\". Then at end of each iteration, if value is dict/list, flags.set(key, FROZEN, recursive=True). Note this is done after the comma check, so only for non-last entries? Actually it's after checking c == \\\"}\\\" return, so if the value is the last one before }, it returns before setting FROZEN. But that's fine because the whole inline table becomes FROZEN recursively from the outer key_value_rule. Within the inline table, a later dotted key could reference it though. E.g. `{a = {b=1}, a.c = 2}`? Let's test. Actually the FROZEN set happens after the value is added and after comma; for `a = {b=1}, a.c=2`, after first pair value dict, c==',' so not return, then set FROZEN on ('a',). Next pair key ('a','c'), flags.is_(('a','c'), FROZEN) walks ('a',) recursive \\u2192 True \\u2192 error. Good.\\n\\nBut if the frozen value is last, no need since table ends.\\n\\nAlso note parse_inline_table's FROZEN check is on full key, and it doesn't check EXPLICIT_NEST (inline tables don't have table headers). And it doesn't use pending.\\n\\nNow let me also mention MAX_KEY_PARTS and MAX_INLINE_NESTING briefly? The task is about dotted keys and redefinition detection. I can mention key parsing.\\n\\nLet me also verify the \\\"dotted then [a.c]\\\" allowed case and explain: pending EXPLICIT_NEST on ('a',) is finalized at header; create_dict_rule for ('a','c') checks is_(('a','c'), EXPLICIT_NEST): walks ('a',) intermediate, recursive_flags? EXPLICIT_NEST was set non-recursive, so not inherited. Leaf ('a','c') not set \\u2192 allowed. Good, so non-recursive means only exact key blocked.\\n\\nAnd `[a]` after `a.b=1`: header ('a',), is_(('a',), EXPLICIT_NEST) \\u2192 True (set pending) \\u2192 \\\"Cannot declare ('a',) twice\\\". Good.\\n\\nNow write out/dotted-keys.md. Include:\\n- Overview\\n- Key representation (tuple of str parts)\\n- Flags class internals\\n- The two flags\\n- Pending flags and why deferred\\n- key_value_rule walkthrough with pseudocode\\n- create_dict_rule / create_list_rule\\n- inline table local flags\\n- Error message table with examples\\n- Worked examples\\n\\nLet me create out dir and write. Also maybe run tests once at end? The task says run tests at most once after last edit. Since I'm only writing a doc, tests aren't strictly needed, but instruction says run at most once. I'll run once to confirm nothing broken (no code changes). Actually running is optional; but \\\"Run the tests at most once, after your last edit.\\\" I'll run once.\\n\\nLet me write the doc.\"}, {\"type\": \"text\", \"content\": \"Now I have a solid understanding. Let me write the documentation.\"}], \"finish_reason\": \"length\"}]"
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

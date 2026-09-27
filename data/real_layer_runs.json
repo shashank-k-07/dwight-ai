@@ -1,0 +1,2418 @@
+{
+ "sessions": {
+  "real-001": {
+   "task_id": "tomli-multiline-notes",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:27:18Z",
+   "member_id": "m001",
+   "team": "Platform",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 4,
+   "input_tokens": 22230,
+   "output_tokens": 1823,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/multiline-strings.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-002": {
+   "task_id": "tomli-docstring-inline-table",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:27:24Z",
+   "member_id": "m023",
+   "team": "Data Infrastructure",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 3,
+   "input_tokens": 11294,
+   "output_tokens": 4215,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "pytest exit 0"
+   ]
+  },
+  "real-003": {
+   "task_id": "tomli-test-offset-datetime",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:27:16Z",
+   "member_id": "m092",
+   "team": "Integrations",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 4,
+   "input_tokens": 11046,
+   "output_tokens": 1745,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "tests/test_misc.py contains '999999': True",
+    "pytest exit 0"
+   ]
+  },
+  "real-004": {
+   "task_id": "tomli-error-inventory",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:27:33Z",
+   "member_id": "m112",
+   "team": "Routing",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 6,
+   "input_tokens": 49278,
+   "output_tokens": 5546,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/errors.json present",
+    "pytest exit 0"
+   ]
+  },
+  "real-005": {
+   "task_id": "tomli-datetime-regex",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:27:32Z",
+   "member_id": "m076",
+   "team": "Billing",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 5,
+   "input_tokens": 27576,
+   "output_tokens": 3694,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/datetime-regex.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-006": {
+   "task_id": "tomli-parse-float-guard",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:27:41Z",
+   "member_id": "m061",
+   "team": "Forecasting",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 10,
+   "input_tokens": 114252,
+   "output_tokens": 4812,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/parse-float-review.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-007": {
+   "task_id": "tomli-invalid-cases-count",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:27:28Z",
+   "member_id": "m043",
+   "team": "Mobile",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 3,
+   "input_tokens": 11281,
+   "output_tokens": 600,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/invalid-cases.json present",
+    "pytest exit 0"
+   ]
+  },
+  "real-008": {
+   "task_id": "tomli-release-notes",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:00Z",
+   "member_id": "m002",
+   "team": "Platform",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 15,
+   "input_tokens": 182409,
+   "output_tokens": 5878,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/release-notes.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-009": {
+   "task_id": "tomli-key-parsing",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:27:58Z",
+   "member_id": "m024",
+   "team": "Data Infrastructure",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 7,
+   "input_tokens": 59170,
+   "output_tokens": 4155,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/dotted-keys.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-010": {
+   "task_id": "tomli-test-unicode-escape",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:27:47Z",
+   "member_id": "m093",
+   "team": "Integrations",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 5,
+   "input_tokens": 13482,
+   "output_tokens": 1750,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "tests/test_misc.py contains 'D800': True",
+    "pytest exit 0"
+   ]
+  },
+  "real-011": {
+   "task_id": "tomli-multiline-notes",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:27:52Z",
+   "member_id": "m113",
+   "team": "Routing",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 4,
+   "input_tokens": 21192,
+   "output_tokens": 2175,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/multiline-strings.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-012": {
+   "task_id": "tomli-docstring-inline-table",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:00Z",
+   "member_id": "m077",
+   "team": "Billing",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 3,
+   "input_tokens": 10660,
+   "output_tokens": 4219,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "pytest exit 0"
+   ]
+  },
+  "real-013": {
+   "task_id": "tomli-test-offset-datetime",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:27:59Z",
+   "member_id": "m062",
+   "team": "Forecasting",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 4,
+   "input_tokens": 19428,
+   "output_tokens": 1706,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "tests/test_misc.py contains '999999': True",
+    "pytest exit 0"
+   ]
+  },
+  "real-014": {
+   "task_id": "tomli-error-inventory",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:34Z",
+   "member_id": "m044",
+   "team": "Mobile",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 8,
+   "input_tokens": 75723,
+   "output_tokens": 7987,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/errors.json present",
+    "pytest exit 0"
+   ]
+  },
+  "real-015": {
+   "task_id": "tomli-multiline-notes",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:19Z",
+   "member_id": "m003",
+   "team": "Platform",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "7c7682a25f92",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 8,
+   "input_tokens": 159798,
+   "output_tokens": 3320,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/multiline-strings.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-016": {
+   "task_id": "tomli-docstring-inline-table",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:10Z",
+   "member_id": "m025",
+   "team": "Data Infrastructure",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "7c7682a25f92",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 6,
+   "input_tokens": 88952,
+   "output_tokens": 1012,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "pytest exit 0"
+   ]
+  },
+  "real-017": {
+   "task_id": "tomli-test-offset-datetime",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:12Z",
+   "member_id": "m094",
+   "team": "Integrations",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "7c7682a25f92",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 8,
+   "input_tokens": 44918,
+   "output_tokens": 2080,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "tests/test_misc.py contains '999999': True",
+    "pytest exit 0"
+   ]
+  },
+  "real-018": {
+   "task_id": "tomli-error-inventory",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:32:09Z",
+   "member_id": "m114",
+   "team": "Routing",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "7c7682a25f92",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 11,
+   "input_tokens": 176944,
+   "output_tokens": 17205,
+   "stop_reason": "final_answer",
+   "task_success": false,
+   "check_notes": [
+    "out/errors.json missing",
+    "pytest exit 0"
+   ]
+  },
+  "real-019": {
+   "task_id": "tomli-datetime-regex",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:29Z",
+   "member_id": "m078",
+   "team": "Billing",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "7c7682a25f92",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 7,
+   "input_tokens": 83280,
+   "output_tokens": 3685,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/datetime-regex.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-020": {
+   "task_id": "tomli-parse-float-guard",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:43Z",
+   "member_id": "m063",
+   "team": "Forecasting",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "7c7682a25f92",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 12,
+   "input_tokens": 256992,
+   "output_tokens": 4380,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/parse-float-review.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-021": {
+   "task_id": "tomli-invalid-cases-count",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:34Z",
+   "member_id": "m045",
+   "team": "Mobile",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "7c7682a25f92",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 6,
+   "input_tokens": 9539,
+   "output_tokens": 958,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/invalid-cases.json present",
+    "pytest exit 0"
+   ]
+  },
+  "real-022": {
+   "task_id": "tomli-release-notes",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:59Z",
+   "member_id": "m004",
+   "team": "Platform",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "7c7682a25f92",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 9,
+   "input_tokens": 222260,
+   "output_tokens": 5031,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/release-notes.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-023": {
+   "task_id": "tomli-key-parsing",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:52Z",
+   "member_id": "m026",
+   "team": "Data Infrastructure",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "7c7682a25f92",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 7,
+   "input_tokens": 145598,
+   "output_tokens": 3429,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/dotted-keys.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-024": {
+   "task_id": "tomli-docstring-inline-table",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:49Z",
+   "member_id": "m095",
+   "team": "Integrations",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 3,
+   "input_tokens": 10772,
+   "output_tokens": 4217,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "pytest exit 0"
+   ]
+  },
+  "real-025": {
+   "task_id": "tomli-test-offset-datetime",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:28:51Z",
+   "member_id": "m115",
+   "team": "Routing",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 4,
+   "input_tokens": 20160,
+   "output_tokens": 1716,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "tests/test_misc.py contains '999999': True",
+    "pytest exit 0"
+   ]
+  },
+  "real-026": {
+   "task_id": "tomli-error-inventory",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:29:56Z",
+   "member_id": "m079",
+   "team": "Billing",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 11,
+   "input_tokens": 111171,
+   "output_tokens": 15890,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/errors.json present",
+    "pytest exit 0"
+   ]
+  },
+  "real-027": {
+   "task_id": "tomli-datetime-regex",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:29:05Z",
+   "member_id": "m064",
+   "team": "Forecasting",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 5,
+   "input_tokens": 27635,
+   "output_tokens": 3216,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/datetime-regex.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-028": {
+   "task_id": "tomli-parse-float-guard",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:29:05Z",
+   "member_id": "m046",
+   "team": "Mobile",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 5,
+   "input_tokens": 44227,
+   "output_tokens": 2628,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/parse-float-review.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-029": {
+   "task_id": "tomli-invalid-cases-count",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:29:03Z",
+   "member_id": "m005",
+   "team": "Platform",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 3,
+   "input_tokens": 11017,
+   "output_tokens": 621,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/invalid-cases.json present",
+    "pytest exit 0"
+   ]
+  },
+  "real-030": {
+   "task_id": "tomli-release-notes",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:29:22Z",
+   "member_id": "m027",
+   "team": "Data Infrastructure",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 8,
+   "input_tokens": 86744,
+   "output_tokens": 3582,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/release-notes.md present",
+    "pytest exit 0"
+   ]
+  },
+  "real-031": {
+   "task_id": "tomli-key-parsing",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:29:49Z",
+   "member_id": "m096",
+   "team": "Integrations",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 11,
+   "input_tokens": 111303,
+   "output_tokens": 9220,
+   "stop_reason": "final_answer",
+   "task_success": false,
+   "check_notes": [
+    "out/dotted-keys.md missing",
+    "pytest exit 0"
+   ]
+  },
+  "real-032": {
+   "task_id": "tomli-test-unicode-escape",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:29:12Z",
+   "member_id": "m116",
+   "team": "Routing",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 16,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "list_files",
+     "read_file",
+     "search",
+     "write_file",
+     "run_tests",
+     "run_command"
+    ],
+    "docs": [],
+    "system_prompt_sha": "56d4e3d354fd",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 5,
+   "input_tokens": 13660,
+   "output_tokens": 1659,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "tests/test_misc.py contains 'D800': True",
+    "pytest exit 0"
+   ]
+  },
+  "real-033": {
+   "task_id": "tomli-ci-golden-files",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:29:40Z",
+   "member_id": "m080",
+   "team": "Billing",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 10,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "run_tests"
+    ],
+    "docs": [],
+    "system_prompt_sha": "e0d901efceb6",
+    "context_files": [],
+    "retry_prompt": "The test is still failing on CI. Run it again."
+   },
+   "calls": 10,
+   "input_tokens": 21827,
+   "output_tokens": 4755,
+   "stop_reason": "max_calls",
+   "task_success": null,
+   "check_notes": []
+  },
+  "real-034": {
+   "task_id": "tomli-ci-runner-lock",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:29:46Z",
+   "member_id": "m065",
+   "team": "Forecasting",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 10,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "run_tests"
+    ],
+    "docs": [],
+    "system_prompt_sha": "e0d901efceb6",
+    "context_files": [],
+    "retry_prompt": "The test is still failing on CI. Run it again."
+   },
+   "calls": 10,
+   "input_tokens": 24354,
+   "output_tokens": 3939,
+   "stop_reason": "max_calls",
+   "task_success": null,
+   "check_notes": []
+  },
+  "real-035": {
+   "task_id": "tomli-ci-scratch-disk",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:30:05Z",
+   "member_id": "m047",
+   "team": "Mobile",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 10,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "run_tests"
+    ],
+    "docs": [],
+    "system_prompt_sha": "e0d901efceb6",
+    "context_files": [],
+    "retry_prompt": "The test is still failing on CI. Run it again."
+   },
+   "calls": 10,
+   "input_tokens": 19852,
+   "output_tokens": 3911,
+   "stop_reason": "max_calls",
+   "task_success": null,
+   "check_notes": []
+  },
+  "real-036": {
+   "task_id": "tomli-ci-golden-files",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:30:15Z",
+   "member_id": "m006",
+   "team": "Platform",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 10,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "run_tests"
+    ],
+    "docs": [],
+    "system_prompt_sha": "e0d901efceb6",
+    "context_files": [],
+    "retry_prompt": "The test is still failing on CI. Run it again."
+   },
+   "calls": 10,
+   "input_tokens": 19941,
+   "output_tokens": 4353,
+   "stop_reason": "max_calls",
+   "task_success": null,
+   "check_notes": []
+  },
+  "real-037": {
+   "task_id": "tomli-ci-runner-lock",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:30:20Z",
+   "member_id": "m028",
+   "team": "Data Infrastructure",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 10,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "run_tests"
+    ],
+    "docs": [],
+    "system_prompt_sha": "e0d901efceb6",
+    "context_files": [],
+    "retry_prompt": "The test is still failing on CI. Run it again."
+   },
+   "calls": 10,
+   "input_tokens": 28421,
+   "output_tokens": 4160,
+   "stop_reason": "max_calls",
+   "task_success": null,
+   "check_notes": []
+  },
+  "real-038": {
+   "task_id": "tomli-ci-scratch-disk",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:30:31Z",
+   "member_id": "m097",
+   "team": "Integrations",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 10,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "run_tests"
+    ],
+    "docs": [],
+    "system_prompt_sha": "e0d901efceb6",
+    "context_files": [],
+    "retry_prompt": "The test is still failing on CI. Run it again."
+   },
+   "calls": 10,
+   "input_tokens": 18760,
+   "output_tokens": 3937,
+   "stop_reason": "max_calls",
+   "task_success": null,
+   "check_notes": []
+  },
+  "real-039": {
+   "task_id": "tomli-ci-golden-files",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:30:29Z",
+   "member_id": "m117",
+   "team": "Routing",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 10,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "run_tests"
+    ],
+    "docs": [],
+    "system_prompt_sha": "e0d901efceb6",
+    "context_files": [],
+    "retry_prompt": "The test is still failing on CI. Run it again."
+   },
+   "calls": 10,
+   "input_tokens": 22589,
+   "output_tokens": 4315,
+   "stop_reason": "max_calls",
+   "task_success": null,
+   "check_notes": []
+  },
+  "real-040": {
+   "task_id": "tomli-ci-runner-lock",
+   "experiment": null,
+   "recorded_at": "2026-09-26T21:30:39Z",
+   "member_id": "m081",
+   "team": "Billing",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 10,
+    "max_tokens_per_call": 4096,
+    "tools": [
+     "run_tests"
+    ],
+    "docs": [],
+    "system_prompt_sha": "e0d901efceb6",
+    "context_files": [],
+    "retry_prompt": "The test is still failing on CI. Run it again."
+   },
+   "calls": 10,
+   "input_tokens": 21110,
+   "output_tokens": 4014,
+   "stop_reason": "max_calls",
+   "task_success": null,
+   "check_notes": []
+  },
+  "real-scr-a-t01": {
+   "task_id": "t01-telemetry-prod-plan",
+   "experiment": "after",
+   "recorded_at": "2026-09-26T22:45:24Z",
+   "member_id": "m023",
+   "team": "Data Infrastructure",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [
+     "../data/drafts/storage-cost-reduction.md",
+     "../data/drafts/storage-cost-reduction.memory.md"
+    ],
+    "retry_prompt": null
+   },
+   "calls": 8,
+   "input_tokens": 54729,
+   "output_tokens": 5614,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan data-infra-telemetry-raw-prod-v1: ok",
+    "out/t01.json: ok"
+   ]
+  },
+  "real-scr-a-t02": {
+   "task_id": "t02-telemetry-eu-plan",
+   "experiment": "after",
+   "recorded_at": "2026-09-26T22:45:28Z",
+   "member_id": "m001",
+   "team": "Platform",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [
+     "../data/drafts/storage-cost-reduction.md",
+     "../data/drafts/storage-cost-reduction.memory.md"
+    ],
+    "retry_prompt": null
+   },
+   "calls": 10,
+   "input_tokens": 71887,
+   "output_tokens": 6439,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan data-infra-telemetry-raw-eu-v1: ok",
+    "out/t02.json: ok"
+   ]
+  },
+  "real-scr-a-t03": {
+   "task_id": "t03-pod-images-plan",
+   "experiment": "after",
+   "recorded_at": "2026-09-26T22:45:14Z",
+   "member_id": "m061",
+   "team": "Forecasting",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [
+     "../data/drafts/storage-cost-reduction.md",
+     "../data/drafts/storage-cost-reduction.memory.md"
+    ],
+    "retry_prompt": null
+   },
+   "calls": 6,
+   "input_tokens": 40315,
+   "output_tokens": 3738,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan mobile-apps-pod-images-prod-v2: ok",
+    "out/t03.json: ok"
+   ]
+  },
+  "real-scr-a-t04": {
+   "task_id": "t04-app-logs-plan",
+   "experiment": "after",
+   "recorded_at": "2026-09-26T22:45:17Z",
+   "member_id": "m043",
+   "team": "Mobile",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [
+     "../data/drafts/storage-cost-reduction.md",
+     "../data/drafts/storage-cost-reduction.memory.md"
+    ],
+    "retry_prompt": null
+   },
+   "calls": 8,
+   "input_tokens": 55700,
+   "output_tokens": 4359,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan platform-core-app-logs-prod-v1: ok",
+    "out/t04.json: ok"
+   ]
+  },
+  "real-scr-a-t05": {
+   "task_id": "t05-ml-snapshots-plan",
+   "experiment": "after",
+   "recorded_at": "2026-09-26T22:46:02Z",
+   "member_id": "m024",
+   "team": "Data Infrastructure",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [
+     "../data/drafts/storage-cost-reduction.md",
+     "../data/drafts/storage-cost-reduction.memory.md"
+    ],
+    "retry_prompt": null
+   },
+   "calls": 6,
+   "input_tokens": 42505,
+   "output_tokens": 8788,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan forecasting-ml-snapshots-v1: ok",
+    "out/t05.json: ok"
+   ]
+  },
+  "real-scr-a-t06": {
+   "task_id": "t06-support-attachments-plan",
+   "experiment": "after",
+   "recorded_at": "2026-09-26T22:45:43Z",
+   "member_id": "m002",
+   "team": "Platform",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [
+     "../data/drafts/storage-cost-reduction.md",
+     "../data/drafts/storage-cost-reduction.memory.md"
+    ],
+    "retry_prompt": null
+   },
+   "calls": 6,
+   "input_tokens": 40343,
+   "output_tokens": 4769,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan integrations-support-attachments-v1: ok",
+    "out/t06.json: ok"
+   ]
+  },
+  "real-scr-a-t07": {
+   "task_id": "t07-savings-ranking",
+   "experiment": "after",
+   "recorded_at": "2026-09-26T22:46:44Z",
+   "member_id": "m062",
+   "team": "Forecasting",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [
+     "../data/drafts/storage-cost-reduction.md",
+     "../data/drafts/storage-cost-reduction.memory.md"
+    ],
+    "retry_prompt": null
+   },
+   "calls": 6,
+   "input_tokens": 133081,
+   "output_tokens": 17672,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/t07.json: ok"
+   ]
+  },
+  "real-scr-a-t08": {
+   "task_id": "t08-pod-images-apply",
+   "experiment": "after",
+   "recorded_at": "2026-09-26T22:45:47Z",
+   "member_id": "m044",
+   "team": "Mobile",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [
+     "../data/drafts/storage-cost-reduction.md",
+     "../data/drafts/storage-cost-reduction.memory.md"
+    ],
+    "retry_prompt": null
+   },
+   "calls": 7,
+   "input_tokens": 48005,
+   "output_tokens": 3454,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan mobile-apps-pod-images-prod-v2: ok",
+    "apply mobile-apps-pod-images-prod-v2: ok"
+   ]
+  },
+  "real-scr-a-t09": {
+   "task_id": "t09-ml-snapshots-apply",
+   "experiment": "after",
+   "recorded_at": "2026-09-26T22:45:59Z",
+   "member_id": "m025",
+   "team": "Data Infrastructure",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [
+     "../data/drafts/storage-cost-reduction.md",
+     "../data/drafts/storage-cost-reduction.memory.md"
+    ],
+    "retry_prompt": null
+   },
+   "calls": 8,
+   "input_tokens": 55277,
+   "output_tokens": 2627,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan forecasting-ml-snapshots-v1: ok",
+    "apply forecasting-ml-snapshots-v1: ok"
+   ]
+  },
+  "real-scr-a-t10": {
+   "task_id": "t10-exception-codes",
+   "experiment": "after",
+   "recorded_at": "2026-09-26T22:45:59Z",
+   "member_id": "m003",
+   "team": "Platform",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [
+     "../data/drafts/storage-cost-reduction.md",
+     "../data/drafts/storage-cost-reduction.memory.md"
+    ],
+    "retry_prompt": null
+   },
+   "calls": 2,
+   "input_tokens": 13141,
+   "output_tokens": 2268,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/t10.json: ok"
+   ]
+  },
+  "real-scr-b-t01": {
+   "task_id": "t01-telemetry-prod-plan",
+   "experiment": "before",
+   "recorded_at": "2026-09-26T21:56:24Z",
+   "member_id": "m023",
+   "team": "Data Infrastructure",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 13,
+   "input_tokens": 272649,
+   "output_tokens": 7613,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan data-infra-telemetry-raw-prod-v1: ok",
+    "out/t01.json: ok"
+   ]
+  },
+  "real-scr-b-t02": {
+   "task_id": "t02-telemetry-eu-plan",
+   "experiment": "before",
+   "recorded_at": "2026-09-26T21:55:09Z",
+   "member_id": "m001",
+   "team": "Platform",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 15,
+   "input_tokens": 327369,
+   "output_tokens": 5990,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan data-infra-telemetry-raw-eu-v1: ok",
+    "out/t02.json: ok"
+   ]
+  },
+  "real-scr-b-t03": {
+   "task_id": "t03-pod-images-plan",
+   "experiment": "before",
+   "recorded_at": "2026-09-26T21:55:01Z",
+   "member_id": "m061",
+   "team": "Forecasting",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 10,
+   "input_tokens": 194511,
+   "output_tokens": 4620,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan mobile-apps-pod-images-prod-v2: ok",
+    "out/t03.json: ok"
+   ]
+  },
+  "real-scr-b-t04": {
+   "task_id": "t04-app-logs-plan",
+   "experiment": "before",
+   "recorded_at": "2026-09-26T21:55:08Z",
+   "member_id": "m043",
+   "team": "Mobile",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 17,
+   "input_tokens": 376340,
+   "output_tokens": 5346,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan platform-core-app-logs-prod-v1: ok",
+    "out/t04.json: ok"
+   ]
+  },
+  "real-scr-b-t05": {
+   "task_id": "t05-ml-snapshots-plan",
+   "experiment": "before",
+   "recorded_at": "2026-09-26T22:01:55Z",
+   "member_id": "m024",
+   "team": "Data Infrastructure",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 11,
+   "input_tokens": 220046,
+   "output_tokens": 8734,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan forecasting-ml-snapshots-v1: ok",
+    "out/t05.json: ok"
+   ]
+  },
+  "real-scr-b-t06": {
+   "task_id": "t06-support-attachments-plan",
+   "experiment": "before",
+   "recorded_at": "2026-09-26T21:56:40Z",
+   "member_id": "m002",
+   "team": "Platform",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 12,
+   "input_tokens": 243453,
+   "output_tokens": 6154,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan integrations-support-attachments-v1: ok",
+    "out/t06.json: ok"
+   ]
+  },
+  "real-scr-b-t07": {
+   "task_id": "t07-savings-ranking",
+   "experiment": "before",
+   "recorded_at": "2026-09-26T21:57:03Z",
+   "member_id": "m062",
+   "team": "Forecasting",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 6,
+   "input_tokens": 99119,
+   "output_tokens": 12183,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/t07.json: ok"
+   ]
+  },
+  "real-scr-b-t08": {
+   "task_id": "t08-pod-images-apply",
+   "experiment": "before",
+   "recorded_at": "2026-09-26T21:56:48Z",
+   "member_id": "m044",
+   "team": "Mobile",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 13,
+   "input_tokens": 277458,
+   "output_tokens": 5167,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan mobile-apps-pod-images-prod-v2: ok",
+    "apply mobile-apps-pod-images-prod-v2: ok"
+   ]
+  },
+  "real-scr-b-t09": {
+   "task_id": "t09-ml-snapshots-apply",
+   "experiment": "before",
+   "recorded_at": "2026-09-26T22:07:14Z",
+   "member_id": "m025",
+   "team": "Data Infrastructure",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 16,
+   "input_tokens": 347618,
+   "output_tokens": 4936,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "plan forecasting-ml-snapshots-v1: ok",
+    "apply forecasting-ml-snapshots-v1: ok"
+   ]
+  },
+  "real-scr-b-t10": {
+   "task_id": "t10-exception-codes",
+   "experiment": "before",
+   "recorded_at": "2026-09-26T22:07:15Z",
+   "member_id": "m003",
+   "team": "Platform",
+   "settings": {
+    "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+    "agent": "kestrel-devagent",
+    "temperature": 0.2,
+    "max_calls": 30,
+    "max_tokens_per_call": 16384,
+    "continue_on_length": true,
+    "tools": null,
+    "docs": [
+     "blobctl-migration-runbook",
+     "storage-cost-dashboard",
+     "storage-service-ownership",
+     "storage-tiering-policy"
+    ],
+    "system_prompt_sha": "a076415fb6e1",
+    "context_files": [],
+    "retry_prompt": null
+   },
+   "calls": 5,
+   "input_tokens": 73289,
+   "output_tokens": 3860,
+   "stop_reason": "final_answer",
+   "task_success": true,
+   "check_notes": [
+    "out/t10.json: ok"
+   ]
+  }
+ },
+ "archived": {
+  "draft-v1-after": {
+   "note": "Draft v1 after runs (ticket 16, first attempt): 8/10 passed, -28.3% tokens/Session, success_held false. Superseded by the Draft v2 after runs under the same session ids. OTLP moved to data/archive/draft-v1-after-runs/ so no ingest path picks it up; kept here for the record.",
+   "otlp_dir": "data/archive/draft-v1-after-runs",
+   "sessions": {
+    "real-scr-a-t01": {
+     "task_id": "t01-telemetry-prod-plan",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:26:36Z",
+     "member_id": "m023",
+     "team": "Data Infrastructure",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 8,
+     "input_tokens": 187662,
+     "output_tokens": 5379,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan data-infra-telemetry-raw-prod-v1: ok",
+      "out/t01.json: ok"
+     ]
+    },
+    "real-scr-a-t02": {
+     "task_id": "t02-telemetry-eu-plan",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:26:36Z",
+     "member_id": "m001",
+     "team": "Platform",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 9,
+     "input_tokens": 217522,
+     "output_tokens": 5066,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan data-infra-telemetry-raw-eu-v1: ok",
+      "out/t02.json: ok"
+     ]
+    },
+    "real-scr-a-t03": {
+     "task_id": "t03-pod-images-plan",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:26:33Z",
+     "member_id": "m061",
+     "team": "Forecasting",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 8,
+     "input_tokens": 187109,
+     "output_tokens": 4484,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan mobile-apps-pod-images-prod-v2: ok",
+      "out/t03.json: ok"
+     ]
+    },
+    "real-scr-a-t04": {
+     "task_id": "t04-app-logs-plan",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:26:29Z",
+     "member_id": "m043",
+     "team": "Mobile",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 9,
+     "input_tokens": 133639,
+     "output_tokens": 3452,
+     "stop_reason": "final_answer",
+     "task_success": false,
+     "check_notes": [
+      "plan platform-core-app-logs-prod-v1: ok",
+      "out/t04.json: wrong ['monthly_cost_after_usd', 'monthly_saving_usd']"
+     ]
+    },
+    "real-scr-a-t05": {
+     "task_id": "t05-ml-snapshots-plan",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:27:16Z",
+     "member_id": "m024",
+     "team": "Data Infrastructure",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 8,
+     "input_tokens": 187700,
+     "output_tokens": 10152,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan forecasting-ml-snapshots-v1: ok",
+      "out/t05.json: ok"
+     ]
+    },
+    "real-scr-a-t06": {
+     "task_id": "t06-support-attachments-plan",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:27:02Z",
+     "member_id": "m002",
+     "team": "Platform",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 9,
+     "input_tokens": 217023,
+     "output_tokens": 5411,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan integrations-support-attachments-v1: ok",
+      "out/t06.json: ok"
+     ]
+    },
+    "real-scr-a-t07": {
+     "task_id": "t07-savings-ranking",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:26:58Z",
+     "member_id": "m062",
+     "team": "Forecasting",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 7,
+     "input_tokens": 145130,
+     "output_tokens": 4787,
+     "stop_reason": "final_answer",
+     "task_success": false,
+     "check_notes": [
+      "out/t07.json: wrong ['total_monthly_saving_usd']"
+     ]
+    },
+    "real-scr-a-t08": {
+     "task_id": "t08-pod-images-apply",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:26:56Z",
+     "member_id": "m044",
+     "team": "Mobile",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 8,
+     "input_tokens": 188190,
+     "output_tokens": 4270,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan mobile-apps-pod-images-prod-v2: ok",
+      "apply mobile-apps-pod-images-prod-v2: ok"
+     ]
+    },
+    "real-scr-a-t09": {
+     "task_id": "t09-ml-snapshots-apply",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:27:16Z",
+     "member_id": "m025",
+     "team": "Data Infrastructure",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 8,
+     "input_tokens": 187602,
+     "output_tokens": 2654,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "plan forecasting-ml-snapshots-v1: ok",
+      "apply forecasting-ml-snapshots-v1: ok"
+     ]
+    },
+    "real-scr-a-t10": {
+     "task_id": "t10-exception-codes",
+     "experiment": "after",
+     "recorded_at": "2026-09-26T22:27:17Z",
+     "member_id": "m003",
+     "team": "Platform",
+     "settings": {
+      "model": "/deployments/506a9a37/deepseek-ai/DeepSeek-V4.1-Flash",
+      "agent": "kestrel-devagent",
+      "temperature": 0.2,
+      "max_calls": 30,
+      "max_tokens_per_call": 16384,
+      "continue_on_length": true,
+      "tools": null,
+      "docs": [
+       "blobctl-migration-runbook",
+       "storage-cost-dashboard",
+       "storage-service-ownership",
+       "storage-tiering-policy"
+      ],
+      "system_prompt_sha": "a076415fb6e1",
+      "context_files": [
+       "../data/drafts/storage-cost-reduction.md",
+       "../data/drafts/storage-cost-reduction.memory.md"
+      ],
+      "retry_prompt": null
+     },
+     "calls": 5,
+     "input_tokens": 87168,
+     "output_tokens": 4568,
+     "stop_reason": "final_answer",
+     "task_success": true,
+     "check_notes": [
+      "out/t10.json: ok"
+     ]
+    }
+   }
+  }
+ }
+}

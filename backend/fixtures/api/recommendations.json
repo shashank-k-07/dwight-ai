@@ -1,0 +1,128 @@
+{
+ "items": [
+  {
+   "recommendation_id": "r-scr-doc",
+   "target_type": "initiative",
+   "target_id": "storage-cost-reduction",
+   "practice": {
+    "practice_id": "consolidated-initiative-doc",
+    "title": "Consolidated initiative doc"
+   },
+   "title": "Give Tidewater Sessions one consolidated initiative doc",
+   "body": "32 of 40 Sessions read the same 4 Perch pages (18K tokens) before starting. Publish the attached 3K-token Draft on the **perch-docs-mcp** MCP server and add it to the harness's default context for the Data Infrastructure team.",
+   "infra_refs": [
+    "perch-docs-mcp",
+    "kestrel/blobctl"
+   ],
+   "saving": {
+    "usd": 540.0,
+    "kind": "estimated"
+   },
+   "draft_id": "d-scr-doc",
+   "recurring_discovery_id": "rd-scr-path",
+   "measured_drop": {
+    "token_drop_pct": 38.2,
+    "spend_drop": {
+     "usd": 4.12,
+     "kind": "measured"
+    },
+    "counts": true
+   },
+   "policy_prefill": null
+  },
+  {
+   "recommendation_id": "r-scr-mem",
+   "target_type": "initiative",
+   "target_id": "storage-cost-reduction",
+   "practice": {
+    "practice_id": "initiative-memory-file",
+    "title": "Initiative memory file"
+   },
+   "title": "Add a Tidewater memory file so agents stop rediscovering STORAGE_ENV",
+   "body": "14 Sessions separately worked out that blobctl needs `STORAGE_ENV=staging`. Load the attached memory file into agent context for this Initiative.",
+   "infra_refs": [
+    "kestrel-devagent"
+   ],
+   "saving": {
+    "usd": 288.9,
+    "kind": "estimated"
+   },
+   "draft_id": "d-scr-mem",
+   "recurring_discovery_id": "rd-scr-env",
+   "measured_drop": null,
+   "policy_prefill": null
+  },
+  {
+   "recommendation_id": "r-scr-cache",
+   "target_type": "initiative",
+   "target_id": "storage-cost-reduction",
+   "practice": {
+    "practice_id": "cache-friendly-prompt-layout",
+    "title": "Cache-friendly prompt layout"
+   },
+   "title": "Keep volatile text out of the prompt prefix",
+   "body": "61 Sessions paid full price for a prefix that should have been cached. Move the run timestamp below the stable instructions; prompt caching is enabled on the **kestrel-llm-gateway**.",
+   "infra_refs": [
+    "kestrel-llm-gateway"
+   ],
+   "saving": {
+    "usd": 402.3,
+    "kind": "measured"
+   },
+   "draft_id": null,
+   "recurring_discovery_id": null,
+   "measured_drop": null,
+   "policy_prefill": null
+  },
+  {
+   "recommendation_id": "r-ci-loop",
+   "target_type": "initiative",
+   "target_id": "k8s-upgrade",
+   "practice": {
+    "practice_id": "step-budget-loop-breaker",
+    "title": "Step budget + loop breaker"
+   },
+   "title": "Stop CI-fixing agents after 3 identical failing runs",
+   "body": "96 Sessions re-ran the same failing test with no change.",
+   "infra_refs": [
+    "kestrel-llm-gateway"
+   ],
+   "saving": {
+    "usd": 870.0,
+    "kind": "measured"
+   },
+   "draft_id": null,
+   "recurring_discovery_id": null,
+   "measured_drop": null,
+   "policy_prefill": null
+  },
+  {
+   "recommendation_id": "r-pol-devex",
+   "target_type": "policy",
+   "target_id": "Routing",
+   "practice": {
+    "practice_id": "tier-routing-by-complexity",
+    "title": "Tier routing by complexity"
+   },
+   "title": "Limit Routing to the standard and light tiers",
+   "body": "40 low-complexity Sessions ran on the flagship tier (glm-5.1).",
+   "infra_refs": [
+    "kestrel-llm-gateway"
+   ],
+   "saving": {
+    "usd": 820.6,
+    "kind": "estimated"
+   },
+   "draft_id": null,
+   "recurring_discovery_id": null,
+   "measured_drop": null,
+   "policy_prefill": {
+    "team": "Routing",
+    "allowed_models": [
+     "glm-4.7",
+     "glm-4.5-air"
+    ]
+   }
+  }
+ ]
+}

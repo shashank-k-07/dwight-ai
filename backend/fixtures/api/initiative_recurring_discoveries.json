@@ -1,0 +1,102 @@
+{
+ "_keyed_by": "initiative_id",
+ "items": {
+  "storage-cost-reduction": {
+   "initiative_id": "storage-cost-reduction",
+   "initiative_session_count": 40,
+   "items": [
+    {
+     "recurring_discovery_id": "rd-scr-path",
+     "form": "common_path",
+     "resources": [
+      {
+       "resource_id": "company-docs/storage-tiering-policy.md",
+       "tokens": 5200
+      },
+      {
+       "resource_id": "company-docs/storage-cost-dashboard.md",
+       "tokens": 4800
+      },
+      {
+       "resource_id": "company-docs/storage-service-ownership.md",
+       "tokens": 4100
+      },
+      {
+       "resource_id": "company-docs/blobctl-migration-runbook.md",
+       "tokens": 5600
+      }
+     ],
+     "tokens": 18000,
+     "session_count": 32,
+     "session_share": 0.8,
+     "cost": {
+      "usd": 612.4,
+      "kind": "measured"
+     },
+     "evidence": [
+      "s-scr-000",
+      "s-scr-001",
+      "s-scr-002",
+      "s-scr-003",
+      "s-scr-004",
+      "s-scr-005",
+      "s-scr-006",
+      "s-scr-007",
+      "s-scr-008",
+      "s-scr-009",
+      "s-scr-010",
+      "s-scr-011",
+      "s-scr-012",
+      "s-scr-013",
+      "s-scr-014",
+      "s-scr-015",
+      "s-scr-016",
+      "s-scr-017",
+      "s-scr-018",
+      "s-scr-019",
+      "s-scr-020",
+      "s-scr-021",
+      "s-scr-022",
+      "s-scr-023",
+      "s-scr-024",
+      "s-scr-025",
+      "s-scr-026",
+      "s-scr-027",
+      "s-scr-028",
+      "s-scr-029",
+      "s-scr-030",
+      "s-scr-031"
+     ]
+    },
+    {
+     "recurring_discovery_id": "rd-scr-env",
+     "form": "repeated_discovery",
+     "statement": "The blobctl migration needs STORAGE_ENV=staging; without it blobctl exits with status 2.",
+     "session_count": 14,
+     "session_share": 0.35,
+     "cost": {
+      "usd": 288.9,
+      "kind": "measured",
+      "note": "conservative upper bound"
+     },
+     "evidence": [
+      "s-scr-003",
+      "s-scr-004",
+      "s-scr-005",
+      "s-scr-006",
+      "s-scr-007",
+      "s-scr-008",
+      "s-scr-009",
+      "s-scr-010",
+      "s-scr-011",
+      "s-scr-012",
+      "s-scr-013",
+      "s-scr-014",
+      "s-scr-015",
+      "s-scr-016"
+     ]
+    }
+   ]
+  }
+ }
+}

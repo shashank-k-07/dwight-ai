@@ -1,0 +1,156 @@
+{
+ "items": [
+  {
+   "initiative_id": "storage-cost-reduction",
+   "name": "Storage cost reduction",
+   "business_function": "Engineering",
+   "session_count": 412,
+   "spend": {
+    "usd": 5210.3,
+    "kind": "measured"
+   },
+   "measured_waste": {
+    "usd": 1480.2,
+    "kind": "measured"
+   },
+   "estimated_saving": {
+    "usd": 310.0,
+    "kind": "estimated"
+   },
+   "top_waste_pattern": "redundant_read"
+  },
+  {
+   "initiative_id": "auth-migration",
+   "name": "Auth migration",
+   "business_function": "Engineering",
+   "session_count": 388,
+   "spend": {
+    "usd": 4105.75,
+    "kind": "measured"
+   },
+   "measured_waste": {
+    "usd": 990.1,
+    "kind": "measured"
+   },
+   "estimated_saving": {
+    "usd": 220.4,
+    "kind": "estimated"
+   },
+   "top_waste_pattern": "redundant_read"
+  },
+  {
+   "initiative_id": "k8s-upgrade",
+   "name": "Kubernetes 1.31 upgrade",
+   "business_function": "Engineering",
+   "session_count": 520,
+   "spend": {
+    "usd": 3890.1,
+    "kind": "measured"
+   },
+   "measured_waste": {
+    "usd": 1320.55,
+    "kind": "measured"
+   },
+   "estimated_saving": {
+    "usd": 90.1,
+    "kind": "estimated"
+   },
+   "top_waste_pattern": "runaway_loop"
+  },
+  {
+   "initiative_id": "invoicing-v2",
+   "name": "Invoicing v2",
+   "business_function": "Engineering",
+   "session_count": 301,
+   "spend": {
+    "usd": 3120.0,
+    "kind": "measured"
+   },
+   "measured_waste": {
+    "usd": 610.0,
+    "kind": "measured"
+   },
+   "estimated_saving": {
+    "usd": 410.25,
+    "kind": "estimated"
+   },
+   "top_waste_pattern": "cache_miss"
+  },
+  {
+   "initiative_id": "driver-app-offline-sync",
+   "name": "Driver app offline sync",
+   "business_function": "Engineering",
+   "session_count": 260,
+   "spend": {
+    "usd": 2210.0,
+    "kind": "measured"
+   },
+   "measured_waste": {
+    "usd": 380.4,
+    "kind": "measured"
+   },
+   "estimated_saving": {
+    "usd": 150.0,
+    "kind": "estimated"
+   },
+   "top_waste_pattern": "cache_miss"
+  },
+  {
+   "initiative_id": "incident-postmortems",
+   "name": "Incident postmortems",
+   "business_function": "Engineering",
+   "session_count": 480,
+   "spend": {
+    "usd": 1450.2,
+    "kind": "measured"
+   },
+   "measured_waste": {
+    "usd": 90.0,
+    "kind": "measured"
+   },
+   "estimated_saving": {
+    "usd": 820.6,
+    "kind": "estimated"
+   },
+   "top_waste_pattern": "model_overkill"
+  },
+  {
+   "initiative_id": "peak-season-campaign",
+   "name": "Peak season campaign",
+   "business_function": "Marketing",
+   "session_count": 260,
+   "spend": {
+    "usd": 1320.5,
+    "kind": "measured"
+   },
+   "measured_waste": {
+    "usd": 120.3,
+    "kind": "measured"
+   },
+   "estimated_saving": {
+    "usd": 240.0,
+    "kind": "estimated"
+   },
+   "top_waste_pattern": "model_overkill"
+  },
+  {
+   "initiative_id": "support-macro-refresh",
+   "name": "Support macro refresh",
+   "business_function": "Customer Experience",
+   "session_count": 240,
+   "spend": {
+    "usd": 1105.9,
+    "kind": "measured"
+   },
+   "measured_waste": {
+    "usd": 95.0,
+    "kind": "measured"
+   },
+   "estimated_saving": {
+    "usd": 180.0,
+    "kind": "estimated"
+   },
+   "top_waste_pattern": null
+  }
+ ]
+}

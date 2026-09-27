@@ -1,0 +1,94 @@
+{
+ "_keyed_by": "initiative_id",
+ "items": {
+  "storage-cost-reduction": {
+   "initiative_id": "storage-cost-reduction",
+   "measured_total": {
+    "usd": 1480.2,
+    "kind": "measured"
+   },
+   "estimated_total": {
+    "usd": 310.0,
+    "kind": "estimated"
+   },
+   "patterns": [
+    {
+     "pattern": "redundant_read",
+     "amount": {
+      "usd": 910.4,
+      "kind": "measured"
+     },
+     "finding_count": 188,
+     "session_count": 162
+    },
+    {
+     "pattern": "cache_miss",
+     "amount": {
+      "usd": 402.3,
+      "kind": "measured"
+     },
+     "finding_count": 74,
+     "session_count": 61
+    },
+    {
+     "pattern": "runaway_loop",
+     "amount": {
+      "usd": 167.5,
+      "kind": "measured"
+     },
+     "finding_count": 12,
+     "session_count": 12
+    },
+    {
+     "pattern": "model_overkill",
+     "amount": {
+      "usd": 310.0,
+      "kind": "estimated"
+     },
+     "finding_count": 40,
+     "session_count": 40
+    }
+   ]
+  },
+  "k8s-upgrade": {
+   "initiative_id": "k8s-upgrade",
+   "measured_total": {
+    "usd": 1320.55,
+    "kind": "measured"
+   },
+   "estimated_total": {
+    "usd": 90.1,
+    "kind": "estimated"
+   },
+   "patterns": [
+    {
+     "pattern": "runaway_loop",
+     "amount": {
+      "usd": 870.0,
+      "kind": "measured"
+     },
+     "finding_count": 96,
+     "session_count": 96
+    },
+    {
+     "pattern": "cache_miss",
+     "amount": {
+      "usd": 450.55,
+      "kind": "measured"
+     },
+     "finding_count": 130,
+     "session_count": 88
+    },
+    {
+     "pattern": "model_overkill",
+     "amount": {
+      "usd": 90.1,
+      "kind": "estimated"
+     },
+     "finding_count": 14,
+     "session_count": 14
+    }
+   ]
+  }
+ }
+}

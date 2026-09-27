@@ -1,0 +1,98 @@
+{
+ "teams": [
+  {
+   "team": "Data Infrastructure",
+   "business_function": "Engineering"
+  },
+  {
+   "team": "Platform",
+   "business_function": "Engineering"
+  },
+  {
+   "team": "Routing",
+   "business_function": "Engineering"
+  },
+  {
+   "team": "Mobile",
+   "business_function": "Engineering"
+  },
+  {
+   "team": "Billing",
+   "business_function": "Engineering"
+  },
+  {
+   "team": "Integrations",
+   "business_function": "Engineering"
+  },
+  {
+   "team": "Forecasting",
+   "business_function": "Engineering"
+  },
+  {
+   "team": "Fleet Operations",
+   "business_function": "Operations"
+  },
+  {
+   "team": "Warehouse Operations",
+   "business_function": "Operations"
+  },
+  {
+   "team": "Customer Care",
+   "business_function": "Customer Experience"
+  },
+  {
+   "team": "Growth Marketing",
+   "business_function": "Marketing"
+  },
+  {
+   "team": "Accounting & FP&A",
+   "business_function": "Finance"
+  }
+ ],
+ "models": [
+  {
+   "model": "glm-5.1",
+   "tier": "flagship"
+  },
+  {
+   "model": "glm-5",
+   "tier": "flagship"
+  },
+  {
+   "model": "glm-4.5-x",
+   "tier": "flagship"
+  },
+  {
+   "model": "glm-4.7",
+   "tier": "standard"
+  },
+  {
+   "model": "glm-4.6",
+   "tier": "standard"
+  },
+  {
+   "model": "glm-4.5",
+   "tier": "standard"
+  },
+  {
+   "model": "glm-4.5-airx",
+   "tier": "light"
+  },
+  {
+   "model": "glm-4.5-air",
+   "tier": "light"
+  },
+  {
+   "model": "glm-4.7-flashx",
+   "tier": "light"
+  },
+  {
+   "model": "glm-4.7-flash",
+   "tier": "light"
+  },
+  {
+   "model": "glm-4.5-flash",
+   "tier": "light"
+  }
+ ]
+}

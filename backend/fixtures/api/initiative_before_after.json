@@ -1,0 +1,43 @@
+{
+ "_keyed_by": "initiative_id",
+ "items": {
+  "storage-cost-reduction": {
+   "initiative_id": "storage-cost-reduction",
+   "has_runs": true,
+   "before": {
+    "session_count": 10,
+    "tasks_passed": 9,
+    "tasks_total": 10,
+    "success_rate": 0.9,
+    "total_tokens": 612000,
+    "avg_tokens": 61200,
+    "spend": {
+     "usd": 10.78,
+     "kind": "measured"
+    }
+   },
+   "after": {
+    "session_count": 10,
+    "tasks_passed": 9,
+    "tasks_total": 10,
+    "success_rate": 0.9,
+    "total_tokens": 378200,
+    "avg_tokens": 37820,
+    "spend": {
+     "usd": 6.66,
+     "kind": "measured"
+    }
+   },
+   "token_drop_pct": 38.2,
+   "spend_drop": {
+    "usd": 4.12,
+    "kind": "measured"
+   },
+   "success_held": true
+  },
+  "_no_runs": {
+   "initiative_id": "_no_runs",
+   "has_runs": false
+  }
+ }
+}

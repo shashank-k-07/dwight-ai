@@ -1,0 +1,21 @@
+{
+ "spend_analysed": {
+  "usd": 31258.55,
+  "kind": "measured"
+ },
+ "measured_waste": {
+  "usd": 6412.8,
+  "kind": "measured"
+ },
+ "measured_waste_real_layer": {
+  "usd": 18.4,
+  "kind": "measured"
+ },
+ "estimated_saving": {
+  "usd": 2987.35,
+  "kind": "estimated"
+ },
+ "draft_token_drop_pct": 38.2,
+ "classifier_accuracy": 0.86,
+ "classifier_eval_sessions": 4520
+}

@@ -1,0 +1,249 @@
+# Dwight Practice Library (curated, versioned; ADR 0007)
+#
+# Every Recommendation cites exactly one Practice by `id`. Ids are stable:
+# never rename or reuse one; bump the Practice's `version` when its text changes
+# and the library `version` when any Practice changes.
+#
+# `fixes` values: redundant_read | cache_miss | runaway_loop | model_overkill
+#   (Waste Patterns) and common_path | repeated_discovery (the two forms of
+#   Recurring Discovery).
+#
+# MATCHING RULE (code, not LLM; ticket 09 step 2):
+#   A Practice is eligible for a finding iff
+#     (a) the finding's pattern/form is in the Practice's `fixes`, AND
+#     (b) every string in `infra_requirements` is in the Infra Profile's
+#         top-level `capabilities` list (data/company/infra_profile.yaml).
+#   An empty `infra_requirements` list is always met. No wildcards, no
+#   negation, exact string match. `cites` lists Infra Profile `ref`s (or
+#   ref prefixes, ending in ":") the Recommendation should name in infra_refs.
+#
+# With the current Kestrel profile, `semantic-response-cache` and
+# `vector-search-docs-index` are NOT eligible (their capabilities are absent);
+# every other Practice is.
+
+version: 2026.09.2
+practices:
+
+  - id: cache-friendly-prompt-layout
+    version: 2
+    title: Cache-friendly prompt layout
+    fixes: [cache_miss]
+    description: >-
+      Put stable content first and volatile content last. System prompt, tool
+      definitions and long reference material go at the top of the prompt in a
+      fixed order; timestamps, git status, request ids and the user's turn go at
+      the end. Any byte that changes near the top invalidates the cached prefix
+      for everything after it.
+    applies_when: >-
+      Consecutive Calls in a Session share most of their prompt but cache_read_tokens
+      stays near zero, typically because a timestamp or other volatile header sits
+      above the stable prefix.
+    infra_requirements: [prompt_caching]
+    cites: ["caching:glm-context-cache", "agent:"]
+
+  - id: pin-tool-definitions-order
+    version: 1
+    title: Pin tool definitions in a fixed, sorted order
+    fixes: [cache_miss]
+    description: >-
+      Serialise the agent's tool list deterministically (sorted by name, stable
+      JSON key order) in the central agent config so that the tool block, which
+      sits in the cached prefix, is byte-identical across Calls and Sessions.
+    applies_when: >-
+      Cache Misses occur even though the system prompt is static, and the tool
+      set is assembled dynamically per Call.
+    infra_requirements: [prompt_caching, agent_config.central]
+    cites: ["caching:glm-context-cache"]
+
+  - id: shared-context-file-per-service
+    version: 1
+    title: Shared context file per service
+    fixes: [redundant_read, common_path]
+    description: >-
+      Keep a short, maintained AGENTS.md in each service repo with the facts
+      agents keep re-reading (layout, build and test commands, owners, key
+      configs), so the agent loads one small file at start instead of re-reading
+      many source files every turn.
+    applies_when: >-
+      Sessions against one repository re-read the same files across turns, or
+      most Sessions in that repo open the same handful of files first.
+    infra_requirements: [repo.context_files]
+    cites: ["repo:"]
+
+  - id: point-agents-at-internal-docs-server
+    version: 1
+    title: Point agents at the internal docs server
+    fixes: [redundant_read, common_path]
+    description: >-
+      Give agents the internal docs MCP server's search and page-fetch tools, so
+      they fetch the one section they need by id instead of pasting whole
+      exported pages into context or re-reading local copies each turn.
+    applies_when: >-
+      Trails show large doc files read in full, repeatedly, or from local copies
+      when the same content is available on the docs server.
+    infra_requirements: [mcp.docs_server]
+    cites: ["mcp:perch-docs-mcp", "docs:perch"]
+
+  - id: read-once-tool-result-cache
+    version: 1
+    title: Read once, reference after
+    fixes: [redundant_read]
+    description: >-
+      Configure the agent so a tool result already in context is not fetched
+      again: the harness returns "unchanged since call N" for repeat reads of an
+      unmodified file, and the agent is told to refer back rather than re-read.
+    applies_when: >-
+      The same tool result (same result hash) appears more than once in one
+      Session.
+    infra_requirements: [agent_config.central]
+    cites: ["agent:"]
+
+  - id: step-budget-loop-breaker
+    version: 2
+    title: Step budget and loop breaker
+    fixes: [runaway_loop]
+    description: >-
+      Set a per-Session step budget in the central agent config and a loop
+      breaker that stops the agent after N identical tool calls with no new
+      result, asking it to change approach or hand back to the Member.
+    applies_when: >-
+      Sessions repeat the same tool call with the same arguments and get the
+      same result many times in a row, e.g. re-running a failing test.
+    infra_requirements: [agent_config.central]
+    cites: ["agent:kestrel-devagent"]
+
+  - id: gateway-session-budget
+    version: 1
+    title: Per-session spend cap at the gateway
+    fixes: [runaway_loop]
+    description: >-
+      Issue agent sessions short-lived virtual keys with a max_budget at the
+      gateway, so a runaway Session is cut off at a known dollar ceiling even if
+      the agent's own loop breaker fails.
+    applies_when: >-
+      Runaway Loops are rare but expensive, or occur in agents whose config the
+      Customer does not control.
+    infra_requirements: [gateway.litellm, gateway.budgets]
+    cites: ["gateway:kestrel-llm-gateway"]
+
+  - id: fail-fast-actionable-errors
+    version: 1
+    title: Fail fast with actionable tool errors
+    fixes: [runaway_loop, repeated_discovery]
+    description: >-
+      Make internal CLIs and tools print what to do, not just what failed (the
+      missing setting, its allowed values, the accepted argument format). Agents
+      then fix the call in one step instead of looping or guessing, and each
+      Session stops rediscovering the same fix.
+    applies_when: >-
+      Sessions loop on, or repeatedly work around, the same error from the same
+      internal tool.
+    infra_requirements: []
+    cites: ["repo:"]
+
+  - id: tier-routing-by-complexity
+    version: 2
+    title: Tier routing by complexity
+    fixes: [model_overkill]
+    description: >-
+      Route each request to the cheapest tier that handles it: economy for
+      trivial edits and summaries, standard for everyday coding and runbooks,
+      flagship only for hard multi-file or design work. Implement as gateway
+      aliases the agent chooses between, with the standard tier as default.
+    applies_when: >-
+      Low-complexity Sessions run on the flagship tier.
+    infra_requirements: [models.multiple_tiers, gateway.litellm]
+    cites: ["gateway:kestrel-llm-gateway", "tier:"]
+
+  - id: team-model-allowlist-policy
+    version: 1
+    title: Team model allowlist
+    fixes: [model_overkill]
+    description: >-
+      Limit a Team's virtual keys at the gateway to the tiers its work needs
+      (e.g. standard + economy), with flagship available on request. The gateway
+      enforces it; Dwight renders the config as a Policy.
+    applies_when: >-
+      Most of a Team's flagship Spend is on low-complexity Sessions.
+    infra_requirements: [gateway.litellm, gateway.team_model_allowlists]
+    cites: ["gateway:kestrel-llm-gateway", "tier:"]
+
+  - id: standard-default-escalate-on-failure
+    version: 1
+    title: Default to standard tier, escalate on failure
+    fixes: [model_overkill]
+    description: >-
+      Change the agents' default model from flagship to standard and let the
+      agent (or Member) escalate to flagship only after a failed attempt or for
+      tasks tagged hard.
+    applies_when: >-
+      An agent's default tier is flagship and most of its Sessions are low or
+      medium complexity.
+    infra_requirements: [models.multiple_tiers, agent_config.central]
+    cites: ["tier:standard", "tier:flagship", "agent:"]
+
+  - id: consolidated-initiative-doc
+    version: 1
+    title: Consolidated initiative doc
+    fixes: [common_path]
+    description: >-
+      Replace the stack of source docs every Session in an Initiative reads to
+      get started with one short page containing only what those Sessions
+      needed, with links back to the sources. Publish it where agents look first.
+      Dwight drafts it (Draft type initiative_doc).
+    applies_when: >-
+      Most Sessions in an Initiative read the same set of docs (a common path)
+      and only a fraction of their content is used.
+    infra_requirements: [mcp.docs_server, docs.wiki_write_api]
+    cites: ["mcp:perch-docs-mcp", "docs:perch"]
+
+  - id: initiative-memory-file
+    version: 1
+    title: Initiative memory file
+    fixes: [repeated_discovery]
+    description: >-
+      Keep one memory file per Initiative with one actionable line per fact that
+      Sessions keep working out for themselves, loaded into the agent's context
+      at start. Dwight drafts it (Draft type memory).
+    applies_when: >-
+      The same Discovery is reached separately in many Sessions of one Initiative.
+    infra_requirements: [agent_memory_files]
+    cites: ["memory:kestrel-agent-memory"]
+
+  - id: discoveries-back-to-docs
+    version: 1
+    title: Write Discoveries back to the source doc
+    fixes: [repeated_discovery, common_path]
+    description: >-
+      When a repeated Discovery contradicts or is missing from a doc, fix the doc
+      (e.g. a stale runbook example) so future Sessions and people get it right
+      first time.
+    applies_when: >-
+      A repeated Discovery corrects or extends a doc that sits on the
+      Initiative's common path.
+    infra_requirements: [docs.wiki_write_api]
+    cites: ["docs:perch", "mcp:perch-docs-mcp"]
+
+  - id: semantic-response-cache
+    version: 1
+    title: Semantic response cache at the gateway
+    fixes: [redundant_read, common_path]
+    description: >-
+      Enable the gateway's semantic cache for read-mostly doc Q&A so repeated,
+      near-identical questions are answered from cache.
+    applies_when: >-
+      Many Sessions ask near-identical questions over the same docs.
+    infra_requirements: [gateway.litellm, gateway.semantic_cache]
+    cites: ["gateway:kestrel-llm-gateway"]
+
+  - id: vector-search-docs-index
+    version: 1
+    title: Retrieval index over internal docs
+    fixes: [common_path]
+    description: >-
+      Serve internal docs through a vector search tool that returns only the
+      relevant passages, instead of whole pages.
+    applies_when: >-
+      Common-path docs are long and Sessions use only a few passages of each.
+    infra_requirements: [mcp.vector_search]
+    cites: ["docs:perch"]
