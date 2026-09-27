@@ -187,12 +187,7 @@ details > summary { cursor: pointer; color: var(--accent); margin: 4px 0; }
 .share-bar > span { display: block; height: 100%; border-radius: 3px; }
 .fix-cell a { display: flex; flex-direction: column; gap: 2px; max-width: 280px; }
 .fix-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.bf-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 12px; align-items: start; }
-.bf-card { border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px 6px; background: var(--surface); }
-.bf-card-wide { grid-column: 1 / -1; }
-.bf-card-head { display: flex; align-items: center; gap: 2px; margin-bottom: 4px; font-size: 13px; }
-.bf-card-total { margin-left: auto; display: inline-flex; align-items: baseline; gap: 6px; }
-.filter-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
-.filter-chip { font: inherit; font-size: 12px; display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); cursor: pointer; }
-.filter-chip:hover { background: var(--hover); }
-.filter-chip.on { background: var(--accent-tint); border-color: var(--accent); color: var(--accent); }
+.bf-select { font: inherit; font-size: 13px; padding: 5px 28px 5px 10px; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text-primary); cursor: pointer; }
+.cut-headline .swatch { vertical-align: 0; }
+.treemap-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; margin-top: 10px; }
+.treemap-foot .seq-legend { margin: 0; }

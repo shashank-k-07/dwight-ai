@@ -4,10 +4,10 @@
 // Initiative is; the top fix is its largest Initiative Recommendation. Measured Waste and Estimated
 // Saving stay separate columns and are never added together (ADR 0006).
 import Link from "next/link";
-import { useState } from "react";
 import { Info, Money } from "@/components/Money";
 import { Panel } from "@/components/Panel";
 import { useApi } from "@/lib/api";
+import { ALL, useBusinessFunction } from "@/lib/businessFunction";
 import { useChartColors } from "@/lib/chartTheme";
 import { WASTE_PATTERN_LABEL, type InitiativeList, type InitiativeRow, type Recommendation, type RecommendationList } from "@/lib/contract";
 
@@ -17,9 +17,13 @@ export default function InitiativesTable() {
   const c = useChartColors();
   const { data, error, loading } = useApi<InitiativeList>("/api/initiatives");
   const recs = useApi<RecommendationList>("/api/recommendations");
-  const [bf, setBf] = useState<string | null>(null);
   const all = data?.items ?? [];
-  const functions = [...new Set(all.map((r) => r.business_function ?? "Other"))];
+  // Same Business Function as the treemap's dropdown (?bf=); its default is the Function with the most Measured Waste.
+  const top = [...new Set(all.map((r) => r.business_function ?? "Other"))]
+    .map((f) => ({ f, w: all.filter((r) => (r.business_function ?? "Other") === f).reduce((n, r) => n + r.measured_waste.usd, 0) }))
+    .sort((a, b) => b.w - a.w)[0]?.f ?? null;
+  const [picked] = useBusinessFunction(top);
+  const bf = picked === ALL ? null : picked;
   const items = all
     .filter((r) => !bf || (r.business_function ?? "Other") === bf)
     .sort((a, b) => b.measured_waste.usd - a.measured_waste.usd);
@@ -41,15 +45,6 @@ export default function InitiativesTable() {
         <p className="muted">No classified Sessions yet. Run the classify stage to attribute Spend to Initiatives.</p>
       ) : (
         <>
-          {functions.length > 1 && (
-            <div className="filter-chips" role="group" aria-label="Filter by Business Function">
-              {[null, ...functions].map((f) => (
-                <button key={f ?? "all"} type="button" aria-pressed={bf === f} className={`filter-chip${bf === f ? " on" : ""}`} onClick={() => setBf(f)}>
-                  {f && <span className="swatch" style={{ background: c.bf(f) }} />}{f ?? "All"}
-                </button>
-              ))}
-            </div>
-          )}
           <table className="table cut-table">
             <thead>
               <tr>
