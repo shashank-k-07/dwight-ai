@@ -47,7 +47,8 @@ export default function ClosingNumbers() {
   const drop = data?.draft_token_drop_pct;
   const acc = data?.classifier_accuracy;
   return (
-    <Panel title="Results" source={data?.source} loading={loading} error={error}>
+    <Panel title="Proof it works" source={data?.source} loading={loading} error={error}
+      info="Evidence behind the numbers above: real before/after runs with the Draft loaded, the classifier checked against labelled Sessions, and Waste found on real (not synthetic) harness runs.">
       {data && (
         <>
           <div style={grid}>

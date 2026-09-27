@@ -169,7 +169,14 @@ details > summary { cursor: pointer; color: var(--accent); margin: 4px 0; }
   border: 1px solid var(--accent); border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; }
 .team-focus .chip { margin: 0 4px 0 0; }
 
-.bf-legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 13px; }
-.bf-legend li { display: grid; grid-template-columns: 14px 1fr auto auto; gap: 8px; align-items: center; }
-.bf-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, 260px); gap: 16px; align-items: center; }
-@media (max-width: 760px) { .bf-grid { grid-template-columns: 1fr; } }
+.bubble-grid { display: grid; grid-template-columns: minmax(0, 440px) minmax(220px, 300px); gap: 32px; align-items: center; justify-content: center; }
+.bubble-wrap { position: relative; }
+.bubble-wrap svg { width: 100%; height: auto; display: block; }
+.bubble-tip { position: absolute; pointer-events: none; white-space: nowrap; z-index: 2; }
+.bf-legend { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; font-size: 13px; }
+.bf-legend li { display: grid; grid-template-columns: 12px 1fr auto auto; gap: 10px; align-items: center; }
+.bf-legend .swatch { margin: 0; }
+@media (max-width: 760px) { .bubble-grid { grid-template-columns: 1fr; } }
+.seq-legend { display: flex; align-items: center; gap: 8px; margin: 10px 0 0; }
+.seq-ramp { display: inline-flex; height: 10px; border-radius: 3px; overflow: hidden; }
+.seq-ramp > span { width: 18px; }

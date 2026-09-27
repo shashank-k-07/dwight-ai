@@ -8,7 +8,7 @@ import { EChart } from "@/components/EChart";
 import { formatMoney } from "@/components/Money";
 import { Panel } from "@/components/Panel";
 import { useApi } from "@/lib/api";
-import { tint, tooltipStyle, useChartColors } from "@/lib/chartTheme";
+import { inkOn, shade, tooltipStyle, useChartColors } from "@/lib/chartTheme";
 import type { InitiativeList, InitiativeRow } from "@/lib/contract";
 import { initiativeHref } from "@/panels/overview/SpendByInitiative";
 
@@ -28,14 +28,13 @@ export default function InitiativesTreemap() {
       const bf = r.business_function ?? "Other";
       groups.set(bf, [...(groups.get(bf) ?? []), { name: r.name, value: r.spend.usd, row: r }]);
     });
-    // Within its Business Function's hue, a tile is darker the larger its Measured Waste share.
+    // Each Business Function keeps its hue; its Initiatives run light -> dark within that hue by
+    // Measured Waste share (darker = more Waste), ranked within the Function so tiles separate.
     const share = (r: InitiativeRow) => (r.spend.usd > 0 ? r.measured_waste.usd / r.spend.usd : 0);
-    const maxShare = Math.max(0.01, ...items.map(share));
-    const fill = (bf: string, r: InitiativeRow) => tint(c.bf(bf), 0.42 * (1 - share(r) / maxShare), c.surface);
-    // Ink by luminance: white on dark fills, near-black on light ones.
-    const ink = (hex: string) => {
-      const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
-      return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.55 ? "#1b1b1f" : "#ffffff";
+    const fill = (bf: string, leaves: Leaf[], r: InitiativeRow) => {
+      const ranked = [...leaves].sort((a, b) => share(a.row) - share(b.row));
+      const t = ranked.length > 1 ? ranked.findIndex((l) => l.row === r) / (ranked.length - 1) : 0.5;
+      return shade(c.bf(bf), t, c.surface);
     };
     return {
       tooltip: {
@@ -75,10 +74,10 @@ export default function InitiativesTreemap() {
           .map(([bf, leaves]) => ({
             name: bf,
             itemStyle: { color: c.bf(bf), borderColor: c.bf(bf) },
-            upperLabel: { color: ink(c.bf(bf)), formatter: `${bf}` },
+            upperLabel: { color: inkOn(c.bf(bf)), formatter: `${bf}` },
             children: leaves.map((l) => {
-              const col = fill(bf, l.row);
-              return { ...l, itemStyle: { color: col }, label: { color: ink(col) } };
+              const col = fill(bf, leaves, l.row);
+              return { ...l, itemStyle: { color: col }, label: { color: inkOn(col) } };
             }),
           })),
       }],
@@ -87,7 +86,7 @@ export default function InitiativesTreemap() {
 
   return (
     <Panel title="Where the Spend goes" source={data?.source} loading={loading} error={error}
-      info="Tile area = Spend, grouped and coloured by Business Function; a darker tile has a larger Measured Waste share. Hover for Waste and Saving; click to open the Initiative.">
+      info="Tile area = Spend, grouped by Business Function. Colour = Business Function; within it, a darker shade means a larger Measured Waste share (ranked within the Function). Hover for figures; click to open the Initiative.">
       {items.length === 0 ? (
         <p className="muted">No classified Sessions yet.</p>
       ) : (
@@ -96,6 +95,13 @@ export default function InitiativesTreemap() {
             const row = (p.data as Leaf | undefined)?.row;
             if (row) router.push(initiativeHref(row.initiative_id));
           }} />
+      )}
+      {items.length > 1 && (
+        <p className="small muted seq-legend">
+          Measured Waste share, within each Business Function: lower
+          <span className="seq-ramp">{[0, 0.25, 0.5, 0.75, 1].map((t) => <span key={t} style={{ background: shade(c.bf("Engineering"), t, c.surface) }} />)}</span>
+          higher
+        </p>
       )}
     </Panel>
   );

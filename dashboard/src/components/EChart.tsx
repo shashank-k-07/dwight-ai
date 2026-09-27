@@ -3,12 +3,12 @@
 // Pass `option`; `onClick` gets ECharts' click params (params.data is your data item).
 import { useEffect, useRef } from "react";
 import * as echarts from "echarts/core";
-import { BarChart, SunburstChart, TreemapChart } from "echarts/charts";
+import { BarChart, TreemapChart } from "echarts/charts";
 import { GridComponent, LegendComponent, TooltipComponent } from "echarts/components";
 import { SVGRenderer } from "echarts/renderers";
 import type { EChartsCoreOption } from "echarts/core";
 
-echarts.use([BarChart, SunburstChart, TreemapChart, GridComponent, LegendComponent, TooltipComponent, SVGRenderer]);
+echarts.use([BarChart, TreemapChart, GridComponent, LegendComponent, TooltipComponent, SVGRenderer]);
 
 export type ChartClick = { data?: unknown; name?: string; seriesName?: string; dataIndex?: number };
 

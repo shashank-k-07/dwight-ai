@@ -71,3 +71,15 @@ export function tooltipStyle(c: ChartColors) {
     extraCssText: "border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.12);",
   };
 }
+
+/** A shade of one hue for t in [0, 1]: 0 = light (tinted toward the surface), 1 = deep (toward black). */
+export function shade(hex: string, t: number, surface: string): string {
+  const x = Math.min(1, Math.max(0, t));
+  return x < 0.5 ? tint(hex, 0.55 * (1 - x / 0.5), surface) : tint(hex, 0.4 * ((x - 0.5) / 0.5), "#000000");
+}
+
+/** White ink on dark fills, near-black on light ones. */
+export function inkOn(hex: string): string {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.5 ? "#10233f" : "#ffffff";
+}
