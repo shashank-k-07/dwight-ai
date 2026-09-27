@@ -167,8 +167,8 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
           {data?.source === "fixture" && <span className="badge badge-fixture">fixture data</span>}
           {simulatable.length > 1 && (notYet.length ? (
             <button type="button" className="button button-cta" onClick={implementAll}
-              title="Apply every fix on this Initiative in the simulation, then press Apply fixes to see the money saved">
-              Implement all ({notYet.length})
+              title="Apply every fix on this Initiative in the simulation, then press Apply fixes to see the money saved. Implement all on the Overview applies every fix company-wide.">
+              Implement these {notYet.length}
             </button>
           ) : (
             <button type="button" className="button button-quiet" onClick={() => sim.undoAll(simulatable.map((r) => r.recommendation_id))}>
@@ -193,7 +193,8 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
           )}
 
           <ApplyFixes scope={initiativeId} base={spend} baseLabel="Initiative Spend" sessions={initiative.data?.session_count}
-            recs={doneHere} proofHref={() => "#before-after"} />
+            recs={doneHere} proofHref={() => "#before-after"}
+            caps={spend ? { [`initiative:${initiativeId}`]: spend.usd } : undefined} />
 
           {team && (
             <div className="team-recs">

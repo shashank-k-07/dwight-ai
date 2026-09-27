@@ -92,11 +92,12 @@ export function useSimulation() {
       save({ ...cur, applied: { ...cur.applied, [r.recommendation_id]: { recommendation_id: r.recommendation_id, initiative_id: initiativeId, at: new Date().toISOString() } } });
     },
     /** Implement all: apply several fixes in one go. */
-    applyAll: (recs: Recommendation[], initiativeId: string) => {
+    applyAll: (recs: Recommendation[], initiativeId: string | ((r: Recommendation) => string)) => {
       const cur = snapshot();
       const at = new Date().toISOString();
       const applied = { ...cur.applied };
-      recs.forEach((r) => (applied[r.recommendation_id] = { recommendation_id: r.recommendation_id, initiative_id: initiativeId, at }));
+      const from = typeof initiativeId === "function" ? initiativeId : () => initiativeId;
+      recs.forEach((r) => (applied[r.recommendation_id] = { recommendation_id: r.recommendation_id, initiative_id: from(r), at }));
       save({ ...cur, applied });
     },
     undoAll: (ids: string[]) => {
@@ -150,20 +151,34 @@ export interface Projection {
 }
 
 /** Spend before -> projected after, if these Recommendations had been in place for the same Sessions. */
-export function project(spend: Money, recs: Recommendation[]): Projection {
+export function project(spend: Money, recs: Recommendation[], caps?: Record<string, number>): Projection {
   const best = new Map<string, Recommendation>();
   for (const r of recs) {
     const k = wasteKey(r);
     const cur = best.get(k);
     if (!cur || r.saving.usd > cur.saving.usd) best.set(k, r);
   }
-  let usd = 0;
-  const part = { measured: 0, estimated: 0 };
+  // Per target: no Initiative (or Team) saves more than its own Spend, when `caps` gives it.
+  const perTarget = new Map<string, { usd: number; measured: number; estimated: number }>();
   for (const r of best.values()) {
-    usd += r.saving.usd;
-    part[r.saving.kind] += r.saving.usd;
+    const k = `${r.target_type}:${r.target_id}`;
+    const t = perTarget.get(k) ?? { usd: 0, measured: 0, estimated: 0 };
+    t.usd += r.saving.usd;
+    t[r.saving.kind] += r.saving.usd;
+    perTarget.set(k, t);
   }
-  const capped = usd > spend.usd;
+  let usd = 0;
+  let capped = false;
+  const part = { measured: 0, estimated: 0 };
+  for (const [k, t] of perTarget) {
+    const cap = caps?.[k];
+    const f = cap != null && t.usd > cap ? cap / t.usd : 1; // scale both kinds down to the cap
+    if (f < 1) capped = true;
+    usd += t.usd * f;
+    part.measured += t.measured * f;
+    part.estimated += t.estimated * f;
+  }
+  capped = capped || usd > spend.usd;
   const saving = Math.min(usd, spend.usd);
   const sim = (x: number): Money => ({ usd: x, kind: "estimated", note: "simulated" });
   const src = (kind: "measured" | "estimated"): Money | null => (part[kind] > 0 ? { usd: part[kind], kind } : null);
