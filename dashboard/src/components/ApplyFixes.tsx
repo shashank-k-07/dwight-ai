@@ -7,7 +7,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Info, Money } from "@/components/Money";
 import type { Money as MoneyT, Recommendation } from "@/lib/contract";
-import { project, shareOf, useSimulation } from "@/lib/simulation";
+import { bySaving, project, shareOf, useSimulation } from "@/lib/simulation";
 
 const STEP_MS = 650;
 const reduceMotion = () =>
@@ -42,7 +42,7 @@ function useTween(target: number, ms = 450): number {
 
 const sim$ = (usd: number): MoneyT => ({ usd, kind: "estimated", note: "simulated" });
 
-export default function ApplyFixes({ scope, base, baseLabel, sessions, recs, labelFor, proofHref }: {
+export default function ApplyFixes({ scope, base, baseLabel, sessions, recs: appliedRecs, labelFor, proofHref }: {
   scope: string;
   base: MoneyT | null;
   baseLabel: string;
@@ -54,6 +54,7 @@ export default function ApplyFixes({ scope, base, baseLabel, sessions, recs, lab
   proofHref?: (r: Recommendation) => string;
 }) {
   const sim = useSimulation();
+  const recs = bySaving(appliedRecs); // largest first, so an overlapping smaller fix adds nothing
   const run = sim.runFor(scope, recs);
   const [step, setStep] = useState<number | null>(null); // null = show the whole run at once
   const shown = run ? (step ?? recs.length) : 0;
@@ -114,7 +115,7 @@ export default function ApplyFixes({ scope, base, baseLabel, sessions, recs, lab
               <span className="fixes-amount">
                 {done ? (added[i] > 0.0000005
                   ? <>−<Money value={sim$(added[i])} size="sm" /></>
-                  : <span className="small muted">same Waste as an earlier fix, not added again</span>)
+                  : <span className="small muted">same Waste as a larger fix above, not added</span>)
                   : <Money value={r.saving} size="sm" />}
               </span>
               {!run && (
@@ -160,8 +161,8 @@ export default function ApplyFixes({ scope, base, baseLabel, sessions, recs, lab
           </div>
           <p className="small muted">
             Simulated · Estimated: Spend minus each fix&apos;s own saving, for the same Sessions.{" "}
-            {final.overlapping ? `${final.overlapping} fix${final.overlapping === 1 ? "" : "es"} repeat an earlier one's Waste and count once; ` : "A Waste counts once; "}
-            different fixes can still overlap, so treat it as an upper bound{final.capped ? " (capped at Spend)" : ""}.
+            {final.overlapping ? `${final.overlapping} fix${final.overlapping === 1 ? " removes" : "es remove"} the same Waste as a larger one and ${final.overlapping === 1 ? "isn't" : "aren't"} added; ` : "Fixes for the same Waste count once (the largest); "}
+            fixes for different Waste can still touch the same Calls, so treat it as an upper bound{final.capped ? " (capped at Spend)" : ""}.
           </p>
         </div>
       )}

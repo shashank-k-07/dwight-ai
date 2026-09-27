@@ -105,6 +105,8 @@ export interface Recommendation {
   recurring_discovery_id?: string | null;
   measured_drop?: MeasuredDrop | null;
   policy_prefill?: PolicyPrefill | null;
+  /** Additive: Recommendations in one group remove the same Waste; only the largest saving counts. */
+  overlap_group?: string | null;
 }
 export interface RecommendationList extends Envelope { items: Recommendation[] }
 export interface Draft extends Envelope {

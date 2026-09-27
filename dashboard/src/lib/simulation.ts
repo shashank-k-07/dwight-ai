@@ -91,6 +91,20 @@ export function useSimulation() {
       const cur = snapshot();
       save({ ...cur, applied: { ...cur.applied, [r.recommendation_id]: { recommendation_id: r.recommendation_id, initiative_id: initiativeId, at: new Date().toISOString() } } });
     },
+    /** Implement all: apply several fixes in one go. */
+    applyAll: (recs: Recommendation[], initiativeId: string) => {
+      const cur = snapshot();
+      const at = new Date().toISOString();
+      const applied = { ...cur.applied };
+      recs.forEach((r) => (applied[r.recommendation_id] = { recommendation_id: r.recommendation_id, initiative_id: initiativeId, at }));
+      save({ ...cur, applied });
+    },
+    undoAll: (ids: string[]) => {
+      const cur = snapshot();
+      const applied = { ...cur.applied };
+      ids.forEach((id) => delete applied[id]);
+      save({ ...cur, applied });
+    },
     undo: (id: string) => {
       const cur = snapshot();
       const applied = { ...cur.applied };
@@ -114,35 +128,38 @@ export function useSimulation() {
 /** Policy Recommendations aren't simulated: "Apply as Policy" really writes the gateway config. */
 export const isSimulatable = (r: Recommendation) => r.target_type !== "policy";
 
-// Recommendations fixing the same Waste carry the same figure (the API notes "not additive");
-// this is the backend's grouping key (routes/recommendations.py), so one Waste counts once.
+// Recommendations that remove the same Waste don't add up: the backend gives them one
+// `overlap_group` (routes/recommendations.py overlap_group(); e.g. every fix for an Initiative's
+// repeated Discoveries, since the memory file covers them all), and only the largest saving in a
+// group counts. Older responses without the field fall back to the engine's same-Waste key.
 const wasteKey = (r: Recommendation) =>
-  [r.target_type, r.target_id, r.recurring_discovery_id ?? "", r.saving.kind, r.saving.usd.toFixed(6)].join("|");
+  r.overlap_group ?? [r.target_type, r.target_id, r.recurring_discovery_id ?? "", r.saving.kind, r.saving.usd.toFixed(6)].join("|");
+
+/** Largest saving first: the order a run applies fixes in, so an overlapping smaller fix adds nothing. */
+export const bySaving = (recs: Recommendation[]) => [...recs].sort((a, b) => b.saving.usd - a.saving.usd);
 
 export interface Projection {
   before: Money; // the served Spend, as is (Measured)
-  saving: Money; // simulated: sum of distinct savings, capped at Spend
+  saving: Money; // simulated: per overlap group the largest saving, summed, capped at Spend
   after: Money; // simulated projection
   /** What the saving is built from, each at its own kind (ADR 0006: never merged silently). */
   from: { measured: Money | null; estimated: Money | null };
   counted: number;
-  overlapping: number; // implemented, but the same Waste as another one: not added again
+  overlapping: number; // applied, but the same Waste as a larger fix: not added
   capped: boolean;
 }
 
 /** Spend before -> projected after, if these Recommendations had been in place for the same Sessions. */
 export function project(spend: Money, recs: Recommendation[]): Projection {
-  const seen = new Set<string>();
-  let usd = 0;
-  const part = { measured: 0, estimated: 0 };
-  let overlapping = 0;
+  const best = new Map<string, Recommendation>();
   for (const r of recs) {
     const k = wasteKey(r);
-    if (seen.has(k)) {
-      overlapping++;
-      continue;
-    }
-    seen.add(k);
+    const cur = best.get(k);
+    if (!cur || r.saving.usd > cur.saving.usd) best.set(k, r);
+  }
+  let usd = 0;
+  const part = { measured: 0, estimated: 0 };
+  for (const r of best.values()) {
     usd += r.saving.usd;
     part[r.saving.kind] += r.saving.usd;
   }
@@ -153,7 +170,7 @@ export function project(spend: Money, recs: Recommendation[]): Projection {
   return {
     before: spend, saving: sim(saving), after: sim(spend.usd - saving),
     from: { measured: src("measured"), estimated: src("estimated") },
-    counted: seen.size, overlapping, capped,
+    counted: best.size, overlapping: recs.length - best.size, capped,
   };
 }
 

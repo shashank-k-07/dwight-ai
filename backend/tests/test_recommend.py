@@ -208,3 +208,15 @@ def test_recommendation_endpoints_from_store(client, seeded):
     assert [p["target_type"] for p in pol] == ["policy"]
     assert pol[0]["policy_prefill"]["allowed_models"] == ["glm-4.7", "glm-4.5-air"]
     assert len(client.get("/api/recommendations").json()["items"]) == len(_recs(seeded))
+
+
+def test_overlap_groups_pool_fixes_for_the_same_waste(conn):
+    """Fixes for one Initiative's repeated Discoveries share a group (the memory file covers them all);
+    Waste-pattern fixes keep the engine's same-Waste grouping."""
+    from dwight.api.routes.recommendations import overlap_group
+    base = {"target_type": "initiative", "target_id": "x", "kind": "estimated", "usd": 1.0}
+    assert overlap_group(base, "repeated_discovery") == overlap_group({**base, "usd": 9.0}, "repeated_discovery")
+    assert overlap_group(base, "repeated_discovery") != overlap_group(base, "common_path")
+    assert overlap_group(base, None) == overlap_group(dict(base), None)
+    assert overlap_group(base, None) != overlap_group({**base, "usd": 2.0}, None)
+    assert overlap_group(base, None) != overlap_group({**base, "target_id": "y"}, None)

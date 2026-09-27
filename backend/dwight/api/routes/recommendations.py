@@ -18,6 +18,17 @@ router = APIRouter()
 TARGET_TYPES = ("initiative", "team", "policy")
 
 
+def overlap_group(r: dict, form: str | None) -> str:
+    """Recommendations in one group remove the same Waste, so their savings don't add up (the
+    simulation counts the largest one). A Recurring Discovery fix is grouped by its target and form:
+    the memory-file Draft is priced on ALL of the Initiative's repeated Discoveries, which overlap
+    any single-Discovery fix, and every common-path fix removes the same reads. Any other fix is
+    grouped with the ones the engine priced as the same Waste (same target, kind and figure)."""
+    if form:
+        return f"{r['target_type']}:{r['target_id']}:{form}"
+    return f"{r['target_type']}:{r['target_id']}:{r['kind']}:{round(r['usd'], 8)}"
+
+
 def to_contract(conn, rows: list[dict]) -> list[dict]:
     """recommendations rows -> contract Recommendation dicts."""
     forms = dict(conn.execute("SELECT recurring_discovery_id, form FROM recurring_discoveries").fetchall())
@@ -43,6 +54,7 @@ def to_contract(conn, rows: list[dict]) -> list[dict]:
             "saving": money(r["usd"], r["kind"], note),
             "draft_id": r["draft_id"],
             "recurring_discovery_id": r["recurring_discovery_id"],
+            "overlap_group": overlap_group(r, forms.get(r["recurring_discovery_id"])),
             "measured_drop": None,
             "policy_prefill": prefill(r["target_id"], r["suggested_models"])
             if r["target_type"] in ("team", "policy") else None,

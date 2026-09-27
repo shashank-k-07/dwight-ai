@@ -145,6 +145,12 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
     : [];
   const teamHere = initiative.data?.teams?.find((t) => t.team === team);
   const doneHere = items.filter((r) => sim.isApplied(r.recommendation_id));
+  const simulatable = items.filter(isSimulatable);
+  const notYet = simulatable.filter((r) => !sim.isApplied(r.recommendation_id));
+  const implementAll = () => {
+    sim.applyAll(notYet, initiativeId);
+    setTimeout(() => document.getElementById(`applied-fixes-${initiativeId}`)?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+  };
   const ranHere = !!sim.runFor(initiativeId, doneHere);
   const proof = items.map((r) => measuredProof(r, ba.data)).find(Boolean) ?? null;
   // The live agent run sits on the first Draft Recommendation: the run loads all of the Initiative's Drafts.
@@ -159,6 +165,16 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
         </h2>
         <div className="panel-actions">
           {data?.source === "fixture" && <span className="badge badge-fixture">fixture data</span>}
+          {simulatable.length > 1 && (notYet.length ? (
+            <button type="button" className="button button-cta" onClick={implementAll}
+              title="Apply every fix on this Initiative in the simulation, then press Apply fixes to see the money saved">
+              Implement all ({notYet.length})
+            </button>
+          ) : (
+            <button type="button" className="button button-quiet" onClick={() => sim.undoAll(simulatable.map((r) => r.recommendation_id))}>
+              Undo all
+            </button>
+          ))}
           {sim.count > 0 && <button type="button" className="button button-quiet" onClick={sim.reset}>Reset simulation</button>}
         </div>
       </header>

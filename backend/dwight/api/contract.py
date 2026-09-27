@@ -160,6 +160,9 @@ class Recommendation(BaseModel):
     recurring_discovery_id: Optional[str] = None
     measured_drop: Optional[MeasuredDrop] = None
     policy_prefill: Optional[PolicyPrefill] = None   # target_type=policy/team -> opens Policy screen prefilled
+    # Added after the freeze (additive): Recommendations sharing a group remove the same Waste, so
+    # their savings don't add up (the "Implement" simulation counts the largest in a group).
+    overlap_group: Optional[str] = None
 
 
 class RecommendationList(Envelope):
