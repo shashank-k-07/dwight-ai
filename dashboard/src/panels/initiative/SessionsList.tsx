@@ -1,5 +1,6 @@
 "use client";
 // Panel: Sessions in this Initiative, most Spend first. Owner: 06. GET /api/initiatives/{id}/sessions
+// With a Team (?team=, from the Overview chart) it shows that Team's Sessions only.
 import { useState } from "react";
 import { Money } from "@/components/Money";
 import { Panel } from "@/components/Panel";
@@ -9,10 +10,10 @@ import { WASTE_PATTERN_LABEL, type SessionList } from "@/lib/contract";
 const PAGE = 25;
 const COMPLEXITY_LABEL = { low: "Low", med: "Medium", high: "High" } as const;
 
-export default function SessionsList({ initiativeId }: { initiativeId: string }) {
+export default function SessionsList({ initiativeId, team }: { initiativeId: string; team?: string | null }) {
   const { data, error, loading } = useApi<SessionList>(`/api/initiatives/${initiativeId}/sessions`);
   const [showAll, setShowAll] = useState(false);
-  const items = data?.items ?? [];
+  const items = (data?.items ?? []).filter((s) => !team || s.team === team);
   const shown = showAll ? items : items.slice(0, PAGE);
   const toggle =
     items.length > PAGE ? (
@@ -21,7 +22,7 @@ export default function SessionsList({ initiativeId }: { initiativeId: string })
       </button>
     ) : null;
   return (
-    <Panel title="Sessions" source={data?.source} loading={loading} error={error} actions={toggle}>
+    <Panel title={team ? `Sessions · Team ${team}` : "Sessions"} source={data?.source} loading={loading} error={error} actions={toggle}>
       {data && items.length === 0 ? (
         <p className="muted">No Sessions classified into this Initiative yet.</p>
       ) : (

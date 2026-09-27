@@ -1,6 +1,9 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useApi } from "@/lib/api";
+import type { Health } from "@/lib/contract";
+import { useSimulation } from "@/lib/simulation";
 
 const LINKS = [
   { href: "/", label: "Overview" },
@@ -10,6 +13,9 @@ const LINKS = [
 
 export function Nav() {
   const path = usePathname();
+  const { data: health } = useApi<Health>("/api/health");
+  const sim = useSimulation();
+  const mult = health?.price_multiplier ?? 1;
   return (
     <nav className="nav">
       <span className="brand">Dwight</span>
@@ -21,6 +27,20 @@ export function Nav() {
           </Link>
         );
       })}
+      <span className="nav-right">
+        {sim.count > 0 && (
+          <span className="badge badge-sim" title="Implemented in this browser only. Nothing was changed in the store.">
+            Simulation: {sim.count} implemented ·{" "}
+            <button type="button" className="linklike" onClick={sim.reset}>Reset simulation</button>
+          </span>
+        )}
+        {mult !== 1 && (
+          <span className="badge badge-demo-pricing"
+            title={`DWIGHT_PRICE_MULTIPLIER=${mult}: every $ figure is list price × ${mult} for the demo. Percentages are unchanged. Real list prices are in data/prices.yaml.`}>
+            Demo pricing ×{mult}
+          </span>
+        )}
+      </span>
     </nav>
   );
 }
