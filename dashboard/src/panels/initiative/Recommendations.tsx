@@ -4,6 +4,7 @@
 // GET /api/initiatives/{id}/recommendations, /api/initiatives/{id}, /api/initiatives/{id}/before-after,
 // and with ?team=: /api/recommendations + /api/overview (the Team's own Recommendations and Spend).
 // "Implement" is a per-viewer simulation (lib/simulation.ts): nothing is written anywhere.
+// The first Draft Recommendation also carries the live agent run (LiveAgentRun.tsx): real, Measured.
 //   * A Draft Recommendation whose before/after runs held task success shows those real runs,
 //     labelled Measured (13/16), plus the simulated projection for the whole Initiative.
 //   * Every other one shows Spend before -> projected after, labelled Simulated · Estimated.
@@ -14,6 +15,7 @@ import { Info, Money } from "@/components/Money";
 import { useApi } from "@/lib/api";
 import type { BeforeAfter, Initiative, Money as MoneyT, Overview, Recommendation, RecommendationList } from "@/lib/contract";
 import { isSimulatable, project, shareOf, useSimulation, type Projection } from "@/lib/simulation";
+import LiveAgentRun from "@/panels/initiative/LiveAgentRun";
 import { SavingSources } from "@/panels/overview/SimulationImpact";
 
 // Minimal markdown for Recommendation bodies: paragraphs, "- " lists, **bold**, `code`.
@@ -118,9 +120,9 @@ function ImplementResult({ r, base, baseLabel, ba, onUndo }: {
   );
 }
 
-function RecommendationCard({ r, rank, initiativeId, base, baseLabel, ba, scope }: {
+function RecommendationCard({ r, rank, initiativeId, base, baseLabel, ba, scope, live }: {
   r: Recommendation; rank?: number; initiativeId: string; base: MoneyT | null; baseLabel: string;
-  ba: BeforeAfter | null; scope?: string;
+  ba: BeforeAfter | null; scope?: string; live?: boolean;
 }) {
   const sim = useSimulation();
   const [open, setOpen] = useState(false);
@@ -147,6 +149,7 @@ function RecommendationCard({ r, rank, initiativeId, base, baseLabel, ba, scope 
           )}
         </div>
         {r.infra_refs.length > 0 && <p className="small">Infra Profile: {r.infra_refs.map((x) => <InfraRef key={x} refId={x} />)}</p>}
+        {live && <LiveAgentRun recommendationId={r.recommendation_id} />}
         {done && <ImplementResult r={r} base={base} baseLabel={baseLabel} ba={ba} onUndo={() => sim.undo(r.recommendation_id)} />}
       </div>
       <aside className="rec-side">
@@ -194,6 +197,8 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
   const doneHere = items.filter((r) => sim.isImplemented(r.recommendation_id));
   const combined = spend && doneHere.length > 1 ? project(spend, doneHere) : null;
   const proof = items.map((r) => measuredProof(r, ba.data)).find(Boolean) ?? null;
+  // The live agent run sits on the first Draft Recommendation: the run loads all of the Initiative's Drafts.
+  const liveRec = items.find((r) => r.target_type === "initiative" && r.draft_id)?.recommendation_id;
 
   return (
     <section className="panel rec-panel" id="recommendations">
@@ -254,7 +259,7 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
 
           {items.map((r, i) => (
             <RecommendationCard key={r.recommendation_id} r={r} rank={i} initiativeId={initiativeId} base={spend}
-              baseLabel="Initiative Spend" ba={ba.data} />
+              baseLabel="Initiative Spend" ba={ba.data} live={r.recommendation_id === liveRec} />
           ))}
         </>
       )}

@@ -190,6 +190,48 @@ export interface ClosingNumbers extends Envelope {
   classifier_eval_sessions?: number | null;
 }
 
+// --- Live agent run (additive; backend/dwight/live_run.py) ----------------------------------
+export interface AppliedFile { draft_id: string; filename: string; type: "initiative_doc" | "memory"; tokens: number }
+export interface LiveTask {
+  task_id: string;
+  session_id: string;
+  status: "queued" | "running" | "done" | "failed";
+  calls: number;
+  tokens: number;
+  last_tools: string[];
+  task_success?: boolean | null;
+  spend?: Money | null;
+  before_tokens?: number | null;
+  before_spend?: Money | null;
+  before_success?: boolean | null;
+  error?: string | null;
+  check_notes?: string[];
+}
+export interface LiveRun extends Envelope {
+  run_id: string;
+  recommendation_id: string;
+  initiative_id: string;
+  status: "applying" | "running" | "done" | "failed" | "timed_out";
+  model: string;
+  started_at: string;
+  finished_at?: string | null;
+  elapsed_s: number;
+  applied_files: AppliedFile[];
+  tasks: LiveTask[];
+  result?: BeforeAfter | null;
+  message?: string | null;
+}
+export interface LiveRunStatus extends Envelope {
+  enabled: boolean;
+  eligible: boolean;
+  reason?: string | null;
+  task_count: number;
+  model?: string | null;
+  applied_drafts: AppliedFile[];
+  run?: LiveRun | null;
+  recorded?: BeforeAfter | null;
+}
+
 // --- Health ------------------------------------------------------------------------------
 export interface Health {
   ok: boolean;

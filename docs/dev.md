@@ -77,6 +77,12 @@ In a git worktree whose `dashboard/node_modules` is a symlink to another checkou
 
 **Demo pricing.** `DWIGHT_PRICE_MULTIPLIER=100` (default `1`) multiplies every dollar figure the API serves, in `serving.money()`, with no rebuild. The store and `data/prices.yaml` keep real list prices, percentages never change, and the header shows a "Demo pricing ×100" badge. Set the same value for the API and for `export-numbers`. `snapshot`/`reset-demo` always record and compare at list prices. So, for the demo: `DWIGHT_DB=var/demo.sqlite DWIGHT_OUT_DIR=$PWD/var/out-demo DWIGHT_PRICE_MULTIPLIER=100 .venv/bin/uvicorn dwight.api.main:app --port 8000`.
 
+**Live agent run.** `DWIGHT_LIVE_RUNS=1` (plus `SCIFORIUM_API_KEY`) enables "Run this fix with a real agent" on the first Draft Recommendation of `storage-cost-reduction` (`dwight/live_run.py`).
+- **What it does:** Dwight writes the Initiative's Drafts into the Agent's starting context. The harness then re-runs the 10 storage tasks in parallel with `data/real_scr_settings.json`, with a fingerprint check against the before runs. That takes about 1 minute of real model calls.
+- **How it's measured:** the spans are priced by the normal ingest code into `var/live-runs/<run_id>/run.sqlite`, then compared with the recorded before runs using `before_after.compare()`.
+- **What it touches:** nothing in the store, so `reset-demo` has nothing to undo.
+- **Fallback:** if a run fails, or passes `DWIGHT_LIVE_RUN_TIMEOUT_S` (default 360), the page shows the recorded after runs, labelled as recorded. Finished runs reload from `run.json` after an API restart.
+
 The default store is `backend/var/dwight.sqlite`. **Set `DWIGHT_DB=/some/scratch.sqlite` while you develop**, so your experiments don't pollute the shared store. The same env var must be set for the API process if you want it to read your scratch store. `DWIGHT_FORCE_FIXTURES=1` makes every endpoint serve fixtures.
 
 ## Fixtures
