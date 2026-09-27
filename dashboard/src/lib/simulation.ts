@@ -1,40 +1,57 @@
 "use client";
-// "Implement" simulation (demo feedback). Per viewer, in this browser only (localStorage):
-// nothing is written to the store and nothing here ever happened. Every projected figure is
-// arithmetic in code on the served Money objects (Spend minus a Recommendation's saving),
-// kind "estimated" with note "simulated", never Measured and never from the LLM. The only
-// Measured result is the real before/after runs, which the panels read from the API.
+// "Implement" + "Apply fixes" simulation (demo feedback). Per viewer, in this browser only
+// (localStorage): nothing is written to the store and nothing here ever happened.
+//   1. Implement on a Recommendation applies its fix (it's added to `applied`); no numbers yet.
+//   2. Apply fixes runs the simulation over the applied fixes in a scope (one Initiative, or
+//      "all" on Overview) and records the run; the panel then shows Spend before -> after.
+// Every projected figure is arithmetic in code on the served Money objects (Spend minus each
+// fix's own saving, one Waste counted once), kind "estimated" with note "simulated", never
+// Measured and never from the LLM. The only Measured results are real runs, read from the API.
 import { useSyncExternalStore } from "react";
 import type { Money, Recommendation } from "@/lib/contract";
 
-const KEY = "dwight.simulation.v1";
+const KEY = "dwight.simulation.v2";
+const OLD_KEY = "dwight.simulation.v1"; // v1 held only implemented Recommendations
 
 export interface Implemented {
   recommendation_id: string;
-  /** The Initiative page it was implemented from (team/initiative targets only). */
+  /** The Initiative page it was applied from. */
   initiative_id: string;
   at: string;
 }
-export type SimulationState = Record<string, Implemented>;
+export interface SimRun {
+  ids: string[]; // the applied fixes the run covered, sorted
+  at: string;
+}
+export interface SimulationState {
+  applied: Record<string, Implemented>;
+  runs: Record<string, SimRun>; // scope ("all" | initiative_id) -> last run
+}
 
-const EMPTY: SimulationState = {};
+const EMPTY: SimulationState = { applied: {}, runs: {} };
 let cache: SimulationState | null = null;
 const listeners = new Set<() => void>();
 
 function load(): SimulationState {
   try {
     const raw = window.localStorage.getItem(KEY);
-    const parsed = raw ? JSON.parse(raw) : {};
-    return parsed && typeof parsed === "object" ? (parsed as SimulationState) : {};
+    if (raw) {
+      const p = JSON.parse(raw);
+      if (p && typeof p === "object") return { applied: p.applied ?? {}, runs: p.runs ?? {} };
+    }
+    const old = window.localStorage.getItem(OLD_KEY);
+    if (old) return { applied: JSON.parse(old) ?? {}, runs: {} };
   } catch {
-    return {};
+    // unreadable or blocked: start empty
   }
+  return EMPTY;
 }
 
 function save(next: SimulationState) {
   cache = next;
   try {
-    if (Object.keys(next).length) window.localStorage.setItem(KEY, JSON.stringify(next));
+    window.localStorage.removeItem(OLD_KEY);
+    if (Object.keys(next.applied).length || Object.keys(next.runs).length) window.localStorage.setItem(KEY, JSON.stringify(next));
     else window.localStorage.removeItem(KEY);
   } catch {
     // storage blocked (private window): the simulation still works until reload
@@ -62,20 +79,35 @@ function snapshot(): SimulationState {
   return cache;
 }
 
+const sortedIds = (recs: Recommendation[]) => recs.map((r) => r.recommendation_id).sort();
+
 export function useSimulation() {
   const state = useSyncExternalStore(subscribe, snapshot, () => EMPTY);
   return {
     state,
-    count: Object.keys(state).length,
-    isImplemented: (id: string) => id in state,
-    implement: (r: Recommendation, initiativeId: string) =>
-      save({ ...snapshot(), [r.recommendation_id]: { recommendation_id: r.recommendation_id, initiative_id: initiativeId, at: new Date().toISOString() } }),
-    undo: (id: string) => {
-      const next = { ...snapshot() };
-      delete next[id];
-      save(next);
+    count: Object.keys(state.applied).length,
+    isApplied: (id: string) => id in state.applied,
+    apply: (r: Recommendation, initiativeId: string) => {
+      const cur = snapshot();
+      save({ ...cur, applied: { ...cur.applied, [r.recommendation_id]: { recommendation_id: r.recommendation_id, initiative_id: initiativeId, at: new Date().toISOString() } } });
     },
-    reset: () => save({}),
+    undo: (id: string) => {
+      const cur = snapshot();
+      const applied = { ...cur.applied };
+      delete applied[id];
+      save({ ...cur, applied });
+    },
+    /** Apply fixes: record a run of the simulation over these applied fixes, in a scope. */
+    run: (scope: string, recs: Recommendation[]) => {
+      const cur = snapshot();
+      save({ ...cur, runs: { ...cur.runs, [scope]: { ids: sortedIds(recs), at: new Date().toISOString() } } });
+    },
+    /** The scope's last run, if it covered exactly these fixes (otherwise the result is stale). */
+    runFor: (scope: string, recs: Recommendation[]): SimRun | null => {
+      const r = state.runs[scope];
+      return r && r.ids.join(",") === sortedIds(recs).join(",") ? r : null;
+    },
+    reset: () => save(EMPTY),
   };
 }
 

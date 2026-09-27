@@ -2,21 +2,22 @@
 // Panel: Recommendations, the visual focus of Initiative detail. Owner: 09 (12: Draft link,
 // 13: measured drop, 14: policy link; demo feedback: prominence, Team highlight, "Implement").
 // GET /api/initiatives/{id}/recommendations, /api/initiatives/{id}, /api/initiatives/{id}/before-after,
-// and with ?team=: /api/recommendations + /api/overview (the Team's own Recommendations and Spend).
-// "Implement" is a per-viewer simulation (lib/simulation.ts): nothing is written anywhere.
+// and with ?team=: /api/recommendations (the Team's own Recommendations).
+// Simulation, per viewer (lib/simulation.ts; nothing is written anywhere):
+//   * "Implement" applies a Recommendation's fix (no numbers yet);
+//   * "Apply fixes" (components/ApplyFixes.tsx) runs the simulation over this Initiative's applied
+//     fixes and shows Spend before -> after and the money saved, labelled Simulated · Estimated.
+//   * Team-wide fixes count in the Overview simulation; Policy Recommendations aren't simulated:
+//     "Apply as Policy" writes the real gateway config.
 // The first Draft Recommendation also carries the live agent run (LiveAgentRun.tsx): real, Measured.
-//   * A Draft Recommendation whose before/after runs held task success shows those real runs,
-//     labelled Measured (13/16), plus the simulated projection for the whole Initiative.
-//   * Every other one shows Spend before -> projected after, labelled Simulated · Estimated.
-//   * Policy Recommendations aren't simulated: "Apply as Policy" writes the real gateway config.
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
 import { Info, Money } from "@/components/Money";
 import { useApi } from "@/lib/api";
-import type { BeforeAfter, Initiative, Money as MoneyT, Overview, Recommendation, RecommendationList } from "@/lib/contract";
-import { isSimulatable, project, shareOf, useSimulation, type Projection } from "@/lib/simulation";
+import type { BeforeAfter, Initiative, Recommendation, RecommendationList } from "@/lib/contract";
+import { isSimulatable, shareOf, useSimulation } from "@/lib/simulation";
+import ApplyFixes from "@/components/ApplyFixes";
 import LiveAgentRun from "@/panels/initiative/LiveAgentRun";
-import { SavingSources } from "@/panels/overview/SimulationImpact";
 
 // Minimal markdown for Recommendation bodies: paragraphs, "- " lists, **bold**, `code`.
 // Rendered as React nodes (no HTML injection).
@@ -61,73 +62,17 @@ function policyHref(r: Recommendation): string | null {
   return `/policy?${q.toString()}`;
 }
 
-const tokens = (n: number) => Math.round(n).toLocaleString("en-US");
-const SimBadge = () => <span className="badge badge-sim">Simulated · Estimated</span>;
-
 /** The real before/after runs, when this Recommendation's Draft was what the after runs loaded. */
 const measuredProof = (r: Recommendation, ba: BeforeAfter | null) =>
   r.measured_drop?.counts && ba?.has_runs && ba.success_held && ba.before && ba.after ? ba : null;
 
-function ProjectionView({ p, baseLabel }: { p: Projection; baseLabel: string }) {
-  return (
-    <div className="sim-flow sim-flow-sm">
-      <div>
-        <div className="stat-label">{baseLabel}</div>
-        <Money value={p.before} />
-      </div>
-      <div className="sim-arrow" aria-hidden>→</div>
-      <div>
-        <div className="stat-label">Projected (simulated)</div>
-        <Money value={p.after} />
-      </div>
-      <div>
-        <div className="stat-label">Saving</div>
-        <Money value={p.saving} /> <span className="muted small">−{shareOf(p.saving, p.before).toFixed(1)}%</span>
-      </div>
-    </div>
-  );
-}
-
-function ImplementResult({ r, base, baseLabel, ba, onUndo }: {
-  r: Recommendation; base: MoneyT | null; baseLabel: string; ba: BeforeAfter | null; onUndo: () => void;
-}) {
-  const proof = measuredProof(r, ba);
-  const p = base ? project(base, [r]) : null;
-  return (
-    <div className="sim-result">
-      {proof && proof.before && proof.after && (
-        <div className="measured-result">
-          <p className="sim-result-head"><strong>What actually happened</strong> <span className="muted small">the same {proof.after.tasks_total} tasks, without then with the Draft</span></p>
-          <div className="sim-flow sim-flow-sm">
-            <div><div className="stat-label">Tokens / Session</div>{tokens(proof.before.avg_tokens)} → <strong>{tokens(proof.after.avg_tokens)}</strong></div>
-            <div><div className="stat-label">Token drop</div><strong>−{proof.token_drop_pct?.toFixed(1)}%</strong></div>
-            <div><div className="stat-label">Spend on those runs</div><Money value={proof.before.spend} size="sm" /> → <Money value={proof.after.spend} size="sm" /></div>
-            <div><div className="stat-label">Tasks passed</div>{proof.before.tasks_passed}/{proof.before.tasks_total} → {proof.after.tasks_passed}/{proof.after.tasks_total}</div>
-          </div>
-        </div>
-      )}
-      <p className="sim-result-head">
-        <strong>{proof ? "Projected for the whole Initiative" : "If this had been in place"}</strong> <SimBadge />
-      </p>
-      {p ? <ProjectionView p={p} baseLabel={baseLabel} /> : <p className="muted small">Loading…</p>}
-      {p && <SavingSources p={p} />}
-      <p className="small muted">
-        Simulation only, in this browser: Dwight changed nothing
-        <Info>{`The Spend above minus this Recommendation's own ${r.saving.kind === "measured" ? "Measured Waste" : "Estimated Saving"}, for the same Sessions.`}</Info>
-        {" "}· <button type="button" className="linklike" onClick={onUndo}>Undo</button>
-      </p>
-    </div>
-  );
-}
-
-function RecommendationCard({ r, rank, initiativeId, base, baseLabel, ba, scope, live }: {
-  r: Recommendation; rank?: number; initiativeId: string; base: MoneyT | null; baseLabel: string;
-  ba: BeforeAfter | null; scope?: string; live?: boolean;
+function RecommendationCard({ r, rank, initiativeId, scope, live }: {
+  r: Recommendation; rank?: number; initiativeId: string; scope?: string; live?: boolean;
 }) {
   const sim = useSimulation();
   const [open, setOpen] = useState(false);
   const href = policyHref(r);
-  const done = sim.isImplemented(r.recommendation_id);
+  const done = sim.isApplied(r.recommendation_id);
   const long = r.body.trim().split(/\n\s*\n/).length > 1;
   return (
     <article className={`rec-card${rank === 0 ? " rec-top" : ""}${done ? " rec-done" : ""}`}>
@@ -150,18 +95,27 @@ function RecommendationCard({ r, rank, initiativeId, base, baseLabel, ba, scope,
         </div>
         {r.infra_refs.length > 0 && <p className="small">Infra Profile: {r.infra_refs.map((x) => <InfraRef key={x} refId={x} />)}</p>}
         {live && <LiveAgentRun recommendationId={r.recommendation_id} />}
-        {done && <ImplementResult r={r} base={base} baseLabel={baseLabel} ba={ba} onUndo={() => sim.undo(r.recommendation_id)} />}
+        {done && (
+          <p className="fix-applied small">
+            <strong>✓ Fix applied</strong> <span className="badge badge-sim">Simulation</span>{" "}
+            {r.target_type === "initiative"
+              ? <>Press <a href={`#applied-fixes-${initiativeId}`}>Apply fixes</a> to see the money saved.</>
+              : <>Team-wide, so it&apos;s counted in the Overview simulation.</>}{" "}
+            <button type="button" className="linklike" onClick={() => sim.undo(r.recommendation_id)}>Undo</button>
+          </p>
+        )}
       </div>
       <aside className="rec-side">
         <div className="stat-label">{r.saving.kind === "measured" ? "Measured Waste it removes" : "Estimated Saving"}</div>
         <Money value={r.saving} size="lg" />
         <div className="rec-actions">
           {isSimulatable(r) && (done ? (
-            <button type="button" className="button button-done" onClick={() => sim.undo(r.recommendation_id)} title="Undo this simulated implementation">
-              ✓ Implemented (simulated)
+            <button type="button" className="button button-done" onClick={() => sim.undo(r.recommendation_id)} title="Un-apply this fix">
+              ✓ Fix applied
             </button>
           ) : (
-            <button type="button" className="button button-cta" onClick={() => sim.implement(r, initiativeId)}>
+            <button type="button" className="button button-cta" onClick={() => sim.apply(r, initiativeId)}
+              title="Apply this fix in the simulation, then press Apply fixes to see the money saved">
               Implement
             </button>
           ))}
@@ -182,7 +136,6 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
   const hasDrop = !!data?.items.some((r) => r.measured_drop);
   const ba = useApi<BeforeAfter>(hasDrop ? `/api/initiatives/${initiativeId}/before-after` : null);
   const all = useApi<RecommendationList>(team ? "/api/recommendations" : null);
-  const overview = useApi<Overview>(team ? "/api/overview" : null);
   const sim = useSimulation();
 
   const items = data?.items ?? [];
@@ -190,12 +143,9 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
   const teamRecs = team
     ? (all.data?.items ?? []).filter((r) => (r.target_type === "team" || r.target_type === "policy") && r.target_id === team)
     : [];
-  const teamSpend = team
-    ? overview.data?.spend_by_business_function.flatMap((bf) => bf.teams).find((t) => t.team === team)?.spend ?? null
-    : null;
   const teamHere = initiative.data?.teams?.find((t) => t.team === team);
-  const doneHere = items.filter((r) => sim.isImplemented(r.recommendation_id));
-  const combined = spend && doneHere.length > 1 ? project(spend, doneHere) : null;
+  const doneHere = items.filter((r) => sim.isApplied(r.recommendation_id));
+  const ranHere = !!sim.runFor(initiativeId, doneHere);
   const proof = items.map((r) => measuredProof(r, ba.data)).find(Boolean) ?? null;
   // The live agent run sits on the first Draft Recommendation: the run loads all of the Initiative's Drafts.
   const liveRec = items.find((r) => r.target_type === "initiative" && r.draft_id)?.recommendation_id;
@@ -205,7 +155,7 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
       <header className="panel-head">
         <h2>
           Recommendations {items.length > 0 && <span className="muted">({items.length})</span>}
-          <Info>In Dwight&apos;s recommended order. Each applies a Practice from Dwight&apos;s Practice Library to this Initiative and the Infra Profile. Dollar figures come from the Waste findings in code, never from the model. Press Implement to simulate the result.</Info>
+          <Info>In Dwight&apos;s recommended order. Each applies a Practice from Dwight&apos;s Practice Library to this Initiative and the Infra Profile. Dollar figures come from the Waste findings in code, never from the model. Press Implement to apply a fix, then Apply fixes to see the money saved (a simulation).</Info>
         </h2>
         <div className="panel-actions">
           {data?.source === "fixture" && <span className="badge badge-fixture">fixture data</span>}
@@ -226,6 +176,9 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
             )
           )}
 
+          <ApplyFixes scope={initiativeId} base={spend} baseLabel="Initiative Spend" sessions={initiative.data?.session_count}
+            recs={doneHere} proofHref={() => "#before-after"} />
+
           {team && (
             <div className="team-recs">
               <h3>For Team {team}</h3>
@@ -238,29 +191,23 @@ export default function Recommendations({ initiativeId, team }: { initiativeId: 
               {all.loading && <p className="muted small">Loading…</p>}
               {!all.loading && teamRecs.length === 0 && <p className="small muted">No Team-wide Recommendations for {team}.</p>}
               {teamRecs.map((r) => (
-                <RecommendationCard key={r.recommendation_id} r={r} initiativeId={initiativeId} base={teamSpend}
-                  baseLabel={`${team} Spend, all Initiatives`} ba={null}
+                <RecommendationCard key={r.recommendation_id} r={r} initiativeId={initiativeId}
                   scope={r.target_type === "policy" ? `Policy for ${team}` : `Team-wide: ${team}`} />
               ))}
             </div>
           )}
 
-          {combined && (
-            <div className="sim-result sim-combined">
-              <p className="sim-result-head"><strong>{doneHere.length} implemented on this Initiative</strong> <SimBadge /></p>
-              <ProjectionView p={combined} baseLabel="Initiative Spend" />
-              <SavingSources p={combined} />
-              <p className="small muted">
-                Recommendations that fix the same Waste count once{combined.overlapping ? ` (${combined.overlapping} not added again)` : ""};
-                different ones can still overlap, so this is an upper bound.
-              </p>
+          {items.map((r, i) => (
+            <RecommendationCard key={r.recommendation_id} r={r} rank={i} initiativeId={initiativeId}
+              live={r.recommendation_id === liveRec} />
+          ))}
+
+          {doneHere.length > 0 && !ranHere && (
+            <div className="fixes-sticky" role="status">
+              <span><strong>{doneHere.length} {doneHere.length === 1 ? "fix" : "fixes"} applied</strong> <span className="badge badge-sim">Simulation</span></span>
+              <a className="button button-cta" href={`#applied-fixes-${initiativeId}`}>Apply fixes ↑</a>
             </div>
           )}
-
-          {items.map((r, i) => (
-            <RecommendationCard key={r.recommendation_id} r={r} rank={i} initiativeId={initiativeId} base={spend}
-              baseLabel="Initiative Spend" ba={ba.data} live={r.recommendation_id === liveRec} />
-          ))}
         </>
       )}
     </section>

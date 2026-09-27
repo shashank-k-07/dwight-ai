@@ -32,8 +32,8 @@ export function Nav() {
           $ figures are Measured unless marked <span className="money-kind money-kind-estimated">Estimated</span>
         </span>
         {sim.count > 0 && (
-          <span className="badge badge-sim" title="Implemented in this browser only. Nothing was changed in the store.">
-            Simulation: {sim.count} implemented ·{" "}
+          <span className="badge badge-sim" title="Fixes applied in this browser only (a simulation). Nothing was changed in the store.">
+            Simulation: {sim.count} {sim.count === 1 ? "fix" : "fixes"} applied ·{" "}
             <button type="button" className="linklike" onClick={sim.reset}>Reset simulation</button>
           </span>
         )}
