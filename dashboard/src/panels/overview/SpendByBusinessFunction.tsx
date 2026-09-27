@@ -1,7 +1,7 @@
 "use client";
 // Panel: Spend by Business Function, stacked by Team. Owner: 07. GET /api/overview
 // Segment colour = the Team's position within its Business Function (tooltip names it);
-// the table below is the accessible/exact view.
+// the collapsed table below is the accessible/exact view.
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { formatMoney, Money } from "@/components/Money";
 import { Panel } from "@/components/Panel";
@@ -25,13 +25,13 @@ export default function SpendByBusinessFunction() {
     return row;
   });
   return (
-    <Panel title="Spend by Business Function" source={data?.source} loading={loading} error={error}>
+    <Panel title="Spend by Business Function" source={data?.source} loading={loading} error={error}
+      info="Spend, stacked by Team. Hover a bar for Team figures; the table has exact numbers.">
       {rows.length === 0 ? (
         <p className="muted">No Sessions yet.</p>
       ) : (
         <>
-          <p className="small muted">Spend (<span className="money-kind money-kind-measured">Measured</span>), stacked by Team. Hover a bar for Team figures.</p>
-          <div style={{ width: "100%", height: 48 + rows.length * 44 }}>
+                    <div style={{ width: "100%", height: 48 + rows.length * 44 }}>
             <ResponsiveContainer>
               <BarChart data={chartData} layout="vertical" margin={{ left: 8, right: 16 }} barCategoryGap={10}>
                 <CartesianGrid horizontal={false} stroke="var(--grid)" />
@@ -55,6 +55,8 @@ export default function SpendByBusinessFunction() {
               </BarChart>
             </ResponsiveContainer>
           </div>
+          <details>
+            <summary className="small">Table: every Business Function and its Teams</summary>
           <table className="table compact">
             <thead><tr><th>Business Function</th><th>Team</th><th>Sessions</th><th>Spend</th></tr></thead>
             <tbody>
@@ -77,6 +79,7 @@ export default function SpendByBusinessFunction() {
               ])}
             </tbody>
           </table>
+          </details>
         </>
       )}
     </Panel>

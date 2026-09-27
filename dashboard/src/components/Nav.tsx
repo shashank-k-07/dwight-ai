@@ -28,6 +28,9 @@ export function Nav() {
         );
       })}
       <span className="nav-right">
+        <span className="nav-legend" title="Measured = arithmetic on metered token counts × list price. Estimated = depends on a model judgement.">
+          $ figures are Measured unless marked <span className="money-kind money-kind-estimated">Estimated</span>
+        </span>
         {sim.count > 0 && (
           <span className="badge badge-sim" title="Implemented in this browser only. Nothing was changed in the store.">
             Simulation: {sim.count} implemented ·{" "}

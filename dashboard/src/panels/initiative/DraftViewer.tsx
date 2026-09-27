@@ -3,8 +3,7 @@
 // GET /api/initiatives/{id}/drafts, /api/drafts/{id}/download, and the Initiative's Recommendations
 // (for the Estimated Saving of the Recommendation each Draft is attached to).
 // Each Draft's element id is `draft-<draft_id>`: the Recommendations panel links to it.
-import { useState, type CSSProperties, type ReactNode } from "react";
-import { Money } from "@/components/Money";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { Panel } from "@/components/Panel";
 import { useApi } from "@/lib/api";
 import type { Draft, DraftList, RecommendationList } from "@/lib/contract";
@@ -93,6 +92,14 @@ const TYPE_LABEL: Record<Draft["type"], string> = { initiative_doc: "Initiative 
 
 function DraftCard({ d, recs }: { d: Draft; recs: RecommendationList | null }) {
   const [raw, setRaw] = useState(false);
+  const [open, setOpen] = useState(false);
+  // Collapsed by default; "View Draft" on a Recommendation links to #draft-<id>, which opens it.
+  useEffect(() => {
+    const sync = () => { if (window.location.hash === `#draft-${d.draft_id}`) setOpen(true); };
+    sync();
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, [d.draft_id]);
   const rec = recs?.items.find((r) => r.draft_id === d.draft_id || r.recommendation_id === d.recommendation_id);
   const entries = d.type === "memory" ? d.content.split("\n").filter((l) => /^\s*-\s+/.test(l)).length : 0;
   const share = d.source_tokens ? Math.round((d.tokens / d.source_tokens) * 100) : null;
@@ -103,25 +110,28 @@ function DraftCard({ d, recs }: { d: Draft; recs: RecommendationList | null }) {
           {d.title} <span className="chip">{TYPE_LABEL[d.type]}</span>
         </h3>
         <span>
-          <button className="button" type="button" onClick={() => setRaw((v) => !v)}
-            style={{ background: "transparent", color: "var(--accent)", border: "1px solid var(--border)", marginRight: 8 }}>
-            {raw ? "Rendered" : "Markdown"}
+          <button className="linklike small" type="button" onClick={() => setOpen((v) => !v)} style={{ marginRight: 12 }}>
+            {open ? "Hide" : "Show"}
           </button>
-          <a className="button" href={`/api/drafts/${d.draft_id}/download`} download={d.filename}>Download {d.filename}</a>
+          {open && (
+            <button className="linklike small" type="button" onClick={() => setRaw((v) => !v)} style={{ marginRight: 12 }}>
+              {raw ? "Rendered" : "Markdown"}
+            </button>
+          )}
+          <a className="button" href={`/api/drafts/${d.draft_id}/download`} download={d.filename}>Download</a>
         </span>
       </div>
       <p className="small muted">
         {d.tokens.toLocaleString()} tokens
-        {d.source_tokens ? `, ${share}% of the ${d.source_tokens.toLocaleString()} tokens of source docs it replaces` : ""}
-        {d.type === "memory" ? `, ${entries} ${entries === 1 ? "entry" : "entries"}, one per repeated Discovery` : ""}
-        {d.source_resource_ids.length > 0 && <> · Sources: {d.source_resource_ids.map((s) => <code key={s} style={{ marginRight: 6 }}>{s}</code>)}</>}
+        {d.source_tokens ? (
+          <span title={d.source_resource_ids.join("\n")}>
+            {` · ${share}% of the ${d.source_resource_ids.length || ""} source docs it replaces (${d.source_tokens.toLocaleString()} tokens)`}
+          </span>
+        ) : ""}
+        {d.type === "memory" ? ` · ${entries} ${entries === 1 ? "entry" : "entries"}` : ""}
+        {rec && <> · for <em>{rec.title}</em></>}
       </p>
-      {rec && (
-        <p className="small">
-          Attached to <strong>{rec.title}</strong> ({rec.practice.title}) · <Money value={rec.saving} size="sm" /> per month
-        </p>
-      )}
-      {raw ? <pre className="markdown">{d.content}</pre> : <div style={docBox}><Markdown source={d.content} /></div>}
+      {open && (raw ? <pre className="markdown">{d.content}</pre> : <div style={docBox}><Markdown source={d.content} /></div>)}
     </div>
   );
 }
@@ -131,11 +141,8 @@ export default function DraftViewer({ initiativeId }: { initiativeId: string }) 
   const recs = useApi<RecommendationList>(`/api/initiatives/${initiativeId}/recommendations`);
   if (data && data.items.length === 0) return null;
   return (
-    <Panel title="Drafts" source={data?.source} loading={loading} error={error}>
-      <p className="small muted">
-        Written by Dwight for this Initiative. Put them in place yourself: load the initiative doc and the memory file
-        into the Agents&apos; context. Savings are Estimated until a before/after run exists.
-      </p>
+    <Panel title="Drafts" source={data?.source} loading={loading} error={error}
+      info="Written by Dwight for this Initiative. Put them in place yourself: load the initiative doc and the memory file into the Agents' context. Savings are Estimated until a before/after run exists.">
       {data?.items.map((d) => <DraftCard key={d.draft_id} d={d} recs={recs.data} />)}
     </Panel>
   );

@@ -20,7 +20,7 @@ const SERIES = ["var(--series-1)", "var(--series-2)", "var(--series-3)", "var(--
 export const initiativeHref = (id: string, team?: string) =>
   `/initiatives/${encodeURIComponent(id)}${team ? `?team=${encodeURIComponent(team)}` : ""}`;
 
-// Axis ticks only (the caption labels the axis Measured): $2.5K, $10K, $40, $0.50.
+// Axis ticks only (Measured by default, per the header legend): $2.5K, $10K, $40, $0.50.
 const axisUsd = (v: number) =>
   v >= 1000 ? `$${+(v / 1000).toFixed(v % 1000 && v < 10000 ? 1 : 0)}K` : v >= 1 || v === 0 ? `$${+v.toFixed(v < 10 ? 1 : 0)}` : `$${v.toPrecision(2)}`;
 
@@ -62,15 +62,12 @@ export default function SpendByInitiative() {
 
   const hasTeams = items.some((r) => r.teams?.length);
   return (
-    <Panel title="Spend by Initiative" source={data?.source} loading={loading} error={error}>
+    <Panel title="Spend by Initiative" source={data?.source} loading={loading} error={error}
+      info="Spend, stacked by Team. Click an Initiative to see its Waste and Recommendations, or a Team's segment to open it for that Team.">
       {items.length === 0 ? (
         <p className="muted">No classified Sessions yet.</p>
       ) : (
         <>
-          <p className="small muted">
-            Spend (<span className="money-kind money-kind-measured">Measured</span>), stacked by Team. Click an Initiative
-            to see its Waste and Recommendations, or a Team&apos;s segment to open it for that Team.
-          </p>
           <div style={{ width: "100%", height: 40 + items.length * 30 }}>
             <ResponsiveContainer>
               <BarChart data={chartData} layout="vertical" margin={{ left: 8, right: 16 }} barCategoryGap={6}>

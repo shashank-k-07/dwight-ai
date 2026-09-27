@@ -2,7 +2,7 @@
 // Panel: Initiatives ranked by Spend. Owner: 06. GET /api/initiatives
 // Spend is Measured; Waste is split into Measured Waste and Estimated Saving, each labelled by <Money>.
 import Link from "next/link";
-import { Money } from "@/components/Money";
+import { Info, Money } from "@/components/Money";
 import { Panel } from "@/components/Panel";
 import { useApi } from "@/lib/api";
 import { WASTE_PATTERN_LABEL, type InitiativeList } from "@/lib/contract";
@@ -38,8 +38,8 @@ export default function InitiativesTable() {
                   <td>{r.business_function ?? "—"}</td>
                   <td>{r.session_count.toLocaleString()}</td>
                   <td><Money value={r.spend} size="sm" /></td>
-                  <td><Money value={r.measured_waste} size="sm" /></td>
-                  <td><Money value={r.estimated_saving} size="sm" /></td>
+                  <td>{r.measured_waste.usd ? <Money value={r.measured_waste} size="sm" /> : <span className="muted">—</span>}</td>
+                  <td>{r.estimated_saving.usd ? <Money value={r.estimated_saving} size="sm" /> : <span className="muted">—</span>}</td>
                   <td>{r.top_waste_pattern ? WASTE_PATTERN_LABEL[r.top_waste_pattern] : "—"}</td>
                 </tr>
               ))}
@@ -47,8 +47,8 @@ export default function InitiativesTable() {
           </table>
           {data && (
             <p className="muted small">
-              {items.length} Initiatives · {sessions.toLocaleString()} Sessions. Initiatives are inferred from each
-              Session&apos;s content; raw prompts are discarded after classification.
+              {items.length} Initiatives · {sessions.toLocaleString()} Sessions
+              <Info>Initiatives are inferred from each Session&apos;s content; raw prompts are discarded after classification.</Info>
             </p>
           )}
         </>

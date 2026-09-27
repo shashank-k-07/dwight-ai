@@ -3,7 +3,7 @@
 // GET /api/initiatives/{id}/recurring-discoveries
 // Both costs are Measured. The repeated-Discovery cost arrives with note "conservative upper bound",
 // which <Money> renders next to the label.
-import { Money } from "@/components/Money";
+import { Info, Money } from "@/components/Money";
 import { Panel } from "@/components/Panel";
 import { useApi } from "@/lib/api";
 import type { RecurringDiscoveries, RecurringDiscoveryItem } from "@/lib/contract";
@@ -22,8 +22,7 @@ function CommonPath({ rd, of }: { rd: RecurringDiscoveryItem; of: number }) {
     <>
       <p>
         <strong>{rd.session_count} of {of} Sessions</strong> read {n === 1 ? "this doc" : `these ${n} docs`}
-        {rd.tokens ? ` (${tokensK(rd.tokens)} tokens per read of the path)` : ""} to get started.
-        <span className="muted small"> Common path · {pct(rd.session_share)} of Sessions</span>
+        {rd.tokens ? ` (${tokensK(rd.tokens)} tokens)` : ""} to get started.
       </p>
       <ul>
         {rd.resources.map((r) => (
@@ -34,7 +33,7 @@ function CommonPath({ rd, of }: { rd: RecurringDiscoveryItem; of: number }) {
         ))}
       </ul>
       <p className="small">
-        What reading them cost: <Money value={rd.cost} size="sm" />
+        Cost of reading them: <Money value={rd.cost} size="sm" />
       </p>
     </>
   );
@@ -45,10 +44,11 @@ function RepeatedDiscovery({ rd, of }: { rd: RecurringDiscoveryItem; of: number 
     <>
       <p>
         “{rd.statement}” was <strong>found separately in {rd.session_count} Sessions</strong>
-        <span className="muted small"> ({rd.session_count} of {of} · {pct(rd.session_share)})</span>
+        <span className="muted small"> of {of} ({pct(rd.session_share)})</span>
       </p>
       <p className="small">
-        Spend up to the Call where it was found: <Money value={rd.cost} size="sm" />
+        Cost of finding it each time: <Money value={rd.cost} size="sm" />
+        <Info>Spend up to the Call where it was found, summed over those Sessions.</Info>
       </p>
     </>
   );
@@ -56,9 +56,9 @@ function RepeatedDiscovery({ rd, of }: { rd: RecurringDiscoveryItem; of: number 
 
 export default function RecurringDiscoveryPanel({ initiativeId }: { initiativeId: string }) {
   const { data, error, loading } = useApi<RecurringDiscoveries>(`/api/initiatives/${initiativeId}/recurring-discoveries`);
+  if (data && data.items.length === 0) return null;
   return (
     <Panel title="Recurring Discovery" source={data?.source} loading={loading} error={error}>
-      {data && data.items.length === 0 && <p className="muted">No Recurring Discovery found.</p>}
       {data?.items.map((rd) => (
         <div key={rd.recurring_discovery_id} className="rd">
           {rd.form === "common_path" ? (
