@@ -26,6 +26,8 @@ backend/
 dashboard/
   src/components/Money.tsx       the ONLY way to show a dollar figure
   src/components/Panel.tsx       panel card (loading/error/"fixture data" badge)
+  src/components/EChart.tsx      the chart wrapper (Apache ECharts 6, tree-shaken, SVG renderer)
+  src/lib/chartTheme.ts          chart colours: fixed Business Function palette (validated), Waste coral, tooltip style
   src/lib/contract.ts, api.ts    TS contract mirror; useApi<T>(path)
   src/panels/<screen>/<Panel>.tsx   one file per panel (you own yours)
   src/app/**/page.tsx            screens: composition only, no logic
@@ -135,6 +137,10 @@ Your panel file already exists in `dashboard/src/panels/<screen>/`. It fetches i
 | Initiative detail | `initiative/DraftViewer.tsx` | 12 |
 | Initiative detail | `initiative/BeforeAfter.tsx` | 13 |
 | Policy | `policy/PolicyEditor.tsx` | 14 |
+
+### Charts
+
+Use `<EChart option={...} height={...} ariaLabel="..." onClick={...} />` and colours from `useChartColors()` in `lib/chartTheme.ts`. A Business Function always gets the same colour (`c.bf(name)`); a Team is its Business Function's hue, tinted by its position (`tint()`). Don't pick new hues: the palette was checked for colour-blind separation in light and dark mode. Chart text (labels, tooltips) goes through `formatMoney`. If a new chart registers a new ECharts chart type, add it to the `echarts.use([...])` list in `EChart.tsx`.
 
 ### Money: always Measured or Estimated
 

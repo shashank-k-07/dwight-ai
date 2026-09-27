@@ -1,5 +1,5 @@
 "use client";
-// Panel: Spend by Initiative, stacked by Team (demo feedback: under the Business Function chart).
+// Panel: Spend by Initiative, stacked by Team (demo feedback: under the Business Function chart). ECharts.
 // GET /api/initiatives (teams: additive contract field) + /api/overview (for Team colours).
 // A Team keeps the colour it has in "Spend by Business Function" (its position within its
 // Business Function); every Initiative sits in one Business Function, so segments in a bar never
@@ -8,14 +8,12 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo } from "react";
-import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { EChart } from "@/components/EChart";
 import { formatMoney, Money } from "@/components/Money";
 import { Panel } from "@/components/Panel";
 import { useApi } from "@/lib/api";
-import type { InitiativeList, InitiativeRow, Overview } from "@/lib/contract";
-
-const SERIES = ["var(--series-1)", "var(--series-2)", "var(--series-3)", "var(--series-4)",
-  "var(--series-5)", "var(--series-6)", "var(--series-7)", "var(--series-8)"];
+import { tint, tooltipStyle, useChartColors } from "@/lib/chartTheme";
+import type { InitiativeList, Overview } from "@/lib/contract";
 
 export const initiativeHref = (id: string, team?: string) =>
   `/initiatives/${encodeURIComponent(id)}${team ? `?team=${encodeURIComponent(team)}` : ""}`;
@@ -24,91 +22,81 @@ export const initiativeHref = (id: string, team?: string) =>
 const axisUsd = (v: number) =>
   v >= 1000 ? `$${+(v / 1000).toFixed(v % 1000 && v < 10000 ? 1 : 0)}K` : v >= 1 || v === 0 ? `$${+v.toFixed(v < 10 ? 1 : 0)}` : `$${v.toPrecision(2)}`;
 
+// A Team is its Business Function's hue, lighter the further down that Function's Team order it sits.
+const TEAM_TINTS = [0, 0.3, 0.5, 0.65, 0.75];
+
 export default function SpendByInitiative() {
   const router = useRouter();
+  const c = useChartColors();
   const { data, error, loading } = useApi<InitiativeList>("/api/initiatives");
   const overview = useApi<Overview>("/api/overview");
-  const items = data?.items ?? [];
+  const items = useMemo(() => data?.items ?? [], [data]);
 
-  // Team -> colour slot and Business Function, from the Business Function chart's order.
+  // Team -> position within its Business Function and the Function, from the overview's order.
   const teamInfo = useMemo(() => {
     const m = new Map<string, { i: number; bf: string }>();
     overview.data?.spend_by_business_function.forEach((bf) =>
-      bf.teams.forEach((t, i) => m.set(t.team, { i: i % SERIES.length, bf: bf.business_function })));
+      bf.teams.forEach((t, i) => m.set(t.team, { i, bf: bf.business_function })));
     return m;
   }, [overview.data]);
-  const colour = (team: string) => SERIES[teamInfo.get(team)?.i ?? 0];
+  const colour = (team: string) => {
+    const t = teamInfo.get(team);
+    return tint(c.bf(t?.bf), TEAM_TINTS[Math.min(t?.i ?? 0, TEAM_TINTS.length - 1)], c.surface);
+  };
 
   const teams = useMemo(() => {
     const seen = new Set<string>();
     items.forEach((r) => r.teams?.forEach((t) => seen.add(t.team)));
-    // stack in the Business Function chart's Team order, so a Team sits in the same place in every bar
     return [...seen].sort((x, y) => (teamInfo.get(x)?.i ?? 99) - (teamInfo.get(y)?.i ?? 99));
   }, [items, teamInfo]);
-  const chartData = items.map((r) => {
-    const row: Record<string, unknown> = { name: r.name, id: r.initiative_id, _row: r };
-    r.teams?.forEach((t) => (row[t.team] = t.spend.usd)); // chart geometry only; text goes through formatMoney
-    return row;
-  });
   const legend = useMemo(() => {
     const byBf = new Map<string, string[]>();
     teams.forEach((t) => {
       const bf = teamInfo.get(t)?.bf ?? "Other";
       byBf.set(bf, [...(byBf.get(bf) ?? []), t]);
     });
-    byBf.forEach((ts) => ts.sort((a, b) => (teamInfo.get(a)?.i ?? 0) - (teamInfo.get(b)?.i ?? 0)));
     return [...byBf.entries()];
   }, [teams, teamInfo]);
 
-  const hasTeams = items.some((r) => r.teams?.length);
+  const option = useMemo(() => ({
+    tooltip: {
+      ...tooltipStyle(c), trigger: "axis", axisPointer: { type: "shadow", shadowStyle: { color: "rgba(127,127,127,.08)" } },
+      formatter: (ps: { dataIndex: number }[]) => {
+        const r = items[ps[0]?.dataIndex];
+        if (!r) return "";
+        return `<b>${r.name}</b> · ${formatMoney(r.spend)}<br/>`
+          + (r.teams ?? []).map((t) => `<span style="display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;background:${colour(t.team)}"></span>${t.team}: ${formatMoney(t.spend)} · ${t.session_count} Sessions`).join("<br/>")
+          + `<br/><span style="opacity:.7">Click a Team's segment to open the Initiative for that Team</span>`;
+      },
+    },
+    grid: { left: 8, right: 24, top: 8, bottom: 8, containLabel: true },
+    xAxis: { type: "value", axisLabel: { color: c.textMuted, formatter: axisUsd }, splitLine: { lineStyle: { color: c.grid } } },
+    yAxis: {
+      type: "category", inverse: true, triggerEvent: true, data: items.map((r) => r.name),
+      axisLine: { show: false }, axisTick: { show: false },
+      axisLabel: { color: c.spend, fontSize: 12, width: 180, overflow: "truncate" },
+    },
+    series: teams.map((team) => ({
+      name: team, type: "bar", stack: "s", barWidth: 16,
+      itemStyle: { color: colour(team), borderColor: c.surface, borderWidth: 1, borderRadius: 3 },
+      emphasis: { focus: "series" },
+      data: items.map((r) => r.teams?.find((t) => t.team === team)?.spend.usd ?? 0), // geometry only; text goes through formatMoney
+    })),
+  }), [items, teams, c, teamInfo]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <Panel title="Spend by Initiative" source={data?.source} loading={loading} error={error}
-      info="Spend, stacked by Team. Click an Initiative to see its Waste and Recommendations, or a Team's segment to open it for that Team.">
+      info="Spend, stacked by Team (each Team in its Business Function's colour). Click an Initiative to see its Waste and Recommendations, or a Team's segment to open it for that Team.">
       {items.length === 0 ? (
         <p className="muted">No classified Sessions yet.</p>
       ) : (
         <>
-          <div style={{ width: "100%", height: 40 + items.length * 30 }}>
-            <ResponsiveContainer>
-              <BarChart data={chartData} layout="vertical" margin={{ left: 8, right: 16 }} barCategoryGap={6}>
-                <CartesianGrid horizontal={false} stroke="var(--grid)" />
-                <XAxis type="number" tick={{ fill: "var(--text-muted)", fontSize: 12 }} axisLine={false} tickLine={false}
-                  tickFormatter={axisUsd} />
-                <YAxis type="category" dataKey="name" width={190} axisLine={false} tickLine={false}
-                  tick={({ x, y, payload, index }) => (
-                    <text className="initiative-tick" x={x} y={y} dy={4} textAnchor="end" fontSize={13} fill="var(--accent)" style={{ cursor: "pointer" }}
-                      onClick={() => items[index] && router.push(initiativeHref(items[index].initiative_id))}>
-                      {payload.value}
-                    </text>
-                  )} />
-                <Tooltip cursor={{ fill: "var(--hover)" }} content={({ active, payload }) => {
-                  const r = payload?.[0]?.payload?._row as InitiativeRow | undefined;
-                  if (!active || !r) return null;
-                  return (
-                    <div className="tooltip">
-                      <strong>{r.name}</strong> · {formatMoney(r.spend)}
-                      {r.teams?.map((t) => (
-                        <div key={t.team}>
-                          <span className="swatch" style={{ background: colour(t.team) }} />
-                          {t.team}: {formatMoney(t.spend)} · {t.session_count} Sessions
-                        </div>
-                      ))}
-                      <div className="muted" style={{ marginTop: 4 }}>Click a Team&apos;s segment to open the Initiative for that Team</div>
-                    </div>
-                  );
-                }} />
-                {teams.map((team) => (
-                  <Bar key={team} dataKey={team} stackId="s" fill={colour(team)} stroke="var(--surface)" strokeWidth={2}
-                    isAnimationActive={false} style={{ cursor: "pointer" }}
-                    onClick={(d) => {
-                      const id = (d as { payload?: { id?: string } }).payload?.id;
-                      if (id) router.push(initiativeHref(id, team));
-                    }} />
-                ))}
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-          {hasTeams && (
+          <EChart option={option} height={24 + items.length * 30} ariaLabel="Bar chart of Spend by Initiative, stacked by Team"
+            onClick={(p) => {
+              const r = items.find((x) => x.name === (p.name ?? (p as { value?: string }).value)) ?? items[p.dataIndex ?? -1];
+              if (r) router.push(initiativeHref(r.initiative_id, p.seriesName));
+            }} />
+          {teams.length > 0 && (
             <p className="small legend">
               {legend.map(([bf, ts]) => (
                 <span key={bf} className="legend-group">
