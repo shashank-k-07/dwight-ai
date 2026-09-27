@@ -26,6 +26,8 @@ backend/
 dashboard/
   src/components/Money.tsx       the ONLY way to show a dollar figure
   src/components/Panel.tsx       panel card (loading/error/"fixture data" badge)
+  src/components/EChart.tsx      the chart wrapper (Apache ECharts 6, tree-shaken, SVG renderer)
+  src/lib/chartTheme.ts          chart colours: fixed Business Function palette (validated), Waste coral, tooltip style
   src/lib/contract.ts, api.ts    TS contract mirror; useApi<T>(path)
   src/panels/<screen>/<Panel>.tsx   one file per panel (you own yours)
   src/app/**/page.tsx            screens: composition only, no logic
@@ -136,18 +138,22 @@ Your panel file already exists in `dashboard/src/panels/<screen>/`. It fetches i
 | Initiative detail | `initiative/BeforeAfter.tsx` | 13 |
 | Policy | `policy/PolicyEditor.tsx` | 14 |
 
+### Charts
+
+Use `<EChart option={...} height={...} ariaLabel="..." onClick={...} />` and colours from `useChartColors()` in `lib/chartTheme.ts`. A Business Function always gets the same colour (`c.bf(name)`); a Team is its Business Function's hue, tinted by its position (`tint()`). Don't pick new hues: the palette was checked for colour-blind separation in light and dark mode. Chart text (labels, tooltips) goes through `formatMoney`. If a new chart registers a new ECharts chart type, add it to the `echarts.use([...])` list in `EChart.tsx`.
+
 ### Money: always Measured or Estimated
 
 ```tsx
 import { Money, formatMoney } from "@/components/Money";
 <Money value={r.saving} />            // "$540.00 [Estimated]"
-<Money value={o.spend} size="lg" />   // big stat tile
-formatMoney(t.spend)                  // "$1,234 (Measured)" for chart tooltips
+<Money value={o.spend} size="lg" />   // "$1,234": Measured is the default, no pill
+formatMoney(t.spend)                  // "$1,234" (Estimated: "$540.00 (Estimated)") for chart tooltips
 ```
 
 The "Implement" simulation (`src/lib/simulation.ts`) is per viewer (localStorage) and writes nothing. It builds its projected figures in code from served Money, as `kind: "estimated"` with `note: "simulated"`, and never as Measured. The only Measured result it shows is the real before/after runs.
 
-`Money` takes the contract's `Money` object (`{usd, kind, note}`). `kind` is required by the type, so there is no way to render a figure without its label. The number formatter isn't exported. Never print `.usd` yourself, and label chart axes that show dollars (see `SpendByBusinessFunction.tsx`).
+`Money` takes the contract's `Money` object (`{usd, kind, note}`). `kind` is required by the type, so there is no way to render a figure without its kind. Measured is the default: it gets no visible pill (it stays in the tooltip and screen-reader text), and the header says "$ figures are Measured unless marked Estimated". Estimated always shows its pill, and a `note` (e.g. "conservative upper bound") is always shown. Don't add your own Measured tags. The number formatter isn't exported. Never print `.usd` yourself, and put explanations in a panel's `info` tooltip (`<Panel info="...">` or `<Info>`) rather than inline copy.
 
 ## Emitting telemetry (03 harness, 07 generator)
 

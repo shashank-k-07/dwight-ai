@@ -1,5 +1,6 @@
 "use client";
-// Panel: closing-numbers strip (demo step 7). Owner: 17 (accuracy from 08, drop from 13/16).
+// Panel: closing-numbers strip (demo step 7). Only the figures no other Overview panel shows
+// (Spend, Measured Waste and Estimated Saving are in Agent Spend). Owner: 17 (accuracy from 08, drop from 13/16).
 // GET /api/closing-numbers. Every number comes from the endpoint; `python -m dwight.pipeline
 // export-numbers` writes the same numbers, formatted the same way, for the slides.
 import type { CSSProperties, ReactNode } from "react";
@@ -46,24 +47,17 @@ export default function ClosingNumbers() {
   const drop = data?.draft_token_drop_pct;
   const acc = data?.classifier_accuracy;
   return (
-    <Panel title="The numbers" source={data?.source} loading={loading} error={error}>
+    <Panel title="Proof it works" source={data?.source} loading={loading} error={error}
+      info="Evidence behind the numbers above: real before/after runs with the Draft loaded, the classifier checked against labelled Sessions, and Waste found on real (not synthetic) harness runs.">
       {data && (
         <>
           <div style={grid}>
-            <Tile value={<Money value={data.spend_analysed} size="lg" />} caption="of Spend analysed" />
             <Tile
-              value={<Money value={data.measured_waste} size="lg" />}
-              caption="Measured Waste found"
-              detail={<><Money value={data.measured_waste_real_layer} size="sm" /> of it on the real layer (harness runs)</>}
-            />
-            <Tile
-              value={drop != null
-                ? <>{pct(drop)} <span className="money-kind money-kind-measured">Measured</span></>
-                : <Pending>No Measured drop to show</Pending>}
-              caption={drop != null ? "fewer tokens per Session with the Draft" : "Drafts: token drop"}
+              value={drop != null ? `−${pct(drop)}` : <Pending>No Measured drop yet</Pending>}
+              caption="tokens per Session with the Draft"
               detail={drop != null
-                ? "same tasks before and after loading the Draft, task success held"
-                : "no before/after runs yet, or task success dropped after the Draft, so it doesn't count"}
+                ? "same tasks before and after, task success held"
+                : "no before/after runs yet, or task success dropped, so it doesn't count"}
             />
             <Tile
               value={acc != null ? pct(acc * 100) : <Pending>No eval yet</Pending>}
@@ -72,15 +66,12 @@ export default function ClosingNumbers() {
                 ? `Initiative labels vs ground truth${data.classifier_eval_sessions ? `, ${data.classifier_eval_sessions.toLocaleString("en-US")} Sessions` : ""}`
                 : "run the classifier eval on this store"}
             />
+            <Tile
+              value={<Money value={data.measured_waste_real_layer} size="lg" />}
+              caption="Measured Waste on the real layer"
+              detail="harness runs, not synthetic"
+            />
           </div>
-          <p className="closing" style={{ margin: 0 }}>
-            <Money value={data.spend_analysed} /> of Spend analysed · <Money value={data.measured_waste} /> Measured Waste found
-            {drop != null
-              ? <> · Drafts cut tokens by <strong>{pct(drop)}</strong> <span className="money-kind money-kind-measured">Measured</span></>
-              : <> · no Measured token drop from Drafts yet</>}
-            {acc != null && <> · classifier <strong>{pct(acc * 100)}</strong> accurate</>}
-            {" "}· plus <Money value={data.estimated_saving} /> Estimated Saving
-          </p>
         </>
       )}
     </Panel>

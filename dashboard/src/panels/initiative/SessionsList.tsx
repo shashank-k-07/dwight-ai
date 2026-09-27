@@ -7,7 +7,7 @@ import { Panel } from "@/components/Panel";
 import { useApi } from "@/lib/api";
 import { WASTE_PATTERN_LABEL, type SessionList } from "@/lib/contract";
 
-const PAGE = 25;
+const PAGE = 5;
 const COMPLEXITY_LABEL = { low: "Low", med: "Medium", high: "High" } as const;
 
 export default function SessionsList({ initiativeId, team }: { initiativeId: string; team?: string | null }) {
@@ -15,6 +15,7 @@ export default function SessionsList({ initiativeId, team }: { initiativeId: str
   const [showAll, setShowAll] = useState(false);
   const items = (data?.items ?? []).filter((s) => !team || s.team === team);
   const shown = showAll ? items : items.slice(0, PAGE);
+  const anyWaste = items.some((s) => s.waste_patterns.length > 0);
   const toggle =
     items.length > PAGE ? (
       <button className="button" onClick={() => setShowAll((v) => !v)}>
@@ -30,7 +31,7 @@ export default function SessionsList({ initiativeId, team }: { initiativeId: str
           <thead>
             <tr>
               <th>Started</th><th>Member</th><th>Team</th><th>Summary</th><th>Complexity</th>
-              <th>Calls</th><th>Tokens</th><th>Spend</th><th>Waste</th>
+              <th>Calls</th><th>Tokens</th><th>Spend</th>{anyWaste && <th>Waste</th>}
             </tr>
           </thead>
           <tbody>
@@ -50,14 +51,14 @@ export default function SessionsList({ initiativeId, team }: { initiativeId: str
                 <td>{s.call_count}</td>
                 <td>{s.total_tokens.toLocaleString()}</td>
                 <td><Money value={s.spend} size="sm" /></td>
-                <td>{s.waste_patterns.map((p) => WASTE_PATTERN_LABEL[p]).join(", ") || "—"}</td>
+                {anyWaste && <td>{s.waste_patterns.map((p) => WASTE_PATTERN_LABEL[p]).join(", ") || "—"}</td>}
               </tr>
             ))}
           </tbody>
         </table>
       )}
       {data && items.length > PAGE && !showAll && (
-        <p className="muted small">Showing the {PAGE} Sessions with the most Spend of {items.length.toLocaleString()}.</p>
+        <p className="muted small">Top {PAGE} by Spend of {items.length.toLocaleString()}.</p>
       )}
     </Panel>
   );

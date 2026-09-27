@@ -2,6 +2,7 @@
 // Card wrapper every panel uses: title, loading/error state, and a visible
 // "fixture" badge when the endpoint is still serving fixture JSON.
 import type { ReactNode } from "react";
+import { Info } from "@/components/Money";
 import type { Source } from "@/lib/contract";
 
 export function Panel({
@@ -11,8 +12,12 @@ export function Panel({
   error,
   children,
   actions,
+  info,
+  id,
 }: {
   title: string;
+  info?: string;
+  id?: string;
   source?: Source;
   loading?: boolean;
   error?: string | null;
@@ -20,9 +25,9 @@ export function Panel({
   actions?: ReactNode;
 }) {
   return (
-    <section className="panel">
+    <section className="panel" id={id}>
       <header className="panel-head">
-        <h2>{title}</h2>
+        <h2>{title}{info && <Info>{info}</Info>}</h2>
         <div className="panel-actions">
           {source === "fixture" && <span className="badge badge-fixture" title="This panel is showing committed fixture data, not the store">fixture data</span>}
           {actions}
